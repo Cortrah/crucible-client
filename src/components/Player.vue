@@ -7,10 +7,10 @@
 <script>
     export default {
         name: 'player',
-        props: ['state'],
+        props: ['model','game'],
         data () {
             return {
-                msg: "player" + " " + this._uid
+                msg: "player" + " " + this._uid + " " + this.model.name
             }
         }
     }

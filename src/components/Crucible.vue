@@ -1,8 +1,11 @@
 <template>
     <div class="crucible">
         <h1>{{ msg }}</h1>
-        <player id="player1" :state="state" ></player>
-        <player id="player2" :state="state" ></player>
+        <ul id="players">
+            <li v-for="player in game.waypoint.players">
+                <player id="player.id" :model="player" :game="game" ></player>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -14,7 +17,7 @@
         components: {Player},
         data () {
             return {
-                state: {
+                game: {
                     rules:{
                         "maxMana": 10,
                         "maxHealth": 30,
