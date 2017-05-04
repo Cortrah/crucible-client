@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Monitor from '@/components/Monitor'
+import Crucible from '@/components/Crucible'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Monitor',
-      component: Monitor
+      name: 'Crucible',
+      component: Crucible
     }
   ]
 })

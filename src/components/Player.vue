@@ -1,16 +1,16 @@
 <template>
-    <div class="client">
-        <h2>{{ msg + st.thing1 }}</h2>
+    <div class="player">
+        <h2>{{ msg }}</h2>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'client',
-        props: ['st'],
+        name: 'player',
+        props: ['state'],
         data () {
             return {
-                msg: 'client'
+                msg: "player" + " " + this._uid
             }
         }
     }
