@@ -16,22 +16,52 @@
             return {
                 state: {
                     rules:{
-                        maxMana: 10,
-                        maxHealth: 30,
-                        startingDeckSize: 20,
-                        startingHandSize: 0,
-                        maxCards:5,
-                        manaGrowthRate:1/3,
-                        manaReplentishRate:1/1,
-                        drawRate:1/1,
-                        fireRate:2/1,
-                        bleedoutRate:1/2,
-                        sheildDecayRate: 1/1
+                        "maxMana": 10,
+                        "maxHealth": 30,
+                        "startingDeckSize": 20,
+                        "startingHandSize": 0,
+                        "maxCards":5,
+                        "manaGrowthRate":1/3,
+                        "manaReplentishRate":1/1,
+                        "drawRate":1/1,
+                        "fireRate":2/1,
+                        "bleedoutRate":1/2,
+                        "sheildDecayRate": 1/1
                     },
                     waypoint:{
+                        "status": "playing",
+                        "timer":0,
+                        "commands":[],
+                        "events":[],
+                        "players":[
+                            {
+                                "id":0,
+                                "name":"General Scum",
+                                "mana":0,
+                                "health":0,
+                                "shields":[0],
+                                "cards":[],
+                                "deck":[],
+                                "drawEnabled":false,
+                                "bleedingOut":false,
+                                "active":true
+                            },
+                            {
+                                "id":0,
+                                "name":"Admiral Hope",
+                                "mana":0,
+                                "health":0,
+                                "shields":[0],
+                                "cards":[],
+                                "deck":[],
+                                "drawEnabled":false,
+                                "bleedingOut":false,
+                                "active":true
+                            },
+                        ],
+                        "inFlight":[],
+                        "trajectory":4
                     },
-                    players:[
-                    ],
                     avatars:[
                     ],
                     cards:{
