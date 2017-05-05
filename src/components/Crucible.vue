@@ -40,6 +40,7 @@
                             {
                                 "id":0,
                                 "name":"General Scum",
+                                "avatarId": 5,
                                 "mana":0,
                                 "health":0,
                                 "shields":[0],
@@ -52,6 +53,7 @@
                             {
                                 "id":0,
                                 "name":"Admiral Hope",
+                                "avatarId": 1,
                                 "mana":0,
                                 "health":0,
                                 "shields":[0],
@@ -66,6 +68,14 @@
                         "trajectory":4
                     },
                     avatars:[
+                        { id: '1', name: 'Cavalier', img: '../static/dog1.png' },
+                        { id: '2', name: 'Mini Schnauser', img: '../static/dog2.png' },
+                        { id: '3', name: 'Boston Terrier', img: '../static/dog3.png' },
+                        { id: '4', name: 'Border Collie', img: '../static/dog4.png' } ,
+                        { id: '5', name: 'Protobot', img: '../static/robot1.png' },
+                        { id: '6', name: 'Streambot', img: '../static/robot2.png' },
+                        { id: '7', name: 'Grammarbot', img: '../static/robot3.png' },
+                        { id: '8', name: 'Lambdabot', img: '../static/robot4.png' }
                     ],
                     cards:{
                         "0": {
@@ -85,7 +95,7 @@
                         },
                         "3": {
                             cost: 3,
-                            mistleName: "bb bolt",
+                            mistleName: "bb pellet",
                             shieldName: "elephant hide"
                         },
                         "4": {
