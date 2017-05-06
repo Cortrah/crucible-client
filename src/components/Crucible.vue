@@ -1,11 +1,11 @@
 <template>
     <div class="crucible">
         <h1>{{ msg }}</h1>
-        <ul id="players">
-            <li v-for="player in game.waypoint.players">
+        <div id="players">
+            <div v-for="player in game.waypoint.players">
                 <player id="player.id" :model="player" :game="game" ></player>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -13,7 +13,7 @@
     import Player from './Player'
 
     export default {
-        name: 'crucible',
+        name: 'Waypoint Crucible',
         components: {Player},
         data () {
             return {
@@ -42,7 +42,7 @@
                                 "name":"General Scum",
                                 "avatarIndex": 8,
                                 "mana":0,
-                                "health":0,
+                                "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
@@ -55,7 +55,59 @@
                                 "name":"Admiral Hope",
                                 "avatarIndex": 9,
                                 "mana":0,
-                                "health":0,
+                                "health":30,
+                                "shields":[0],
+                                "cards":[1,2,3],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "drawEnabled":false,
+                                "bleedingOut":false,
+                                "active":true
+                            },
+                            {
+                                "id":2,
+                                "name":"Mina",
+                                "avatarIndex": 0,
+                                "mana":0,
+                                "health":30,
+                                "shields":[0],
+                                "cards":[1,2,3],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "drawEnabled":false,
+                                "bleedingOut":false,
+                                "active":true
+                            },
+                            {
+                                "id":1,
+                                "name":"Lucy",
+                                "avatarIndex": 2,
+                                "mana":0,
+                                "health":30,
+                                "shields":[0],
+                                "cards":[1,2,3],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "drawEnabled":false,
+                                "bleedingOut":false,
+                                "active":true
+                            },
+                            {
+                                "id":1,
+                                "name":"Phoebe",
+                                "avatarIndex": 1,
+                                "mana":0,
+                                "health":30,
+                                "shields":[0],
+                                "cards":[1,2,3],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "drawEnabled":false,
+                                "bleedingOut":false,
+                                "active":true
+                            },
+                            {
+                                "id":1,
+                                "name":"Protobot",
+                                "avatarIndex": 4,
+                                "mana":0,
+                                "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
@@ -127,7 +179,7 @@
                         }
                     }
                 },
-                msg: 'crucible'
+                msg: 'Waypoint Crucible'
             }
         }
     }

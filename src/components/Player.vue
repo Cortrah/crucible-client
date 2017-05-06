@@ -1,22 +1,37 @@
 <template>
     <div class="player">
-        <h2>{{ msg }}</h2>
+        <span id="opponents">
+            Opponents:
+            <span v-for="player in this.game.waypoint.players">
+                <span v-if="notMe(player.id)"><button>{{player.name}}</button></span>
+            </span>
+        </span>
+        <div id="health">
+            Health: {{ this.model.health }}
+        </div>
+        <div id="mana">
+            Mana: {{ this.model.mana }} of {{ this.game.rules.maxMana }}
+        </div>
+
         <img :src="avatarImg(model.avatarIndex)">
-        <h3>Opponents</h3>
-        <ul id="opponents">
-            <div v-for="player in this.game.waypoint.players">
-                <span v-if="notMe(player.id)"><button>{{player.id}}</button></span>
-            </div>
-        </ul>
-        <h3>Hand</h3>
-        <ul id="hand">
-            <li v-for="card in this.model.cards">
-                <button @click="selectCard">Card</button>
-            </li>
-        </ul>
-        <h3>Deck {{ this.model.deck.length }}</h3>
+        <br/>
+
+        <span>{{ msg }}</span>
+        <br/>
+
+        <span id="hand">
+            <span> Hand: </span>
+            <span v-for="card in this.model.cards">
+                <button @click="selectCard">{{ card }}</button>
+            </span>
+            <span> Deck: {{ this.model.deck.length }} of {{ this.game.rules.startingDeckSize }}</span>
+        </span>
+        <br/>
+
         <button @click="drawMistle()">Draw Mistle</button>
         <button @click="drawShield()">Draw Shield</button>
+        <br/>
+        <br/>
     </div>
 </template>
 
@@ -36,7 +51,7 @@
         components: {Player},
         data () {
             return {
-                msg: "player" + " " + this.model.id + " " + this.model.name
+                msg: this.model.name
             }
         },
         methods: {
@@ -65,4 +80,12 @@
 </script>
 
 <style scoped>
+    player {
+        width: 250px;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+    }
 </style>
