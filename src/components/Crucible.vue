@@ -1,7 +1,7 @@
 <template>
     <div class="crucible">
-        <h1>{{ msg }}</h1>
-        <div id="players">
+        <h1>{{ title }}</h1>
+        <div class="players-container">
             <div v-for="player in game.waypoint.players">
                 <player id="player.id" :model="player" :game="game" ></player>
             </div>
@@ -179,11 +179,16 @@
                         }
                     }
                 },
-                msg: 'Waypoint Crucible'
+                title: 'Waypoint Crucible'
             }
         }
     }
 </script>
 
 <style scoped>
+    .players-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 </style>

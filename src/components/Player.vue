@@ -1,11 +1,6 @@
 <template>
     <div class="player">
-        <span id="opponents">
-            Opponents:
-            <span v-for="player in this.game.waypoint.players">
-                <span v-if="notMe(player.id)"><button>{{player.name}}</button></span>
-            </span>
-        </span>
+
         <div id="health">
             Health: {{ this.model.health }}
         </div>
@@ -14,24 +9,17 @@
         </div>
 
         <img :src="avatarImg(model.avatarIndex)">
-        <br/>
 
-        <span>{{ msg }}</span>
-        <br/>
+        <span>{{ name }}</span>
+
+        <span> Deck: {{ this.model.deck.length }} of {{ this.game.rules.startingDeckSize }}</span>
 
         <span id="hand">
             <span> Hand: </span>
             <span v-for="card in this.model.cards">
                 <button @click="selectCard">{{ card }}</button>
             </span>
-            <span> Deck: {{ this.model.deck.length }} of {{ this.game.rules.startingDeckSize }}</span>
         </span>
-        <br/>
-
-        <button @click="drawMistle()">Draw Mistle</button>
-        <button @click="drawShield()">Draw Shield</button>
-        <br/>
-        <br/>
     </div>
 </template>
 
@@ -39,7 +27,6 @@
     import Player from './Player'
 
     export default {
-        name: 'player',
         props: {
             'model': {
                 required: true
@@ -51,7 +38,7 @@
         components: {Player},
         data () {
             return {
-                msg: this.model.name
+                name: this.model.name
             }
         },
         methods: {
@@ -80,8 +67,11 @@
 </script>
 
 <style scoped>
-    player {
-        width: 250px;
+    .player {
+        width: 130px;
+        height: 210px;
+        display: flex;
+        flex-direction: column;
     }
 
     img {
