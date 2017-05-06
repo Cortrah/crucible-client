@@ -40,25 +40,25 @@
                             {
                                 "id":0,
                                 "name":"General Scum",
-                                "avatarId": 5,
+                                "avatarIndex": 8,
                                 "mana":0,
                                 "health":0,
                                 "shields":[0],
-                                "cards":[],
-                                "deck":[],
+                                "cards":[1,2,3],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
                             },
                             {
-                                "id":0,
+                                "id":1,
                                 "name":"Admiral Hope",
-                                "avatarId": 1,
+                                "avatarIndex": 9,
                                 "mana":0,
                                 "health":0,
                                 "shields":[0],
-                                "cards":[],
-                                "deck":[],
+                                "cards":[1,2,3],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
@@ -68,14 +68,16 @@
                         "trajectory":4
                     },
                     avatars:[
-                        { id: '1', name: 'Cavalier', img: '../static/dog1.png' },
-                        { id: '2', name: 'Mini Schnauser', img: '../static/dog2.png' },
-                        { id: '3', name: 'Boston Terrier', img: '../static/dog3.png' },
-                        { id: '4', name: 'Border Collie', img: '../static/dog4.png' } ,
-                        { id: '5', name: 'Protobot', img: '../static/robot1.png' },
-                        { id: '6', name: 'Streambot', img: '../static/robot2.png' },
-                        { id: '7', name: 'Grammarbot', img: '../static/robot3.png' },
-                        { id: '8', name: 'Lambdabot', img: '../static/robot4.png' }
+                        { id: '0', name: 'Cavalier', img: '../static/dog1.png' },
+                        { id: '1', name: 'Mini Schnauser', img: '../static/dog2.png' },
+                        { id: '2', name: 'Boston Terrier', img: '../static/dog3.png' },
+                        { id: '3', name: 'Border Collie', img: '../static/dog4.png' } ,
+                        { id: '4', name: 'Protobot', img: '../static/robot1.png' },
+                        { id: '5', name: 'Streambot', img: '../static/robot2.png' },
+                        { id: '6', name: 'Grammarbot', img: '../static/robot3.png' },
+                        { id: '7', name: 'Lambdabot', img: '../static/robot4.png' },
+                        { id: '8', name: 'General Scum', img: '../static/general_scum.png' },
+                        { id: '9', name: 'Admiral Hope', img: '../static/admiral_hope.png' }
                     ],
                     cards:{
                         "0": {
