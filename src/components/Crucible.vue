@@ -3,6 +3,7 @@
         <h1>{{ title }}</h1>
         <div class="players-container">
             <helm id="0" :model="game.waypoint.players[0]" :game="game" ></helm>
+            <helm id="1" :model="game.waypoint.players[1]" :game="game" ></helm>
         </div>
     </div>
 </template>
@@ -79,7 +80,7 @@
                                 "active":true
                             },
                             {
-                                "id":1,
+                                "id":3,
                                 "name":"Lucy",
                                 "avatarIndex": 2,
                                 "mana":0,
@@ -93,7 +94,7 @@
                                 "active":true
                             },
                             {
-                                "id":1,
+                                "id":4,
                                 "name":"Phoebe",
                                 "avatarIndex": 1,
                                 "mana":0,
@@ -107,7 +108,7 @@
                                 "active":true
                             },
                             {
-                                "id":1,
+                                "id":5,
                                 "name":"Protobot",
                                 "avatarIndex": 4,
                                 "mana":0,
