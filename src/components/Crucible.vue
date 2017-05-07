@@ -2,26 +2,25 @@
     <div class="crucible">
         <h1>{{ title }}</h1>
         <div class="players-container">
-            <div v-for="player in game.waypoint.players">
-                <player id="player.id" :model="player" :game="game" ></player>
-            </div>
+            <helm id="0" :model="game.waypoint.players[0]" :game="game" ></helm>
         </div>
     </div>
 </template>
 
 <script>
     import Player from './Player'
+    import Helm from './Helm'
 
     export default {
         name: 'Waypoint Crucible',
-        components: {Player},
+        components: {Player, Helm},
         data () {
             return {
                 game: {
                     rules:{
                         "maxMana": 10,
                         "maxHealth": 30,
-                        "startingDeckSize": 20,
+                        "startingDeck": [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                         "startingHandSize": 0,
                         "maxCards":5,
                         "manaGrowthRate":1/3,
@@ -42,6 +41,7 @@
                                 "name":"General Scum",
                                 "avatarIndex": 8,
                                 "mana":0,
+                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -55,6 +55,7 @@
                                 "name":"Admiral Hope",
                                 "avatarIndex": 9,
                                 "mana":0,
+                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -68,6 +69,7 @@
                                 "name":"Mina",
                                 "avatarIndex": 0,
                                 "mana":0,
+                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -81,6 +83,7 @@
                                 "name":"Lucy",
                                 "avatarIndex": 2,
                                 "mana":0,
+                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -94,6 +97,7 @@
                                 "name":"Phoebe",
                                 "avatarIndex": 1,
                                 "mana":0,
+                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -107,6 +111,7 @@
                                 "name":"Protobot",
                                 "avatarIndex": 4,
                                 "mana":0,
+                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],

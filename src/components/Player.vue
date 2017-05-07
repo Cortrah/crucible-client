@@ -5,14 +5,14 @@
             Health: {{ this.model.health }}
         </div>
         <div id="mana">
-            Mana: {{ this.model.mana }} of {{ this.game.rules.maxMana }}
+            Mana: {{ this.model.mana }} of {{ this.model.maxMana }}
         </div>
 
         <img :src="avatarImg(model.avatarIndex)">
 
         <span>{{ name }}</span>
 
-        <span> Deck: {{ this.model.deck.length }} of {{ this.game.rules.startingDeckSize }}</span>
+        <span> Deck: {{ this.model.deck.length }} of {{ this.game.rules.startingDeck.length }}</span>
 
         <span id="hand">
             <span> Hand: </span>

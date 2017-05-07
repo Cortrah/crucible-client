@@ -1,21 +1,88 @@
 <template>
-    <span id="opponents">
-        Opponents:
-        <span v-for="player in this.game.waypoint.players">
-            <span v-if="notMe(player.id)"><button>{{player.name}}</button></span>
-        </span>
-    </span>
+    <div class="helm">
 
-    <player></player>
+        <h3>Opponents:</h3>
 
-    <button @click="drawMistle()">Draw Mistle</button>
-    <button @click="drawShield()">Draw Shield</button>
-    <br/>
-    <br/>
+        <div class="opponents">
+            <div class="opponents-container" v-for="player in this.game.waypoint.players">
+                <span v-if="notMe(player.id)">
+                    <player id="player.id" :model="player" :game="game" ></player>
+                </span>
+            </div>
+        </div>
+
+        <div>
+            <player id="model.id" :model="model" :game="game" ></player>
+
+            <button @click="drawMistle()">Draw Mistle</button>
+            <button @click="drawShield()">Draw Shield</button>
+        </div>
+    </div>
 </template>
 
 <script type="text/babel">
+    import Player from './Player'
+
+    export default {
+        props: {
+            'model': {
+                required: true
+            },
+            'game': {
+                required: true
+            }
+        },
+        components: {Player},
+        data () {
+            return {
+                name: this.model.name
+            }
+        },
+        methods: {
+            drawMistle: function () {
+            },
+            drawShield: function () {
+            },
+            avatarImg: function(avatarIndex){
+                return this.game.avatars[avatarIndex].img;
+            },
+            players: function(){
+                return this.game.waypoint.players;
+            },
+            cards: function(){
+                return [1,2,3];
+            },
+            notMe: function(playerId){
+                if(playerId !== this.model.id){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+    }
 </script>
 
 <style scoped>
+    .helm {
+        width: 800px;
+        height: 600px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .opponents {
+        width: 800px;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .opponents-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 </style>
