@@ -12,8 +12,25 @@
 
     export default {
         name: "Card",
-        props: ["label", "cost", "type", "face", "effect"],
-        // possibly add an inFlight symbol, launch sound, effect sound, visual effect
+        props: {
+            "label": String,
+            "code": String,
+            "description": String,
+            "cost": Number,
+            "type": {
+                type: String,
+                default: "mistle"
+            },
+            "symbol": String,
+            "illustration": String,
+            "effect": {
+                type: Function,
+                default: function(player){
+                    player.health -= cost;
+                }
+            }
+            // possibly add a launch sound, effect sound, visual effect
+        },
         methods: {
             select(e){
                 return this;

@@ -40,6 +40,7 @@
         },
         methods: {
             drawMistle: function () {
+
             },
             drawShield: function () {
             },

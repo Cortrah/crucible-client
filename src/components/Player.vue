@@ -21,7 +21,7 @@
         <span id="hand">
             <span> Hand: </span>
             <span v-for="card in this.model.cards">
-                <button @click="selectCard">{{ card }}</button>
+                <button @click="selectCard()">{{ card }}</button>
             </span>
         </span>
     </div>
@@ -47,10 +47,21 @@
         },
         methods: {
             drawMistle: function () {
+                if((this.model.mana > 0)&&(this.model.deck.length  > 0)){
+                    this.model.mana--;
+                    this.cards.push(this.deck.pop()) ;
+                }
             },
             drawShield: function () {
+                if((this.model.mana > 0)&&(this.model.deck.length  > 0)){
+                    this.model.mana--;
+                    this.cards.push(this.deck.pop()) ;
+                }
             },
             selectCard: function () {
+                if((this.model.mana > 0)&&(this.model.deck.length > 0)){
+                    this.model.mana--;
+                }
             },
             targetCard: function () {
             },
