@@ -6,7 +6,7 @@
         <div class="opponents">
             <div class="opponents-container" v-for="player in this.game.waypoint.players">
                 <span v-if="notMe(player.id)">
-                    <player id="player.id" :model="player" :game="game" ></player>
+                    <player id="player.id" ref="opponent" @click="targetPlayer(this.model.id)" :model="player" :game="game" ></player>
                 </span>
             </div>
         </div>
@@ -44,6 +44,15 @@
             },
             drawShield: function () {
                 this.$refs.player.drawShield()
+            },
+            targetPlayer: function (id) {
+                // if our player has a mistle selected
+                // apply it's effect to the targeted Player
+
+                // eventually if our player has a shield selected
+                // apply it's effect to the targeted Player as well
+
+                this.$refs.opponent.drawMistle()
             },
             avatarImg: function(avatarIndex){
                 return this.game.avatars[avatarIndex].img;

@@ -1,5 +1,5 @@
 <template>
-    <div class="player">
+    <button class="player" @click="selectPlayer()">
 
         <!--
         <progress-bar type="line" ref="line" color="#007AFF" strokeWidth="0.5"></progress-bar>
@@ -11,6 +11,7 @@
         <div id="mana">
             Mana: {{ this.model.mana }} of {{ this.game.rules.maxMana }}
         </div>
+
 
         <img :src="avatarImg(model.avatarIndex)">
 
@@ -24,7 +25,7 @@
                 <button @click="selectCard()">{{ card }}</button>
             </span>
         </span>
-    </div>
+    </button>
 </template>
 
 <script type="text/babel">
@@ -63,6 +64,9 @@
                     this.model.mana--;
                 }
             },
+            selectPlayer: function () {
+                 console.log(this.model.name + ' selected');
+            },
             targetCard: function () {
             },
             avatarImg: function(avatarIndex){
@@ -91,6 +95,11 @@
         height: 210px;
         display: flex;
         flex-direction: column;
+    }
+
+    button{
+        margin: 0;
+        padding: 0;
     }
 
     img {
