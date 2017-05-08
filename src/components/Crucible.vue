@@ -1,14 +1,21 @@
 <template>
     <div class="crucible">
         <h1>{{ title }}</h1>
+        <span>{{ timeRunning }}</span>
+        <button @click="startGame()">Start Game</button>
+        <button @click="endGame()">End Game</button>
+
         <div class="players-container">
             <helm id="0" :model="game.waypoint.players[0]" :game="game" ></helm>
             <helm id="1" :model="game.waypoint.players[1]" :game="game" ></helm>
         </div>
+
+        <!--
         <div class="cards-container">
             <card label="Nerfball" cost="mana-0" type="mistle" face="./static/dog1.png" effect="damage+0"></card>
             <card label="Paper Bag" cost="mana-0" type="shield" face="./static/dog1.png" effect="shield+0"></card>
         </div>
+        -->
     </div>
 </template>
 
@@ -18,13 +25,13 @@
     import Helm from './Helm'
 
     export default {
-        name: 'Waypoint Crucible',
+        name: 'Crucible',
         components: {Player, Helm, Card},
         data () {
             return {
                 game: {
                     rules:{
-                        "maxMana": 10,
+                        "maxMana": 0,
                         "maxHealth": 30,
                         "startingDeck": [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                         "startingHandSize": 0,
@@ -47,7 +54,6 @@
                                 "name":"General Scum",
                                 "avatarIndex": 8,
                                 "mana":0,
-                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -61,7 +67,6 @@
                                 "name":"Admiral Hope",
                                 "avatarIndex": 9,
                                 "mana":0,
-                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -75,7 +80,6 @@
                                 "name":"Mina",
                                 "avatarIndex": 0,
                                 "mana":0,
-                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -89,7 +93,6 @@
                                 "name":"Lucy",
                                 "avatarIndex": 2,
                                 "mana":0,
-                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -103,7 +106,6 @@
                                 "name":"Phoebe",
                                 "avatarIndex": 1,
                                 "mana":0,
-                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -117,7 +119,6 @@
                                 "name":"Protobot",
                                 "avatarIndex": 4,
                                 "mana":0,
-                                "maxMana":0,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[1,2,3],
@@ -237,7 +238,37 @@
                         }
                     }
                 },
-                title: 'Waypoint Crucible'
+                title: 'Waypoint Crucible',
+                timeRunning: 0,
+                timeStarted: 0,
+                gameIntervalId: 0,
+                manaIntervalId: 0,
+            }
+        },
+        methods: {
+            startGame: function() {
+                this.timeStarted = Date.now();
+                this.timeRunning = 0;
+                clearInterval(this.gameIntervalId);
+                clearInterval(this.manaIntervalId);
+                this.gameIntervalId = setInterval(this.gameTick, 100);
+                this.manaIntervalId = setInterval(this.manaTick, 1000);
+            },
+            gameTick: function() {
+                this.timeRunning = Date.now() - this.timeStarted;
+            },
+            manaTick: function() {
+                if(this.game.rules.maxMana < 10){
+                    this.game.rules.maxMana++;
+                }
+                this.game.waypoint.players.forEach(function(player){
+                    if(player.mana < 10){
+                        player.mana++;
+                    }
+                })
+            },
+            endGame: function() {
+                clearInterval(this.gameIntervalId);
             }
         }
     }

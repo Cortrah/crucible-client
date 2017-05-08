@@ -13,6 +13,7 @@
     export default {
         name: "Card",
         props: ["label", "cost", "type", "face", "effect"],
+        // possibly add an inFlight symbol, launch sound, effect sound, visual effect
         methods: {
             select(e){
                 return this;
