@@ -12,7 +12,7 @@
         </div>
 
         <div>
-            <player id="model.id" :model="model" :game="game" ></player>
+            <player id="model.id" ref="player" :model="model" :game="game" ></player>
 
             <button @click="drawMistle()">Draw Mistle</button>
             <button @click="drawShield()">Draw Shield</button>
@@ -40,9 +40,10 @@
         },
         methods: {
             drawMistle: function () {
-
+                this.$refs.player.drawMistle()
             },
             drawShield: function () {
+                this.$refs.player.drawShield()
             },
             avatarImg: function(avatarIndex){
                 return this.game.avatars[avatarIndex].img;

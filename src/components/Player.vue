@@ -49,13 +49,13 @@
             drawMistle: function () {
                 if((this.model.mana > 0)&&(this.model.deck.length  > 0)){
                     this.model.mana--;
-                    this.cards.push(this.deck.pop()) ;
+                    this.model.cards.push(this.model.deck.pop()) ;
                 }
             },
             drawShield: function () {
                 if((this.model.mana > 0)&&(this.model.deck.length  > 0)){
                     this.model.mana--;
-                    this.cards.push(this.deck.pop()) ;
+                    this.model.cards.push(this.model.deck.pop()) ;
                 }
             },
             selectCard: function () {
