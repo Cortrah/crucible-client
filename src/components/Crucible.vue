@@ -246,7 +246,25 @@
             }
         },
         methods: {
+            shuffle: function(array) {
+                let remaining = array.length;
+                let randomIndex;
+                let last;
+
+                while (remaining) {
+                    randomIndex = Math.floor(Math.random() * remaining--);
+                    last = array[remaining];
+                    array[remaining] = array[randomIndex];
+                    array[randomIndex] = last;
+                }
+                return array;
+            },
+
             startGame: function() {
+                var scope = this;
+                this.game.waypoint.players.forEach(function(player){
+                    player.deck = scope.shuffle(player.deck);
+                });
                 this.timeStarted = Date.now();
                 this.timeRunning = 0;
                 clearInterval(this.gameIntervalId);
