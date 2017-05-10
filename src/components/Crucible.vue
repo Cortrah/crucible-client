@@ -6,8 +6,7 @@
         <button @click="endGame()">End Game</button>
 
         <div class="players-container">
-            <helm id="0" :model="game.waypoint.players[0]" :game="game" ></helm>
-            <helm id="1" :model="game.waypoint.players[1]" :game="game" ></helm>
+            <helm id="5" :model="game.waypoint.players[5]" :game="game" v-on:targeting="targeting" ></helm>
         </div>
 
         <!--
@@ -52,11 +51,11 @@
                             {
                                 "id":0,
                                 "name":"General Scum",
-                                "avatarIndex": 8,
+                                "avatarIndex": 0,
                                 "mana":0,
                                 "health":30,
                                 "shields":[0],
-                                "cards":[1,2,3],
+                                "cards":[],
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "drawEnabled":false,
                                 "bleedingOut":false,
@@ -64,12 +63,12 @@
                             },
                             {
                                 "id":1,
-                                "name":"Admiral Hope",
-                                "avatarIndex": 9,
+                                "name":"Protobot",
+                                "avatarIndex": 1,
                                 "mana":0,
                                 "health":30,
                                 "shields":[0],
-                                "cards":[1,2,3],
+                                "cards":[],
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "drawEnabled":false,
                                 "bleedingOut":false,
@@ -77,12 +76,12 @@
                             },
                             {
                                 "id":2,
-                                "name":"Mina",
-                                "avatarIndex": 0,
+                                "name":"Streambot",
+                                "avatarIndex": 2,
                                 "mana":0,
                                 "health":30,
                                 "shields":[0],
-                                "cards":[1,2,3],
+                                "cards":[],
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "drawEnabled":false,
                                 "bleedingOut":false,
@@ -90,12 +89,12 @@
                             },
                             {
                                 "id":3,
-                                "name":"Lucy",
-                                "avatarIndex": 2,
+                                "name":"Grammarbot",
+                                "avatarIndex": 3,
                                 "mana":0,
                                 "health":30,
                                 "shields":[0],
-                                "cards":[1,2,3],
+                                "cards":[],
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "drawEnabled":false,
                                 "bleedingOut":false,
@@ -103,12 +102,12 @@
                             },
                             {
                                 "id":4,
-                                "name":"Phoebe",
-                                "avatarIndex": 1,
+                                "name":"Lambdabot",
+                                "avatarIndex": 4,
                                 "mana":0,
                                 "health":30,
                                 "shields":[0],
-                                "cards":[1,2,3],
+                                "cards":[],
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "drawEnabled":false,
                                 "bleedingOut":false,
@@ -116,12 +115,64 @@
                             },
                             {
                                 "id":5,
-                                "name":"Protobot",
-                                "avatarIndex": 4,
+                                "name":"Admiral Hope",
+                                "avatarIndex": 5,
                                 "mana":0,
                                 "health":30,
                                 "shields":[0],
-                                "cards":[1,2,3],
+                                "cards":[],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "drawEnabled":false,
+                                "bleedingOut":false,
+                                "active":true
+                            },
+                            {
+                                "id":6,
+                                "name":"Mina",
+                                "avatarIndex": 6,
+                                "mana":0,
+                                "health":30,
+                                "shields":[0],
+                                "cards":[],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "drawEnabled":false,
+                                "bleedingOut":false,
+                                "active":true
+                            },
+                            {
+                                "id":7,
+                                "name":"Phoebe",
+                                "avatarIndex": 7,
+                                "mana":0,
+                                "health":30,
+                                "shields":[0],
+                                "cards":[],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "drawEnabled":false,
+                                "bleedingOut":false,
+                                "active":true
+                            },
+                            {
+                                "id":8,
+                                "name":"Lucy",
+                                "avatarIndex": 8,
+                                "mana":0,
+                                "health":30,
+                                "shields":[0],
+                                "cards":[],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "drawEnabled":false,
+                                "bleedingOut":false,
+                                "active":true
+                            },
+                            {
+                                "id":9,
+                                "name":"Max",
+                                "avatarIndex": 9,
+                                "mana":0,
+                                "health":30,
+                                "shields":[0],
+                                "cards":[],
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "drawEnabled":false,
                                 "bleedingOut":false,
@@ -132,16 +183,16 @@
                         "trajectory":4
                     },
                     avatars:[
-                        { id: '0', name: 'Cavalier', img: '../static/dog1.png' },
-                        { id: '1', name: 'Mini Schnauser', img: '../static/dog2.png' },
-                        { id: '2', name: 'Boston Terrier', img: '../static/dog3.png' },
-                        { id: '3', name: 'Border Collie', img: '../static/dog4.png' } ,
-                        { id: '4', name: 'Protobot', img: '../static/robot1.png' },
-                        { id: '5', name: 'Streambot', img: '../static/robot2.png' },
-                        { id: '6', name: 'Grammarbot', img: '../static/robot3.png' },
-                        { id: '7', name: 'Lambdabot', img: '../static/robot4.png' },
-                        { id: '8', name: 'General Scum', img: '../static/general_scum.png' },
-                        { id: '9', name: 'Admiral Hope', img: '../static/admiral_hope.png' }
+                        { id: '0', name: 'General Scum', img: '../static/general_scum.png' },
+                        { id: '1', name: 'Protobot', img: '../static/robot1.png' },
+                        { id: '2', name: 'Streambot', img: '../static/robot2.png' },
+                        { id: '3', name: 'Grammarbot', img: '../static/robot3.png' },
+                        { id: '4', name: 'Lambdabot', img: '../static/robot4.png' },
+                        { id: '5', name: 'Admiral Hope', img: '../static/admiral_hope.png' },
+                        { id: '6', name: 'Cavalier', img: '../static/dog1.png' },
+                        { id: '7', name: 'Mini Schnauser', img: '../static/dog2.png' },
+                        { id: '8', name: 'Boston Terrier', img: '../static/dog3.png' },
+                        { id: '9', name: 'Border Collie', img: '../static/dog4.png' } ,
                     ],
                     mistleCards:{
                         "0": {
@@ -246,6 +297,14 @@
             }
         },
         methods: {
+            targeting: function (sourceId, targetId, card) {
+                console.log("targeting called in crucible");
+                console.log(sourceId);
+                console.log(targetId);
+                console.log(card);
+                this.game.waypoint.players[sourceId].mana -= card;
+                this.game.waypoint.players[targetId].health -= card;
+            },
             shuffle: function(array) {
                 let remaining = array.length;
                 let randomIndex;

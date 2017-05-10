@@ -1,9 +1,6 @@
 <template>
     <div class="player" >
 
-        <!--
-        <progress-bar type="line" ref="line" color="#007AFF" strokeWidth="0.5"></progress-bar>
-        -->
         <div id="health">
             Health: {{ this.model.health }}
         </div>
@@ -12,9 +9,7 @@
             Mana: {{ this.model.mana }} of {{ this.game.rules.maxMana }}
         </div>
 
-        <button @click="selectPlayer()">
-            <img :src="avatarImg(model.avatarIndex)">
-        </button>
+        <img :src="avatarImg(model.avatarIndex)" @click="targeted">
 
         <span>{{ name }}</span>
 
@@ -22,8 +17,8 @@
 
         <span id="hand">
             <span> Hand: </span>
-            <span v-for="card in this.model.cards">
-                <button @click="selectCard()">{{ card }}</button>
+            <span v-for="(index, card) in this.model.cards">
+                <button @click="selectCard(index)">{{ card }}</button>
             </span>
         </span>
     </div>
@@ -44,7 +39,8 @@
         components: {Player},
         data () {
             return {
-                name: this.model.name
+                name: this.model.name,
+                selectedCard : null
             }
         },
         methods: {
@@ -60,15 +56,15 @@
                     this.model.cards.push(this.model.deck.pop()) ;
                 }
             },
-            selectCard: function () {
-                if((this.model.mana > 0)&&(this.model.deck.length > 0)){
-                    this.model.mana--;
-                }
+            getSelectedCard: function () {
+                return this.selectedCard;
             },
-            selectPlayer: function () {
-                 console.log(this.model.name + ' selected');
+            selectCard: function (index) {
+                this.selectedCard = index;
             },
-            targetCard: function () {
+            targeted: function () {
+                console.log(this.model.name + ' targeted');
+                this.$emit("targeted", this.model.id);
             },
             avatarImg: function(avatarIndex){
                 return this.game.avatars[avatarIndex].img;
@@ -77,7 +73,7 @@
                 return this.game.waypoint.players;
             },
             cards: function(){
-                return [1,2,3];
+                return [];
             },
             notMe: function(playerId){
                 if(playerId !== this.model.id){
@@ -102,4 +98,5 @@
         width: 100px;
         height: 100px;
     }
+
 </style>

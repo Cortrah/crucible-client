@@ -6,13 +6,16 @@
         <div class="opponents">
             <div class="opponents-container" v-for="player in this.game.waypoint.players">
                 <span v-if="notMe(player.id)">
-                    <player id="player.id" ref="opponent" @click="targetPlayer(this.model.id)" :model="player" :game="game" ></player>
+                    <player id="player.id" ref="opponent"
+                            :model="player" :game="game"
+                            @click="targetPlayer(this.model.id, this.model.card)"
+                            v-on:targeted="targeting"></player>
                 </span>
             </div>
         </div>
 
         <div>
-            <player id="model.id" ref="player" :model="model" :game="game" ></player>
+            <player id="model.id" ref="player" :model="model" :game="game"></player>
 
             <button @click="drawMistle()">Draw Mistle</button>
             <button @click="drawShield()">Draw Shield</button>
@@ -40,19 +43,13 @@
         },
         methods: {
             drawMistle: function () {
-                this.$refs.player.drawMistle()
+                this.$refs.player.drawMistle();
             },
             drawShield: function () {
-                this.$refs.player.drawShield()
+                this.$refs.player.drawShield();
             },
-            targetPlayer: function (id) {
-                // if our player has a mistle selected
-                // apply it's effect to the targeted Player
-
-                // eventually if our player has a shield selected
-                // apply it's effect to the targeted Player as well
-
-                this.$refs.opponent.drawMistle()
+            targeting: function (targetId) {
+                this.$emit("targeting", this.model.id, targetId, this.$refs.player.getSelectedCard());
             },
             avatarImg: function(avatarIndex){
                 return this.game.avatars[avatarIndex].img;
@@ -76,7 +73,7 @@
 
 <style scoped>
     .helm {
-        width: 800px;
+        width: 700px;
         height: 600px;
         display: flex;
         flex-direction: row;
