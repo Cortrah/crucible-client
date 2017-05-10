@@ -17,7 +17,7 @@
 
         <span id="hand">
             <span> Hand: </span>
-            <span v-for="(index, card) in this.model.cards">
+            <span v-for="(card, index) in this.model.cards">
                 <button @click="selectCard(index)">{{ card }}</button>
             </span>
         </span>
@@ -45,20 +45,29 @@
         },
         methods: {
             drawMistle: function () {
+                console.log(this.model.deck.toString());
                 if((this.model.mana > 0)&&(this.model.deck.length  > 0)){
-                    this.model.cards.push(this.model.deck.pop()) ;
+                    var drawn = this.model.deck[0];
+                    console.log(drawn);
+                    this.model.cards.push(drawn);
+                    this.model.deck.splice(0,1);
+                    console.log(this.model.deck.toString());
                 }
             },
             drawShield: function () {
             },
             getSelectedCard: function () {
+                console.log(this.model.cards.toString());
                 var card = this.model.cards[this.selectedCard];
+                console.log("getselectedCard "+ card);
                 this.model.cards.splice(this.selectedCard, 1);
                 this.selectedCard = null;
+                console.log(this.model.cards.toString());
                 return card;
             },
-            selectCard: function (index) {
-                this.selectedCard = index;
+            selectCard: function (position) {
+                console.log("position "+ position);
+                this.selectedCard = position-1;
             },
             targeted: function () {
                 this.$emit("targeted", this.model.id);

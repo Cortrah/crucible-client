@@ -49,7 +49,8 @@
                 this.$refs.player.drawShield();
             },
             targeting: function (targetId) {
-                this.$emit("targeting", this.model.id, targetId, this.$refs.player.getSelectedCard());
+                var card = this.$refs.player.getSelectedCard();
+                this.$emit("targeting", this.model.id, targetId, card);
             },
             avatarImg: function(avatarIndex){
                 return this.game.avatars[avatarIndex].img;

@@ -323,7 +323,6 @@
                 var scope = this;
                 this.game.waypoint.players.forEach(function(player){
                     player.deck = scope.shuffle(player.deck);
-                    console.log(player.deck.toString());
                 });
                 this.timeStarted = Date.now();
                 this.timeRunning = 0;
