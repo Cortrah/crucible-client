@@ -46,24 +46,21 @@
         methods: {
             drawMistle: function () {
                 if((this.model.mana > 0)&&(this.model.deck.length  > 0)){
-                    this.model.mana--;
                     this.model.cards.push(this.model.deck.pop()) ;
                 }
             },
             drawShield: function () {
-                if((this.model.mana > 0)&&(this.model.deck.length  > 0)){
-                    this.model.mana--;
-                    this.model.cards.push(this.model.deck.pop()) ;
-                }
             },
             getSelectedCard: function () {
-                return this.selectedCard;
+                var card = this.model.cards[this.selectedCard];
+                this.model.cards.splice(this.selectedCard, 1);
+                this.selectedCard = null;
+                return card;
             },
             selectCard: function (index) {
                 this.selectedCard = index;
             },
             targeted: function () {
-                console.log(this.model.name + ' targeted');
                 this.$emit("targeted", this.model.id);
             },
             avatarImg: function(avatarIndex){
