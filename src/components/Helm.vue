@@ -1,11 +1,10 @@
 <template>
     <div class="helm">
 
-        <h3>Opponents:</h3>
-
+        <h3>General Scums Silicon Scourge:</h3>
         <div id="axis" class="team">
             <div class="team-container" v-for="player in this.game.waypoint.players">
-                <span v-if="player.team==='Bad Guys'">
+                <span v-if="player.team === 'Bad Guys'">
                     <player ref="opponents"
                             :model="player" :game="game"
                             @click="targetPlayer(this.model.id, this.model.card)"
@@ -15,11 +14,12 @@
             </div>
         </div>
 
+
+        <h3>Admiral Hopes Stellar Pack:</h3>
         <div id="allies" class="team">
             <div class="team-container" v-for="player in this.game.waypoint.players">
-                <span v-if="player.team==='Good Guys'">
-                    <player v-if="notMe(player.id)"
-                        ref="allies" :model="player" :game="game"
+                <span v-if="player.team === 'Good Guys'">
+                    <player ref="allies" :model="player" :game="game"
                         @click="targetPlayer(this.model.id, this.model.card)"
                         v-on:targeted="targeting">
                     </player>
