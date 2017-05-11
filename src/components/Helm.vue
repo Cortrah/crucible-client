@@ -3,13 +3,27 @@
 
         <h3>Opponents:</h3>
 
-        <div class="opponents">
-            <div class="opponents-container" v-for="player in this.game.waypoint.players">
-                <span v-if="notMe(player.id)">
-                    <player id="player.id" ref="opponent"
+        <div id="axis" class="team">
+            <div class="team-container" v-for="player in this.game.waypoint.players">
+                <span v-if="player.team==='Bad Guys'">
+                    <player ref="opponents"
                             :model="player" :game="game"
                             @click="targetPlayer(this.model.id, this.model.card)"
-                            v-on:targeted="targeting"></player>
+                            v-on:targeted="targeting">
+                    </player>
+                </span>
+            </div>
+        </div>
+
+        <div id="allies" class="team">
+            <div class="team-container" v-for="player in this.game.waypoint.players">
+                <span v-if="player.team==='Good Guys'">
+                    <player v-if="notMe(player.id)"
+                        ref="allies" :model="player" :game="game"
+                        @click="targetPlayer(this.model.id, this.model.card)"
+                        v-on:targeted="targeting">
+                    </player>
+
                 </span>
             </div>
         </div>
@@ -81,7 +95,7 @@
         flex-wrap: wrap;
     }
 
-    .opponents {
+    .team {
         width: 800px;
         background-color: #f4f4f4;
         display: flex;
@@ -89,7 +103,7 @@
         flex-wrap: wrap;
     }
 
-    .opponents-container {
+    .team-container {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

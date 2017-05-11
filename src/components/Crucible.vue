@@ -51,6 +51,7 @@
                             {
                                 "id":0,
                                 "name":"General Scum",
+                                "team":"Bad Guys",
                                 "avatarIndex": 0,
                                 "mana":0,
                                 "health":30,
@@ -64,6 +65,7 @@
                             {
                                 "id":1,
                                 "name":"Protobot",
+                                "team":"Bad Guys",
                                 "avatarIndex": 1,
                                 "mana":0,
                                 "health":30,
@@ -77,6 +79,7 @@
                             {
                                 "id":2,
                                 "name":"Streambot",
+                                "team":"Bad Guys",
                                 "avatarIndex": 2,
                                 "mana":0,
                                 "health":30,
@@ -90,6 +93,7 @@
                             {
                                 "id":3,
                                 "name":"Grammarbot",
+                                "team":"Bad Guys",
                                 "avatarIndex": 3,
                                 "mana":0,
                                 "health":30,
@@ -103,6 +107,7 @@
                             {
                                 "id":4,
                                 "name":"Lambdabot",
+                                "team":"Bad Guys",
                                 "avatarIndex": 4,
                                 "mana":0,
                                 "health":30,
@@ -116,6 +121,7 @@
                             {
                                 "id":5,
                                 "name":"Admiral Hope",
+                                "team":"Good Guys",
                                 "avatarIndex": 5,
                                 "mana":0,
                                 "health":30,
@@ -129,6 +135,7 @@
                             {
                                 "id":6,
                                 "name":"Mina",
+                                "team":"Good Guys",
                                 "avatarIndex": 6,
                                 "mana":0,
                                 "health":30,
@@ -142,6 +149,7 @@
                             {
                                 "id":7,
                                 "name":"Phoebe",
+                                "team":"Good Guys",
                                 "avatarIndex": 7,
                                 "mana":0,
                                 "health":30,
@@ -155,6 +163,7 @@
                             {
                                 "id":8,
                                 "name":"Lucy",
+                                "team":"Good Guys",
                                 "avatarIndex": 8,
                                 "mana":0,
                                 "health":30,
@@ -168,6 +177,7 @@
                             {
                                 "id":9,
                                 "name":"Max",
+                                "team":"Good Guys",
                                 "avatarIndex": 9,
                                 "mana":0,
                                 "health":30,
