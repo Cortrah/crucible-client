@@ -11,7 +11,7 @@
 
         <img :src="avatarImg(model.avatarIndex)" @click="targeted">
 
-        <span>{{ name }}</span>
+        <span>{{ this.model.name }}</span>
 
         <span> Deck: {{ this.model.deck.length }} of {{ this.game.rules.startingDeck.length }}</span>
 
@@ -39,7 +39,6 @@
         components: {Player},
         data () {
             return {
-                name: this.model.name,
                 selectedCard : null
             }
         },
