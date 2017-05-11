@@ -65,9 +65,9 @@
                 console.log(this.model.cards.toString());
                 return card;
             },
-            selectCard: function (position) {
-                console.log("position "+ position);
-                this.selectedCard = position-1;
+            selectCard: function (index) {
+                console.log("position "+ index);
+                this.selectedCard = index;
             },
             targeted: function () {
                 this.$emit("targeted", this.model.id);
