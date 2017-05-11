@@ -5,7 +5,7 @@
         <div id="axis" class="team">
             <div class="team-container" v-for="player in this.game.waypoint.players">
                 <span v-if="player.team === 'Bad Guys'">
-                    <player ref="opponents"
+                    <player ref="opponents" vmode="external"
                             :model="player" :game="game"
                             @click="targetPlayer(this.model.id, this.model.card)"
                             v-on:targeted="targeting">
@@ -19,7 +19,7 @@
         <div id="allies" class="team">
             <div class="team-container" v-for="player in this.game.waypoint.players">
                 <span v-if="player.team === 'Good Guys'">
-                    <player ref="allies"
+                    <player ref="allies" vmode="external"
                             :model="player" :game="game"
                             @click="targetPlayer(this.model.id, this.model.card)"
                             v-on:targeted="targeting">
@@ -30,7 +30,7 @@
         </div>
 
         <div>
-            <player id="model.id" ref="player" :model="model" :game="game"></player>
+            <player id="model.id" ref="player" :model="model" :game="game" vmode="internal"></player>
 
             <button @click="drawMistle()">Draw Mistle</button>
             <button @click="drawShield()">Draw Shield</button>

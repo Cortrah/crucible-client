@@ -34,6 +34,10 @@
             },
             'game': {
                 required: true
+            },
+            'vmode': {
+                type: String,
+                required: true
             }
         },
         components: {Player},
@@ -72,7 +76,12 @@
                 this.$emit("targeted", this.model.id);
             },
             avatarImg: function(avatarIndex){
-                return this.game.avatars[avatarIndex].img;
+                console.log(this.vmode);
+                if(this.vmode === 'external'){
+                    return this.game.avatars[avatarIndex].img;
+                } else {
+                    return '../static/control.jpg';
+                }
             },
             players: function(){
                 return this.game.waypoint.players;
