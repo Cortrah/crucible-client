@@ -19,9 +19,10 @@
         <div id="allies" class="team">
             <div class="team-container" v-for="player in this.game.waypoint.players">
                 <span v-if="player.team === 'Good Guys'">
-                    <player ref="allies" :model="player" :game="game"
-                        @click="targetPlayer(this.model.id, this.model.card)"
-                        v-on:targeted="targeting">
+                    <player ref="allies"
+                            :model="player" :game="game"
+                            @click="targetPlayer(this.model.id, this.model.card)"
+                            v-on:targeted="targeting">
                     </player>
 
                 </span>
