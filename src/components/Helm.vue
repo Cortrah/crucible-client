@@ -14,6 +14,7 @@
         </div>
 
         <div id="no-mans-land">
+            <stellar-map></stellar-map>
         </div>
 
         <div id="allies" class="team">
@@ -42,6 +43,7 @@
 
 <script type="text/babel">
     import Player from './Player'
+    import StellarMap from './StellarMap'
 
     export default {
         props: {
@@ -52,7 +54,7 @@
                 required: true
             }
         },
-        components: {Player},
+        components: {Player, StellarMap},
         data () {
             return {
                 name: this.model.name
