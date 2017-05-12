@@ -1,7 +1,6 @@
 <template>
     <div class="helm">
 
-        <h3>General Scums Silicon Scourge:</h3>
         <div id="axis" class="team">
             <div class="team-container" v-for="player in this.game.waypoint.players">
                 <span v-if="player.team === 'Bad Guys'">
@@ -14,8 +13,9 @@
             </div>
         </div>
 
+        <div id="no-mans-land">
+        </div>
 
-        <h3>Admiral Hopes Stellar Pack:</h3>
         <div id="allies" class="team">
             <div class="team-container" v-for="player in this.game.waypoint.players">
                 <span v-if="player.team === 'Good Guys'">
@@ -29,11 +29,13 @@
             </div>
         </div>
 
-        <div>
-            <player id="model.id" ref="player" :model="model" :game="game" vmode="internal"></player>
+        <div class="console-container">
+            <div class="console">
+                <player id="model.id" ref="player" :model="model" :game="game" vmode="internal"></player>
 
-            <button @click="drawMistle()">Draw Mistle</button>
-            <button @click="drawShield()">Draw Shield</button>
+                <button @click="drawMistle()">Draw Mistle</button>
+                <button @click="drawShield()">Draw Shield</button>
+            </div>
         </div>
     </div>
 </template>
@@ -109,4 +111,16 @@
         flex-direction: row;
         flex-wrap: wrap;
     }
+
+    #no-mans-land {
+        height: 200px;
+    }
+
+    .console-container {
+        display: flex;
+        flex-direction: column;
+        width:800px;
+        align-items: center;
+    }
+
 </style>

@@ -76,7 +76,6 @@
                 this.$emit("targeted", this.model.id);
             },
             avatarImg: function(avatarIndex){
-                console.log(this.vmode);
                 if(this.vmode === 'external'){
                     return this.game.avatars[avatarIndex].img;
                 } else {
