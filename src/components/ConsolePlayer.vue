@@ -1,17 +1,19 @@
 <template>
     <div class="console-player" >
 
-        <div id="health">
+        <span>{{ this.model.name }}</span>
+
+        <div id="health" class="column">
             Health: {{ this.model.health }}
         </div>
 
-        <div id="mana">
+        <div id="mana" class="column">
             Mana: {{ this.model.mana }} of {{ this.game.rules.maxMana }}
         </div>
 
-        <span>{{ this.model.name }}</span>
-
-        <span> Deck: {{ this.model.deck.length }} of {{ this.game.rules.startingDeck.length }}</span>
+        <div class="column">
+            Deck: {{ this.model.deck.length }} of {{ this.game.rules.startingDeck.length }}
+        </div>
 
         <span id="hand">
             <span> Hand: </span>
@@ -76,13 +78,19 @@
 </script>
 
 <style scoped>
-    .player {
-        width: 130px;
-        height: 160px;
+    .console-player {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+
         background-color: transparent;
-        color: aliceblue;
+        color: #a2ffa8;
+    }
+
+
+    .column {
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 10px solid transparent;
     }
 
     img {
