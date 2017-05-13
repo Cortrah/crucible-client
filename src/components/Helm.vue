@@ -30,19 +30,18 @@
             </div>
         </div>
 
-        <div class="console-container">
-            <div class="console">
-                <player id="model.id" ref="player" :model="model" :game="game" vmode="internal"></player>
+        <div class="console">
+            <ConsolePlayer ref="consolePlayer" :model="model" :game="game"></ConsolePlayer>
 
-                <button @click="drawMistle()">Draw Mistle</button>
-                <button @click="drawShield()">Draw Shield</button>
-            </div>
+            <button @click="drawMistle()">Draw Mistle</button>
+            <button @click="drawShield()">Draw Shield</button>
         </div>
     </div>
 </template>
 
 <script type="text/babel">
     import Player from './Player'
+    import ConsolePlayer from './ConsolePlayer'
     import StellarMap from './StellarMap'
 
     export default {
@@ -54,7 +53,7 @@
                 required: true
             }
         },
-        components: {Player, StellarMap},
+        components: {Player, ConsolePlayer, StellarMap},
         data () {
             return {
                 name: this.model.name
@@ -62,13 +61,13 @@
         },
         methods: {
             drawMistle: function () {
-                this.$refs.player.drawMistle();
+                this.$refs.consolePlayer.drawMistle();
             },
             drawShield: function () {
-                this.$refs.player.drawShield();
+                this.$refs.consolePlayer.drawShield();
             },
             targeting: function (targetId) {
-                var card = this.$refs.player.getSelectedCard();
+                var card = this.$refs.consolePlayer.getSelectedCard();
                 this.$emit("targeting", this.model.id, targetId, card);
             },
             avatarImg: function(avatarIndex){
@@ -76,16 +75,6 @@
             },
             players: function(){
                 return this.game.waypoint.players;
-            },
-            cards: function(){
-                return [1,2,3];
-            },
-            notMe: function(playerId){
-                if(playerId !== this.model.id){
-                    return true;
-                } else {
-                    return false;
-                }
             }
         }
     }
@@ -93,7 +82,7 @@
 
 <style scoped>
     .helm {
-        width: 700px;
+        width: 650px;
         height: 600px;
         display: flex;
         flex-direction: row;
@@ -101,8 +90,7 @@
     }
 
     .team {
-        width: 800px;
-        background-color: #f4f4f4;
+        width: 650px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -115,14 +103,7 @@
     }
 
     #no-mans-land {
-        height: 100px;
-    }
-
-    .console-container {
-        display: flex;
-        flex-direction: column;
-        width:800px;
-        align-items: center;
+        height: 80px;
     }
 
 </style>

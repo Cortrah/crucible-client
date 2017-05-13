@@ -102,9 +102,11 @@
 <style scoped>
     .player {
         width: 130px;
-        height: 170px;
+        height: 160px;
         display: flex;
         flex-direction: column;
+        background-color: transparent;
+        color: aliceblue;
     }
 
     img {
