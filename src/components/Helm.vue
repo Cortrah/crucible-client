@@ -115,7 +115,7 @@
     }
 
     #no-mans-land {
-        height: 200px;
+        height: 100px;
     }
 
     .console-container {

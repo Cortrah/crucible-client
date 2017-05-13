@@ -1,14 +1,13 @@
 <template>
     <div class="crucible">
-        <h1>{{ title }}</h1>
+        <!--<h1>{{ title }}</h1>-->
+        <div class="players-container">
+            <helm id="0" :model="game.waypoint.players[0]" :game="game" v-on:targeting="targeting" ></helm>
+            <!--<helm id="5" :model="game.waypoint.players[5]" :game="game" v-on:targeting="targeting" ></helm>-->
+        </div>
         <span>{{ timeRunning }}</span>
         <button @click="startGame()">Start Game</button>
         <button @click="endGame()">End Game</button>
-
-        <div class="players-container">
-            <helm id="0" :model="game.waypoint.players[0]" :game="game" v-on:targeting="targeting" ></helm>
-            <helm id="5" :model="game.waypoint.players[5]" :game="game" v-on:targeting="targeting" ></helm>
-        </div>
 
         <!--
         <div class="cards-container">

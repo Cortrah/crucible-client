@@ -16,7 +16,7 @@
             return {
                 'name': "Solar",
                 'code': "Sol",
-                'height': 200,
+                'height': 100,
                 'width': 800,
                 'stars': []
             }
@@ -26,7 +26,7 @@
             for (var i = 0; i < 1000; ++i) {
                 this.stars.push({
                     x: Math.random() * 800,
-                    y: Math.random() * 200,
+                    y: Math.random() * 100,
                 })
             }
         }
@@ -35,7 +35,7 @@
 
 <style>
     .stellar-map {
-        height: 200px;
+        height: 100px;
         width: 800px;
         padding: 0;
         margin: 0;

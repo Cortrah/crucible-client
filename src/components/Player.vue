@@ -102,14 +102,14 @@
 <style scoped>
     .player {
         width: 130px;
-        height: 210px;
+        height: 170px;
         display: flex;
         flex-direction: column;
     }
 
     img {
-        width: 100px;
-        height: 100px;
+        width: 60px;
+        height: 60px;
     }
 
 </style>
