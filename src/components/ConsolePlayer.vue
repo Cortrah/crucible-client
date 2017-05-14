@@ -43,28 +43,21 @@
         },
         methods: {
             drawMistle: function () {
-                console.log(this.model.deck.toString());
                 if((this.model.mana > 0)&&(this.model.deck.length  > 0)){
                     var drawn = this.model.deck[0];
-                    console.log(drawn);
                     this.model.cards.push(drawn);
                     this.model.deck.splice(0,1);
-                    console.log(this.model.deck.toString());
                 }
             },
             drawShield: function () {
             },
             getSelectedCard: function () {
-                console.log(this.model.cards.toString());
                 var card = this.model.cards[this.selectedCard];
-                console.log("getselectedCard "+ card);
                 this.model.cards.splice(this.selectedCard, 1);
                 this.selectedCard = null;
-                console.log(this.model.cards.toString());
                 return card;
             },
             selectCard: function (index) {
-                console.log("position "+ index);
                 this.selectedCard = index;
             },
             targeted: function () {
