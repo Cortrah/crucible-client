@@ -29,6 +29,28 @@ npm test
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-other components used
+## ---------- V1 ----------
+- [ ] Fix Structure
+- [ ] Error checking
+    - [ ] before deducting health
+    - [ ] enemies/mistles
+    - [ ] allies shields
+    - [ ] limit to 5 cards
+- [ ] create a layer for mistles
+- [ ] have a mistle go from one player to the other when launched
+- [ ] highlight selected card
+- [ ] animate health, mana and deck counters
+- [ ] lobby
+- [ ] phoenix backend
 
-https://github.com/wangdahoo/vue-progress
+## ---------- V2 ----------
+- [ ] add shields
+- [ ] launch sounds
+- [ ] explosions
+- [ ] larger mistles
+- [ ] larger shields
+- [ ] avatar images
+- [ ] ships with avatars
+- [ ] card images
+- [ ] login/registration
+- [ ] Other Audio

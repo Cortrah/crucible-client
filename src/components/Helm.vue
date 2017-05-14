@@ -67,7 +67,7 @@
                 this.$refs.consolePlayer.drawShield();
             },
             targeting: function (targetId) {
-                var card = this.$refs.consolePlayer.getSelectedCard();
+                let card = this.$refs.consolePlayer.getSelectedCard();
                 this.$emit("targeting", this.model.id, targetId, card);
             },
             avatarImg: function(avatarIndex){
