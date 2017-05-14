@@ -32,7 +32,6 @@
 
         <div class="console">
             <ConsolePlayer ref="consolePlayer" :model="model" :game="game"></ConsolePlayer>
-
             <button @click="drawMistle()">Draw Mistle</button>
             <button @click="drawShield()">Draw Shield</button>
         </div>
@@ -41,6 +40,7 @@
 
 <script type="text/babel">
     import Player from './Player'
+    import Portrait from './Portrait'
     import ConsolePlayer from './ConsolePlayer'
     import StellarMap from './StellarMap'
 
@@ -53,7 +53,7 @@
                 required: true
             }
         },
-        components: {Player, ConsolePlayer, StellarMap},
+        components: {Player, Portrait, ConsolePlayer, StellarMap},
         data () {
             return {
                 name: this.model.name

@@ -16,7 +16,6 @@
         <span> Deck: {{ this.model.deck.length }} of {{ this.game.rules.startingDeck.length }}</span>
 
         <span id="hand">
-            <span> Hand: </span>
             <span v-for="(card, index) in this.model.cards">
                 <button @click="selectCard(index)">{{ card }}</button>
             </span>
@@ -87,13 +86,6 @@
             },
             cards: function(){
                 return [];
-            },
-            notMe: function(playerId){
-                if(playerId !== this.model.id){
-                    return true;
-                } else {
-                    return false;
-                }
             }
         }
     }
@@ -109,9 +101,13 @@
         color: aliceblue;
     }
 
+    button {
+        margin:0;
+        padding:0;
+    }
+
     img {
         width: 60px;
         height: 60px;
     }
-
 </style>
