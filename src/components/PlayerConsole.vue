@@ -1,23 +1,23 @@
 <template>
-    <div class="player" >
-
-        <div id="health">
-            Health: {{ this.health }} of {{ this.maxHealth }}
-        </div>
-
-        <div id="mana">
-            Mana: {{ this.mana }} of {{ this.maxMana }}
-        </div>
-
-        <img :src="this.avatarImg" @click="targeted">
+    <div class="player-console" >
 
         <span>{{ this.name }}</span>
 
-        <span> Deck: {{ this.deck.length }} of {{ this.startingDeckLength }}</span>
+        <div id="health" class="column">
+            Health: {{ this.health }} of {{ this.maxHealth }}
+        </div>
+
+        <div id="mana" class="column">
+            Mana: {{ this.mana }} of {{ this.maxMana }}
+        </div>
+
+        <div>
+            <span> Deck: {{ this.deck.length }} of {{ this.startingDeckLength }}</span>
+        </div>
 
         <span id="hand">
             <span v-for="(card, index) in this.cards">
-                <button @click="selectCard(index)">{{ card }}</button>
+                <button @click="selectCard(card, index)">{{ card }}</button>
             </span>
         </span>
     </div>
@@ -26,6 +26,7 @@
 <script type="text/babel">
 
     export default {
+        name: "PlayerConsole",
         props: [
             "id",
             "name",
@@ -45,30 +46,27 @@
             'startingDeckLength'
         ],
         methods: {
-            targeted: function () {
-                this.$emit("TARGETED", this.id);
+            selectCard: function (card, index) {
+                console.log("card:" + card);
+                console.log("index:" + index);
+                this.$emit("SELECT_CARD", this.id, index-1);
             }
         }
     }
 </script>
 
 <style scoped>
-    .player {
-        width: 130px;
-        height: 160px;
+    .player-console {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+
         background-color: transparent;
-        color: aliceblue;
+        color: #8bdce5;
     }
 
-    button {
-        margin:0;
-        padding:0;
-    }
-
-    img {
-        width: 60px;
-        height: 60px;
+    .column {
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 10px solid transparent;
     }
 </style>
