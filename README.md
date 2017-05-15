@@ -27,24 +27,24 @@ npm run e2e
 npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-## ---------- V1 ----------
-- [ ] Fix Structure
+## V1 
+- [x] Fix Structure
 - [ ] Error checking
     - [ ] before deducting health
-    - [ ] enemies/mistles
-    - [ ] allies shields
     - [ ] limit to 5 cards
+- [ ] highlight selected card
+- [ ] phoenix backend
+- [ ] lobby
 - [ ] create a layer for mistles
 - [ ] have a mistle go from one player to the other when launched
-- [ ] highlight selected card
 - [ ] animate health, mana and deck counters
-- [ ] lobby
-- [ ] phoenix backend
 
-## ---------- V2 ----------
+## V2 
 - [ ] add shields
+    - [ ] enemies/mistles
+    - [ ] allies shields
 - [ ] launch sounds
 - [ ] explosions
 - [ ] larger mistles
