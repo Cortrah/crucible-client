@@ -57,7 +57,7 @@
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
-                                "selectedCardIndex":null,
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
@@ -75,7 +75,7 @@
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
-                                "selectedCardIndex":null,
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
@@ -93,7 +93,7 @@
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
-                                "selectedCardIndex":null,
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
@@ -111,7 +111,7 @@
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
-                                "selectedCard":[null],
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
@@ -129,7 +129,7 @@
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
-                                "selectedCardIndex":null,
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
@@ -147,7 +147,7 @@
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
-                                "selectedCardIndex":null,
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
@@ -165,7 +165,7 @@
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
-                                "selectedCardIndex":null,
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
@@ -183,7 +183,7 @@
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
-                                "selectedCardIndex":null,
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
@@ -201,7 +201,7 @@
                                 "health": 30,
                                 "shields": [0],
                                 "cards": [],
-                                "selectedCardIndex":null,
+                                "selectedCardIndex":-1,
                                 "deck": [0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8],
                                 "startingDeckLength": 20,
                                 "drawEnabled": false,
@@ -219,7 +219,7 @@
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
-                                "selectedCardIndex":null,
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
@@ -254,7 +254,6 @@
              targetPlayer: function (sourceId, targetId) {
                  console.log("targetPlayer called in crucible");
                  let sourcePlayer = this.game.waypoint.players[sourceId];
-                 console.log(sourcePlayer.toString());
                  let targetPlayer = this.game.waypoint.players[targetId];
                  let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
                  console.log(sourceId);
@@ -280,10 +279,14 @@
                 //player.deck.splice(0,1);
             },
             selectCard: function(playerId, cardIndex){
+                console.log("selectCard in crucible");
                 console.log(playerId);
                 console.log(cardIndex);
                 let player = this.game.waypoint.players[playerId];
+                console.log(player.toString());
+                console.log(player.selectedCardIndex);
                 player.selectedCardIndex = cardIndex;
+                console.log(player.selectedCardIndex);
             },
             shuffle: function(array) {
                 let remaining = array.length;

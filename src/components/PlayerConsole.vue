@@ -47,9 +47,10 @@
         ],
         methods: {
             selectCard: function (card, index) {
+                console.log("select card:");
                 console.log("card:" + card);
                 console.log("index:" + index);
-                this.$emit("SELECT_CARD", this.id, index-1);
+                this.$emit("SELECT_CARD", card, index);
             }
         }
     }
