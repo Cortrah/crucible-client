@@ -1,25 +1,26 @@
 <template>
     <div class="crucible">
 
-        <div class="players-container">
-            <helm id="0" :model="game.waypoint.players[0]" :game="game" v-on:targeting="targeting" ></helm>
-        </div>
+        <!--<div class="players-container">-->
+            <!--<helm id="0" :model="game.waypoint.players[0]" :game="game" v-on:targeting="targeting" ></helm>-->
+        <!--</div>-->
 
-        <button @click="startGame()">Start Game</button>
-        <button @click="endGame()">End Game</button>
-        <span>{{ timeRunning }}</span>
+        <!--<button @click="startGame()">Start Game</button>-->
+        <!--<button @click="endGame()">End Game</button>-->
+        <!--<span>{{ timeRunning }}</span>-->
 
+        <player ref = "opponents" vmode = "external"
+                :game = "game">
+        </player>
     </div>
 </template>
 
 <script>
     import Player from './Player'
-    import Card from './Card'
-    import Helm from './Helm'
 
     export default {
         name: 'Crucible',
-        components: {Player, Helm, Card},
+        components: {Player},
         data () {
             return {
                 game: {

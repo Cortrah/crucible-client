@@ -2,21 +2,21 @@
     <div class="player" >
 
         <div id="health">
-            Health: {{ this.model.health }}
+            Health: {{ this.health }}
         </div>
 
         <div id="mana">
-            Mana: {{ this.model.mana }} of {{ this.game.rules.maxMana }}
+            Mana: {{ this.mana }} of {{ this.maxMana }}
         </div>
 
-        <img :src="avatarImg(model.avatarIndex)" @click="targeted">
+        <img :src="this.imgUrl" @click="targeted">
 
-        <span>{{ this.model.name }}</span>
+        <span>{{ this.name }}</span>
 
-        <span> Deck: {{ this.model.deck.length }} of {{ this.game.rules.startingDeck.length }}</span>
+        <span> Deck: {{ this.deck.length }} of {{ this.startingDeckLength }}</span>
 
         <span id="hand">
-            <span v-for="(card, index) in this.model.cards">
+            <span v-for="(card, index) in this.cards">
                 <button @click="selectCard(index)">{{ card }}</button>
             </span>
         </span>
@@ -24,40 +24,44 @@
 </template>
 
 <script type="text/babel">
-    import Player from './Player'
 
     export default {
-        props: {
-            'model': {
-                required: true
-            },
-            'game': {
-                required: true
-            },
-            'vmode': {
-                type: String,
-                required: true
-            }
-        },
-        components: {Player},
+        props: [
+            "id",
+            "name",
+            "team",
+            "avatarImg",
+            "mana",
+            "maxMana",
+            "health",
+            "shields",
+            "cards",
+            "deck",
+            "drawEnabled",
+            "bleedingOut",
+            "active",
+            'startingDeckLength'
+        ],
+        components: {},
         data () {
             return {
-                selectedCard : null
+                selectedCard : null,
+                imgUrl: "https://avatars0.githubusercontent.com/u/3962520?v=3&s=88"
             }
         },
         methods: {
             drawMistle: function () {
-                if((this.model.mana > 0)&&(this.model.deck.length  > 0)){
-                    var drawn = this.model.deck[0];
-                    this.model.cards.push(drawn);
-                    this.model.deck.splice(0,1);
+                if((this.mana > 0)&&(this.deck.length  > 0)){
+                    var drawn = this.deck[0];
+                    this.cards.push(drawn);
+                    this.deck.splice(0,1);
                 }
             },
             drawShield: function () {
             },
             getSelectedCard: function () {
-                let card = this.model.cards[this.selectedCard];
-                this.model.cards.splice(this.selectedCard, 1);
+                let card = this.cards[this.selectedCard];
+                this.cards.splice(this.selectedCard, 1);
                 this.selectedCard = null;
                 return card;
             },
@@ -65,17 +69,10 @@
                 this.selectedCard = index;
             },
             targeted: function () {
-                this.$emit("targeted", this.model.id);
+                this.$emit("targeted", this.id);
             },
             avatarImg: function(avatarIndex){
-                if(this.vmode === 'external'){
-                    return this.game.avatars[avatarIndex].img;
-                } else {
-                    return '../static/control.jpg';
-                }
-            },
-            players: function(){
-                return this.game.waypoint.players;
+                return "../static/dog1.png";
             },
             cards: function(){
                 return [];
