@@ -2,7 +2,12 @@
     <div class="crucible">
 
         <div class="players-container">
-            <helm id="0" :model="game.waypoint.players[0]" :game="game" v-on:targeting="targeting" ></helm>
+            <helm playerId="0" :game="game"
+                  v-on:TARGET_PLAYER="targetPlayer"
+                  v-on:DRAW_MISTLE="drawMistle"
+                  v-on:DRAW_SHIELD="drawShield"
+                  v-on:SELECT_CARD="selectCard" >
+            </helm>
         </div>
 
         <button @click="startGame()">Start Game</button>
@@ -14,17 +19,16 @@
 
 <script>
     import Player from './Player'
-    import Card from './Card'
     import Helm from './Helm'
 
     export default {
         name: 'Crucible',
-        components: {Player, Helm, Card},
+        components: {Helm, Player},
         data () {
             return {
                 game: {
                     rules:{
-                        "maxMana": 0,
+                        "maxMana": 10,
                         "maxHealth": 30,
                         "startingDeck": [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                         "startingHandSize": 0,
@@ -46,12 +50,16 @@
                                 "id":0,
                                 "name":"General Scum",
                                 "team":"Bad Guys",
-                                "avatarIndex": 0,
+                                "avatarImg": "../static/general_scum.png",
+                                "maxMana":0,
                                 "mana":0,
+                                "maxHealth":30,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "startingDeckLength":20,
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
@@ -60,12 +68,16 @@
                                 "id":1,
                                 "name":"Protobot",
                                 "team":"Bad Guys",
-                                "avatarIndex": 1,
+                                "avatarImg": "../static/robot1.png",
+                                "maxMana":0,
                                 "mana":0,
+                                "maxHealth":30,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "startingDeckLength":20,
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
@@ -74,12 +86,16 @@
                                 "id":2,
                                 "name":"Streambot",
                                 "team":"Bad Guys",
-                                "avatarIndex": 2,
+                                "avatarImg": "../static/robot2.png",
+                                "maxMana":0,
                                 "mana":0,
+                                "maxHealth":30,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "startingDeckLength":20,
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
@@ -88,12 +104,16 @@
                                 "id":3,
                                 "name":"Grammarbot",
                                 "team":"Bad Guys",
-                                "avatarIndex": 3,
+                                "avatarImg": "../static/robot3.png",
+                                "maxMana":0,
                                 "mana":0,
+                                "maxHealth":30,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "startingDeckLength":20,
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
@@ -102,12 +122,16 @@
                                 "id":4,
                                 "name":"Lambdabot",
                                 "team":"Bad Guys",
-                                "avatarIndex": 4,
+                                "avatarImg": "../static/robot4.png",
+                                "maxMana":0,
                                 "mana":0,
+                                "maxHealth":30,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "startingDeckLength":20,
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
@@ -116,12 +140,16 @@
                                 "id":5,
                                 "name":"Admiral Hope",
                                 "team":"Good Guys",
-                                "avatarIndex": 5,
+                                "avatarImg": "../static/admiral_hope.png",
+                                "maxMana":0,
                                 "mana":0,
+                                "maxHealth":30,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "startingDeckLength":20,
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
@@ -130,12 +158,16 @@
                                 "id":6,
                                 "name":"Mina",
                                 "team":"Good Guys",
-                                "avatarIndex": 6,
+                                "avatarImg": "../static/dog1.png",
+                                "maxMana":0,
                                 "mana":0,
+                                "maxHealth":30,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "startingDeckLength":20,
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
@@ -144,40 +176,52 @@
                                 "id":7,
                                 "name":"Phoebe",
                                 "team":"Good Guys",
-                                "avatarIndex": 7,
+                                "avatarImg": "../static/dog2.png",
+                                "maxMana":0,
                                 "mana":0,
+                                "maxHealth":30,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "startingDeckLength":20,
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
                             },
                             {
-                                "id":8,
-                                "name":"Lucy",
-                                "team":"Good Guys",
-                                "avatarIndex": 8,
-                                "mana":0,
-                                "health":30,
-                                "shields":[0],
-                                "cards":[],
-                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
-                                "drawEnabled":false,
-                                "bleedingOut":false,
-                                "active":true
+                                "id": 8,
+                                "name": "Lucy",
+                                "team": "Good Guys",
+                                "avatarImg": "../static/dog3.png",
+                                "maxMana": 0,
+                                "mana": 0,
+                                "maxHealth": 30,
+                                "health": 30,
+                                "shields": [0],
+                                "cards": [],
+                                "selectedCardIndex":-1,
+                                "deck": [0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8],
+                                "startingDeckLength": 20,
+                                "drawEnabled": false,
+                                "bleedingOut": false,
+                                "active": true
                             },
                             {
                                 "id":9,
                                 "name":"Max",
                                 "team":"Good Guys",
-                                "avatarIndex": 9,
+                                "avatarImg": "../static/dog4.png",
+                                "maxMana":0,
                                 "mana":0,
+                                "maxHealth":30,
                                 "health":30,
                                 "shields":[0],
                                 "cards":[],
+                                "selectedCardIndex":-1,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "startingDeckLength":20,
                                 "drawEnabled":false,
                                 "bleedingOut":false,
                                 "active":true
@@ -207,13 +251,42 @@
             }
         },
         methods: {
-             targeting: function (sourceId, targetId, card) {
-                console.log("targeting called in crucible");
-                console.log(sourceId);
-                console.log(targetId);
-                console.log(card);
-                this.game.waypoint.players[sourceId].mana -= card;
-                this.game.waypoint.players[targetId].health -= card;
+             targetPlayer: function (sourceId, targetId) {
+                 console.log("targetPlayer called in crucible");
+                 let sourcePlayer = this.game.waypoint.players[sourceId];
+                 let targetPlayer = this.game.waypoint.players[targetId];
+                 let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
+                 console.log(sourceId);
+                 console.log(targetId);
+                 console.log(card);
+                 sourcePlayer.mana -= card;
+                 targetPlayer.health -= card;
+                 sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
+             },
+            drawMistle: function(playerId){
+                 console.log(playerId);
+                 let player = this.game.waypoint.players[playerId];
+                 let drawn = player.deck[0];
+                 //let mistle = new Mistle(player.deck[0]);
+                 //player.cards.push(mistle);
+                 player.cards.push(drawn);
+                 player.deck.splice(0,1);
+            },
+            drawShield: function(playerId){
+                //let player = this.game.waypoint.players[playerId];
+                //let shield = new Shield(player.deck[0]);
+                //player.cards.push(shield);
+                //player.deck.splice(0,1);
+            },
+            selectCard: function(playerId, cardIndex){
+                console.log("selectCard in crucible");
+                console.log(playerId);
+                console.log(cardIndex);
+                let player = this.game.waypoint.players[playerId];
+                console.log(player.toString());
+                console.log(player.selectedCardIndex);
+                player.selectedCardIndex = cardIndex;
+                console.log(player.selectedCardIndex);
             },
             shuffle: function(array) {
                 let remaining = array.length;
@@ -245,11 +318,11 @@
                 this.timeRunning = Date.now() - this.timeStarted;
             },
             manaTick: function() {
-                if(this.game.rules.maxMana < 10){
-                    this.game.rules.maxMana++;
-                }
                 this.game.waypoint.players.forEach(function(player){
-                    if(player.mana < 10){
+                    if(player.maxMana < 10){
+                        player.maxMana++;
+                    }
+                    if(player.mana < player.maxMana){
                         player.mana++;
                     }
                 })

@@ -30,7 +30,6 @@
                     r: Math.random() * 2,
                 })
             }
-            console.log(this.stars.toString());
         }
     }
 </script>
