@@ -70,6 +70,7 @@
                             :shields = this.game.waypoint.players[playerId].shields
                             :cards = this.game.waypoint.players[playerId].cards
                             :deck = this.game.waypoint.players[playerId].deck
+                            :selectedCardIndex = this.game.waypoint.players[playerId].selectedCardIndex
                             :startingDeckLength = this.game.waypoint.players[playerId].startingDeckLength
                             :drawEnabled = this.game.waypoint.players[playerId].drawEnabled
                             :bleedingOut = this.game.waypoint.players[playerId].bleedingOut
