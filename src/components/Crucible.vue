@@ -254,14 +254,17 @@
              targetPlayer: function (sourceId, targetId) {
                  console.log("targetPlayer called in crucible");
                  let sourcePlayer = this.game.waypoint.players[sourceId];
-                 let targetPlayer = this.game.waypoint.players[targetId];
-                 let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
-                 console.log(sourceId);
-                 console.log(targetId);
-                 console.log(card);
-                 sourcePlayer.mana -= card;
-                 targetPlayer.health -= card;
-                 sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
+                 if(sourcePlayer.selectedCardIndex != -1) {
+                     let targetPlayer = this.game.waypoint.players[targetId];
+                     let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
+                     console.log(sourceId);
+                     console.log(targetId);
+                     console.log(card);
+                     sourcePlayer.mana -= card;
+                     targetPlayer.health -= card;
+                     sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
+                     sourcePlayer.selectedCardIndex = -1;
+                 }
              },
             drawMistle: function(playerId){
                  console.log(playerId);

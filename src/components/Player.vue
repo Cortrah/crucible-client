@@ -17,7 +17,9 @@
 
         <span id="hand">
             <span v-for="(card, index) in this.cards">
-                <button @click="selectCard(index)">{{ card }}</button>
+                <button @click="selectCard(index)">
+                    {{ card }}
+                </button>
             </span>
         </span>
     </div>
@@ -39,7 +41,7 @@
             "deck",
             "drawEnabled",
             "cards",
-            "selectedCard",
+            "selectedCardIndex",
             "active",
             "bleedingOut",
             'startingDeckLength'
@@ -63,8 +65,8 @@
     }
 
     button {
-        margin:0;
-        padding:0;
+        margin:0px;
+        padding:1px;
     }
 
     img {

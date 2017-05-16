@@ -16,8 +16,11 @@
         </div>
 
         <span id="hand">
-            <span v-for="(card, index) in this.cards">
-                <button @click="selectCard(card, index)">{{ card }}</button>
+            <span v-for="(card, index) in this.cards" ref="cards">
+                <button @click="selectCard(card, index)"
+                        v-bind:class="selected-card">
+                    {{ card }}
+                </button>
             </span>
         </span>
     </div>
@@ -40,11 +43,23 @@
             "deck",
             "drawEnabled",
             "cards",
-            "selectedCard",
+            "selectedCardIndex",
             "active",
             "bleedingOut",
             'startingDeckLength'
         ],
+        data: function() {
+            return {
+                isSelected: false
+            }
+        },
+        watch: {
+            selectedCardIndex: function(sel){
+                if(sel !== -1){
+                    //this.$refs.cards[sel].class = "selected-card";
+                }
+            }
+        },
         methods: {
             selectCard: function (card, index) {
                 console.log("select card:");
@@ -63,6 +78,14 @@
 
         background-color: transparent;
         color: #8bdce5;
+    }
+
+    .unselected-card {
+        box-shadow: none;
+    }
+
+    .selected-card {
+        box-shadow: 0 0 1em #21d0ff
     }
 
     .column {
