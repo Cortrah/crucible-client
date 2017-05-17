@@ -18,7 +18,7 @@
         <span id="hand">
             <span v-for="(card, index) in this.cards" ref="cards">
                 <button @click="selectCard(card, index)"
-                        v-bind:class="selected-card">
+                        v-bind:class="{ 'sel': isSel }">
                     {{ card }}
                 </button>
             </span>
@@ -48,23 +48,29 @@
             "bleedingOut",
             'startingDeckLength'
         ],
-        data: function() {
+        data () {
             return {
-                isSelected: false
+                isSel: false
             }
         },
-        watch: {
-            selectedCardIndex: function(sel){
-                if(sel !== -1){
-                    //this.$refs.cards[sel].class = "selected-card";
-                }
-            }
-        },
+//        watch: {
+//            selectedCardIndex: function(sel){
+//                if(sel !== -1){
+//                    console.log("card selected");
+//                    console.log(sel);
+//                    var value = this.$refs.cards[sel];
+//                    console.log(this.$refs.cards[sel].isSel);
+//                    //this.$refs.cards[sel].class = "selected-card";
+//                }
+//            }
+//        },
         methods: {
             selectCard: function (card, index) {
                 console.log("select card:");
                 console.log("card:" + card);
                 console.log("index:" + index);
+                this.$refs.cards[index].isSel = true;
+                console.log(this.$refs.cards[index].isSel);
                 this.$emit("SELECT_CARD", card, index);
             }
         }
@@ -80,12 +86,13 @@
         color: #8bdce5;
     }
 
-    .unselected-card {
+    .unsel {
         box-shadow: none;
     }
 
-    .selected-card {
-        box-shadow: 0 0 1em #21d0ff
+    .sel {
+        box-shadow: 0 0 1em #ee1f09;
+        color: #bc22ca;
     }
 
     .column {
