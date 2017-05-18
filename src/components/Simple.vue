@@ -1,7 +1,7 @@
 <template>
     <svg  x="0px" y="0px" viewBox="0 0 20 30"
           width="20px" height="30px"
-          @click="selected(val, index)"
+          @click="selected(e)"
           :class="[isSel ? 'sel' : 'unsel']">
 
         <rect x="0" y="0" :fill="fill" :stroke="stroke" width="20" height="30"/>
@@ -30,13 +30,13 @@
             }
         },
         methods: {
-            selected: function (val, index) {
+            selected: function (e) {
                 if(this.isSel == false){
                     this.isSel = true;
                 } else {
                     this.isSel = false;
                 }
-                //this.$emit('input', true)
+                this.$emit('SELECT_CARD', true)
             }
         }
     }

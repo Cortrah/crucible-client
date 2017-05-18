@@ -17,7 +17,7 @@
 
         <span id="hand">
             <span v-for="(card, index) in this.cards" ref="cards">
-                <Simple :faceVal="card" v-on:input="clickie">
+                <Simple :faceVal="card" v-on:SELECT_CARD="selectCard">
                 </Simple>
             </span>
         </span>
@@ -72,15 +72,9 @@
                 console.log("select card:");
                 console.log("card:" + card);
                 console.log("index:" + index);
-                this.$refs.cards[index].isSel = true;
-                console.log(this.$refs.cards[index].isSel);
+                //this.$refs.cards[index].isSel = true;
+                //console.log(this.$refs.cards[index].isSel);
                 this.$emit("SELECT_CARD", card, index);
-            },
-            clickie: function (val, index) {
-                console.log("v:" + val);
-                console.log("index:" + index);
-                //this.$refs.things[index].isSel = true;
-                //console.log(this.$refs.things[index].isSel);
             }
         }
     }
