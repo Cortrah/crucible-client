@@ -17,19 +17,22 @@
 
         <span id="hand">
             <span v-for="(card, index) in this.cards" ref="cards">
-                <button @click="selectCard(card, index)"
-                        v-bind:class="{ 'sel': isSel }">
-                    {{ card }}
-                </button>
+                <Simple :faceVal="card" v-on:input="clickie">
+                </Simple>
             </span>
         </span>
     </div>
 </template>
 
 <script type="text/babel">
+    import Vue from 'vue';
+    import Simple from './Simple.vue';
 
     export default {
         name: "PlayerConsole",
+        components: {
+          Simple
+        },
         props: [
             "id",
             "name",
@@ -50,7 +53,7 @@
         ],
         data () {
             return {
-                isSel: false
+                list: [8, 293, 323, 23],
             }
         },
 //        watch: {
@@ -72,6 +75,12 @@
                 this.$refs.cards[index].isSel = true;
                 console.log(this.$refs.cards[index].isSel);
                 this.$emit("SELECT_CARD", card, index);
+            },
+            clickie: function (val, index) {
+                console.log("v:" + val);
+                console.log("index:" + index);
+                //this.$refs.things[index].isSel = true;
+                //console.log(this.$refs.things[index].isSel);
             }
         }
     }
