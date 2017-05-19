@@ -254,19 +254,24 @@
              targetPlayer: function (sourceId, targetId) {
                  let sourcePlayer = this.game.waypoint.players[sourceId];
                  if(sourcePlayer.selectedCardIndex !== -1) {
-                     let targetPlayer = this.game.waypoint.players[targetId];
                      let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
-                     sourcePlayer.mana -= card;
-                     targetPlayer.health -= card;
-                     sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
-                     sourcePlayer.selectedCardIndex = -1;
+                     if(sourcePlayer.mana >= card){
+                         let targetPlayer = this.game.waypoint.players[targetId];
+                         sourcePlayer.mana -= card;
+                         targetPlayer.health -= card;
+                         sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
+                         sourcePlayer.selectedCardIndex = -1;
+                     }
                  }
              },
             drawMistle: function(playerId){
-                 let player = this.game.waypoint.players[playerId];
-                 let drawn = player.deck[0];
-                 player.cards.push(drawn);
-                 player.deck.splice(0,1);
+                let player = this.game.waypoint.players[playerId];
+                if(player.mana >= 1) {
+                    let drawn = player.deck[0];
+                    player.cards.push(drawn);
+                    player.deck.splice(0, 1);
+                    player.mana--;
+                }
             },
             drawShield: function(playerId){
                 //let player = this.game.waypoint.players[playerId];
