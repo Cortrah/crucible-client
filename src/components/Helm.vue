@@ -112,9 +112,6 @@
                 this.$emit("DRAW_MISTLE", this.playerId);
             },
             selectCard: function (card, index) {
-                console.log("select card from helm");
-                console.log("card:" + card);
-                console.log("index:" + index);
                 this.$emit("SELECT_CARD", this.playerId, index);
             },
             targetPlayer: function (targetId) {

@@ -51,13 +51,18 @@
             "bleedingOut",
             'startingDeckLength'
         ],
+        watch: {
+            selectedCardIndex: function(sel){
+                if(sel === -1){
+                    let len = this.cards.length;
+                    for (let i; i < len; i++) {
+                        this.$refs.cards[index].isSel = false;
+                    }
+                }
+            }
+        },
         methods: {
             selectCard: function (card, index) {
-                console.log("select card:");
-                console.log("card:" + card);
-                console.log("index:" + index);
-                //this.$refs.cards[index].isSel = true;
-                //console.log(this.$refs.cards[index].isSel);
                 this.$emit("SELECT_CARD", card, index);
             }
         }
@@ -71,15 +76,6 @@
 
         background-color: transparent;
         color: #8bdce5;
-    }
-
-    .unsel {
-        box-shadow: none;
-    }
-
-    .sel {
-        box-shadow: 0 0 1em #ee1f09;
-        color: #bc22ca;
     }
 
     .column {

@@ -29,19 +29,19 @@ npm test
 
 This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-## V1 
+## V1
 - [x] Fix Structure
 - [ ] Error checking
     - [ ] before deducting health
     - [ ] limit to 5 cards
-- [ ] highlight selected card
+- [X] highlight selected card
 - [ ] phoenix backend
 - [ ] lobby
 - [ ] create a layer for mistles
 - [ ] have a mistle go from one player to the other when launched
 - [ ] animate health, mana and deck counters
 
-## V2 
+## V2
 - [ ] add shields
     - [ ] enemies/mistles
     - [ ] allies shields
