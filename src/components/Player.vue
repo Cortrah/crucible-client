@@ -17,9 +17,7 @@
 
         <span id="hand">
             <span v-for="(card, index) in this.cards">
-                <button @click="selectCard(index)">
-                    {{ card }}
-                </button>
+                <button>{{ card }}</button>
             </span>
         </span>
     </div>
