@@ -2,18 +2,18 @@
     <div class="player" >
 
         <div id="health">
-            Health: {{ this.health }} of {{ this.maxHealth }}
+            Health: {{ health }} of {{ maxHealth }}
         </div>
 
         <div id="mana">
-            Mana: {{ this.mana }} of {{ this.maxMana }}
+            Mana: {{ mana }} of {{ maxMana }}
         </div>
 
         <img :src="this.avatarImg" @click="targeted">
 
-        <span>{{ this.name }}</span>
+        <span>{{ name }}</span>
 
-        <span> Deck: {{ this.deck.length }} of {{ this.startingDeckLength }}</span>
+        <span> Deck: {{ deck.length }} of {{ startingDeckLength }}</span>
 
         <span id="hand">
             <span v-for="(card, index) in this.cards">

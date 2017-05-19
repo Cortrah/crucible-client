@@ -19,14 +19,14 @@
         name: "Simple",
         props: {
             faceVal: {
-                type: String
-            },
-            fill: "#345cee",
-            stoke: "#345cee",
+                default: 0
+            }
         },
         data () {
             return {
-                isSel: false
+                isSel: false,
+                fill: "#345cee",
+                stroke: "#345cee"
             }
         },
         methods: {

@@ -1,18 +1,18 @@
 <template>
     <div class="player-console" >
 
-        <span>{{ this.name }}</span>
+        <span>{{ name }}</span>
 
         <div id="health" class="column">
-            Health: {{ this.health }} of {{ this.maxHealth }}
+            Health: {{ health }} of {{ maxHealth }}
         </div>
 
         <div id="mana" class="column">
-            Mana: {{ this.mana }} of {{ this.maxMana }}
+            Mana: {{ mana }} of {{ maxMana }}
         </div>
 
         <div>
-            <span> Deck: {{ this.deck.length }} of {{ this.startingDeckLength }}</span>
+            <span> Deck: {{ deck.length }} of {{ startingDeckLength }}</span>
         </div>
 
         <span id="hand">
