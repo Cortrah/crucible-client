@@ -16,7 +16,7 @@
     import Vue from 'vue';
 
     export default {
-        name: "Simple",
+        name: "SimpleCard",
         props: {
             faceVal: {
                 default: 0

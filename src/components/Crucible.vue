@@ -254,7 +254,7 @@
              targetPlayer: function (sourceId, targetId) {
                  console.log("targetPlayer called in crucible");
                  let sourcePlayer = this.game.waypoint.players[sourceId];
-                 if(sourcePlayer.selectedCardIndex != -1) {
+                 if(sourcePlayer.selectedCardIndex !== -1) {
                      let targetPlayer = this.game.waypoint.players[targetId];
                      let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
                      console.log(sourceId);
@@ -304,7 +304,6 @@
                 }
                 return array;
             },
-
             startGame: function() {
                 var scope = this;
                 this.game.waypoint.players.forEach(function(player){

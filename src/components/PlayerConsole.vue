@@ -17,8 +17,8 @@
 
         <span id="hand">
             <span v-for="(card, index) in this.cards" ref="cards">
-                <Simple :faceVal="card" v-on:SELECT_CARD="selectCard">
-                </Simple>
+                <simple-card :faceVal="card" v-on:SELECT_CARD="selectCard(card, index)">
+                </simple-card>
             </span>
         </span>
     </div>
@@ -26,12 +26,12 @@
 
 <script type="text/babel">
     import Vue from 'vue';
-    import Simple from './Simple.vue';
+    import SimpleCard from './SimpleCard.vue';
 
     export default {
         name: "PlayerConsole",
         components: {
-          Simple
+          SimpleCard
         },
         props: [
             "id",
@@ -51,22 +51,6 @@
             "bleedingOut",
             'startingDeckLength'
         ],
-        data () {
-            return {
-                list: [8, 293, 323, 23],
-            }
-        },
-//        watch: {
-//            selectedCardIndex: function(sel){
-//                if(sel !== -1){
-//                    console.log("card selected");
-//                    console.log(sel);
-//                    var value = this.$refs.cards[sel];
-//                    console.log(this.$refs.cards[sel].isSel);
-//                    //this.$refs.cards[sel].class = "selected-card";
-//                }
-//            }
-//        },
         methods: {
             selectCard: function (card, index) {
                 console.log("select card:");
