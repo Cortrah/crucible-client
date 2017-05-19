@@ -9,7 +9,7 @@
             Mana: {{ mana }} of {{ maxMana }}
         </div>
 
-        <img :src="this.avatarImg" @click="targeted">
+        <img :src="avatarImg" @click="targeted">
 
         <span>{{ name }}</span>
 
