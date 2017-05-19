@@ -106,10 +106,12 @@
         },
         methods: {
             drawMistle: function () {
-                this.$emit("DRAW_MISTLE", this.playerId);
+                if(this.game.waypoint.players[this.playerId].cards.length < 5){
+                    this.$emit("DRAW_MISTLE", this.playerId);
+                }
             },
             drawShield: function () {
-                this.$emit("DRAW_MISTLE", this.playerId);
+                this.$emit("DRAW_SHIELD", this.playerId);
             },
             selectCard: function (card, index) {
                 this.$emit("SELECT_CARD", this.playerId, index);

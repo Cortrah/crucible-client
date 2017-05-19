@@ -33,7 +33,7 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [x] Fix Structure
 - [ ] Error checking
     - [ ] before deducting health
-    - [ ] limit to 5 cards
+    - [ x] limit to 5 cards
 - [X] highlight selected card
 - [ ] phoenix backend
 - [ ] lobby

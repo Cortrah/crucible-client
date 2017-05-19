@@ -252,14 +252,10 @@
         },
         methods: {
              targetPlayer: function (sourceId, targetId) {
-                 console.log("targetPlayer called in crucible");
                  let sourcePlayer = this.game.waypoint.players[sourceId];
                  if(sourcePlayer.selectedCardIndex !== -1) {
                      let targetPlayer = this.game.waypoint.players[targetId];
                      let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
-                     console.log(sourceId);
-                     console.log(targetId);
-                     console.log(card);
                      sourcePlayer.mana -= card;
                      targetPlayer.health -= card;
                      sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
@@ -267,11 +263,8 @@
                  }
              },
             drawMistle: function(playerId){
-                 console.log(playerId);
                  let player = this.game.waypoint.players[playerId];
                  let drawn = player.deck[0];
-                 //let mistle = new Mistle(player.deck[0]);
-                 //player.cards.push(mistle);
                  player.cards.push(drawn);
                  player.deck.splice(0,1);
             },
@@ -282,14 +275,8 @@
                 //player.deck.splice(0,1);
             },
             selectCard: function(playerId, cardIndex){
-                console.log("selectCard in crucible");
-                console.log(playerId);
-                console.log(cardIndex);
                 let player = this.game.waypoint.players[playerId];
-                console.log(player.toString());
-                console.log(player.selectedCardIndex);
                 player.selectedCardIndex = cardIndex;
-                console.log(player.selectedCardIndex);
             },
             shuffle: function(array) {
                 let remaining = array.length;

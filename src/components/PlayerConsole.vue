@@ -55,8 +55,8 @@
             selectedCardIndex: function(sel){
                 if(sel === -1){
                     let len = this.cards.length;
-                    for (let i; i < len; i++) {
-                        this.$refs.cards[index].isSel = false;
+                    for (let i = 0; i < len; i++) {
+                        this.$refs.cards[i].isSel = false;
                     }
                 }
             }
