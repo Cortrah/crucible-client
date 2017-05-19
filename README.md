@@ -32,8 +32,9 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 ## V1
 - [x] Fix Structure
 - [ ] Error checking
-    - [ ] before deducting health
-    - [ x] limit to 5 cards
+    - [X] before deducting health
+    - [X] limit to 5 cards
+    - [ ] that the player has the mana to target
 - [X] highlight selected card
 - [ ] phoenix backend
 - [ ] lobby
