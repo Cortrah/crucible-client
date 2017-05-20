@@ -1,7 +1,9 @@
 <template>
     <div class="player-console" >
 
-        <span>{{ name }}</span>
+        <div id="name" class="column">
+            {{ name }}
+        </div>
 
         <div id="health" class="column">
             Health: {{ health }} of {{ maxHealth }}
@@ -11,19 +13,20 @@
             Mana: {{ mana }} of {{ maxMana }}
         </div>
 
-        <div>
-            <span> Deck: {{ deck.length }} of {{ startingDeckLength }}</span>
+        <div id="deck" class="column">
+            Deck: {{ deck.length }} of {{ startingDeckLength }}
         </div>
 
-        <span id="hand">
+        <div id="hand" class="column">
             <span v-for="(card, index) in this.cards" ref="cards">
-                <simple-card :faceVal="card"
+                <simple-card class="simple-card"
+                             :faceVal="card"
                              :myIndex = index
                              :selectedIndex = selectedCardIndex
                              v-on:SELECT_CARD="selectCard(card, index)">
                 </simple-card>
             </span>
-        </span>
+        </div>
     </div>
 </template>
 
@@ -64,16 +67,22 @@
 
 <style scoped>
     .player-console {
+        width: 700px;
         display: flex;
         flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
 
-        background-color: transparent;
         color: #8bdce5;
     }
 
     .column {
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
         border-bottom: 10px solid transparent;
+    }
+
+    .simple-card {
+        margin:.3em;
     }
 </style>

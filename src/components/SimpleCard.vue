@@ -8,7 +8,6 @@
         <text x="5" y="20" fill="white">
             {{ faceVal }}
         </text>
-
     </svg>
 </template>
 
