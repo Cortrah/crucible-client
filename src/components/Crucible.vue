@@ -280,7 +280,7 @@
                 this.game.waypoint.inFlight.push(mistle);
                 setTimeout(this.mistleImpact, this.game.rules.flightTime, sourcePlayer, targetPlayer, card);
             },
-            mistleImpact: function(sourcePlayer, targetPlayer, card){
+            mistleImpact: function(sourcePlayer, targetPlayer, mistle){
                 targetPlayer.health -= mistle;
             },
             drawMistle: function(playerId){
