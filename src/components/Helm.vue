@@ -81,11 +81,18 @@
             <button @click="drawMistle()">Draw Mistle</button>
             <button @click="drawShield()">Draw Shield</button>
         </div>
+
+        <div id="mistles">
+            <div class="mistles-container" v-for="mistle in this.game.waypoint.inFlight">
+                <MistleInFlight></MistleInFlight>
+            </div>
+        </div>
     </div>
 </template>
 
 <script type="text/babel">
     import Player from './Player'
+    import MistleInFlight from './MistleInFlight'
     import Portrait from './Portrait'
     import PlayerConsole from './PlayerConsole'
     import StellarMap from './StellarMap'
@@ -98,7 +105,7 @@
                 required: true
             }
         },
-        components: {Player, Portrait, PlayerConsole, StellarMap},
+        components: {Player, MistleInFlight, Portrait, PlayerConsole, StellarMap},
         data () {
             return {
                 name: this.name

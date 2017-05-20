@@ -20,6 +20,8 @@
 <script>
     import Player from './Player'
     import Helm from './Helm'
+    import MistleInFlight from './MistleInFlight'
+    import {TweenMax} from "gsap";
 
     export default {
         name: 'Crucible',
@@ -33,6 +35,7 @@
                         "startingDeck": [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                         "startingHandSize": 0,
                         "maxCards":5,
+                        "flightTime": 4000,
                         "manaGrowthRate":1/3,
                         "manaReplentishRate":1/1,
                         "drawRate":1/1,
@@ -227,7 +230,7 @@
                                 "active":true
                             },
                         ],
-                        "inFlight":[],
+                        "inFlight":[{}],
                         "trajectory":4
                     },
                     avatars:[
@@ -251,19 +254,35 @@
             }
         },
         methods: {
-             targetPlayer: function (sourceId, targetId) {
-                 let sourcePlayer = this.game.waypoint.players[sourceId];
-                 if(sourcePlayer.selectedCardIndex !== -1) {
-                     let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
-                     if(sourcePlayer.mana >= card){
-                         let targetPlayer = this.game.waypoint.players[targetId];
-                         sourcePlayer.mana -= card;
-                         targetPlayer.health -= card;
-                         sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
-                         sourcePlayer.selectedCardIndex = -1;
-                     }
-                 }
-             },
+            targetPlayer: function (sourceId, targetId) {
+                let sourcePlayer = this.game.waypoint.players[sourceId];
+                if(sourcePlayer.selectedCardIndex !== -1) {
+                    let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
+                    if(sourcePlayer.mana >= card){
+                        let targetPlayer = this.game.waypoint.players[targetId];
+                        sourcePlayer.mana -= card;
+                        sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
+                        sourcePlayer.selectedCardIndex = -1;
+                        this.launchMistle(sourcePlayer, targetPlayer, card)
+                    }
+                }
+            },
+            launchMistle: function(sourcePlayer, targetPlayer, card) {
+                // eventually the timer might be different for different cards or mistles
+                let mistle = new MisstleInFlight({
+                    propsData: {
+                        sourcePlayer: sourcePlayer,
+                        targetPlayer: targetPlayer,
+                        card: card,
+                        flightTime: this.game.rules.flightTime
+                    }
+                });
+                //this.inFlight.push(mistle);
+                setTimeout(this.mistleImpact, this.game.rules.flightTime, sourcePlayer, targetPlayer, card);
+            },
+            mistleImpact: function(sourcePlayer, targetPlayer, card){
+                targetPlayer.health -= mistle;
+            },
             drawMistle: function(playerId){
                 let player = this.game.waypoint.players[playerId];
                 if(player.mana >= 1) {
