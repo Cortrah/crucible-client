@@ -1,0 +1,24 @@
+Interesting Thoughts
+
+While working on this I keep on finding that state that I think belongs at the leaves,
+keeps bubbling up. An example, in crucible.helm.playerconsole.simplecard
+the state that seems logical is that the card shows whether it's selected or not and displays it
+via a style, when one simplecard is selected, the event bubbles to the playerconsole which
+deselects all it's cards and then selects the current card so there is only one ever currently
+selected.
+
+But because PlayerConsole is getting its state from game and just passing it through,
+it doesn't have the rights to change the props, nor does helm, so I have to add this
+all the way up at crucible. However this works because Crucible is already setting the
+actual card index.
+
+I guess the question going forward is how much responsibility is eventually going to be
+so centralized. Stay tuned.
+
+So in that last pass isSel moved from data to a prop, but now instead of using it as a prop
+I can pass it's index in as a prop and the selectedCardIndex as a prop
+and determine whether it selected with a computed property so I don't need to change crucible
+after all.
+
+so what do I default selectedCardIndex and myIndex to? null? -1? Zakas says not to use null
+but it seems to make sense here
