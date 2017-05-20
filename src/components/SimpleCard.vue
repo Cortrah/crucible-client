@@ -25,8 +25,8 @@
         data () {
             return {
                 isSel: false,
-                fill: "#345cee",
-                stroke: "#345cee"
+                fill: "#393939",
+                stroke: "#ffffff"
             }
         },
         methods: {

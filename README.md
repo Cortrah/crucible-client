@@ -31,11 +31,12 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 
 ## V1
 - [x] Fix Structure
-- [ ] Error checking
+- [X] Error checking
     - [X] before deducting health
     - [X] limit to 5 cards
-    - [ ] that the player has the mana to target
+    - [X] that the player has the mana to target
 - [X] highlight selected card
+- [ ] deselect other cards on highlight
 - [ ] phoenix backend
 - [ ] lobby
 - [ ] create a layer for mistles

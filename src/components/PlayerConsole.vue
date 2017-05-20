@@ -53,10 +53,11 @@
         ],
         watch: {
             selectedCardIndex: function(sel){
-                if(sel === -1){
-                    let len = this.cards.length;
-                    for (let i = 0; i < len; i++) {
-                        this.$refs.cards[i].isSel = false;
+                let len = this.cards.length;
+                for (let i = 0; i < len; i++) {
+                    this.$refs.cards[i].isSel = false;
+                    if(sel !== -1 && sel === i){
+                        this.$refs.cards[i].isSel = true;
                     }
                 }
             }
