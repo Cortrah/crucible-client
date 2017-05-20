@@ -1,7 +1,7 @@
 <template>
     <svg  x="0px" y="0px" viewBox="0 0 20 30"
           width="20px" height="30px"
-          @click="selected()"
+          @click="select()"
           :class="[isSel ? 'sel' : 'unsel']">
 
         <rect x="0" y="0" :fill="fill" :stroke="stroke" width="20" height="30"/>
@@ -20,22 +20,23 @@
         props: {
             faceVal: {
                 default: 0
-            }
+            },
+            myIndex: null,
+            selectedIndex: null,
         },
         data () {
             return {
-                isSel: false,
                 fill: "#393939",
                 stroke: "#ffffff"
             }
         },
+        computed: {
+          isSel: function() {
+              return (this.myIndex === this.selectedIndex);
+          }
+        },
         methods: {
-            selected: function () {
-                if(this.isSel == false){
-                    this.isSel = true;
-                } else {
-                    this.isSel = false;
-                }
+            select: function () {
                 this.$emit('SELECT_CARD', true)
             }
         }

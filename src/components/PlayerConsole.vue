@@ -17,7 +17,10 @@
 
         <span id="hand">
             <span v-for="(card, index) in this.cards" ref="cards">
-                <simple-card :faceVal="card" v-on:SELECT_CARD="selectCard(card, index)">
+                <simple-card :faceVal="card"
+                             :myIndex = index
+                             :selectedIndex = selectedCardIndex
+                             v-on:SELECT_CARD="selectCard(card, index)">
                 </simple-card>
             </span>
         </span>
@@ -51,17 +54,6 @@
             "bleedingOut",
             'startingDeckLength'
         ],
-        watch: {
-            selectedCardIndex: function(sel){
-                let len = this.cards.length;
-                for (let i = 0; i < len; i++) {
-                    this.$refs.cards[i].isSel = false;
-                    if(sel !== -1 && sel === i){
-                        this.$refs.cards[i].isSel = true;
-                    }
-                }
-            }
-        },
         methods: {
             selectCard: function (card, index) {
                 this.$emit("SELECT_CARD", card, index);

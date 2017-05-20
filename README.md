@@ -36,7 +36,7 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
     - [X] limit to 5 cards
     - [X] that the player has the mana to target
 - [X] highlight selected card
-- [ ] deselect other cards on highlight
+- [X] deselect other cards on highlight
 - [ ] phoenix backend
 - [ ] lobby
 - [ ] create a layer for mistles
