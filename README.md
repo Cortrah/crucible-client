@@ -42,6 +42,8 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [ ] create a layer for mistles
 - [ ] have a mistle go from one player to the other when launched
 - [ ] animate health, mana and deck counters
+- [ ] avatar images
+- [ ] card images
 
 ## V2
 - [ ] add shields
@@ -51,8 +53,6 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [ ] explosions
 - [ ] larger mistles
 - [ ] larger shields
-- [ ] avatar images
 - [ ] ships with avatars
-- [ ] card images
 - [ ] login/registration
 - [ ] Other Audio
