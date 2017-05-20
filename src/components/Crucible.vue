@@ -268,15 +268,16 @@
             },
             launchMistle: function(sourcePlayer, targetPlayer, card) {
                 // eventually the timer might be different for different cards or mistles
-                let mistle = new MisstleInFlight({
-                    propsData: {
-                        sourcePlayer: sourcePlayer,
-                        targetPlayer: targetPlayer,
-                        card: card,
-                        flightTime: this.game.rules.flightTime
-                    }
-                });
-                //this.inFlight.push(mistle);
+                let mistle = new Object();
+//                MistleInFlight({
+//                    propsData: {
+//                        sourcePlayer: sourcePlayer,
+//                        targetPlayer: targetPlayer,
+//                        card: card,
+//                        flightTime: this.game.rules.flightTime
+//                    }
+//                });
+                this.game.waypoint.inFlight.push(mistle);
                 setTimeout(this.mistleImpact, this.game.rules.flightTime, sourcePlayer, targetPlayer, card);
             },
             mistleImpact: function(sourcePlayer, targetPlayer, card){
