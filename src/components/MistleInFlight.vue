@@ -10,6 +10,7 @@
 </template>
 
 <script type="text/babel">
+    import {TweenMax} from "gsap";
 
     export default {
         name: "MistleInFlight",
@@ -24,6 +25,10 @@
                 fill: "#993946",
                 stroke: "#e5bc63",
             }
+        },
+        mounted: function() {
+            console.log("mistle mounted");
+            TweenMax.to(this.$el, 4, {x:300, y:300});
         }
     }
 </script>
@@ -31,7 +36,7 @@
 <style scoped>
     .mistle {
         position: fixed;
-        top: 0;
-        left: 0;
+        top:0;
+        left:0;
     }
 </style>

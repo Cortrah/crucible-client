@@ -21,7 +21,6 @@
     import Player from './Player'
     import Helm from './Helm'
     import MistleInFlight from './MistleInFlight'
-    import {TweenMax} from "gsap";
 
     export default {
         name: 'Crucible',
