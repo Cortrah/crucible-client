@@ -1,23 +1,23 @@
 <template>
     <div class="player-console" >
 
-        <div id="name" class="column">
+        <div id="name">
             {{ name }}
         </div>
 
-        <div id="health" class="column">
+        <div id="health">
             Health: {{ health }} of {{ maxHealth }}
         </div>
 
-        <div id="mana" class="column">
+        <div id="mana">
             Mana: {{ mana }} of {{ maxMana }}
         </div>
 
-        <div id="deck" class="column">
+        <div id="deck">
             Deck: {{ deck.length }} of {{ startingDeckLength }}
         </div>
 
-        <div id="hand" class="column">
+        <div id="hand">
             <span v-for="(card, index) in this.cards" ref="cards">
                 <simple-card class="simple-card"
                              :faceVal="card"
@@ -74,12 +74,6 @@
         align-items: center;
 
         color: #8bdce5;
-    }
-
-    .column {
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 10px solid transparent;
     }
 
     .simple-card {
