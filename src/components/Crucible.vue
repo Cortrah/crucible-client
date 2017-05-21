@@ -18,9 +18,12 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import Player from './Player'
     import Helm from './Helm'
     import MistleInFlight from './MistleInFlight'
+
+    Vue.component('mistle-in-flight', MistleInFlight);
 
     export default {
         name: 'Crucible',
@@ -229,7 +232,7 @@
                                 "active":true
                             },
                         ],
-                        "inFlight":[{}],
+                        "inFlight":[],
                         "trajectory":4
                     },
                     avatars:[
@@ -268,16 +271,12 @@
             },
             launchMistle: function(sourcePlayer, targetPlayer, card) {
                 // eventually the timer might be different for different cards or mistles
-                let mistle = new Object();
-//                MistleInFlight({
-//                    propsData: {
-//                        sourcePlayer: sourcePlayer,
-//                        targetPlayer: targetPlayer,
-//                        card: card,
-//                        flightTime: this.game.rules.flightTime
-//                    }
-//                });
-                this.game.waypoint.inFlight.push(mistle);
+                this.game.waypoint.inFlight.push({
+                    sourcePlayer: sourcePlayer,
+                    targetPlayer: targetPlayer,
+                    card: card,
+                    flightTime: this.game.rules.flightTime
+                });
                 setTimeout(this.mistleImpact, this.game.rules.flightTime, sourcePlayer, targetPlayer, card);
             },
             mistleImpact: function(sourcePlayer, targetPlayer, mistle){
