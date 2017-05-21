@@ -22,3 +22,9 @@ after all.
 
 so what do I default selectedCardIndex and myIndex to? null? -1? Zakas says not to use null
 but it seems to make sense here
+
+When instantiating a new mistle in flight it turned out that
+instead of instantiating it as a new component and pusing it onto the array
+which threw an error that it wasn't a proper constructor (import vs require?)
+I just pushed the props on the array as an object and that worked ok instead.
+strange but I guess it makes sense. Need to think about that some more though
