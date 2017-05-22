@@ -43,6 +43,7 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [ ] create a little explosion
 - [ ] larger mistles for larger values (grow as they come?)
 - [ ] animate health, mana and deck counters
+- [ ] tooltips for text details of health mana and deck counters
 - [ ] only target enemies with mistles
 - [ ] mark players as out when at 0 health
 - [ ] announce a winner at the end
