@@ -276,10 +276,10 @@
                 let sRect = sourcePlayerVm.$el.getBoundingClientRect();
                 let tRect = targetPlayerVm.$el.getBoundingClientRect();
                 this.game.waypoint.inFlight.push({
-                    sourceX: sRect.left,
-                    sourceY: sRect.top,
-                    targetX: tRect.left,
-                    targetY: tRect.top,
+                    sourceX: sRect.left + sRect.width/2,
+                    sourceY: sRect.top  + sRect.height/2,
+                    targetX: tRect.left + tRect.width/2,
+                    targetY: tRect.top + tRect.height/2,
                     card: card,
                     flightTime: this.game.rules.flightTime
                 });
