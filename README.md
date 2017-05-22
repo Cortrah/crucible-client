@@ -37,11 +37,19 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
     - [X] that the player has the mana to target
 - [X] highlight selected card
 - [X] deselect other cards on highlight
-- [ ] phoenix backend
-- [ ] lobby
 - [X] create a layer for mistles
 - [X] have a mistle go from one player to the other when launched
+- [ ] have mistles dissapear after detonating
+- [ ] create a little explosion
 - [ ] animate health, mana and deck counters
+- [ ] only target enemies with mistles
+- [ ] mark players as out when at 0 health
+- [ ] announce a winner at the end
+- [ ] have players bleed out when out of cards
+- [ ] phoenix backend
+- [ ] lobby
+- [ ] tween the arc a bit
+- [ ] launch sound
 - [ ] avatar images
 - [ ] card images
 
