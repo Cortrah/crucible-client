@@ -43,7 +43,7 @@
                         "drawRate":1/1,
                         "fireRate":2/1,
                         "bleedoutRate":1/2,
-                        "sheildDecayRate": 1/1
+                        "shieldDecayRate": 1/1
                     },
                     waypoint:{
                         "status": "playing",
@@ -276,6 +276,7 @@
                 let sRect = sourcePlayerVm.$el.getBoundingClientRect();
                 let tRect = targetPlayerVm.$el.getBoundingClientRect();
                 this.game.waypoint.inFlight.push({
+                    id: new Date(),
                     sourceX: sRect.left + sRect.width/2,
                     sourceY: sRect.top  + sRect.height/2,
                     targetX: tRect.left + tRect.width/2,

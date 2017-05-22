@@ -15,6 +15,9 @@
     export default {
         name: "MistleInFlight",
         props: {
+            "id":{
+                required: true
+            },
             "sourceX": {
                 default: 0
             },
@@ -22,10 +25,10 @@
                 default: 0
             },
             "targetX": {
-                default: 300
+                default: 0
             },
             "targetY": {
-                default: 300
+                default: 0
             },
             "card": {
                 default: 0
@@ -43,7 +46,10 @@
         mounted: function() {
             TweenMax.fromTo( this.$el, 4,
                 {x: this.sourceX, y: this.sourceY},
-                {x: this.targetX, y: this.targetY});
+                {x: this.targetX, y: this.targetY, ease: Power4.easeInOut, onComplete:this.onImpact});
+        },
+        onImpact: function() {
+            this.$emit("IMPACT", this.id)
         }
     }
 </script>

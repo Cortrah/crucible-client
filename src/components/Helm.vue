@@ -86,6 +86,7 @@
             <div class="mistles-container"
                  v-for="mistle in this.game.waypoint.inFlight">
                 <MistleInFlight
+                    :id = mistle.id
                     :sourceX = mistle.sourceX
                     :sourceY = mistle.sourceY
                     :targetX = mistle.targetX

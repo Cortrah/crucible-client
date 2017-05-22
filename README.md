@@ -39,14 +39,14 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] deselect other cards on highlight
 - [X] create a layer for mistles
 - [X] have a mistle go from one player to the other when launched
-- [ ] have mistles dissapear after detonating
+- [ ] only target enemies with mistles
+- [ ] mark players as out when at 0 health
+- [ ] announce a winner at the end
+- [ ] have mistles dissapear or become damage after detonating
 - [ ] create a little explosion
 - [ ] larger mistles for larger values (grow as they come?)
 - [ ] animate health, mana and deck counters
 - [ ] tooltips for text details of health mana and deck counters
-- [ ] only target enemies with mistles
-- [ ] mark players as out when at 0 health
-- [ ] announce a winner at the end
 - [ ] have players bleed out when out of cards
 - [ ] phoenix backend
 - [ ] lobby
