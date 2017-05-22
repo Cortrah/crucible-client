@@ -2,7 +2,7 @@
     <div class="crucible">
 
         <div class="players-container">
-            <helm playerId="0" :game="game"
+            <helm ref="helm" playerId="0" :game="game"
                   v-on:TARGET_PLAYER="targetPlayer"
                   v-on:DRAW_MISTLE="drawMistle"
                   v-on:DRAW_SHIELD="drawShield"
@@ -271,9 +271,15 @@
             },
             launchMistle: function(sourcePlayer, targetPlayer, card) {
                 // eventually the timer might be different for different cards or mistles
+                let sourcePlayerVm = this.$refs.helm.getPlayerVm(sourcePlayer.id);
+                let targetPlayerVm = this.$refs.helm.getPlayerVm(targetPlayer.id);
+                let sRect = sourcePlayerVm.$el.getBoundingClientRect();
+                let tRect = targetPlayerVm.$el.getBoundingClientRect();
                 this.game.waypoint.inFlight.push({
-                    sourcePlayer: sourcePlayer,
-                    targetPlayer: targetPlayer,
+                    sourceX: sRect.left,
+                    sourceY: sRect.top,
+                    targetX: tRect.left,
+                    targetY: tRect.top,
                     card: card,
                     flightTime: this.game.rules.flightTime
                 });

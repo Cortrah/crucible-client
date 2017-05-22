@@ -15,10 +15,24 @@
     export default {
         name: "MistleInFlight",
         props: {
-            "sourcePlayer": {},
-            "targetPlayer": {},
-            "card": 0,
-            "flightTime": 4000
+            "sourceX": {
+                default: 0
+            },
+            "sourceY": {
+                default: 0
+            },
+            "targetX": {
+                default: 300
+            },
+            "targetY": {
+                default: 300
+            },
+            "card": {
+                default: 0
+            },
+            "flightTime": {
+                default: 4
+            }
         },
         data(){
             return {
@@ -27,8 +41,9 @@
             }
         },
         mounted: function() {
-            console.log("mistle mounted");
-            TweenMax.to(this.$el, 4, {x:300, y:300});
+            TweenMax.fromTo( this.$el, 4,
+                {x: this.sourceX, y: this.sourceY},
+                {x: this.targetX, y: this.targetY});
         }
     }
 </script>

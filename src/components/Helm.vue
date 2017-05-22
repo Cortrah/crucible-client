@@ -4,7 +4,7 @@
         <div id="axis" class="team">
             <div class="team-container" v-for="player in this.game.waypoint.players">
                 <span v-if="player.team === 'Bad Guys'">
-                    <player ref = "opponents"
+                    <player ref = "enemies"
                             :id = player.id
                             :name = player.name
                             :team = player.team
@@ -83,8 +83,16 @@
         </div>
 
         <div id="mistles">
-            <div class="mistles-container" v-for="mistle in this.game.waypoint.inFlight">
-                <MistleInFlight></MistleInFlight>
+            <div class="mistles-container"
+                 v-for="mistle in this.game.waypoint.inFlight">
+                <MistleInFlight
+                    :sourceX = mistle.sourceX
+                    :sourceY = mistle.sourceY
+                    :targetX = mistle.targetX
+                    :targetY = mistle.targetY
+                    :card = mistle.card
+                    :flightTime = mistle.flightTime>
+                </MistleInFlight>
             </div>
         </div>
     </div>
@@ -128,6 +136,25 @@
             },
             players: function(){
                 return this.game.waypoint.players;
+            },
+            isEnemy: function(playerId){
+                return true;
+            },
+            isAllie: function(playerId){
+                return true;
+            },
+            getPlayerVm: function(playerId){
+                // for each in allies
+                for(let i = 0; i < this.$refs.enemies.length; i++){
+                    if (playerId === this.$refs.enemies[i].id){
+                        return this.$refs.enemies[i];
+                    }
+                }
+                for(let i = 0; i < this.$refs.allies.length; i++){
+                    if (playerId === this.$refs.allies[i].id){
+                        return this.$refs.allies[i];
+                    }
+                }
             }
         }
     }
