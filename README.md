@@ -39,8 +39,8 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] deselect other cards on highlight
 - [ ] phoenix backend
 - [ ] lobby
-- [ ] create a layer for mistles
-- [ ] have a mistle go from one player to the other when launched
+- [X] create a layer for mistles
+- [X] have a mistle go from one player to the other when launched
 - [ ] animate health, mana and deck counters
 - [ ] avatar images
 - [ ] card images
