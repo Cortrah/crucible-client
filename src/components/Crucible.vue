@@ -257,15 +257,17 @@
         },
         methods: {
             targetPlayer: function (sourceId, targetId) {
-                let sourcePlayer = this.game.waypoint.players[sourceId];
-                if(sourcePlayer.selectedCardIndex !== -1) {
-                    let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
-                    if(sourcePlayer.mana >= card){
-                        let targetPlayer = this.game.waypoint.players[targetId];
-                        sourcePlayer.mana -= card;
-                        sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
-                        sourcePlayer.selectedCardIndex = -1;
-                        this.launchMistle(sourcePlayer, targetPlayer, card)
+                if (this.areEnemies(sourceId, targetId) === true){
+                    let sourcePlayer = this.game.waypoint.players[sourceId];
+                    if(sourcePlayer.selectedCardIndex !== -1) {
+                        let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
+                        if(sourcePlayer.mana >= card){
+                            let targetPlayer = this.game.waypoint.players[targetId];
+                            sourcePlayer.mana -= card;
+                            sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
+                            sourcePlayer.selectedCardIndex = -1;
+                            this.launchMistle(sourcePlayer, targetPlayer, card)
+                        }
                     }
                 }
             },
@@ -288,6 +290,11 @@
             },
             mistleImpact: function(sourcePlayer, targetPlayer, mistle){
                 targetPlayer.health -= mistle;
+            },
+            areEnemies: function(player1Id, player2Id){
+                let p1 = this.game.waypoint.players[player1Id];
+                let p2 = this.game.waypoint.players[player2Id];
+                return (p1.team !== p2.team);
             },
             drawMistle: function(playerId){
                 let player = this.game.waypoint.players[playerId];

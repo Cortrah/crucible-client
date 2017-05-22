@@ -39,7 +39,7 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] deselect other cards on highlight
 - [X] create a layer for mistles
 - [X] have a mistle go from one player to the other when launched
-- [ ] only target enemies with mistles
+- [X] only target enemies with mistles
 - [ ] mark players as out when at 0 health
 - [ ] announce a winner at the end
 - [ ] have mistles dissapear or become damage after detonating
@@ -50,7 +50,7 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [ ] have players bleed out when out of cards
 - [ ] phoenix backend
 - [ ] lobby
-- [ ] tween the arc a bit
+- [X] tween the mistles flight a bit
 - [ ] launch sound
 - [ ] avatar images
 - [ ] card images
