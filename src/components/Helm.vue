@@ -117,14 +117,16 @@
         components: {Player, MistleInFlight, Portrait, PlayerConsole, StellarMap},
         data () {
             return {
-                name: this.name
+                name: this.name,
+                gameIntervalId: 0
             }
         },
+        created() {
+            this.gameIntervalId = setInterval(this.aiTick, 200);
+        },
         methods: {
-            created() {
-                this.gameIntervalId = setInterval(this.aiTick, 200);
-            },
             aiTick: function() {
+                console.log("ai tick");
                 let my = this.game.waypoint.players[this.playerId];
                 // if I have < 5 cards and more than 1 mana draw a card
                 if(my.cards.length < 5 && my.mana > 0){
@@ -135,14 +137,17 @@
                 for(var i = 0; i < my.cards.length; i++){
                     var card = my.cards[i];
                     if(card < mana){
+                        console.log("selecting " + card);
                         this.selectCard(card, i);
                     }
                 }
                 // choose an enemy that's still active
-                for(var i = 0; i < this.$refs.enemies.length; i++){
-                    var foe = this.$refs.enemies[i];
+                // if we are an enemy the enemy is my allie
+                for(var i = 0; i < this.$refs.allies.length; i++){
+                    var foe = this.$refs.allies[i];
                     if(foe.active === true){
                         // and fire at it
+                        console.log("targeting " + foe.name);
                         this.targetPlayer(foe.id);
                         // but only fire one maximum per tick
                         break;
