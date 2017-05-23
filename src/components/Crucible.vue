@@ -298,6 +298,8 @@
                 targetPlayer.health -= mistle;
                 if(targetPlayer.health <= 0){
                     targetPlayer.isActive = false;
+                    alert(sourcePlayer.team + " Win");
+                    this.endGame();
                 }
             },
             areEnemies: function(player1Id, player2Id){
