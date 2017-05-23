@@ -68,6 +68,7 @@
 <style scoped>
     .player-console {
         width: 700px;
+        height: 50px;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
