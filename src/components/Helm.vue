@@ -18,8 +18,8 @@
                             :deck = player.deck
                             :startingDeckLength = player.startingDeckLength
                             :drawEnabled = player.drawEnabled
-                            :bleedingOut = player.bleedingOut
-                            :active = player.active
+                            :isBleedingOut = player.isBleedingOut
+                            :isActive = player.isActive
                             @click = "targetPlayer(this.model.id, this.model.card)"
                             v-on:TARGETED = "targetPlayer">
                     </player>
@@ -48,8 +48,8 @@
                             :deck = player.deck
                             :startingDeckLength = player.startingDeckLength
                             :drawEnabled = player.drawEnabled
-                            :bleedingOut = player.bleedingOut
-                            :active = player.active
+                            :isBleedingOut = player.isBleedingOut
+                            :isActive = player.isActive
                             @click = "targetPlayer(this.id, this.card)"
                             v-on:TARGETED="targetPlayer">
                     </player>
@@ -73,8 +73,8 @@
                             :selectedCardIndex = this.game.waypoint.players[playerId].selectedCardIndex
                             :startingDeckLength = this.game.waypoint.players[playerId].startingDeckLength
                             :drawEnabled = this.game.waypoint.players[playerId].drawEnabled
-                            :bleedingOut = this.game.waypoint.players[playerId].bleedingOut
-                            :active = this.game.waypoint.players[playerId].active
+                            :isBleedingOut = this.game.waypoint.players[playerId].isBleedingOut
+                            :isActive = this.game.waypoint.players[playerId].isActive
                             v-on:SELECT_CARD="selectCard">
             </PlayerConsole>
 
@@ -143,7 +143,7 @@
                 if(my.team === "Good Guys"){
                     for(var i = 0; i < this.$refs.axis.length; i++){
                         var foe = this.$refs.axis[i];
-                        if(foe.active === true){
+                        if(foe.isActive === true){
                             // and fire at it
                             this.targetPlayer(foe.id);
                             // but only fire one maximum per tick
@@ -154,7 +154,7 @@
                     // if we are an enemy the enemy is my ally
                     for(var i = 0; i < this.$refs.allies.length; i++){
                         var foe = this.$refs.allies[i];
-                        if(foe.active === true){
+                        if(foe.isActive === true){
                             // and fire at it
                             this.targetPlayer(foe.id);
                             // but only fire one maximum per tick

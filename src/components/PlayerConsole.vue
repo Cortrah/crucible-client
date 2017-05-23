@@ -53,8 +53,8 @@
             "drawEnabled",
             "cards",
             "selectedCardIndex",
-            "active",
-            "bleedingOut",
+            "isActive",
+            "isBleedingOut",
             'startingDeckLength'
         ],
         methods: {

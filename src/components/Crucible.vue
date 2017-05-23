@@ -72,8 +72,8 @@
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
-                                "bleedingOut":false,
-                                "active":true
+                                "isbleedingOut":false,
+                                "isActive":true
                             },
                             {
                                 "id":1,
@@ -90,8 +90,8 @@
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
-                                "bleedingOut":false,
-                                "active":true
+                                "isbleedingOut":false,
+                                "isActive":true
                             },
                             {
                                 "id":2,
@@ -108,8 +108,8 @@
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
-                                "bleedingOut":false,
-                                "active":true
+                                "isbleedingOut":false,
+                                "isActive":true
                             },
                             {
                                 "id":3,
@@ -126,8 +126,8 @@
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
-                                "bleedingOut":false,
-                                "active":true
+                                "isbleedingOut":false,
+                                "isActive":true
                             },
                             {
                                 "id":4,
@@ -144,8 +144,8 @@
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
-                                "bleedingOut":false,
-                                "active":true
+                                "isbleedingOut":false,
+                                "isActive":true
                             },
                             {
                                 "id":5,
@@ -162,8 +162,8 @@
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
-                                "bleedingOut":false,
-                                "active":true
+                                "isbleedingOut":false,
+                                "isActive":true
                             },
                             {
                                 "id":6,
@@ -180,8 +180,8 @@
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
-                                "bleedingOut":false,
-                                "active":true
+                                "isbleedingOut":false,
+                                "isActive":true
                             },
                             {
                                 "id":7,
@@ -198,8 +198,8 @@
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
-                                "bleedingOut":false,
-                                "active":true
+                                "isbleedingOut":false,
+                                "isActive":true
                             },
                             {
                                 "id": 8,
@@ -216,8 +216,8 @@
                                 "deck": [0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8],
                                 "startingDeckLength": 20,
                                 "drawEnabled": false,
-                                "bleedingOut": false,
-                                "active": true
+                                "isbleedingOut": false,
+                                "isActive": true
                             },
                             {
                                 "id":9,
@@ -234,8 +234,8 @@
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
-                                "bleedingOut":false,
-                                "active":true
+                                "isbleedingOut":false,
+                                "isActive":true
                             },
                         ],
                         "inFlight":[],
@@ -296,6 +296,9 @@
             },
             mistleImpact: function(sourcePlayer, targetPlayer, mistle){
                 targetPlayer.health -= mistle;
+                if(targetPlayer.health <= 0){
+                    targetPlayer.isActive = false;
+                }
             },
             areEnemies: function(player1Id, player2Id){
                 let p1 = this.game.waypoint.players[player1Id];

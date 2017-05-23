@@ -42,9 +42,10 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] only target enemies with mistles
 - [X] tween the mistles flight a bit
 - [X] simple ai for a single player game
-- [ ] mark players as out when at 0 health
+- [X] mark players as out when at 0 health
+- [ ] stop actions when player is out
 - [ ] announce a winner at the end
-- [ ] have players bleed out when out of cards'
+- [ ] have players bleed out when out of cards
 
 - [ ] animate health, mana and deck counters
 - [ ] tooltips for text details of health mana and deck counters

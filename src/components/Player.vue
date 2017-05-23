@@ -1,5 +1,5 @@
 <template>
-    <div class="player" >
+    <div class="player" v-bind:class="{ inactive: !isActive }" >
 
         <div id="health">
             Health: {{ health }} of {{ maxHealth }}
@@ -40,8 +40,8 @@
             "drawEnabled",
             "cards",
             "selectedCardIndex",
-            "active",
-            "bleedingOut",
+            "isActive",
+            "isBleedingOut",
             'startingDeckLength'
         ],
         methods: {
@@ -65,6 +65,10 @@
     button {
         margin:0px;
         padding:1px;
+    }
+
+    .inactive {
+        opacity: .4;
     }
 
     img {
