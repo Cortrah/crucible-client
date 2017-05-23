@@ -128,9 +128,14 @@
         created() {
             this.gameIntervalId = setInterval(this.tick, 200);
         },
+        computed: {
+            self: function () {
+                return this.game.waypoint.players[this.playerId];
+            }
+        },
         methods: {
             tick: function() {
-                if(this.game.waypoint.status === "PLAYING"){
+                if(self.isActive && this.game.waypoint.status === "PLAYING"){
                     let my = this.game.waypoint.players[this.playerId];
                     // if I have < 5 cards and more than 1 mana draw a card
                     if(my.cards.length < 5 && my.mana > 0){
@@ -172,24 +177,24 @@
                 }
             },
             drawMistle: function () {
-                if(this.game.waypoint.status === "PLAYING"){
+                if(self.isActive && this.game.waypoint.status === "PLAYING"){
                     if(this.game.waypoint.players[this.playerId].cards.length < 5){
                         this.$emit("DRAW_MISTLE", this.playerId);
                     }
                 }
             },
             drawShield: function () {
-                if(this.game.waypoint.status === "PLAYING"){
+                if(self.isActive && this.game.waypoint.status === "PLAYING"){
                     this.$emit("DRAW_SHIELD", this.playerId);
                 }
             },
             selectCard: function (card, index) {
-                if(this.game.waypoint.status === "PLAYING"){
+                if(self.isActive && this.game.waypoint.status === "PLAYING"){
                     this.$emit("SELECT_CARD", this.playerId, index);
                 }
             },
             targetPlayer: function (targetId) {
-                if(this.game.waypoint.status === "PLAYING"){
+                if(self.isActive && this.game.waypoint.status === "PLAYING"){
                     this.$emit("TARGET_PLAYER", this.playerId, targetId);
                 }
             },

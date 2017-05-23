@@ -59,7 +59,7 @@
         ],
         methods: {
             selectCard: function (card, index) {
-                if(this.game.waypoint.status === "PLAYING") {
+                if(this.isActive && this.game.waypoint.status === "PLAYING") {
                     this.$emit("SELECT_CARD", card, index);
                 }
             }

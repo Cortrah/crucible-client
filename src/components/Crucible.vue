@@ -53,7 +53,7 @@
                     },
                     waypoint:{
                         "status": "PLAYING",
-                        "winner": "",
+                        "winner": "No",
                         "timer":0,
                         "commands":[],
                         "events":[],
@@ -279,29 +279,31 @@
                 }
             },
             launchMistle: function(sourcePlayer, targetPlayer, card) {
-                // eventually the timer might be different for different cards or mistles
-                let sourcePlayerVm = this.$refs.helm.getPlayerVm(sourcePlayer.id);
-                let targetPlayerVm = this.$refs.helm.getPlayerVm(targetPlayer.id);
-                let sRect = sourcePlayerVm.$el.getBoundingClientRect();
-                let tRect = targetPlayerVm.$el.getBoundingClientRect();
-                this.game.waypoint.inFlight.push({
-                    id: new Date(),
-                    sourceX: sRect.left + sRect.width/2,
-                    sourceY: sRect.top  + sRect.height/2,
-                    targetX: tRect.left + tRect.width/2,
-                    targetY: tRect.top + tRect.height/2,
-                    card: card,
-                    flightTime: this.game.rules.flightTime
-                });
-                setTimeout(this.mistleImpact, this.game.rules.flightTime, sourcePlayer, targetPlayer, card);
+                if(sourcePlayer.isActive){
+                    // eventually the timer might be different for different cards or mistles
+                    let sourcePlayerVm = this.$refs.helm.getPlayerVm(sourcePlayer.id);
+                    let targetPlayerVm = this.$refs.helm.getPlayerVm(targetPlayer.id);
+                    let sRect = sourcePlayerVm.$el.getBoundingClientRect();
+                    let tRect = targetPlayerVm.$el.getBoundingClientRect();
+                    this.game.waypoint.inFlight.push({
+                        id: new Date(),
+                        sourceX: sRect.left + sRect.width/2,
+                        sourceY: sRect.top  + sRect.height/2,
+                        targetX: tRect.left + tRect.width/2,
+                        targetY: tRect.top + tRect.height/2,
+                        card: card,
+                        flightTime: this.game.rules.flightTime
+                    });
+                    setTimeout(this.mistleImpact, this.game.rules.flightTime, sourcePlayer, targetPlayer, card);
+                }
             },
             mistleImpact: function(sourcePlayer, targetPlayer, mistle){
                 if(this.game.waypoint.status === "PLAYING") {
                     targetPlayer.health -= mistle;
                     if (targetPlayer.health <= 0) {
                         targetPlayer.isActive = false;
-                        this.game.waypoint.winner = sourcePlayer.team;
-                        this.endGame();
+                        //this.game.waypoint.winner = sourcePlayer.team;
+                        //this.endGame();
                     }
                 }
             },
@@ -364,6 +366,9 @@
                     }
                     if(player.mana < player.maxMana){
                         player.mana++;
+                    }
+                    if(player.deck <= 0 && player.cards === 0 && player.isActive){
+                        player.health--;
                     }
                 })
             },

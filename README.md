@@ -45,8 +45,7 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] mark players as out when at 0 health
 - [X] stop actions when player is out
 - [X] announce a winner at the end
-- [ ] have players bleed out when out of cards
-
+- [X] have players bleed out when out of cards
 - [ ] animate health, mana and deck counters
 - [ ] tooltips for text details of health mana and deck counters
 - [ ] have mistles dissapear or become damage after detonating
