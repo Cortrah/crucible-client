@@ -121,6 +121,34 @@
             }
         },
         methods: {
+            created() {
+                this.gameIntervalId = setInterval(this.aiTick, 200);
+            },
+            aiTick: function() {
+                let my = this.game.waypoint.players[this.playerId];
+                // if I have < 5 cards and more than 1 mana draw a card
+                if(my.cards.length < 5 && my.mana > 0){
+                    this.drawMistle();
+                }
+                let mana = my.mana - 1;
+                // if I have cards and enough mana to fire a mistle
+                for(var i = 0; i < my.cards.length; i++){
+                    var card = my.cards[i];
+                    if(card < mana){
+                        this.selectCard(card, i);
+                    }
+                }
+                // choose an enemy that's still active
+                for(var i = 0; i < this.$refs.enemies.length; i++){
+                    var foe = this.$refs.enemies[i];
+                    if(foe.active === true){
+                        // and fire at it
+                        this.targetPlayer(foe.id);
+                        // but only fire one maximum per tick
+                        break;
+                    }
+                }
+            },
             drawMistle: function () {
                 if(this.game.waypoint.players[this.playerId].cards.length < 5){
                     this.$emit("DRAW_MISTLE", this.playerId);

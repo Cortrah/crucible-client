@@ -1,6 +1,10 @@
 <template>
     <div class="crucible">
 
+        <button @click="startGame()">Start Game</button>
+        <button @click="endGame()">End Game</button>
+        <span>{{ timeRunning }}</span>
+
         <div class="players-container">
             <helm ref="helm" playerId="0" :game="game"
                   v-on:TARGET_PLAYER="targetPlayer"
@@ -9,10 +13,6 @@
                   v-on:SELECT_CARD="selectCard" >
             </helm>
         </div>
-
-        <button @click="startGame()">Start Game</button>
-        <button @click="endGame()">End Game</button>
-        <span>{{ timeRunning }}</span>
 
     </div>
 </template>
@@ -257,7 +257,7 @@
         },
         methods: {
             targetPlayer: function (sourceId, targetId) {
-                if (this.areEnemies(sourceId, targetId) === true){
+                if (this.areEnemies(sourceId, targetId)){
                     let sourcePlayer = this.game.waypoint.players[sourceId];
                     if(sourcePlayer.selectedCardIndex !== -1) {
                         let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
