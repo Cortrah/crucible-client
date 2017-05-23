@@ -43,7 +43,7 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] tween the mistles flight a bit
 - [X] simple ai for a single player game
 - [X] mark players as out when at 0 health
-- [ ] stop actions when player is out
+- [X] stop actions when player is out
 - [X] announce a winner at the end
 - [ ] have players bleed out when out of cards
 

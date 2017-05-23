@@ -46,7 +46,9 @@
         ],
         methods: {
             targeted: function () {
-                this.$emit("TARGETED", this.id);
+                if(this.game.waypoint.status === "PLAYING"){
+                    this.$emit("TARGETED", this.id);
+                }
             }
         }
     }

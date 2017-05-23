@@ -2,7 +2,7 @@
     <div class="helm">
 
         <div id="axis" class="team">
-            <div class="team-container" v-for="player in this.game.waypoint.players">
+            <div class="team-container" v-for="player in game.waypoint.players">
                 <span v-if="player.team === 'Bad Guys'">
                     <player ref = "axis"
                             :id = player.id
@@ -31,8 +31,12 @@
             <stellar-map></stellar-map>
         </div>
 
+        <div v-if="game.waypoint.status === 'OVER'">
+            {{game.waypoint.winner}} Win
+        </div>
+
         <div id="allies" class="team">
-            <div class="team-container" v-for="player in this.game.waypoint.players">
+            <div class="team-container" v-for="player in game.waypoint.players">
                 <span v-if="player.team === 'Good Guys'">
                     <player ref="allies"
                             :id = player.id
@@ -60,21 +64,21 @@
         <div class="console">
             <PlayerConsole  ref="player-console"
                             :id = playerId
-                            :name = this.game.waypoint.players[playerId].name
-                            :team = this.game.waypoint.players[playerId].team
+                            :name = game.waypoint.players[playerId].name
+                            :team = game.waypoint.players[playerId].team
                             avatarImg = "../static/horizontal_control.png"
-                            :maxMana = this.game.waypoint.players[playerId].maxMana
-                            :mana = this.game.waypoint.players[playerId].mana
-                            :maxHealth = this.game.waypoint.players[playerId].maxHealth
-                            :health = this.game.waypoint.players[playerId].health
-                            :shields = this.game.waypoint.players[playerId].shields
-                            :cards = this.game.waypoint.players[playerId].cards
-                            :deck = this.game.waypoint.players[playerId].deck
-                            :selectedCardIndex = this.game.waypoint.players[playerId].selectedCardIndex
-                            :startingDeckLength = this.game.waypoint.players[playerId].startingDeckLength
-                            :drawEnabled = this.game.waypoint.players[playerId].drawEnabled
-                            :isBleedingOut = this.game.waypoint.players[playerId].isBleedingOut
-                            :isActive = this.game.waypoint.players[playerId].isActive
+                            :maxMana = game.waypoint.players[playerId].maxMana
+                            :mana = game.waypoint.players[playerId].mana
+                            :maxHealth = game.waypoint.players[playerId].maxHealth
+                            :health = game.waypoint.players[playerId].health
+                            :shields = game.waypoint.players[playerId].shields
+                            :cards = game.waypoint.players[playerId].cards
+                            :deck = game.waypoint.players[playerId].deck
+                            :selectedCardIndex = game.waypoint.players[playerId].selectedCardIndex
+                            :startingDeckLength = game.waypoint.players[playerId].startingDeckLength
+                            :drawEnabled = game.waypoint.players[playerId].drawEnabled
+                            :isBleedingOut = game.waypoint.players[playerId].isBleedingOut
+                            :isActive = game.waypoint.players[playerId].isActive
                             v-on:SELECT_CARD="selectCard">
             </PlayerConsole>
 
@@ -84,7 +88,7 @@
 
         <div id="mistles">
             <div class="mistles-container"
-                 v-for="mistle in this.game.waypoint.inFlight">
+                 v-for="mistle in game.waypoint.inFlight">
                 <MistleInFlight
                     :id = mistle.id
                     :sourceX = mistle.sourceX
@@ -126,65 +130,71 @@
         },
         methods: {
             tick: function() {
-                let my = this.game.waypoint.players[this.playerId];
-                // if I have < 5 cards and more than 1 mana draw a card
-                if(my.cards.length < 5 && my.mana > 0){
-                    this.drawMistle();
-                }
-                let mana = my.mana - 1;
-                // if I have cards and enough mana to fire a mistle
-                for(var i = 0; i < my.cards.length; i++){
-                    var card = my.cards[i];
-                    if(card < mana){
-                        this.selectCard(card, i);
+                if(this.game.waypoint.status === "PLAYING"){
+                    let my = this.game.waypoint.players[this.playerId];
+                    // if I have < 5 cards and more than 1 mana draw a card
+                    if(my.cards.length < 5 && my.mana > 0){
+                        this.drawMistle();
                     }
-                }
-                // choose an enemy that's still active
-                if(my.team === "Good Guys"){
-                    for(var i = 0; i < this.$refs.axis.length; i++){
-                        var foe = this.$refs.axis[i];
-                        if(foe.isActive === true){
-                            // and fire at it
-                            this.targetPlayer(foe.id);
-                            // but only fire one maximum per tick
-                            break;
+                    let mana = my.mana - 1;
+                    // if I have cards and enough mana to fire a mistle
+                    for(var i = 0; i < my.cards.length; i++){
+                        var card = my.cards[i];
+                        if(card < mana){
+                            this.selectCard(card, i);
+                        }
+                    }
+                    // choose an enemy that's still active
+                    if(my.team === "Good Guys"){
+                        for(var i = 0; i < this.$refs.axis.length; i++){
+                            var foe = this.$refs.axis[i];
+                            if(foe.isActive === true){
+                                // and fire at it
+                                this.targetPlayer(foe.id);
+                                // but only fire one maximum per tick
+                                break;
+                            }
+                        }
+                    } else {
+                        // if we are an enemy the enemy is my ally
+                        for(var i = 0; i < this.$refs.allies.length; i++){
+                            var foe = this.$refs.allies[i];
+                            if(foe.isActive === true){
+                                // and fire at it
+                                this.targetPlayer(foe.id);
+                                // but only fire one maximum per tick
+                                break;
+                            }
                         }
                     }
                 } else {
-                    // if we are an enemy the enemy is my ally
-                    for(var i = 0; i < this.$refs.allies.length; i++){
-                        var foe = this.$refs.allies[i];
-                        if(foe.isActive === true){
-                            // and fire at it
-                            this.targetPlayer(foe.id);
-                            // but only fire one maximum per tick
-                            break;
-                        }
-                    }
+                    clearInterval(this.gameIntervalId);
                 }
             },
             drawMistle: function () {
-                if(this.game.waypoint.players[this.playerId].cards.length < 5){
-                    this.$emit("DRAW_MISTLE", this.playerId);
+                if(this.game.waypoint.status === "PLAYING"){
+                    if(this.game.waypoint.players[this.playerId].cards.length < 5){
+                        this.$emit("DRAW_MISTLE", this.playerId);
+                    }
                 }
             },
             drawShield: function () {
-                this.$emit("DRAW_SHIELD", this.playerId);
+                if(this.game.waypoint.status === "PLAYING"){
+                    this.$emit("DRAW_SHIELD", this.playerId);
+                }
             },
             selectCard: function (card, index) {
-                this.$emit("SELECT_CARD", this.playerId, index);
+                if(this.game.waypoint.status === "PLAYING"){
+                    this.$emit("SELECT_CARD", this.playerId, index);
+                }
             },
             targetPlayer: function (targetId) {
-                this.$emit("TARGET_PLAYER", this.playerId, targetId);
+                if(this.game.waypoint.status === "PLAYING"){
+                    this.$emit("TARGET_PLAYER", this.playerId, targetId);
+                }
             },
             players: function(){
                 return this.game.waypoint.players;
-            },
-            isEnemy: function(playerId){
-                return true;
-            },
-            isAlly: function(playerId){
-                return true;
             },
             getPlayerVm: function(playerId){
                 // for each in allies

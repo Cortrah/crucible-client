@@ -52,7 +52,8 @@
                         "shieldDecayRate": 1/1
                     },
                     waypoint:{
-                        "status": "playing",
+                        "status": "PLAYING",
+                        "winner": "",
                         "timer":0,
                         "commands":[],
                         "events":[],
@@ -295,11 +296,13 @@
                 setTimeout(this.mistleImpact, this.game.rules.flightTime, sourcePlayer, targetPlayer, card);
             },
             mistleImpact: function(sourcePlayer, targetPlayer, mistle){
-                targetPlayer.health -= mistle;
-                if(targetPlayer.health <= 0){
-                    targetPlayer.isActive = false;
-                    alert(sourcePlayer.team + " Win");
-                    this.endGame();
+                if(this.game.waypoint.status === "PLAYING") {
+                    targetPlayer.health -= mistle;
+                    if (targetPlayer.health <= 0) {
+                        targetPlayer.isActive = false;
+                        this.game.waypoint.winner = sourcePlayer.team;
+                        this.endGame();
+                    }
                 }
             },
             areEnemies: function(player1Id, player2Id){
@@ -365,7 +368,9 @@
                 })
             },
             endGame: function() {
+                this.game.waypoint.status = "OVER";
                 clearInterval(this.gameIntervalId);
+                clearInterval(this.manaIntervalId);
             }
         }
     }

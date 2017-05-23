@@ -59,7 +59,9 @@
         ],
         methods: {
             selectCard: function (card, index) {
-                this.$emit("SELECT_CARD", card, index);
+                if(this.game.waypoint.status === "PLAYING") {
+                    this.$emit("SELECT_CARD", card, index);
+                }
             }
         }
     }
