@@ -4,7 +4,7 @@
         <div id="axis" class="team">
             <div class="team-container" v-for="player in this.game.waypoint.players">
                 <span v-if="player.team === 'Bad Guys'">
-                    <player ref = "enemies"
+                    <player ref = "axis"
                             :id = player.id
                             :name = player.name
                             :team = player.team
@@ -122,11 +122,10 @@
             }
         },
         created() {
-            this.gameIntervalId = setInterval(this.aiTick, 200);
+            this.gameIntervalId = setInterval(this.tick, 200);
         },
         methods: {
-            aiTick: function() {
-                console.log("ai tick");
+            tick: function() {
                 let my = this.game.waypoint.players[this.playerId];
                 // if I have < 5 cards and more than 1 mana draw a card
                 if(my.cards.length < 5 && my.mana > 0){
@@ -137,20 +136,30 @@
                 for(var i = 0; i < my.cards.length; i++){
                     var card = my.cards[i];
                     if(card < mana){
-                        console.log("selecting " + card);
                         this.selectCard(card, i);
                     }
                 }
                 // choose an enemy that's still active
-                // if we are an enemy the enemy is my allie
-                for(var i = 0; i < this.$refs.allies.length; i++){
-                    var foe = this.$refs.allies[i];
-                    if(foe.active === true){
-                        // and fire at it
-                        console.log("targeting " + foe.name);
-                        this.targetPlayer(foe.id);
-                        // but only fire one maximum per tick
-                        break;
+                if(my.team === "Good Guys"){
+                    for(var i = 0; i < this.$refs.axis.length; i++){
+                        var foe = this.$refs.axis[i];
+                        if(foe.active === true){
+                            // and fire at it
+                            this.targetPlayer(foe.id);
+                            // but only fire one maximum per tick
+                            break;
+                        }
+                    }
+                } else {
+                    // if we are an enemy the enemy is my ally
+                    for(var i = 0; i < this.$refs.allies.length; i++){
+                        var foe = this.$refs.allies[i];
+                        if(foe.active === true){
+                            // and fire at it
+                            this.targetPlayer(foe.id);
+                            // but only fire one maximum per tick
+                            break;
+                        }
                     }
                 }
             },
@@ -174,14 +183,14 @@
             isEnemy: function(playerId){
                 return true;
             },
-            isAllie: function(playerId){
+            isAlly: function(playerId){
                 return true;
             },
             getPlayerVm: function(playerId){
                 // for each in allies
-                for(let i = 0; i < this.$refs.enemies.length; i++){
-                    if (playerId === this.$refs.enemies[i].id){
-                        return this.$refs.enemies[i];
+                for(let i = 0; i < this.$refs.axis.length; i++){
+                    if (playerId === this.$refs.axis[i].id){
+                        return this.$refs.axis[i];
                     }
                 }
                 for(let i = 0; i < this.$refs.allies.length; i++){
