@@ -135,6 +135,7 @@
         },
         methods: {
             tick: function() {
+                var self = this.game.waypoint.players[this.playerId];
                 if(self.isActive && this.game.waypoint.status === "PLAYING"){
                     let my = this.game.waypoint.players[this.playerId];
                     // if I have < 5 cards and more than 1 mana draw a card
@@ -177,8 +178,9 @@
                 }
             },
             drawMistle: function () {
+                let self = this.game.waypoint.players[this.playerId];
                 if(self.isActive && this.game.waypoint.status === "PLAYING"){
-                    if(this.game.waypoint.players[this.playerId].cards.length < 5){
+                    if(self.cards.length < 5 && self.deck.length > 0){
                         this.$emit("DRAW_MISTLE", this.playerId);
                     }
                 }
@@ -189,11 +191,13 @@
                 }
             },
             selectCard: function (card, index) {
+                let self = this.game.waypoint.players[this.playerId];
                 if(self.isActive && this.game.waypoint.status === "PLAYING"){
                     this.$emit("SELECT_CARD", this.playerId, index);
                 }
             },
             targetPlayer: function (targetId) {
+                let self = this.game.waypoint.players[this.playerId];
                 if(self.isActive && this.game.waypoint.status === "PLAYING"){
                     this.$emit("TARGET_PLAYER", this.playerId, targetId);
                 }

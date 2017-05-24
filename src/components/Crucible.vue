@@ -214,7 +214,7 @@
                                 "shields": [0],
                                 "cards": [],
                                 "selectedCardIndex":null,
-                                "deck": [0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8],
+                                "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
                                 "startingDeckLength": 20,
                                 "drawEnabled": false,
                                 "isbleedingOut": false,
@@ -299,7 +299,7 @@
             },
             mistleImpact: function(sourcePlayer, targetPlayer, mistle){
                 if(this.game.waypoint.status === "PLAYING") {
-                    targetPlayer.health -= mistle;
+                    targetPlayer.health = Math.max(0, targetPlayer.health - mistle);
                     if (targetPlayer.health <= 0) {
                         targetPlayer.isActive = false;
                         //this.game.waypoint.winner = sourcePlayer.team;
@@ -314,7 +314,7 @@
             },
             drawMistle: function(playerId){
                 let player = this.game.waypoint.players[playerId];
-                if(player.mana >= 1) {
+                if(player.mana >= 1 && player.deck.length > 0) {
                     let drawn = player.deck[0];
                     player.cards.push(drawn);
                     player.deck.splice(0, 1);
@@ -367,7 +367,7 @@
                     if(player.mana < player.maxMana){
                         player.mana++;
                     }
-                    if(player.deck <= 0 && player.cards === 0 && player.isActive){
+                    if(player.deck.length <= 0 && player.cards.length === 0 && player.isActive){
                         player.health--;
                     }
                 })

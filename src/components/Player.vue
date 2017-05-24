@@ -17,7 +17,7 @@
 
         <span id="hand">
             <span v-for="(card, index) in this.cards">
-                <button>{{ card }}</button>
+                <span class="card">{{ card }}</span>
             </span>
         </span>
     </div>
@@ -64,9 +64,9 @@
         color: aliceblue;
     }
 
-    button {
+    .card {
         margin:0px;
-        padding:1px;
+        padding:2px;
     }
 
     .inactive {
