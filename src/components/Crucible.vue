@@ -27,9 +27,6 @@
     import Vue from 'vue'
     import Player from './Player'
     import Helm from './Helm'
-    import MistleInFlight from './MistleInFlight'
-
-    Vue.component('mistle-in-flight', MistleInFlight);
 
     export default {
         name: 'Crucible',
@@ -263,6 +260,25 @@
             }
         },
         methods: {
+            drawMistle: function(playerId){
+                let player = this.game.waypoint.players[playerId];
+                if(player.mana >= 1 && player.deck.length > 0) {
+                    let drawn = player.deck[0];
+                    player.cards.push(drawn);
+                    player.deck.splice(0, 1);
+                    player.mana--;
+                }
+            },
+            drawShield: function(playerId){
+                //let player = this.game.waypoint.players[playerId];
+                //let shield = new Shield(player.deck[0]);
+                //player.cards.push(shield);
+                //player.deck.splice(0,1);
+            },
+            selectCard: function(playerId, cardIndex){
+                let player = this.game.waypoint.players[playerId];
+                player.selectedCardIndex = cardIndex;
+            },
             targetPlayer: function (sourceId, targetId) {
                 if (this.areEnemies(sourceId, targetId)){
                     let sourcePlayer = this.game.waypoint.players[sourceId];
@@ -311,25 +327,6 @@
                 let p1 = this.game.waypoint.players[player1Id];
                 let p2 = this.game.waypoint.players[player2Id];
                 return (p1.team !== p2.team);
-            },
-            drawMistle: function(playerId){
-                let player = this.game.waypoint.players[playerId];
-                if(player.mana >= 1 && player.deck.length > 0) {
-                    let drawn = player.deck[0];
-                    player.cards.push(drawn);
-                    player.deck.splice(0, 1);
-                    player.mana--;
-                }
-            },
-            drawShield: function(playerId){
-                //let player = this.game.waypoint.players[playerId];
-                //let shield = new Shield(player.deck[0]);
-                //player.cards.push(shield);
-                //player.deck.splice(0,1);
-            },
-            selectCard: function(playerId, cardIndex){
-                let player = this.game.waypoint.players[playerId];
-                player.selectedCardIndex = cardIndex;
             },
             shuffle: function(array) {
                 let remaining = array.length;
