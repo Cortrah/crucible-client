@@ -41,12 +41,12 @@
                         "startingHandSize": 0,
                         "maxCards":5,
                         "flightTime": 4000,
-                        "manaGrowthRate":1/3,
-                        "manaReplentishRate":1/1,
-                        "drawRate":1/1,
-                        "fireRate":2/1,
-                        "bleedoutRate":1/2,
-                        "shieldDecayRate": 1/1
+                        "manaGrowthInterval":1000,
+                        "manaReplentishInterval":1000,
+                        "drawInterval":1000,
+                        "fireInterval":500,
+                        "bleedoutInterval":1000,
+                        "shieldDecayInterval": 1000
                     },
                     waypoint:{
                         "status": "PLAYING",
