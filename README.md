@@ -46,10 +46,6 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] stop actions when player is out
 - [X] announce a winner at the end
 - [X] have players bleed out when out of cards
-- [ ] phoenix backend
-    - [ ] spec messages
-    - [ ] fix id/s and structures
-    - [ ] split pseudo server and have only one player per client
 - [ ] lobby
     - [ ] login
     - [ ] create lobby
@@ -57,6 +53,11 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
     - [ ] create tabletop (also determines host)
     - [ ] choose a side
     - [ ] host starts game
+    - [ ] ai takes over remaining slots
+- [ ] phoenix backend
+    - [ ] spec messages
+    - [ ] fix id/s and structures
+    - [ ] split pseudo server and have only one player per client
 - [ ] animate health, mana and deck counters
 - [ ] tooltips for text details of health mana and deck counters
 - [ ] have mistles dissapear or become damage after detonating
