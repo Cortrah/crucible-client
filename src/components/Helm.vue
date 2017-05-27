@@ -16,7 +16,7 @@
                             :shields = player.shields
                             :cards = player.cards
                             :deck = player.deck
-                            :startingDeckLength = player.startingDeckLength
+                            :startingDeckLength = game.rules.deck.length
                             :drawEnabled = player.drawEnabled
                             :isBleedingOut = player.isBleedingOut
                             :isActive = player.isActive
@@ -50,7 +50,7 @@
                             :shields = player.shields
                             :cards = player.cards
                             :deck = player.deck
-                            :startingDeckLength = player.startingDeckLength
+                            :startingDeckLength = game.rules.deck.length
                             :drawEnabled = player.drawEnabled
                             :isBleedingOut = player.isBleedingOut
                             :isActive = player.isActive
@@ -75,7 +75,7 @@
                             :cards = game.waypoint.players[playerId].cards
                             :deck = game.waypoint.players[playerId].deck
                             :selectedCardIndex = game.waypoint.players[playerId].selectedCardIndex
-                            :startingDeckLength = game.waypoint.players[playerId].startingDeckLength
+                            :startingDeckLength = game.rules.deck.length
                             :drawEnabled = game.waypoint.players[playerId].drawEnabled
                             :isBleedingOut = game.waypoint.players[playerId].isBleedingOut
                             :isActive = game.waypoint.players[playerId].isActive
