@@ -46,11 +46,6 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] stop actions when player is out
 - [X] announce a winner at the end
 - [X] have players bleed out when out of cards
-- [ ] animate health, mana and deck counters
-- [ ] tooltips for text details of health mana and deck counters
-- [ ] have mistles dissapear or become damage after detonating
-- [ ] create a little explosion
-- [ ] larger mistles for larger values (grow as they come?)
 - [ ] phoenix backend
     - [ ] spec messages
     - [ ] fix id/s and structures
@@ -62,6 +57,11 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
     - [ ] create tabletop (also determines host)
     - [ ] choose a side
     - [ ] host starts game
+- [ ] animate health, mana and deck counters
+- [ ] tooltips for text details of health mana and deck counters
+- [ ] have mistles dissapear or become damage after detonating
+- [ ] create a little explosion
+- [ ] larger mistles for larger values (grow as they come?)
 - [ ] launch sound
 - [ ] avatar images
 - [ ] card images
