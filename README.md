@@ -52,7 +52,16 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [ ] create a little explosion
 - [ ] larger mistles for larger values (grow as they come?)
 - [ ] phoenix backend
+    - [ ] spec messages
+    - [ ] fix id/s and structures
+    - [ ] split pseudo server and have only one player per client
 - [ ] lobby
+    - [ ] login
+    - [ ] create lobby
+    - [ ] chose avatar in profile
+    - [ ] create tabletop (also determines host)
+    - [ ] choose a side
+    - [ ] host starts game
 - [ ] launch sound
 - [ ] avatar images
 - [ ] card images
