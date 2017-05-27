@@ -16,7 +16,7 @@
                             :shields = player.shields
                             :cards = player.cards
                             :deck = player.deck
-                            :startingDeckLength = game.rules.deck.length
+                            :startingDeckLength = game.rules.startingDeck.length
                             :drawEnabled = player.drawEnabled
                             :isBleedingOut = player.isBleedingOut
                             :isActive = player.isActive
@@ -50,7 +50,7 @@
                             :shields = player.shields
                             :cards = player.cards
                             :deck = player.deck
-                            :startingDeckLength = game.rules.deck.length
+                            :startingDeckLength = game.rules.startingDeck.length
                             :drawEnabled = player.drawEnabled
                             :isBleedingOut = player.isBleedingOut
                             :isActive = player.isActive
@@ -66,7 +66,7 @@
                             :id = playerId
                             :name = game.waypoint.players[playerId].name
                             :team = game.waypoint.players[playerId].team
-                            avatarImg = "../static/horizontal_control.png"
+                            avatarImg = '../../static/horizontal_control.png'
                             :maxMana = game.waypoint.players[playerId].maxMana
                             :mana = game.waypoint.players[playerId].mana
                             :maxHealth = game.waypoint.players[playerId].maxHealth
@@ -75,7 +75,7 @@
                             :cards = game.waypoint.players[playerId].cards
                             :deck = game.waypoint.players[playerId].deck
                             :selectedCardIndex = game.waypoint.players[playerId].selectedCardIndex
-                            :startingDeckLength = game.rules.deck.length
+                            :startingDeckLength = game.rules.startingDeck.length
                             :drawEnabled = game.waypoint.players[playerId].drawEnabled
                             :isBleedingOut = game.waypoint.players[playerId].isBleedingOut
                             :isActive = game.waypoint.players[playerId].isActive
