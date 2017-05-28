@@ -47,10 +47,11 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] announce a winner at the end
 - [X] have players bleed out when out of cards
 - [ ] lobby
-    - [ ] login
-    - [ ] create lobby
+    - [ ] login (don't need registration/validation yet)
+    - [ ] show lobby (can be hardcoded to start)
     - [ ] chose avatar in profile
     - [ ] create tabletop (also determines host)
+    - [ ] join tabletop
     - [ ] choose a side
     - [ ] host starts game
     - [ ] ai takes over remaining slots
