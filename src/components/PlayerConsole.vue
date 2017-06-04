@@ -40,7 +40,7 @@
           SimpleCard
         },
         props: [
-            "game",
+            "gameStatus",
             "id",
             "name",
             "team",
@@ -61,7 +61,7 @@
         ],
         methods: {
             selectCard: function (card, index) {
-                if(this.isActive && this.game.state.status === "PLAYING") {
+                if(this.isActive && this.gameStatus === "PLAYING") {
                     this.$emit("SELECT_CARD", card, index);
                 }
             }

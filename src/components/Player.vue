@@ -27,7 +27,7 @@
 
     export default {
         props: [
-            "game",
+            "gameStatus",
             "id",
             "name",
             "team",
@@ -47,7 +47,7 @@
         ],
         methods: {
             targeted: function () {
-                if(this.game.state.status === "PLAYING"){
+                if(this.gameStatus === "PLAYING"){
                     this.$emit("TARGETED", this.id);
                 }
             }
