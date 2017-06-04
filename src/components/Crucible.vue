@@ -397,12 +397,13 @@
                         state: {
                              "status": "JOINING",
                              "winner": "",
-                             "commands":[],
-                             "events":[],
+                             "tableEvents":[],
+                             "gameEvents":[],
                              "players":{
                              }
                     }
                 }
+                // tableEvents
                 playerJoined {
                     publicPlayerState{
                      "id":9,
@@ -425,16 +426,21 @@
                 playerTimedOut { playerId }
                 playerReConnected { playerId }
 
-                gameStarted
-                gameTick
-                manaTick
+                // gameEvents
+                gameStarted timeStamp
+                manaTick timeStamp
                 drewMistle playerId, card
                 drewShield playerId, card
                 selectedCard playerId, card
                 targetedPlayer sourceId, targetId
                 mistleImpacted, sourcePlayer, targetPlayer, mistle
-
+                playerOut playerId
                 gameEnded winnerName
+
+                // question: does each event contain it's side effects
+                // as a set of undoable redoable deltas?
+                // or does the client engine apply the results based on
+                // it's knowledge of the game's rules?
              */
         }
     }
