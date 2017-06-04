@@ -13,7 +13,7 @@
 
         <span>{{ name }}</span>
 
-        <span> Deck: {{ deck.length }} of {{ startingDeckLength }}</span>
+        <span> Deck: {{ deckSize }} of {{ startingDeckLength }}</span>
 
         <span id="hand">
             <span v-for="(card, index) in this.cards">
@@ -36,7 +36,7 @@
             "maxHealth",
             "health",
             "shields",
-            "deck",
+            "deckSize",
             "drawEnabled",
             "cards",
             "selectedCardIndex",
@@ -46,7 +46,7 @@
         ],
         methods: {
             targeted: function () {
-                if(this.game.waypoint.status === "PLAYING"){
+                if(this.game.state.status === "PLAYING"){
                     this.$emit("TARGETED", this.id);
                 }
             }

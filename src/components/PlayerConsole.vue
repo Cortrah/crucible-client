@@ -14,7 +14,7 @@
         </div>
 
         <div id="deck">
-            Deck: {{ deck.length }} of {{ startingDeckLength }}
+            Deck: {{ deckSize }} of {{ startingDeckLength }}
         </div>
 
         <div id="hand">
@@ -50,6 +50,7 @@
             "health",
             "shields",
             "deck",
+            "deckSize",
             "drawEnabled",
             "cards",
             "selectedCardIndex",
@@ -59,7 +60,7 @@
         ],
         methods: {
             selectCard: function (card, index) {
-                if(this.isActive && this.game.waypoint.status === "PLAYING") {
+                if(this.isActive && this.game.state.status === "PLAYING") {
                     this.$emit("SELECT_CARD", card, index);
                 }
             }

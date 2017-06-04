@@ -438,7 +438,7 @@
                 gameEnded winnerName
 
                 // question: does each event contain it's side effects
-                // as a set of undoable redoable deltas?
+                // as a set of undoable redoable delta packets and functions?
                 // or does the client engine apply the results based on
                 // it's knowledge of the game's rules?
              */

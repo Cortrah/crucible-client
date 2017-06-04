@@ -2,7 +2,7 @@
     <div class="helm">
 
         <div id="axis" class="team">
-            <div class="team-container" v-for="player in game.waypoint.players">
+            <div class="team-container" v-for="player in game.state.players">
                 <span v-if="player.team === 'Bad Guys'">
                     <player ref = "axis"
                             :id = player.id
@@ -16,6 +16,7 @@
                             :shields = player.shields
                             :cards = player.cards
                             :deck = player.deck
+                            :deckSize = player.deckSize
                             :startingDeckLength = game.rules.startingDeck.length
                             :drawEnabled = player.drawEnabled
                             :isBleedingOut = player.isBleedingOut
@@ -31,12 +32,12 @@
             <stellar-map></stellar-map>
         </div>
 
-        <div v-if="game.waypoint.status === 'OVER'">
-            {{game.waypoint.winner}} Win
+        <div v-if="game.state.status === 'OVER'">
+            {{game.state.winner}} Win
         </div>
 
         <div id="allies" class="team">
-            <div class="team-container" v-for="player in game.waypoint.players">
+            <div class="team-container" v-for="player in game.state.players">
                 <span v-if="player.team === 'Good Guys'">
                     <player ref="allies"
                             :id = player.id
@@ -50,6 +51,7 @@
                             :shields = player.shields
                             :cards = player.cards
                             :deck = player.deck
+                            :deckSize = player.deckSize
                             :startingDeckLength = game.rules.startingDeck.length
                             :drawEnabled = player.drawEnabled
                             :isBleedingOut = player.isBleedingOut
@@ -64,21 +66,22 @@
         <div class="console">
             <PlayerConsole  ref="player-console"
                             :id = playerId
-                            :name = game.waypoint.players[playerId].name
-                            :team = game.waypoint.players[playerId].team
+                            :name = game.state.players[playerId].name
+                            :team = game.state.players[playerId].team
                             avatarImg = '../../static/horizontal_control.png'
-                            :maxMana = game.waypoint.players[playerId].maxMana
-                            :mana = game.waypoint.players[playerId].mana
-                            :maxHealth = game.waypoint.players[playerId].maxHealth
-                            :health = game.waypoint.players[playerId].health
-                            :shields = game.waypoint.players[playerId].shields
-                            :cards = game.waypoint.players[playerId].cards
-                            :deck = game.waypoint.players[playerId].deck
-                            :selectedCardIndex = game.waypoint.players[playerId].selectedCardIndex
+                            :maxMana = game.state.players[playerId].maxMana
+                            :mana = game.state.players[playerId].mana
+                            :maxHealth = game.state.players[playerId].maxHealth
+                            :health = game.state.players[playerId].health
+                            :shields = game.state.players[playerId].shields
+                            :cards = game.state.players[playerId].cards
+                            :deck = game.state.players[playerId].deck
+                            :deckSize = game.state.players[playerId].deckSize
+                            :selectedCardIndex = game.state.players[playerId].selectedCardIndex
                             :startingDeckLength = game.rules.startingDeck.length
-                            :drawEnabled = game.waypoint.players[playerId].drawEnabled
-                            :isBleedingOut = game.waypoint.players[playerId].isBleedingOut
-                            :isActive = game.waypoint.players[playerId].isActive
+                            :drawEnabled = game.state.players[playerId].drawEnabled
+                            :isBleedingOut = game.state.players[playerId].isBleedingOut
+                            :isActive = game.state.players[playerId].isActive
                             v-on:SELECT_CARD="selectCard">
             </PlayerConsole>
 
@@ -88,7 +91,7 @@
 
         <div id="mistles">
             <div class="mistles-container"
-                 v-for="mistle in game.waypoint.inFlight">
+                 v-for="mistle in game.state.inFlight">
                 <MistleInFlight
                     :id = mistle.id
                     :sourceX = mistle.sourceX
@@ -130,14 +133,14 @@
         },
         computed: {
             self: function () {
-                return this.game.waypoint.players[this.playerId];
+                return this.game.state.players[this.playerId];
             }
         },
         methods: {
             tick: function() {
-                var self = this.game.waypoint.players[this.playerId];
-                if(self.isActive && this.game.waypoint.status === "PLAYING"){
-                    let my = this.game.waypoint.players[this.playerId];
+                var self = this.game.state.players[this.playerId];
+                if(self.isActive && this.game.state.status === "PLAYING"){
+                    let my = this.game.state.players[this.playerId];
                     // if I have < 5 cards and more than 1 mana draw a card
                     if(my.cards.length < 5 && my.mana > 0){
                         this.drawMistle();
@@ -178,32 +181,32 @@
                 }
             },
             drawMistle: function () {
-                let self = this.game.waypoint.players[this.playerId];
-                if(self.isActive && this.game.waypoint.status === "PLAYING"){
-                    if(self.cards.length < 5 && self.deck.length > 0){
+                let self = this.game.state.players[this.playerId];
+                if(self.isActive && this.game.state.status === "PLAYING"){
+                    if(self.cards.length < 5 && self.deckSize > 0){
                         this.$emit("DRAW_MISTLE", this.playerId);
                     }
                 }
             },
             drawShield: function () {
-                if(self.isActive && this.game.waypoint.status === "PLAYING"){
+                if(self.isActive && this.game.state.status === "PLAYING"){
                     this.$emit("DRAW_SHIELD", this.playerId);
                 }
             },
             selectCard: function (card, index) {
-                let self = this.game.waypoint.players[this.playerId];
-                if(self.isActive && this.game.waypoint.status === "PLAYING"){
+                let self = this.game.state.players[this.playerId];
+                if(self.isActive && this.game.state.status === "PLAYING"){
                     this.$emit("SELECT_CARD", this.playerId, index);
                 }
             },
             targetPlayer: function (targetId) {
-                let self = this.game.waypoint.players[this.playerId];
-                if(self.isActive && this.game.waypoint.status === "PLAYING"){
+                let self = this.game.state.players[this.playerId];
+                if(self.isActive && this.game.state.status === "PLAYING"){
                     this.$emit("TARGET_PLAYER", this.playerId, targetId);
                 }
             },
             players: function(){
-                return this.game.waypoint.players;
+                return this.game.state.players;
             },
             getPlayerVm: function(playerId){
                 // for each in allies
