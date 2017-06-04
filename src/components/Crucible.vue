@@ -34,6 +34,7 @@
         data () {
             return {
                 game: {
+                    title: 'Waypoint Crucible',
                     rules:{
                         "maxMana": 10,
                         "maxHealth": 30,
@@ -48,7 +49,7 @@
                         "bleedoutInterval":1000,
                         "shieldDecayInterval": 1000
                     },
-                    waypoint:{
+                    state:{
                         "status": "PLAYING",
                         "winner": "Nobody",
                         "commands":[],
@@ -67,6 +68,7 @@
                                 "cards":[],
                                 "selectedCardIndex":null,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "deckSize":20,
                                 "drawEnabled":false,
                                 "isbleedingOut":false,
                                 "isActive":true
@@ -84,6 +86,7 @@
                                 "cards":[],
                                 "selectedCardIndex":null,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "deckSize":20,
                                 "drawEnabled":false,
                                 "isbleedingOut":false,
                                 "isActive":true
@@ -101,6 +104,7 @@
                                 "cards":[],
                                 "selectedCardIndex":null,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "deckSize":20,
                                 "startingDeckLength":20,
                                 "drawEnabled":false,
                                 "isbleedingOut":false,
@@ -119,6 +123,7 @@
                                 "cards":[],
                                 "selectedCardIndex":null,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "deckSize":20,
                                 "drawEnabled":false,
                                 "isbleedingOut":false,
                                 "isActive":true
@@ -136,6 +141,7 @@
                                 "cards":[],
                                 "selectedCardIndex":null,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "deckSize":20,
                                 "drawEnabled":false,
                                 "isbleedingOut":false,
                                 "isActive":true
@@ -153,6 +159,7 @@
                                 "cards":[],
                                 "selectedCardIndex":null,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "deckSize":20,
                                 "drawEnabled":false,
                                 "isbleedingOut":false,
                                 "isActive":true
@@ -170,6 +177,7 @@
                                 "cards":[],
                                 "selectedCardIndex":null,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "deckSize":20,
                                 "drawEnabled":false,
                                 "isbleedingOut":false,
                                 "isActive":true
@@ -187,6 +195,7 @@
                                 "cards":[],
                                 "selectedCardIndex":null,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "deckSize":20,
                                 "drawEnabled":false,
                                 "isbleedingOut":false,
                                 "isActive":true
@@ -204,6 +213,7 @@
                                 "cards": [],
                                 "selectedCardIndex":null,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "deckSize":20,
                                 "drawEnabled": false,
                                 "isbleedingOut": false,
                                 "isActive": true
@@ -221,6 +231,7 @@
                                 "cards":[],
                                 "selectedCardIndex":null,
                                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                                "deckSize":20,
                                 "drawEnabled":false,
                                 "isbleedingOut":false,
                                 "isActive":true
@@ -241,7 +252,6 @@
                         { id: '9', name: 'Border Collie', img: '../static/dog4.png' } ,
                     ]
                 },
-                title: 'Waypoint Crucible',
                 timeRunning: 0,
                 timeStarted: 0,
                 gameIntervalId: 0,
@@ -250,7 +260,7 @@
         },
         methods: {
             drawMistle: function(playerId){
-                let player = this.game.waypoint.players[playerId];
+                let player = this.game.state.players[playerId];
                 if(player.mana >= 1 && player.deck.length > 0) {
                     let drawn = player.deck[0];
                     player.cards.push(drawn);
@@ -259,22 +269,22 @@
                 }
             },
             drawShield: function(playerId){
-                //let player = this.game.waypoint.players[playerId];
+                //let player = this.game.state.players[playerId];
                 //let shield = new Shield(player.deck[0]);
                 //player.cards.push(shield);
                 //player.deck.splice(0,1);
             },
             selectCard: function(playerId, cardIndex){
-                let player = this.game.waypoint.players[playerId];
+                let player = this.game.state.players[playerId];
                 player.selectedCardIndex = cardIndex;
             },
             targetPlayer: function (sourceId, targetId) {
                 if (this.areEnemies(sourceId, targetId)){
-                    let sourcePlayer = this.game.waypoint.players[sourceId];
+                    let sourcePlayer = this.game.state.players[sourceId];
                     if(sourcePlayer.selectedCardIndex !== -1) {
                         let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
                         if(sourcePlayer.mana >= card){
-                            let targetPlayer = this.game.waypoint.players[targetId];
+                            let targetPlayer = this.game.state.players[targetId];
                             sourcePlayer.mana -= card;
                             sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
                             sourcePlayer.selectedCardIndex = -1;
@@ -290,7 +300,7 @@
                     let targetPlayerVm = this.$refs.helm.getPlayerVm(targetPlayer.id);
                     let sRect = sourcePlayerVm.$el.getBoundingClientRect();
                     let tRect = targetPlayerVm.$el.getBoundingClientRect();
-                    this.game.waypoint.inFlight.push({
+                    this.game.state.inFlight.push({
                         id: new Date(),
                         sourceX: sRect.left + sRect.width/2,
                         sourceY: sRect.top  + sRect.height/2,
@@ -303,18 +313,18 @@
                 }
             },
             mistleImpact: function(sourcePlayer, targetPlayer, mistle){
-                if(this.game.waypoint.status === "PLAYING") {
+                if(this.game.state.status === "PLAYING") {
                     targetPlayer.health = Math.max(0, targetPlayer.health - mistle);
                     if (targetPlayer.health <= 0) {
                         targetPlayer.isActive = false;
-                        //this.game.waypoint.winner = sourcePlayer.team;
+                        //this.game.state.winner = sourcePlayer.team;
                         //this.endGame();
                     }
                 }
             },
             areEnemies: function(player1Id, player2Id){
-                let p1 = this.game.waypoint.players[player1Id];
-                let p2 = this.game.waypoint.players[player2Id];
+                let p1 = this.game.state.players[player1Id];
+                let p2 = this.game.state.players[player2Id];
                 return (p1.team !== p2.team);
             },
             shuffle: function(array) {
@@ -332,7 +342,7 @@
             },
             startGame: function() {
                 var scope = this;
-                this.game.waypoint.players.forEach(function(player){
+                this.game.state.players.forEach(function(player){
                     player.deck = scope.shuffle(player.deck);
                 });
                 this.timeStarted = Date.now();
@@ -346,7 +356,7 @@
                 this.timeRunning = Date.now() - this.timeStarted;
             },
             manaTick: function() {
-                this.game.waypoint.players.forEach(function(player){
+                this.game.state.players.forEach(function(player){
                     if(player.maxMana < 10){
                         player.maxMana++;
                     }
@@ -359,19 +369,63 @@
                 })
             },
             endGame: function() {
-                this.game.waypoint.status = "OVER";
+                this.game.state.status = "OVER";
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
             }
             /*
-                tableCreated
+                tableCreated, {
+                    tableState: {
+                        title,
+                        axisName,
+                        aliesName,
+                        host {playerId}
+                        rules: {
+                            "maxMana": 10,
+                             "maxHealth": 30,
+                             "startingDeck": [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+                             "startingHandSize": 0,
+                             "maxCards":5,
+                             "flightTime": 4000,
+                             "manaGrowthInterval":1000,
+                             "manaReplentishInterval":1000,
+                             "drawInterval":1000,
+                             "fireInterval":500,
+                             "bleedoutInterval":1000,
+                             "shieldDecayInterval": 1000
+                        },
+                        state: {
+                             "status": "JOINING",
+                             "winner": "",
+                             "commands":[],
+                             "events":[],
+                             "players":{
+                             }
+                    }
+                }
+                playerJoined {
+                    publicPlayerState{
+                     "id":9,
+                     "name":"Max",
+                     "team":"Good Guys",
+                     "avatarImg": "../static/dog4.png",
+                     "maxMana":0,
+                     "mana":0,
+                     "maxHealth":30,
+                     "health":30,
+                     "shields":[],
+                     "cards":[],
+                     "selectedCardIndex":null,
+                     "deckSize:20,
+                     "drawEnabled":false,
+                     "isbleedingOut":false,
+                     "isActive":true
+                }
+                playerLeft { playerId }
+                playerTimedOut { playerId }
+                playerReConnected { playerId }
 
-                playerJoined
-                playerLeft
-                playerTimedOut
-                playerRejoined
                 gameStarted
-
                 gameTick
                 manaTick
                 drewMistle playerId, card
