@@ -363,6 +363,25 @@
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
             }
+            /*
+                tableCreated
+
+                playerJoined
+                playerLeft
+                playerTimedOut
+                playerRejoined
+                gameStarted
+
+                gameTick
+                manaTick
+                drewMistle playerId, card
+                drewShield playerId, card
+                selectedCard playerId, card
+                targetedPlayer sourceId, targetId
+                mistleImpacted, sourcePlayer, targetPlayer, mistle
+
+                gameEnded winnerName
+             */
         }
     }
 </script>
