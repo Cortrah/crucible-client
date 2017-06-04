@@ -46,6 +46,7 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] stop actions when player is out
 - [X] announce a winner at the end
 - [X] have players bleed out when out of cards
+- [ ] retrofit to be a single player client that just receives events (see crucible comments for details)
 - [ ] lobby
     - [ ] login (don't need registration/validation yet)
     - [ ] show lobby (can be hardcoded to start)

@@ -33,8 +33,8 @@
             <stellar-map></stellar-map>
         </div>
 
-        <div v-if="game.state.status === 'OVER'">
-            {{game.state.winner}} Win
+        <div v-if="game.state.winner !== ''">
+            {{game.state.winner}} Victorious
         </div>
 
         <div id="allies" class="team">

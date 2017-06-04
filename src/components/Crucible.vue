@@ -6,12 +6,6 @@
         <span>{{ timeRunning }}</span>
 
         <div class="players-container">
-            <helm ref="helm" playerId="0" :game="game" v-show="false"
-                  v-on:TARGET_PLAYER="targetPlayer"
-                  v-on:DRAW_MISTLE="drawMistle"
-                  v-on:DRAW_SHIELD="drawShield"
-                  v-on:SELECT_CARD="selectCard" >
-            </helm>
             <helm ref="helm" playerId="5" :game="game"
                   v-on:TARGET_PLAYER="targetPlayer"
                   v-on:DRAW_MISTLE="drawMistle"
@@ -51,7 +45,7 @@
                     },
                     state:{
                         "status": "PLAYING",
-                        "winner": "Nobody",
+                        "winner": "",
                         "commands":[],
                         "events":[],
                         "players":[
@@ -265,6 +259,7 @@
                     let drawn = player.deck[0];
                     player.cards.push(drawn);
                     player.deck.splice(0, 1);
+                    player.deckSize = player.deck.length;
                     player.mana--;
                 }
             },
@@ -317,8 +312,8 @@
                     targetPlayer.health = Math.max(0, targetPlayer.health - mistle);
                     if (targetPlayer.health <= 0) {
                         targetPlayer.isActive = false;
-                        //this.game.state.winner = sourcePlayer.team;
-                        //this.endGame();
+                        this.game.state.winner = sourcePlayer.team;
+                        this.endGame();
                     }
                 }
             },
@@ -443,6 +438,12 @@
                 // it's knowledge of the game's rules?
 
                 // answer: lets just start by returning the changed state
+
+                // counterAnswer: ok well that works now, so lets do this
+                // lets do a console log of each event
+                // then put those in the events array
+                // and then try to play back a game by running the events array
+                // instead of using the tick in helm for the ai
              */
         }
     }
