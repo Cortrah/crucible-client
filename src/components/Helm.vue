@@ -40,6 +40,7 @@
             <div class="team-container" v-for="player in game.state.players">
                 <span v-if="player.team === 'Good Guys'">
                     <player ref="allies"
+                            :game = game
                             :id = player.id
                             :name = player.name
                             :team = player.team
@@ -65,6 +66,7 @@
 
         <div class="console">
             <PlayerConsole  ref="player-console"
+                            :game = game
                             :id = playerId
                             :name = game.state.players[playerId].name
                             :team = game.state.players[playerId].team

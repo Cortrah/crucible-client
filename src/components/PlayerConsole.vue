@@ -40,6 +40,7 @@
           SimpleCard
         },
         props: [
+            "game",
             "id",
             "name",
             "team",
