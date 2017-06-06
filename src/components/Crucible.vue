@@ -291,16 +291,10 @@
             launchMistle: function(sourcePlayer, targetPlayer, card) {
                 if(sourcePlayer.isActive){
                     // eventually the timer might be different for different cards or mistles
-                    let sourcePlayerVm = this.$refs.helm.getPlayerVm(sourcePlayer.id);
-                    let targetPlayerVm = this.$refs.helm.getPlayerVm(targetPlayer.id);
-                    let sRect = sourcePlayerVm.$el.getBoundingClientRect();
-                    let tRect = targetPlayerVm.$el.getBoundingClientRect();
                     this.game.state.inFlight.push({
                         id: new Date(),
-                        sourceX: sRect.left + sRect.width/2,
-                        sourceY: sRect.top  + sRect.height/2,
-                        targetX: tRect.left + tRect.width/2,
-                        targetY: tRect.top + tRect.height/2,
+                        sourceId: sourcePlayer.id,
+                        targetId: targetPlayer.id,
                         card: card,
                         flightTime: this.game.rules.flightTime
                     });

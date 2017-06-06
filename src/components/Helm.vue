@@ -97,10 +97,10 @@
                  v-for="mistle in game.state.inFlight">
                 <MistleInFlight
                     :id = mistle.id
-                    :sourceX = mistle.sourceX
-                    :sourceY = mistle.sourceY
-                    :targetX = mistle.targetX
-                    :targetY = mistle.targetY
+                    :sourceX = sourceX(mistle.sourceId)
+                    :sourceY = sourceY(mistle.sourceId)
+                    :targetX = targetX(mistle.targetId)
+                    :targetY = targetY(mistle.targetId)
                     :card = mistle.card
                     :flightTime = mistle.flightTime>
                 </MistleInFlight>
@@ -182,6 +182,26 @@
                 } else {
                     clearInterval(this.gameIntervalId);
                 }
+            },
+            sourceX: function (sourceId) {
+                let sourcePlayerVm = this.getPlayerVm(sourceId);
+                let sRect = sourcePlayerVm.$el.getBoundingClientRect();
+                return sRect.left + sRect.width / 2;
+            },
+            sourceY: function (sourceId) {
+                let sourcePlayerVm = this.getPlayerVm(sourceId);
+                let sRect = sourcePlayerVm.$el.getBoundingClientRect();
+                return sRect.top + sRect.height / 2;
+            },
+            targetX: function (targetId) {
+                let targetPlayerVm = this.getPlayerVm(targetId);
+                let tRect = targetPlayerVm.$el.getBoundingClientRect();
+                return tRect.left + tRect.width / 2;
+            },
+            targetY: function (targetId) {
+                let targetPlayerVm = this.getPlayerVm(targetId);
+                let tRect = targetPlayerVm.$el.getBoundingClientRect();
+                return tRect.top + tRect.height / 2;
             },
             drawMistle: function () {
                 let self = this.game.state.players[this.playerId];
