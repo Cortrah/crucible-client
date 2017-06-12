@@ -1,6 +1,5 @@
 <template>
     <div class="helm">
-
         <div id="axis" class="team">
             <div class="team-container" v-for="player in game.state.players">
                 <span v-if="player.team === 'Bad Guys'">

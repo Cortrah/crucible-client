@@ -4,7 +4,6 @@
         <button @click="startGame()">Start Game</button>
         <button @click="endGame()">End Game</button>
         <span>{{ timeRunning }}</span>
-
         <div class="players-container">
             <helm ref="helm" playerId="5" :game="game"
                   v-on:TARGET_PLAYER="targetPlayer"
