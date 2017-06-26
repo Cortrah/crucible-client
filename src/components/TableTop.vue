@@ -16,14 +16,12 @@
             </player>
         </template>
     </div>
-    <br/>
-    <br/>
 </template>
 
 <script type="text/babel">
     import Vue from 'vue'
     import Player from './Player'
-    import DealersChoiceTable from './DealersChoiceTable'
+    //import DealersChoiceTable from './DealersChoiceTable'
 
     let bus = new Vue();
 
@@ -115,7 +113,8 @@
         },
         props: ['store'],
         components: {
-            Player, DealersChoiceTable
+            Player
+            //, DealersChoiceTable
         },
         data: function () {
             return {
