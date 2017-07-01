@@ -16,10 +16,12 @@
     "gsap": "^1.19.1",
     "vue": "^2.2.6",
     "vue-progress": "^0.2.1",
-    "vue-router": "^2.3.1"
+    "vue-router": "^2.3.1",
+    "vuex": "^2.3.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
+    "avoriaz": "^2.4.1",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-istanbul": "^4.1.1",
@@ -69,7 +71,6 @@
     "vue-loader": "^11.3.4",
     "vue-style-loader": "^2.0.5",
     "vue-template-compiler": "^2.2.6",
-    "vue-test": "^1.0.0",
     "webpack": "^2.3.3",
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
