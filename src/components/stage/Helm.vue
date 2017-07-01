@@ -109,10 +109,12 @@
 </template>
 
 <script type="text/babel">
-    import Player from './Player'
-    import MistleInFlight from './MistleInFlight'
-    import Portrait from './Portrait'
-    import PlayerConsole from './PlayerConsole'
+    import Player from '../cast/Player'
+    import Portrait from '../cast/Portrait'
+    import PlayerConsole from '../cast/PlayerConsole'
+
+    import MistleInFlight from '../props/MistleInFlight'
+
     import StellarMap from './StellarMap'
 
     export default {

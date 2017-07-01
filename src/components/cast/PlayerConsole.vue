@@ -32,7 +32,7 @@
 
 <script type="text/babel">
     import Vue from 'vue';
-    import SimpleCard from './SimpleCard.vue';
+    import SimpleCard from '../props/SimpleCard.vue';
 
     export default {
         name: "PlayerConsole",

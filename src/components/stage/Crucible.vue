@@ -18,7 +18,7 @@
 
 <script>
     import Vue from 'vue'
-    import Player from './Player'
+    import Player from '../cast/Player'
     import Helm from './Helm'
 
     export default {

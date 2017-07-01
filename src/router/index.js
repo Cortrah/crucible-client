@@ -1,14 +1,15 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import Crucible from '@/components/Crucible'
 import VueProgress from 'vue-progress'
-import Register from '@/components/Register'
-import Login from '@/components/Login'
-import Lobby from '@/components/Lobby'
-import Tabletop from '@/components/Tabletop'
-import Profile from '@/components/Profile'
-import Host from '@/components/Host'
-import Forgot from '@/components/Forgot'
+import Router from 'vue-router'
+
+import Crucible from '@/components/stage/Crucible'
+import Register from '@/components/lobby/Register'
+import Login from '@/components/lobby/Login'
+import Lobby from '@/components/lobby/Lobby'
+import Tabletop from '@/components/lobby/Tabletop'
+import Profile from '@/components/lobby/Profile'
+import Host from '@/components/lobby/Host'
+import Forgot from '@/components/lobby/Forgot'
 
 
 Vue.use(Router);
