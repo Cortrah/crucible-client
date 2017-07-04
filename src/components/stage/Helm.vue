@@ -1,10 +1,10 @@
 <template>
     <div class="helm">
         <div id="axis" class="team">
-            <div class="team-container" v-for="player in game.state.players">
+            <div class="team-container" v-for="player in game.players">
                 <span v-if="player.team === 'Bad Guys'">
                     <player ref = "axis"
-                            :gameStatus = game.state.status
+                            :gameStatus = game.status
                             :id = player.id
                             :name = player.name
                             :team = player.team
@@ -17,7 +17,7 @@
                             :cards = player.cards
                             :deck = player.deck
                             :deckSize = player.deckSize
-                            :startingDeckLength = game.rules.startingDeck.length
+                            :startingDeckLength = rules.startingDeck.length
                             :drawEnabled = player.drawEnabled
                             :isBleedingOut = player.isBleedingOut
                             :isActive = player.isActive
@@ -32,15 +32,15 @@
             <stellar-map></stellar-map>
         </div>
 
-        <div v-if="game.state.winner !== ''">
-            {{game.state.winner}} Victorious
+        <div v-if="game.winner !== ''">
+            {{game.winner}} Victorious
         </div>
 
         <div id="allies" class="team">
-            <div class="team-container" v-for="player in game.state.players">
+            <div class="team-container" v-for="player in game.players">
                 <span v-if="player.team === 'Good Guys'">
                     <player ref="allies"
-                            :gameStatus = game.state.status
+                            :gameStatus = game.status
                             :id = player.id
                             :name = player.name
                             :team = player.team
@@ -53,7 +53,7 @@
                             :cards = player.cards
                             :deck = player.deck
                             :deckSize = player.deckSize
-                            :startingDeckLength = game.rules.startingDeck.length
+                            :startingDeckLength = rules.startingDeck.length
                             :drawEnabled = player.drawEnabled
                             :isBleedingOut = player.isBleedingOut
                             :isActive = player.isActive
@@ -66,24 +66,24 @@
 
         <div class="console">
             <PlayerConsole  ref="player-console"
-                            :gameStatus = game.state.status
+                            :gameStatus = game.status
                             :id = playerId
-                            :name = game.state.players[playerId].name
-                            :team = game.state.players[playerId].team
+                            :name = game.players[playerId].name
+                            :team = game.players[playerId].team
                             avatarImg = '../../static/horizontal_control.png'
-                            :maxMana = game.state.players[playerId].maxMana
-                            :mana = game.state.players[playerId].mana
-                            :maxHealth = game.state.players[playerId].maxHealth
-                            :health = game.state.players[playerId].health
-                            :shields = game.state.players[playerId].shields
-                            :cards = game.state.players[playerId].cards
-                            :deck = game.state.players[playerId].deck
-                            :deckSize = game.state.players[playerId].deckSize
-                            :selectedCardIndex = game.state.players[playerId].selectedCardIndex
-                            :startingDeckLength = game.rules.startingDeck.length
-                            :drawEnabled = game.state.players[playerId].drawEnabled
-                            :isBleedingOut = game.state.players[playerId].isBleedingOut
-                            :isActive = game.state.players[playerId].isActive
+                            :maxMana = game.players[playerId].maxMana
+                            :mana = game.players[playerId].mana
+                            :maxHealth = game.players[playerId].maxHealth
+                            :health = game.players[playerId].health
+                            :shields = game.players[playerId].shields
+                            :cards = game.players[playerId].cards
+                            :deck = game.players[playerId].deck
+                            :deckSize = game.players[playerId].deckSize
+                            :selectedCardIndex = game.players[playerId].selectedCardIndex
+                            :startingDeckLength = rules.startingDeck.length
+                            :drawEnabled = game.players[playerId].drawEnabled
+                            :isBleedingOut = game.players[playerId].isBleedingOut
+                            :isActive = game.players[playerId].isActive
                             v-on:SELECT_CARD="selectCard">
             </PlayerConsole>
 
@@ -93,7 +93,7 @@
 
         <div id="mistles">
             <div class="mistles-container"
-                 v-for="mistle in game.state.inFlight">
+                 v-for="mistle in game.inFlight">
                 <MistleInFlight
                     :id = mistle.id
                     :sourceX = sourceX(mistle.sourceId)
@@ -123,6 +123,12 @@
             "playerId": 0,
             'game': {
                 required: true
+            },
+            'rules': {
+                required: true
+            },
+            'avatars': {
+                required: true
             }
         },
         components: {Player, MistleInFlight, Portrait, PlayerConsole, StellarMap},
@@ -137,14 +143,14 @@
         },
         computed: {
             self: function () {
-                return this.game.state.players[this.playerId];
+                return this.game.players[this.playerId];
             }
         },
         methods: {
             tick: function() {
-                var self = this.game.state.players[this.playerId];
-                if(self.isActive && this.game.state.status === "PLAYING"){
-                    let my = this.game.state.players[this.playerId];
+                var self = this.game.players[this.playerId];
+                if(self.isActive && this.game.status === "PLAYING"){
+                    let my = this.game.players[this.playerId];
                     // if I have < 5 cards and more than 1 mana draw a card
                     if(my.cards.length < 5 && my.mana > 0){
                         this.drawMistle();
@@ -205,32 +211,32 @@
                 return tRect.top + tRect.height / 2;
             },
             drawMistle: function () {
-                let self = this.game.state.players[this.playerId];
-                if(self.isActive && this.game.state.status === "PLAYING"){
+                let self = this.game.players[this.playerId];
+                if(self.isActive && this.game.status === "PLAYING"){
                     if(self.cards.length < 5 && self.deckSize > 0){
                         this.$emit("DRAW_MISTLE", this.playerId);
                     }
                 }
             },
             drawShield: function () {
-                if(self.isActive && this.game.state.status === "PLAYING"){
+                if(self.isActive && this.game.status === "PLAYING"){
                     this.$emit("DRAW_SHIELD", this.playerId);
                 }
             },
             selectCard: function (card, index) {
-                let self = this.game.state.players[this.playerId];
-                if(self.isActive && this.game.state.status === "PLAYING"){
+                let self = this.game.players[this.playerId];
+                if(self.isActive && this.game.status === "PLAYING"){
                     this.$emit("SELECT_CARD", this.playerId, index);
                 }
             },
             targetPlayer: function (targetId) {
-                let self = this.game.state.players[this.playerId];
-                if(self.isActive && this.game.state.status === "PLAYING"){
+                let self = this.game.players[this.playerId];
+                if(self.isActive && this.game.status === "PLAYING"){
                     this.$emit("TARGET_PLAYER", this.playerId, targetId);
                 }
             },
             players: function(){
-                return this.game.state.players;
+                return this.game.players;
             },
             getPlayerVm: function(playerId){
                 // for each in allies

@@ -61,8 +61,8 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
     - [ ] choose a side
     - [ ] host starts game
     - [ ] ai takes over remaining slots
-- [ ] hapi nes backend
-- [ ] akka backend
+- [ ] spring appolo-android and akka backend
+- [ ] hapi nes backend?
 - [ ] phoenix backend
     - [ ] spec messages
     - [ ] GenStage
