@@ -47,8 +47,11 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] announce a winner at the end
 - [X] have players bleed out when out of cards
 - [ ] fix id/s and structures so we can target any player
+- [ ] move to veux
 - [ ] retrofit to be a single player game with ai or manual input
 - [ ] set up vue-test and start testing single player client
+- [ ] apollo-vue
+- [ ] apollo-tools
 - [ ] lobby
     - [ ] login (don't need registration/validation yet)
     - [ ] show lobby (can be hardcoded to start)
@@ -58,10 +61,11 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
     - [ ] choose a side
     - [ ] host starts game
     - [ ] ai takes over remaining slots
+- [ ] hapi nes backend
+- [ ] akka backend
 - [ ] phoenix backend
     - [ ] spec messages
     - [ ] GenStage
-- [ ] akka backend
 - [ ] animate health, mana and deck counters
 - [ ] tooltips for text details of health mana and deck counters
 - [ ] have mistles dissapear or become damage after detonating
