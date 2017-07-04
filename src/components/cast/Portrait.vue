@@ -14,9 +14,9 @@
         <ellipse :fill="fill" :stroke="stroke" cx="65.771" cy="6" rx="2.5" ry="2.5"/>
         <ellipse :fill="fill" :stroke="stroke" cx="73.027" cy="6" rx="2.5" ry="2.5"/>
 
-        <rect x="4" y="15" :fill="fill" :stroke="stroke" width="75" height="8"/>
-        <rect x="62" y="30" :fill="fill" :stroke="stroke" width="10" height="50"/>
-        <rect x="8" y="30" :fill="fill" :stroke="stroke" width="50" height="50"/>
+        <rect id="health" x="4" y="15" :fill="fill" :stroke="stroke" width="75" height="8"/>
+        <rect id="mana" x="62" y="30" :fill="fill" :stroke="stroke" width="10" height="50"/>
+        <rect id="deck" x="8" y="30" :fill="fill" :stroke="stroke" width="50" height="50"/>
 
     </svg>
 </template>
