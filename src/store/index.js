@@ -15,7 +15,7 @@ Vue.use(Vuex);
 
 const debug = process.env.NODE_ENV !== 'production';
 
-const state = {
+export const state = {
     rules:{
         "maxMana": 10,
         "maxHealth": 30,
@@ -244,8 +244,8 @@ export default new Vuex.Store({
     getters,
     actions,
     mutations: {
-        drawMistle: function(playerId){
-            let player = this.game.players[playerId];
+        drawMistle: function(state, playerId){
+            let player = state.game.players[playerId];
             if(player.mana >= 1 && player.deck.length > 0) {
                 let drawn = player.deck[0];
                 player.cards.push(drawn);
@@ -254,32 +254,33 @@ export default new Vuex.Store({
                 player.mana--;
             }
         },
-        drawShield: function(playerId){
+        drawShield: function(state, playerId){
             //let player = this.game.players[playerId];
             //let shield = new Shield(player.deck[0]);
             //player.cards.push(shield);
             //player.deck.splice(0,1);
         },
-        selectCard: function(playerId, cardIndex){
-            let player = this.game.players[playerId];
+        selectCard: function(state, playerId, cardIndex){
+            let player = state.game.players[playerId];
             player.selectedCardIndex = cardIndex;
         },
-        targetPlayer: function (sourceId, targetId) {
-            if (this.areEnemies(sourceId, targetId)){
-                let sourcePlayer = this.game.players[sourceId];
+        targetPlayer: function (state, sourceId, targetId) {
+            //if (this.areEnemies(sourceId, targetId)){
+                let sourcePlayer = state.game.players[sourceId];
                 if(sourcePlayer.selectedCardIndex !== -1) {
                     let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
                     if(sourcePlayer.mana >= card){
-                        let targetPlayer = this.game.players[targetId];
+                        let targetPlayer = state.game.players[targetId];
                         sourcePlayer.mana -= card;
                         sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
                         sourcePlayer.selectedCardIndex = -1;
                         this.launchMistle(sourcePlayer, targetPlayer, card)
                     }
                 }
-            }
+            //}
         },
-        launchMistle: function(sourcePlayer, targetPlayer, card) {
+
+        launchMistle: function(state, sourcePlayer, targetPlayer, card) {
             if(sourcePlayer.isActive){
                 // eventually the timer might be different for different cards or mistles
                 this.game.inFlight.push({
@@ -292,7 +293,7 @@ export default new Vuex.Store({
                 setTimeout(this.mistleImpact, this.rules.flightTime, sourcePlayer, targetPlayer, card);
             }
         },
-        mistleImpact: function(sourcePlayer, targetPlayer, mistle){
+        mistleImpact: function(state, sourcePlayer, targetPlayer, mistle){
             if(this.game.status === "PLAYING") {
                 targetPlayer.health = Math.max(0, targetPlayer.health - mistle);
                 if (targetPlayer.health <= 0) {
@@ -302,41 +303,23 @@ export default new Vuex.Store({
                 }
             }
         },
-        areEnemies: function(player1Id, player2Id){
-            let p1 = this.game.players[player1Id];
-            let p2 = this.game.players[player2Id];
-            return (p1.team !== p2.team);
-        },
-        shuffle: function(array) {
-            let remaining = array.length;
-            let randomIndex;
-            let last;
-
-            while (remaining) {
-                randomIndex = Math.floor(Math.random() * remaining--);
-                last = array[remaining];
-                array[remaining] = array[randomIndex];
-                array[randomIndex] = last;
-            }
-            return array;
-        },
-        startGame: function() {
+        startGame: function(state) {
             var scope = this;
-            this.game.players.forEach(function(player){
-                player.deck = scope.shuffle(player.deck);
-            });
-            this.game.timeStarted = Date.now();
-            this.game.timeRunning = 0;
-            clearInterval(this.game.gameIntervalId);
-            clearInterval(this.game.manaIntervalId);
-            this.game.gameIntervalId = setInterval(this.gameTick, 100);
-            this.game.manaIntervalId = setInterval(this.manaTick, 1000);
+            // state.game.players.forEach(function(player){
+            //     player.deck = scope.shuffle(player.deck);
+            // });
+            state.game.timeStarted = Date.now();
+            state.game.timeRunning = 0;
+            clearInterval(state.game.gameIntervalId);
+            clearInterval(state.game.manaIntervalId);
+            state.game.gameIntervalId = setInterval(state.gameTick, 100);
+            state.game.manaIntervalId = setInterval(state.manaTick, 1000);
         },
-        gameTick: function() {
-            this.game.timeRunning = Date.now() - this.game.timeStarted;
+        gameTick: function(state) {
+            state.game.timeRunning = Date.now() - state.game.timeStarted;
         },
-        manaTick: function() {
-            this.game.players.forEach(function(player){
+        manaTick: function(state) {
+            state.game.players.forEach(function(player){
                 if(player.maxMana < 10){
                     player.maxMana++;
                 }
@@ -348,12 +331,32 @@ export default new Vuex.Store({
                 }
             })
         },
-        endGame: function() {
-            this.game.status = "OVER";
-            clearInterval(this.game.gameIntervalId);
-            clearInterval(this.game.manaIntervalId);
+        endGame: function(state) {
+            state.game.status = "OVER";
+            clearInterval(state.game.gameIntervalId);
+            clearInterval(state.game.manaIntervalId);
         }
     },
+    // methods: {
+    //     areEnemies: function(state, player1Id, player2Id){
+    //         let p1 = state.game.players[player1Id];
+    //         let p2 = state.game.players[player2Id];
+    //         return (p1.team !== p2.team);
+    //     },
+    //     shuffle: function(array) {
+    //         let remaining = array.length;
+    //         let randomIndex;
+    //         let last;
+    //
+    //         while (remaining) {
+    //             randomIndex = Math.floor(Math.random() * remaining--);
+    //             last = array[remaining];
+    //             array[remaining] = array[randomIndex];
+    //             array[randomIndex] = last;
+    //         }
+    //         return array;
+    //     }
+    // },
     modules: {
         lobby,
     },

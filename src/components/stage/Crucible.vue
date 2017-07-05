@@ -18,6 +18,7 @@
 
 <script>
     import Vue from 'vue'
+    import store from '../../store'
     import { mapState } from 'vuex'
 
     import Player from '../cast/Player'
