@@ -22,11 +22,6 @@ export default new Router({
             component: Crucible
         },
         {
-            path: '/',
-            name: 'Crucible',
-            component: Crucible
-        },
-        {
             path: '/register',
             name: 'Register',
             component: Register

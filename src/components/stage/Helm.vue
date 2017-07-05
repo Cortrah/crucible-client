@@ -112,9 +112,7 @@
     import Player from '../cast/Player'
     import Portrait from '../cast/Portrait'
     import PlayerConsole from '../cast/PlayerConsole'
-
     import MistleInFlight from '../props/MistleInFlight'
-
     import StellarMap from './StellarMap'
 
     export default {
