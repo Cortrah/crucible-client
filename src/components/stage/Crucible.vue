@@ -28,9 +28,11 @@
         name: 'Crucible',
         components: {Helm, Player},
         computed: mapState(['rules', 'game', 'avatars']),
-        props:{
-            "gameIntervalId": 0,
-            "manaIntervalId": 0,
+        data () {
+            return {
+                "gameIntervalId": 0,
+                "manaIntervalId": 0,
+            }
         },
         methods: {
             drawMistle: function(playerId){
@@ -47,10 +49,10 @@
             },
             startGame: function() {
                 store.commit('startGame');
-                clearInterval(this.game.gameIntervalId);
-                clearInterval(this.game.manaIntervalId);
-                this.game.gameIntervalId = setInterval(this.gameTick, 100);
-                this.game.manaIntervalId = setInterval(this.manaTick, 1000);
+                clearInterval(this.gameIntervalId);
+                clearInterval(this.manaIntervalId);
+                this.gameIntervalId = setInterval(this.gameTick, 100);
+                this.manaIntervalId = setInterval(this.manaTick, 1000);
             },
             gameTick: function() {
                 store.commit('gameTick');
@@ -60,8 +62,8 @@
             },
             endGame: function() {
                 store.commit('endGame');
-                clearInterval(this.game.gameIntervalId);
-                clearInterval(this.game.manaIntervalId);
+                clearInterval(this.gameIntervalId);
+                clearInterval(this.manaIntervalId);
             }
         }
     }

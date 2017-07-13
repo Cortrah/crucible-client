@@ -304,9 +304,9 @@ export default new Vuex.Store({
         startGame: function(state) {
             console.log("start game called");
             var scope = this;
-            //state.game.players.forEach(function(player){
-            //    player.deck = scope.shuffle(player.deck);
-            //});
+            // state.game.players.forEach(function(player){
+            //    player.deck = state.getters.shuffle(player.deck);
+            // });
             state.game.timeStarted = Date.now();
             state.game.timeRunning = 0;
         },
@@ -330,13 +330,13 @@ export default new Vuex.Store({
             state.game.status = "OVER";
         }
     },
-    methods: {
+    getters: {
         areEnemies: function(state, player1Id, player2Id){
             let p1 = state.game.players[player1Id];
             let p2 = state.game.players[player2Id];
             return (p1.team !== p2.team);
         },
-        shuffle: function(array) {
+        shuffle: function(state, array) {
             let remaining = array.length;
             let randomIndex;
             let last;
