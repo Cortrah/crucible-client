@@ -9,7 +9,7 @@ import * as actions from './actions.js'
 import * as getters from './getters.js'
 import mutations from './mutations'
 
-import createLogger from '../../src/plugins/logger.js'
+//import createLogger from '../../src/plugins/logger.js'
 
 Vue.use(Vuex);
 
@@ -222,8 +222,6 @@ export const state = {
         "inFlight":[],
         "timeRunning": 0,
         "timeStarted": 0,
-        "gameIntervalId": 0,
-        "manaIntervalId": 0,
     },
     avatars:[
         { id: '0', name: 'General Scum', img: '../static/general_scum.png' },
@@ -304,16 +302,13 @@ export default new Vuex.Store({
             }
         },
         startGame: function(state) {
+            console.log("start game called");
             var scope = this;
-            // state.game.players.forEach(function(player){
-            //     player.deck = scope.shuffle(player.deck);
-            // });
+            //state.game.players.forEach(function(player){
+            //    player.deck = scope.shuffle(player.deck);
+            //});
             state.game.timeStarted = Date.now();
             state.game.timeRunning = 0;
-            clearInterval(state.game.gameIntervalId);
-            clearInterval(state.game.manaIntervalId);
-            state.game.gameIntervalId = setInterval(state.gameTick, 100);
-            state.game.manaIntervalId = setInterval(state.manaTick, 1000);
         },
         gameTick: function(state) {
             state.game.timeRunning = Date.now() - state.game.timeStarted;
@@ -333,33 +328,31 @@ export default new Vuex.Store({
         },
         endGame: function(state) {
             state.game.status = "OVER";
-            clearInterval(state.game.gameIntervalId);
-            clearInterval(state.game.manaIntervalId);
         }
     },
-    // methods: {
-    //     areEnemies: function(state, player1Id, player2Id){
-    //         let p1 = state.game.players[player1Id];
-    //         let p2 = state.game.players[player2Id];
-    //         return (p1.team !== p2.team);
-    //     },
-    //     shuffle: function(array) {
-    //         let remaining = array.length;
-    //         let randomIndex;
-    //         let last;
-    //
-    //         while (remaining) {
-    //             randomIndex = Math.floor(Math.random() * remaining--);
-    //             last = array[remaining];
-    //             array[remaining] = array[randomIndex];
-    //             array[randomIndex] = last;
-    //         }
-    //         return array;
-    //     }
-    // },
+    methods: {
+        areEnemies: function(state, player1Id, player2Id){
+            let p1 = state.game.players[player1Id];
+            let p2 = state.game.players[player2Id];
+            return (p1.team !== p2.team);
+        },
+        shuffle: function(array) {
+            let remaining = array.length;
+            let randomIndex;
+            let last;
+
+            while (remaining) {
+                randomIndex = Math.floor(Math.random() * remaining--);
+                last = array[remaining];
+                array[remaining] = array[randomIndex];
+                array[randomIndex] = last;
+            }
+            return array;
+        }
+    },
     modules: {
         lobby,
     },
     strict: debug,
-    plugins: debug ? [createLogger()] : []
+//    plugins: debug ? [createLogger()] : []
 })

@@ -6,6 +6,7 @@ export const PLAYER_TIMED_OUT = 'PLAYER_TIMED_OUT';
 export const PLAYER_RECONNECTED = 'PLAYER_RECONNECTED';
 
 // for game
+export const START_GAME = 'START_GAME';
 export const GAME_STARTED = 'GAME_STARTED';
 export const MANA_TICK = 'MANA_TICK';
 export const DREW_MISTLE = 'DREW_MISTLE';
