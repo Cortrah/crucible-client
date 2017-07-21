@@ -2,7 +2,7 @@
     <div class="player-console" >
 
         <div id="name">
-            {{ name }}
+            {{ name }} of {{ this.game.players.length }} players
         </div>
 
         <div id="health">
@@ -34,6 +34,8 @@
     import Vue from 'vue';
     import SimpleCard from '../props/SimpleCard.vue';
 
+    import { mapState } from 'vuex'
+
     export default {
         name: "PlayerConsole",
         components: {
@@ -59,11 +61,20 @@
             "isBleedingOut",
             'startingDeckLength'
         ],
+//        computed: mapState(['rules', 'game', 'avatars']),
+        computed: mapState({
+            game: state => state.game,
+        }),
+//        computed: {
+//            playerCount () {
+//                return this.game.players.length
+//            }
+//        },
         methods: {
             selectCard: function (card, index) {
-                if(this.isActive && this.gameStatus === "PLAYING") {
+                //if(this.isActive && this.gameStatus === "PLAYING") {
                     this.$emit("SELECT_CARD", card, index);
-                }
+                //}
             }
         }
     }

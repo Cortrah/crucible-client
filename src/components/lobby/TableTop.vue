@@ -108,9 +108,9 @@
 
 
     export default {
-        el: function () {
-            return '#tabletop';
-        },
+//        el: function () {
+//            return '#tabletop';
+//        },
         props: ['store'],
         components: {
             Player

@@ -89,6 +89,7 @@
 
             <button @click="drawMistle()">Draw Mistle</button>
             <button @click="drawShield()">Draw Shield</button>
+            of {{ this.game.players.length }} players
         </div>
 
         <div id="mistles">
@@ -115,19 +116,12 @@
     import MistleInFlight from '../props/MistleInFlight'
     import StellarMap from './StellarMap'
 
+    import { mapState } from 'vuex'
+
     export default {
         name: "Helm",
         props: {
             "playerId": 0,
-            'game': {
-                required: true
-            },
-            'rules': {
-                required: true
-            },
-            'avatars': {
-                required: true
-            }
         },
         components: {Player, MistleInFlight, Portrait, PlayerConsole, StellarMap},
         data () {
@@ -139,54 +133,56 @@
         created() {
             this.gameIntervalId = setInterval(this.tick, 200);
         },
-        computed: {
-            self: function () {
-                return this.game.players[this.playerId];
-            }
-        },
+        computed: mapState(['rules', 'game', 'avatars']),
+//        computed: mapState({
+//            game: state => state.game,
+//            rules: state => state.rules,
+//            avatars: state => state.avatars,
+//            myself: (state) => {
+//                return state.playerById(this.playerId)
+//            }
+//        }),
         methods: {
             tick: function() {
-                var self = this.game.players[this.playerId];
-                if(self.isActive && this.game.status === "PLAYING"){
-                    let my = this.game.players[this.playerId];
-                    // if I have < 5 cards and more than 1 mana draw a card
-                    if(my.cards.length < 5 && my.mana > 0){
-                        this.drawMistle();
-                    }
-                    let mana = my.mana - 1;
-                    // if I have cards and enough mana to fire a mistle
-                    for(var i = 0; i < my.cards.length; i++){
-                        var card = my.cards[i];
-                        if(card < mana){
-                            this.selectCard(card, i);
-                        }
-                    }
-                    // choose an enemy that's still active
-                    if(my.team === "Good Guys"){
-                        for(var i = 0; i < this.$refs.axis.length; i++){
-                            var foe = this.$refs.axis[i];
-                            if(foe.isActive === true){
-                                // and fire at it
-                                this.targetPlayer(foe.id);
-                                // but only fire one maximum per tick
-                                break;
-                            }
-                        }
-                    } else {
-                        // if we are an enemy the enemy is my ally
-                        for(var i = 0; i < this.$refs.allies.length; i++){
-                            var foe = this.$refs.allies[i];
-                            if(foe.isActive === true){
-                                // and fire at it
-                                this.targetPlayer(foe.id);
-                                // but only fire one maximum per tick
-                                break;
-                            }
-                        }
-                    }
-                } else {
-                    clearInterval(this.gameIntervalId);
-                }
+//                if(this.myself.isActive && this.game.status === "PLAYING"){
+//                    // if I have < 5 cards and more than 1 mana draw a card
+//                    if(this.myself.cards.length < 5 && this.myself.mana > 0){
+//                        this.drawMistle();
+//                    }
+//                    let mana = this.myself.mana - 1;
+//                    // if I have cards and enough mana to fire a mistle
+//                    for(var i = 0; i < this.myself.cards.length; i++){
+//                        var card = this.myself.cards[i];
+//                        if(card < mana){
+//                            this.selectCard(card, i);
+//                        }
+//                    }
+//                    // choose an enemy that's still active
+//                    if(this.myself.team === "Good Guys"){
+//                        for(var i = 0; i < this.$refs.axis.length; i++){
+//                            var foe = this.$refs.axis[i];
+//                            if(foe.isActive === true){
+//                                // and fire at it
+//                                this.targetPlayer(foe.id);
+//                                // but only fire one maximum per tick
+//                                break;
+//                            }
+//                        }
+//                    } else {
+//                        // if we are an enemy the enemy is my ally
+//                        for(var i = 0; i < this.$refs.allies.length; i++){
+//                            var foe = this.$refs.allies[i];
+//                            if(foe.isActive === true){
+//                                // and fire at it
+//                                this.targetPlayer(foe.id);
+//                                // but only fire one maximum per tick
+//                                break;
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    clearInterval(this.gameIntervalId);
+//                }
             },
             sourceX: function (sourceId) {
                 let sourcePlayerVm = this.getPlayerVm(sourceId);
@@ -209,32 +205,26 @@
                 return tRect.top + tRect.height / 2;
             },
             drawMistle: function () {
-                let self = this.game.players[this.playerId];
-                if(self.isActive && this.game.status === "PLAYING"){
-                    if(self.cards.length < 5 && self.deckSize > 0){
+                //if(this.myself.isActive && this.game.status === "PLAYING"){
+                //    if(this.myself.cards.length < 5 && this.myself.deckSize > 0){
                         this.$emit("DRAW_MISTLE", this.playerId);
-                    }
-                }
+                //    }
+                //}
             },
             drawShield: function () {
-                if(self.isActive && this.game.status === "PLAYING"){
+                //if(this.myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("DRAW_SHIELD", this.playerId);
-                }
+                //}
             },
             selectCard: function (card, index) {
-                let self = this.game.players[this.playerId];
-                if(self.isActive && this.game.status === "PLAYING"){
+                //if(this.myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("SELECT_CARD", this.playerId, index);
-                }
+                //}
             },
             targetPlayer: function (targetId) {
-                let self = this.game.players[this.playerId];
-                if(self.isActive && this.game.status === "PLAYING"){
+                //if(this.myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("TARGET_PLAYER", this.playerId, targetId);
-                }
-            },
-            players: function(){
-                return this.game.players;
+                //}
             },
             getPlayerVm: function(playerId){
                 // for each in allies

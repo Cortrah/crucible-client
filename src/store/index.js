@@ -279,17 +279,17 @@ export default new Vuex.Store({
         },
 
         launchMistle: function(state, sourcePlayer, targetPlayer, card) {
-            if(sourcePlayer.isActive){
-                // eventually the timer might be different for different cards or mistles
-                this.game.inFlight.push({
-                    id: new Date(),
-                    sourceId: sourcePlayer.id,
-                    targetId: targetPlayer.id,
-                    card: card,
-                    flightTime: this.rules.flightTime
-                });
-                setTimeout(this.mistleImpact, this.rules.flightTime, sourcePlayer, targetPlayer, card);
-            }
+            // if(sourcePlayer.isActive){
+            //     // eventually the timer might be different for different cards or mistles
+            //     this.game.inFlight.push({
+            //         id: new Date(),
+            //         sourceId: sourcePlayer.id,
+            //         targetId: targetPlayer.id,
+            //         card: card,
+            //         flightTime: this.rules.flightTime
+            //     });
+            //     setTimeout(this.mistleImpact, this.rules.flightTime, sourcePlayer, targetPlayer, card);
+            // }
         },
         mistleImpact: function(state, sourcePlayer, targetPlayer, mistle){
             if(this.game.status === "PLAYING") {
@@ -331,6 +331,13 @@ export default new Vuex.Store({
         }
     },
     getters: {
+        numberOfPlayers: function(state){
+            console.log("accessing");
+            return state.game.players.length;
+        },
+        playerById: function(playerId){
+            return state.game.players[playerId];
+        },
         areEnemies: function(state, player1Id, player2Id){
             let p1 = state.game.players[player1Id];
             let p2 = state.game.players[player2Id];
