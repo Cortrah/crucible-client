@@ -25,6 +25,9 @@
 
 <script type="text/babel">
 
+    import Vue from 'vue';
+    import { mapState } from 'vuex'
+
     export default {
         props: [
             "gameStatus",
@@ -45,8 +48,15 @@
             "isBleedingOut",
             'startingDeckLength'
         ],
+        computed: mapState({
+            game: state => state.game,
+        }),
         methods: {
             targeted: function () {
+
+                console.log("player targeted");
+                console.log(this.id);
+
                 if(this.gameStatus === "PLAYING"){
                     this.$emit("TARGETED", this.id);
                 }

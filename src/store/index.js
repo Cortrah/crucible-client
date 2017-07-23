@@ -239,11 +239,38 @@ export const state = {
 
 export default new Vuex.Store({
     state,
-    getters,
-    actions,
+    actions: {
+        drawMistle(context, payload){
+            context.commit('drawMistle', {playerId: payload.playerId});
+        },
+        drawShield(context, payload){
+            context.commit('drawShield', {playerId: payload.playerId});
+        },
+        selectCard: function(context, payload){
+            context.commit({type: 'selectCard', playerId: payload.playerId, cardIndex: payload.cardIndex});
+        },
+        targetPlayer: function (context, payload){
+            context.commit({type: 'targetPlayer', sourceId: payload.sourceId, targetId: payload.targetId});
+        },
+        startGame: function(context) {
+            context.commit('startGame');
+        },
+        gameTick: function(context) {
+            context.commit('gameTick');
+        },
+        manaTick: function(context) {
+            context.commit('manaTick');
+        },
+        endGame: function(context) {
+            context.commit('endGame');
+        }
+    },
     mutations: {
-        drawMistle: function(state, playerId){
-            let player = state.game.players[playerId];
+        drawMistle: function(state, payload){
+            console.log("drawMistle called in store");
+            console.log(state);
+            console.log(payload.playerId);
+            let player = state.game.players[payload.playerId];
             if(player.mana >= 1 && player.deck.length > 0) {
                 let drawn = player.deck[0];
                 player.cards.push(drawn);
@@ -258,42 +285,59 @@ export default new Vuex.Store({
             //player.cards.push(shield);
             //player.deck.splice(0,1);
         },
-        selectCard: function(state, playerId, cardIndex){
-            let player = state.game.players[playerId];
-            player.selectedCardIndex = cardIndex;
+        selectCard: function(state, payload){
+            console.log("selectCard called in store");
+            console.log(payload.playerId);
+            console.log(payload.cardIndex);
+
+            let player = state.game.players[payload.playerId];
+            player.selectedCardIndex = payload.cardIndex;
         },
-        targetPlayer: function (state, sourceId, targetId) {
-            //if (this.areEnemies(sourceId, targetId)){
-                let sourcePlayer = state.game.players[sourceId];
+        targetPlayer: function (state, payload) {
+            console.log("targetPlayer called in store");
+            console.log(payload.sourceId);
+            console.log(payload.targetId);
+
+            let sourcePlayer = state.game.players[payload.sourceId];
+            let targetPlayer = state.game.players[payload.targetId];
+            if (sourcePlayer.team !== targetPlayer.team){
                 if(sourcePlayer.selectedCardIndex !== -1) {
                     let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
                     if(sourcePlayer.mana >= card){
-                        let targetPlayer = state.game.players[targetId];
                         sourcePlayer.mana -= card;
                         sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
                         sourcePlayer.selectedCardIndex = -1;
-                        this.launchMistle(sourcePlayer, targetPlayer, card)
+                        let payload = {
+                            sourcePlayer: sourcePlayer,
+                            targetPlayer: targetPlayer,
+                            card: card
+                        };
+                        this.launchMistle(payload)
                     }
                 }
-            //}
+            }
         },
+        launchMistle: function(state, payload) {
+            console.log("launchMistle called in store");
 
-        launchMistle: function(state, sourcePlayer, targetPlayer, card) {
-            // if(sourcePlayer.isActive){
-            //     // eventually the timer might be different for different cards or mistles
-            //     this.game.inFlight.push({
-            //         id: new Date(),
-            //         sourceId: sourcePlayer.id,
-            //         targetId: targetPlayer.id,
-            //         card: card,
-            //         flightTime: this.rules.flightTime
-            //     });
-            //     setTimeout(this.mistleImpact, this.rules.flightTime, sourcePlayer, targetPlayer, card);
-            // }
+            if(payload.sourcePlayer.isActive){
+                // eventually the timer might be different for different cards or mistles
+                let mistle = {
+                    id: new Date(),
+                    sourceId: payload.sourcePlayer.id,
+                    targetId: payload.targetPlayer.id,
+                    card: payload.card,
+                    flightTime: this.rules.flightTime
+                };
+                this.game.inFlight.push(mistle);
+                setTimeout(this.mistleImpact, mistle);
+            }
         },
-        mistleImpact: function(state, sourcePlayer, targetPlayer, mistle){
+        mistleImpact: function(state, mistle){
+            let sourcePlayer = state.game.players[mistle.sourceId];
+            let targetPlayer = state.game.players[mistle.targetId];
             if(this.game.status === "PLAYING") {
-                targetPlayer.health = Math.max(0, targetPlayer.health - mistle);
+                targetPlayer.health = Math.max(0, targetPlayer.health - mistle.card);
                 if (targetPlayer.health <= 0) {
                     targetPlayer.isActive = false;
                     this.game.winner = sourcePlayer.team;
@@ -331,17 +375,13 @@ export default new Vuex.Store({
         }
     },
     getters: {
-        numberOfPlayers: function(state){
+        numberOfPlayers: state => {
             console.log("accessing");
             return state.game.players.length;
         },
-        playerById: function(playerId){
+        playerById: function(state, playerId){
+            console.log("playerId:" + playerId);
             return state.game.players[playerId];
-        },
-        areEnemies: function(state, player1Id, player2Id){
-            let p1 = state.game.players[player1Id];
-            let p2 = state.game.players[player2Id];
-            return (p1.team !== p2.team);
         },
         shuffle: function(state, array) {
             let remaining = array.length;

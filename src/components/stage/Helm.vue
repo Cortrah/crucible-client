@@ -89,7 +89,6 @@
 
             <button @click="drawMistle()">Draw Mistle</button>
             <button @click="drawShield()">Draw Shield</button>
-            of {{ this.game.players.length }} players
         </div>
 
         <div id="mistles">
@@ -133,17 +132,14 @@
         created() {
             this.gameIntervalId = setInterval(this.tick, 200);
         },
-        computed: mapState(['rules', 'game', 'avatars']),
-//        computed: mapState({
-//            game: state => state.game,
-//            rules: state => state.rules,
-//            avatars: state => state.avatars,
-//            myself: (state) => {
-//                return state.playerById(this.playerId)
-//            }
-//        }),
+        computed: mapState({
+            game: state => state.game,
+            rules: state => state.rules,
+            avatars: state => state.avatars
+        }),
         methods: {
             tick: function() {
+                let myself = this.game.players[this.playerId];
 //                if(this.myself.isActive && this.game.status === "PLAYING"){
 //                    // if I have < 5 cards and more than 1 mana draw a card
 //                    if(this.myself.cards.length < 5 && this.myself.mana > 0){
@@ -205,26 +201,34 @@
                 return tRect.top + tRect.height / 2;
             },
             drawMistle: function () {
-                //if(this.myself.isActive && this.game.status === "PLAYING"){
-                //    if(this.myself.cards.length < 5 && this.myself.deckSize > 0){
+                let myself = this.game.players[this.playerId];
+                if(myself.isActive && this.game.status === "PLAYING"){
+                    if(myself.cards.length < 5 && myself.deckSize > 0){
                         this.$emit("DRAW_MISTLE", this.playerId);
-                //    }
-                //}
+                    }
+                }
             },
             drawShield: function () {
-                //if(this.myself.isActive && this.game.status === "PLAYING"){
+                let myself = this.game.players[this.playerId];
+                if(this.myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("DRAW_SHIELD", this.playerId);
-                //}
+                }
             },
             selectCard: function (card, index) {
-                //if(this.myself.isActive && this.game.status === "PLAYING"){
+                console.log("selectCard called in helm");
+                let myself = this.game.players[this.playerId];
+                if(myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("SELECT_CARD", this.playerId, index);
-                //}
+                }
             },
             targetPlayer: function (targetId) {
-                //if(this.myself.isActive && this.game.status === "PLAYING"){
+                console.log("targetPlayer called in helm");
+                console.log(targetId);
+
+                let myself = this.game.players[this.playerId];
+                if(myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("TARGET_PLAYER", this.playerId, targetId);
-                //}
+                }
             },
             getPlayerVm: function(playerId){
                 // for each in allies

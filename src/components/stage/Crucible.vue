@@ -1,7 +1,6 @@
 <template>
     <div class="crucible">
 
-        <span>{{ this.game.players.length }} players</span>
         <button @click="startGame()">Start Game</button>
         <button @click="endGame()">End Game</button>
         <span>{{ this.game.timeRunning }}</span>
@@ -38,32 +37,36 @@
         },
         methods: {
             drawMistle: function(playerId){
-                store.commit('drawMistle', playerId);
+                store.dispatch({type: 'drawMistle', playerId: playerId});
             },
             drawShield: function(playerId){
-                store.commit('drawShield', playerId);
+                store.dispatch({type: 'drawShield', playerId: playerId});
             },
             selectCard: function(playerId, cardIndex){
-                store.commit('selectCard', playerId, cardIndex);
+                console.log("selectCard called in crucible");
+                store.dispatch({type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
             },
             targetPlayer: function (sourceId, targetId) {
-                store.commit('targetPlayer', sourceId, targetId);
+                console.log("targetPlayer called in crucible");
+                console.log(sourceId);
+                console.log(targetId);
+                store.dispatch({type: 'targetPlayer', sourceId:sourceId, targetId:targetId});
             },
             startGame: function() {
-                store.commit('startGame');
+                store.dispatch('startGame');
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
                 this.gameIntervalId = setInterval(this.gameTick, 100);
                 this.manaIntervalId = setInterval(this.manaTick, 1000);
             },
             gameTick: function() {
-                store.commit('gameTick');
+                store.dispatch('gameTick');
             },
             manaTick: function() {
-                store.commit('manaTick');
+                store.dispatch('manaTick');
             },
             endGame: function() {
-                store.commit('endGame');
+                store.dispatch('endGame');
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
             }
