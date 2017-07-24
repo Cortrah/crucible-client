@@ -247,11 +247,15 @@ export default new Vuex.Store({
             context.commit('drawShield', {playerId: payload.playerId});
         },
         selectCard: function(context, payload){
+            console.log('payload.cardIndex');
+            console.log(payload.cardIndex);
             context.commit({type: 'selectCard', playerId: payload.playerId, cardIndex: payload.cardIndex});
         },
         targetPlayer: function (context, payload){
             context.commit({type: 'targetPlayer', sourceId: payload.sourceId, targetId: payload.targetId});
             context.commit({type: 'launchMistle', sourceId: payload.sourceId, targetId: payload.targetId, card: payload.card});
+            console.log('payload.cardIndex');
+            console.log(payload.cardIndex);
 
             let sourcePlayer = state.game.players[payload.sourceId];
             let targetPlayer = state.game.players[payload.targetId];
@@ -259,13 +263,17 @@ export default new Vuex.Store({
                 if (sourcePlayer.isActive) {
                     if (sourcePlayer.selectedCardIndex !== -1) {
                         let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
+                        console.log('card');
+                        console.log(card);
+                        console.log(payload.cardIndex);
+
 
                         // eventually the timer might be different for different cards or mistles
                         let mistle = {
                             id: new Date(),
                             sourceId: payload.sourceId,
                             targetId: payload.targetId,
-                            card: payload.card,
+                            card: card,
                             flightTime: state.rules.flightTime
                         };
                         context.commit({type: 'launchMistle', mistle: mistle})
@@ -310,7 +318,7 @@ export default new Vuex.Store({
             //player.deck.splice(0,1);
         },
         selectCard: function(state, payload){
-            console.log("selectCard called in store");
+            console.log("selectCard mutation called in store");
             console.log(payload.playerId);
             console.log(payload.cardIndex);
 
@@ -318,7 +326,10 @@ export default new Vuex.Store({
             player.selectedCardIndex = payload.cardIndex;
         },
         targetPlayer: function (state, payload) {
-            console.log("targetPlayer called in store");
+            console.log("targetPlayer mutation called in store");
+            console.log('payload.cardIndex');
+            console.log(payload.cardIndex);
+
             let sourcePlayer = state.game.players[payload.sourceId];
             console.log(payload.sourceId);
             console.log(payload.targetId);
@@ -330,7 +341,7 @@ export default new Vuex.Store({
             }
         },
         launchMistle: function(state, mistle) {
-            console.log("launchMiste mutation called in store");
+            console.log("launchMistle mutation called in store");
             console.log(mistle);
             state.game.inFlight.push(mistle);
         },

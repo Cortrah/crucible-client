@@ -43,14 +43,16 @@
                 store.dispatch({type: 'drawShield', playerId: playerId});
             },
             selectCard: function(playerId, cardIndex){
-                console.log("selectCard called in crucible");
+                console.log("selectCard called in crucible " + cardIndex);
                 store.dispatch({type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
             },
             targetPlayer: function (sourceId, targetId) {
                 console.log("targetPlayer called in crucible");
                 console.log(sourceId);
                 console.log(targetId);
-                store.dispatch({type: 'targetPlayer', sourceId:sourceId, targetId:targetId});
+                let cardIndex = this.game.players[sourceId].selectedCardIndex;
+                console.log(cardIndex);
+                store.dispatch({type: 'targetPlayer', sourceId:sourceId, targetId:targetId, cardIndex:cardIndex});
             },
             startGame: function() {
                 store.dispatch('startGame');
