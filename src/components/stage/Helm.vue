@@ -182,7 +182,9 @@
             },
             sourceX: function (sourceId) {
                 console.log("sourceX");
+                console.log(sourceId);
                 let sourcePlayerVm = this.getPlayerVm(sourceId);
+                console.log(sourcePlayerVm);
                 let sRect = sourcePlayerVm.$el.getBoundingClientRect();
                 return sRect.left + sRect.width / 2;
             },
