@@ -251,6 +251,30 @@ export default new Vuex.Store({
         },
         targetPlayer: function (context, payload){
             context.commit({type: 'targetPlayer', sourceId: payload.sourceId, targetId: payload.targetId});
+            context.commit({type: 'launchMistle', sourceId: payload.sourceId, targetId: payload.targetId, card: payload.card});
+
+            let sourcePlayer = state.game.players[payload.sourceId];
+            let targetPlayer = state.game.players[payload.targetId];
+            if (sourcePlayer.team !== targetPlayer.team) {
+                if (sourcePlayer.isActive) {
+                    if (sourcePlayer.selectedCardIndex !== -1) {
+                        let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
+
+                        // eventually the timer might be different for different cards or mistles
+                        let mistle = {
+                            id: new Date(),
+                            sourceId: payload.sourceId,
+                            targetId: payload.targetId,
+                            card: payload.card,
+                            flightTime: state.rules.flightTime
+                        };
+                        context.commit({type: 'launchMistle', mistle: mistle})
+                        setTimeout(() => {
+                            commit('mistleImpact', mistle)
+                        }, state.rules.flightTime);
+                    }
+                }
+            }
         },
         startGame: function(context) {
             context.commit('startGame');
@@ -295,52 +319,31 @@ export default new Vuex.Store({
         },
         targetPlayer: function (state, payload) {
             console.log("targetPlayer called in store");
+            let sourcePlayer = state.game.players[payload.sourceId];
             console.log(payload.sourceId);
             console.log(payload.targetId);
-
-            let sourcePlayer = state.game.players[payload.sourceId];
-            let targetPlayer = state.game.players[payload.targetId];
-            if (sourcePlayer.team !== targetPlayer.team){
-                if(sourcePlayer.selectedCardIndex !== -1) {
-                    let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
-                    if(sourcePlayer.mana >= card){
-                        sourcePlayer.mana -= card;
-                        sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
-                        sourcePlayer.selectedCardIndex = -1;
-                        let payload = {
-                            sourcePlayer: sourcePlayer,
-                            targetPlayer: targetPlayer,
-                            card: card
-                        };
-                        this.launchMistle(payload)
-                    }
-                }
+            let card = payload.card;
+            if(sourcePlayer.mana >= card){
+                sourcePlayer.mana -= card;
+                sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
+                sourcePlayer.selectedCardIndex = -1;
             }
         },
-        launchMistle: function(state, payload) {
-            console.log("launchMistle called in store");
-
-            if(payload.sourcePlayer.isActive){
-                // eventually the timer might be different for different cards or mistles
-                let mistle = {
-                    id: new Date(),
-                    sourceId: payload.sourcePlayer.id,
-                    targetId: payload.targetPlayer.id,
-                    card: payload.card,
-                    flightTime: this.rules.flightTime
-                };
-                this.game.inFlight.push(mistle);
-                setTimeout(this.mistleImpact, mistle);
-            }
+        launchMistle: function(state, mistle) {
+            console.log("launchMiste mutation called in store");
+            console.log(mistle);
+            state.game.inFlight.push(mistle);
         },
         mistleImpact: function(state, mistle){
+            console.log("mistleImpact mutation called in store");
+            console.log(mistle);
             let sourcePlayer = state.game.players[mistle.sourceId];
             let targetPlayer = state.game.players[mistle.targetId];
-            if(this.game.status === "PLAYING") {
+            if(state.game.status === "PLAYING") {
                 targetPlayer.health = Math.max(0, targetPlayer.health - mistle.card);
                 if (targetPlayer.health <= 0) {
                     targetPlayer.isActive = false;
-                    this.game.winner = sourcePlayer.team;
+                    state.game.winner = sourcePlayer.team;
                     this.endGame();
                 }
             }
