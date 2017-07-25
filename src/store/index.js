@@ -327,12 +327,14 @@ export default new Vuex.Store({
         },
         targetPlayer: function (state, payload) {
             console.log("targetPlayer mutation called in store");
+            console.log('payload.sourceId');
+            console.log(payload.sourceId);
+            console.log('payload.targetId');
+            console.log(payload.targetId);
             console.log('payload.cardIndex');
             console.log(payload.cardIndex);
 
             let sourcePlayer = state.game.players[payload.sourceId];
-            console.log(payload.sourceId);
-            console.log(payload.targetId);
             let card = payload.card;
             if(sourcePlayer.mana >= card){
                 sourcePlayer.mana -= card;

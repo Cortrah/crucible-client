@@ -46,11 +46,10 @@
                 console.log("selectCard called in crucible " + cardIndex);
                 store.dispatch({type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
             },
-            targetPlayer: function (sourceId, targetId) {
+            targetPlayer: function (sourceId, targetId, cardIndex) {
                 console.log("targetPlayer called in crucible");
                 console.log(sourceId);
                 console.log(targetId);
-                let cardIndex = this.game.players[sourceId].selectedCardIndex;
                 console.log(cardIndex);
                 store.dispatch({type: 'targetPlayer', sourceId:sourceId, targetId:targetId, cardIndex:cardIndex});
             },

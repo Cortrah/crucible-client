@@ -190,18 +190,21 @@
             },
             sourceY: function (sourceId) {
                 console.log("sourceY");
+                console.log(sourceId);
                 let sourcePlayerVm = this.getPlayerVm(sourceId);
                 let sRect = sourcePlayerVm.$el.getBoundingClientRect();
                 return sRect.top + sRect.height / 2;
             },
             targetX: function (targetId) {
                 console.log("targetX");
+                console.log(targetId);
                 let targetPlayerVm = this.getPlayerVm(targetId);
                 let tRect = targetPlayerVm.$el.getBoundingClientRect();
                 return tRect.left + tRect.width / 2;
             },
             targetY: function (targetId) {
                 console.log("targetY");
+                console.log(targetId);
                 let targetPlayerVm = this.getPlayerVm(targetId);
                 let tRect = targetPlayerVm.$el.getBoundingClientRect();
                 return tRect.top + tRect.height / 2;
@@ -232,23 +235,26 @@
             targetPlayer: function (targetId) {
                 console.log("targetPlayer called in helm");
                 console.log(targetId);
-
+                //let cardIndex = this.game.players[sourceId].selectedCardIndex;
+                let cardIndex = 0;
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
-                    this.$emit("TARGET_PLAYER", this.playerId, targetId);
+                    this.$emit("TARGET_PLAYER", this.playerId, targetId, 0);
                 }
             },
             getPlayerVm: function(playerId){
                 console.log("getPlayerVm called in helm");
                 console.log("playerId:" + playerId);
-                // for each in allies
+                // for each in axis and allies
                 for(let i = 0; i < this.$refs.axis.length; i++){
-                    if (playerId === this.$refs.axis[i].id){
+                    if (playerId == this.$refs.axis[i].id){
+                        console.log(this.$refs.allies[i].name);
                         return this.$refs.axis[i];
                     }
                 }
                 for(let i = 0; i < this.$refs.allies.length; i++){
-                    if (playerId === this.$refs.allies[i].id){
+                    if (playerId == this.$refs.allies[i].id){
+                        console.log(this.$refs.allies[i].name);
                         return this.$refs.allies[i];
                     }
                 }
