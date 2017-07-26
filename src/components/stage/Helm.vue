@@ -130,7 +130,7 @@
             }
         },
         created() {
-            this.gameIntervalId = setInterval(this.tick, 200);
+            this.gameIntervalId = setInterval(this.tick, 1000);
         },
         computed: mapState({
             game: state => state.game,
@@ -139,7 +139,7 @@
         }),
         methods: {
             tick: function() {
-                let myself = this.game.players[this.playerId];
+//                let myself = this.game.players[this.playerId];
 //                if(this.myself.isActive && this.game.status === "PLAYING"){
 //                    // if I have < 5 cards and more than 1 mana draw a card
 //                    if(this.myself.cards.length < 5 && this.myself.mana > 0){
@@ -184,7 +184,7 @@
                 //console.log("sourceX");
                 //console.log(sourceId);
                 let sourcePlayerVm = this.getPlayerVm(sourceId);
-                //console.log(sourcePlayerVm);
+                console.log(sourcePlayerVm);
                 let sRect = sourcePlayerVm.$el.getBoundingClientRect();
                 return sRect.left + sRect.width / 2;
             },
@@ -248,13 +248,17 @@
                 // for each in axis and allies
                 for(let i = 0; i < this.$refs.axis.length; i++){
                     if (playerId == this.$refs.axis[i].id){
-                        console.log(this.$refs.allies[i].name);
+                        //console.log(this.$refs.axis[i]);
+                        let sRect = this.$refs.axis[i].$el.getBoundingClientRect()
+                        console.log(sRect);
                         return this.$refs.axis[i];
                     }
                 }
                 for(let i = 0; i < this.$refs.allies.length; i++){
                     if (playerId == this.$refs.allies[i].id){
-                        console.log(this.$refs.allies[i].name);
+                        //console.log(this.$refs.allies[i]);
+                        let sRect = this.$refs.allies[i].$el.getBoundingClientRect()
+                        console.log(sRect);
                         return this.$refs.allies[i];
                     }
                 }

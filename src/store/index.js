@@ -326,14 +326,14 @@ export default new Vuex.Store({
             player.selectedCardIndex = payload.cardIndex;
         },
         targetPlayer: function (state, payload) {
-            console.log("targetPlayer mutation called in store");
-            console.log(payload);
-            console.log('payload.sourceId');
-            console.log(payload.sourceId);
-            console.log('payload.targetId');
-            console.log(payload.targetId);
-            console.log('payload.cardIndex');
-            console.log(payload.cardIndex);
+            //console.log("targetPlayer mutation called in store");
+            //console.log(payload);
+            //console.log('payload.sourceId');
+            //console.log(payload.sourceId);
+            //console.log('payload.targetId');
+            //console.log(payload.targetId);
+            //console.log('payload.cardIndex');
+            //console.log(payload.cardIndex);
 
             let sourcePlayer = state.game.players[payload.sourceId];
             let card = payload.card;

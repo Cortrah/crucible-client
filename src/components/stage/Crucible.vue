@@ -47,10 +47,10 @@
                 store.dispatch({type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
             },
             targetPlayer: function (sourceId, targetId, cardIndex) {
-                console.log("targetPlayer called in crucible");
-                console.log(sourceId);
-                console.log(targetId);
-                console.log(cardIndex);
+                //console.log("targetPlayer called in crucible");
+                //console.log(sourceId);
+                //console.log(targetId);
+                //console.log(cardIndex);
                 store.dispatch({
                     type: 'targetPlayer',
                     sourceId:sourceId,
