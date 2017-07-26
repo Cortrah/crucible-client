@@ -252,8 +252,8 @@ export default new Vuex.Store({
             context.commit({type: 'selectCard', playerId: payload.playerId, cardIndex: payload.cardIndex});
         },
         targetPlayer: function (context, payload){
-            context.commit({type: 'targetPlayer', sourceId: payload.sourceId, targetId: payload.targetId});
-            context.commit({type: 'launchMistle', sourceId: payload.sourceId, targetId: payload.targetId, card: payload.card});
+            context.commit({type: 'targetPlayer', sourceId: payload.sourceId, targetId: payload.targetId, cardIndex:payload.cardIndex});
+            context.commit({type: 'launchMistle', sourceId: payload.sourceId, targetId: payload.targetId, cardIndex:payload.cardIndex});
             //console.log('payload.cardIndex');
             //console.log(payload.cardIndex);
 
