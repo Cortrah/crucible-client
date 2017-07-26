@@ -43,7 +43,7 @@
                 store.dispatch({type: 'drawShield', playerId: playerId});
             },
             selectCard: function(playerId, cardIndex){
-                console.log("selectCard called in crucible " + cardIndex);
+                //console.log("selectCard called in crucible " + cardIndex);
                 store.dispatch({type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
             },
             targetPlayer: function (sourceId, targetId, cardIndex) {
@@ -51,10 +51,16 @@
                 console.log(sourceId);
                 console.log(targetId);
                 console.log(cardIndex);
-                store.dispatch({type: 'targetPlayer', sourceId:sourceId, targetId:targetId, cardIndex:cardIndex});
+                store.dispatch({
+                    type: 'targetPlayer',
+                    sourceId:sourceId,
+                    targetId:targetId,
+                    cardIndex:cardIndex
+                });
+
             },
             startGame: function() {
-                store.dispatch('startGame');
+                // store.dispatch('startGame');
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
                 this.gameIntervalId = setInterval(this.gameTick, 100);

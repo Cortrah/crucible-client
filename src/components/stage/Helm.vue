@@ -181,36 +181,36 @@
 //                }
             },
             sourceX: function (sourceId) {
-                console.log("sourceX");
-                console.log(sourceId);
+                //console.log("sourceX");
+                //console.log(sourceId);
                 let sourcePlayerVm = this.getPlayerVm(sourceId);
-                console.log(sourcePlayerVm);
+                //console.log(sourcePlayerVm);
                 let sRect = sourcePlayerVm.$el.getBoundingClientRect();
                 return sRect.left + sRect.width / 2;
             },
             sourceY: function (sourceId) {
-                console.log("sourceY");
-                console.log(sourceId);
+                //console.log("sourceY");
+                //console.log(sourceId);
                 let sourcePlayerVm = this.getPlayerVm(sourceId);
                 let sRect = sourcePlayerVm.$el.getBoundingClientRect();
                 return sRect.top + sRect.height / 2;
             },
             targetX: function (targetId) {
-                console.log("targetX");
-                console.log(targetId);
+                //console.log("targetX");
+                //console.log(targetId);
                 let targetPlayerVm = this.getPlayerVm(targetId);
                 let tRect = targetPlayerVm.$el.getBoundingClientRect();
                 return tRect.left + tRect.width / 2;
             },
             targetY: function (targetId) {
-                console.log("targetY");
-                console.log(targetId);
+                //console.log("targetY");
+                //console.log(targetId);
                 let targetPlayerVm = this.getPlayerVm(targetId);
                 let tRect = targetPlayerVm.$el.getBoundingClientRect();
                 return tRect.top + tRect.height / 2;
             },
             drawMistle: function () {
-                console.log("drawMistle");
+                //console.log("drawMistle");
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     if(myself.cards.length < 5 && myself.deckSize > 0){
@@ -219,22 +219,22 @@
                 }
             },
             drawShield: function () {
-                console.log("drawShield");
+                //console.log("drawShield");
                 let myself = this.game.players[this.playerId];
                 if(this.myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("DRAW_SHIELD", this.playerId);
                 }
             },
             selectCard: function (card, index) {
-                console.log("selectCard called in helm");
+                //console.log("selectCard called in helm");
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("SELECT_CARD", this.playerId, index);
                 }
             },
             targetPlayer: function (targetId) {
-                console.log("targetPlayer called in helm");
-                console.log(targetId);
+                //console.log("targetPlayer called in helm");
+                //console.log(targetId);
                 //let cardIndex = this.game.players[sourceId].selectedCardIndex;
                 let cardIndex = 0;
                 let myself = this.game.players[this.playerId];
@@ -243,8 +243,8 @@
                 }
             },
             getPlayerVm: function(playerId){
-                console.log("getPlayerVm called in helm");
-                console.log("playerId:" + playerId);
+                //console.log("getPlayerVm called in helm");
+                //console.log("playerId:" + playerId);
                 // for each in axis and allies
                 for(let i = 0; i < this.$refs.axis.length; i++){
                     if (playerId == this.$refs.axis[i].id){
