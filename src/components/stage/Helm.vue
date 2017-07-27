@@ -181,33 +181,88 @@
 //                }
             },
             sourceX: function (sourceId) {
-                //console.log("sourceX");
-                //console.log(sourceId);
-                let sourcePlayerVm = this.getPlayerVm(sourceId);
-                console.log(sourcePlayerVm);
-                let sRect = sourcePlayerVm.$el.getBoundingClientRect();
-                return sRect.left + sRect.width / 2;
+                if(typeof sourceId !== "undefined"){
+                    console.log("0" + sourceId);
+                    let rect = null;
+                    for(let i = 0; i < this.$refs.axis.length; i++){
+                        console.log("0" + this.$refs.axis[i].id);
+                        if (sourceId == this.$refs.axis[i].id){
+                            rect = this.$refs.axis[i].$el.getBoundingClientRect()
+                        }
+                    }
+                    for(let i = 0; i < this.$refs.allies.length; i++){
+                        console.log("0" + this.$refs.allies[i].id);
+                        if (sourceId == this.$refs.allies[i].id){
+                            rect = this.$refs.allies[i].$el.getBoundingClientRect()
+                        }
+                    }
+                    return rect.left + 75;
+                } else {
+                    return 0;
+                }
             },
             sourceY: function (sourceId) {
-                //console.log("sourceY");
-                //console.log(sourceId);
-                let sourcePlayerVm = this.getPlayerVm(sourceId);
-                let sRect = sourcePlayerVm.$el.getBoundingClientRect();
-                return sRect.top + sRect.height / 2;
+                if(typeof sourceId !== "undefined"){
+                    console.log("1" + sourceId);
+                    let rect = null;
+                    for(let i = 0; i < this.$refs.axis.length; i++){
+                        console.log("1" + this.$refs.axis[i].id);
+                        if (sourceId == this.$refs.axis[i].id){
+                            rect = this.$refs.axis[i].$el.getBoundingClientRect()
+                        }
+                    }
+                    for(let i = 0; i < this.$refs.allies.length; i++){
+                        console.log("1" + this.$refs.allies[i].id);
+                        if (sourceId == this.$refs.allies[i].id){
+                            rect = this.$refs.allies[i].$el.getBoundingClientRect()
+                        }
+                    }
+                    return rect.top + 75;
+                } else {
+                    return 0;
+                }
             },
             targetX: function (targetId) {
-                //console.log("targetX");
-                //console.log(targetId);
-                let targetPlayerVm = this.getPlayerVm(targetId);
-                let tRect = targetPlayerVm.$el.getBoundingClientRect();
-                return tRect.left + tRect.width / 2;
+                if(typeof targetId !== "undefined"){
+                    console.log("2" + targetId);
+                    let rect = null;
+                    for(let i = 0; i < this.$refs.axis.length; i++){
+                        console.log("2" + this.$refs.axis[i].id);
+                        if (targetId == this.$refs.axis[i].id){
+                            rect = this.$refs.axis[i].$el.getBoundingClientRect()
+                        }
+                    }
+                    for(let i = 0; i < this.$refs.allies.length; i++){
+                        console.log("2" + this.$refs.allies[i].id);
+                        if (targetId == this.$refs.allies[i].id){
+                            rect = this.$refs.allies[i].$el.getBoundingClientRect()
+                        }
+                    }
+                    return rect.left + 75;
+                } else {
+                    return 0;
+                }
             },
             targetY: function (targetId) {
-                //console.log("targetY");
-                //console.log(targetId);
-                let targetPlayerVm = this.getPlayerVm(targetId);
-                let tRect = targetPlayerVm.$el.getBoundingClientRect();
-                return tRect.top + tRect.height / 2;
+                if(typeof targetId !== "undefined") {
+                    console.log("3" + targetId);
+                    let rect = null;
+                    for (let i = 0; i < this.$refs.axis.length; i++) {
+                        console.log("3" + this.$refs.axis[i].id);
+                        if (targetId == this.$refs.axis[i].id) {
+                            rect = this.$refs.axis[i].$el.getBoundingClientRect()
+                        }
+                    }
+                    for (let i = 0; i < this.$refs.allies.length; i++) {
+                        console.log("3" + this.$refs.allies[i].id);
+                        if (targetId == this.$refs.allies[i].id) {
+                            rect = this.$refs.allies[i].$el.getBoundingClientRect()
+                        }
+                    }
+                    return rect.top + 75;
+                } else {
+                    return 0;
+                }
             },
             drawMistle: function () {
                 //console.log("drawMistle");
@@ -240,27 +295,6 @@
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("TARGET_PLAYER", this.playerId, targetId, 0);
-                }
-            },
-            getPlayerVm: function(playerId){
-                //console.log("getPlayerVm called in helm");
-                //console.log("playerId:" + playerId);
-                // for each in axis and allies
-                for(let i = 0; i < this.$refs.axis.length; i++){
-                    if (playerId == this.$refs.axis[i].id){
-                        //console.log(this.$refs.axis[i]);
-                        let sRect = this.$refs.axis[i].$el.getBoundingClientRect()
-                        console.log(sRect);
-                        return this.$refs.axis[i];
-                    }
-                }
-                for(let i = 0; i < this.$refs.allies.length; i++){
-                    if (playerId == this.$refs.allies[i].id){
-                        //console.log(this.$refs.allies[i]);
-                        let sRect = this.$refs.allies[i].$el.getBoundingClientRect()
-                        console.log(sRect);
-                        return this.$refs.allies[i];
-                    }
                 }
             }
         }
