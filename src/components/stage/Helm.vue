@@ -182,16 +182,16 @@
             },
             sourceX: function (sourceId) {
                 if(typeof sourceId !== "undefined"){
-                    console.log("0" + sourceId);
+                    //console.log("0" + sourceId);
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        console.log("0" + this.$refs.axis[i].id);
+                        //console.log("0" + this.$refs.axis[i].id);
                         if (sourceId == this.$refs.axis[i].id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        console.log("0" + this.$refs.allies[i].id);
+                        //console.log("0" + this.$refs.allies[i].id);
                         if (sourceId == this.$refs.allies[i].id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
@@ -203,16 +203,16 @@
             },
             sourceY: function (sourceId) {
                 if(typeof sourceId !== "undefined"){
-                    console.log("1" + sourceId);
+                    //console.log("1" + sourceId);
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        console.log("1" + this.$refs.axis[i].id);
+                        //console.log("1" + this.$refs.axis[i].id);
                         if (sourceId == this.$refs.axis[i].id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        console.log("1" + this.$refs.allies[i].id);
+                        //console.log("1" + this.$refs.allies[i].id);
                         if (sourceId == this.$refs.allies[i].id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
@@ -224,16 +224,16 @@
             },
             targetX: function (targetId) {
                 if(typeof targetId !== "undefined"){
-                    console.log("2" + targetId);
+                    //console.log("2" + targetId);
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        console.log("2" + this.$refs.axis[i].id);
+                        //console.log("2" + this.$refs.axis[i].id);
                         if (targetId == this.$refs.axis[i].id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        console.log("2" + this.$refs.allies[i].id);
+                        //console.log("2" + this.$refs.allies[i].id);
                         if (targetId == this.$refs.allies[i].id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
@@ -245,16 +245,16 @@
             },
             targetY: function (targetId) {
                 if(typeof targetId !== "undefined") {
-                    console.log("3" + targetId);
+                    //console.log("3" + targetId);
                     let rect = null;
                     for (let i = 0; i < this.$refs.axis.length; i++) {
-                        console.log("3" + this.$refs.axis[i].id);
+                        //console.log("3" + this.$refs.axis[i].id);
                         if (targetId == this.$refs.axis[i].id) {
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for (let i = 0; i < this.$refs.allies.length; i++) {
-                        console.log("3" + this.$refs.allies[i].id);
+                        //console.log("3" + this.$refs.allies[i].id);
                         if (targetId == this.$refs.allies[i].id) {
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
