@@ -203,16 +203,13 @@
             },
             sourceY: function (sourceId) {
                 if(typeof sourceId !== "undefined"){
-                    //console.log("1" + sourceId);
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        //console.log("1" + this.$refs.axis[i].id);
                         if (sourceId == this.$refs.axis[i].id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        //console.log("1" + this.$refs.allies[i].id);
                         if (sourceId == this.$refs.allies[i].id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
@@ -224,16 +221,13 @@
             },
             targetX: function (targetId) {
                 if(typeof targetId !== "undefined"){
-                    //console.log("2" + targetId);
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        //console.log("2" + this.$refs.axis[i].id);
                         if (targetId == this.$refs.axis[i].id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        //console.log("2" + this.$refs.allies[i].id);
                         if (targetId == this.$refs.allies[i].id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
@@ -245,16 +239,13 @@
             },
             targetY: function (targetId) {
                 if(typeof targetId !== "undefined") {
-                    //console.log("3" + targetId);
                     let rect = null;
                     for (let i = 0; i < this.$refs.axis.length; i++) {
-                        //console.log("3" + this.$refs.axis[i].id);
                         if (targetId == this.$refs.axis[i].id) {
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for (let i = 0; i < this.$refs.allies.length; i++) {
-                        //console.log("3" + this.$refs.allies[i].id);
                         if (targetId == this.$refs.allies[i].id) {
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
@@ -265,7 +256,6 @@
                 }
             },
             drawMistle: function () {
-                //console.log("drawMistle");
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     if(myself.cards.length < 5 && myself.deckSize > 0){
@@ -274,27 +264,22 @@
                 }
             },
             drawShield: function () {
-                //console.log("drawShield");
                 let myself = this.game.players[this.playerId];
                 if(this.myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("DRAW_SHIELD", this.playerId);
                 }
             },
             selectCard: function (card, index) {
-                //console.log("selectCard called in helm");
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("SELECT_CARD", this.playerId, index);
                 }
             },
             targetPlayer: function (targetId) {
-                //console.log("targetPlayer called in helm");
-                //console.log(targetId);
-                //let cardIndex = this.game.players[sourceId].selectedCardIndex;
-                let cardIndex = 0;
                 let myself = this.game.players[this.playerId];
+                let cardIndex = myself.selectedCardIndex;
                 if(myself.isActive && this.game.status === "PLAYING"){
-                    this.$emit("TARGET_PLAYER", this.playerId, targetId, 0);
+                    this.$emit("TARGET_PLAYER", this.playerId, targetId, cardIndex);
                 }
             }
         }

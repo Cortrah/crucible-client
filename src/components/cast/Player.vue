@@ -53,10 +53,6 @@
         }),
         methods: {
             targeted: function () {
-
-                //console.log("player targeted");
-                //console.log(this.id);
-
                 if(this.gameStatus === "PLAYING"){
                     this.$emit("TARGETED", this.id);
                 }
