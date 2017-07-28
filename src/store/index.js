@@ -306,7 +306,7 @@ export default new Vuex.Store({
         },
         targetPlayer: function (state, payload) {
             let sourcePlayer = state.game.players[payload.sourceId];
-            let card = payload.card;
+            let card = sourcePlayer.cards[payload.cardIndex];
             if(sourcePlayer.mana >= card){
                 sourcePlayer.mana -= card;
                 sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
