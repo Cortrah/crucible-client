@@ -268,7 +268,7 @@ export default new Vuex.Store({
                         };
                         context.commit({type: 'launchMistle', mistle: mistle})
                         setTimeout(() => {
-                            commit('mistleImpact', mistle)
+                            context.commit('mistleImpact', mistle)
                         }, state.rules.flightTime);
                     }
                 }

@@ -52,7 +52,6 @@
                     targetId:targetId,
                     cardIndex:cardIndex
                 });
-
             },
             startGame: function() {
                 clearInterval(this.gameIntervalId);
