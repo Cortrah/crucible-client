@@ -32,7 +32,7 @@ export const state = {
     },
     game:{
         "title": 'Waypoint Crucible',
-        "status": "PLAYING",
+        "status": "PREPARING",
         "winner": "",
         "commands":[],
         "events":[],
@@ -333,6 +333,7 @@ export default new Vuex.Store({
             // state.game.players.forEach(function(player){
             //    player.deck = state.getters.shuffle(player.deck);
             // });
+            state.game.status = "PLAYING";
             state.game.timeStarted = Date.now();
             state.game.timeRunning = 0;
         },
