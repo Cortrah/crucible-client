@@ -8,13 +8,8 @@ import game from './modules/game.js'
 import * as actions from './actions.js'
 import * as getters from './getters.js'
 import mutations from './mutations'
-
-//import createLogger from '../../src/plugins/logger.js'
-
 Vue.use(Vuex);
-
 const debug = process.env.NODE_ENV !== 'production';
-
 export const state = {
     rules:{
         "maxMana": 10,
@@ -236,7 +231,6 @@ export const state = {
         { id: '9', name: 'Border Collie', img: '../static/dog4.png' }
     ]
 };
-
 export default new Vuex.Store({
     state,
     actions: {
@@ -250,15 +244,12 @@ export default new Vuex.Store({
             context.commit({type: 'selectCard', playerId: payload.playerId, cardIndex: payload.cardIndex});
         },
         targetPlayer: function (context, payload){
-            context.commit({type: 'targetPlayer', sourceId: payload.sourceId, targetId: payload.targetId, cardIndex:payload.cardIndex});
-            context.commit({type: 'launchMistle', sourceId: payload.sourceId, targetId: payload.targetId, cardIndex:payload.cardIndex});
             let sourcePlayer = state.game.players[payload.sourceId];
             let targetPlayer = state.game.players[payload.targetId];
             if (sourcePlayer.team !== targetPlayer.team) {
                 if (sourcePlayer.isActive) {
                     if (sourcePlayer.selectedCardIndex !== -1) {
-                        let card = sourcePlayer.cards[sourcePlayer.selectedCardIndex];
-                        // eventually the timer might be different for different cards or mistles
+                        let card = sourcePlayer.cards[payload.cardIndex];
                         let mistle = {
                             id: new Date(),
                             sourceId: payload.sourceId,
@@ -266,7 +257,13 @@ export default new Vuex.Store({
                             card: card,
                             flightTime: state.rules.flightTime
                         };
-                        context.commit({type: 'launchMistle', mistle: mistle})
+                        context.commit( {
+                            type: 'targetPlayer',
+                            sourceId: payload.sourceId,
+                            targetId: payload.targetId,
+                            cardIndex:payload.cardIndex,
+                            mistle: mistle,
+                        });
                         setTimeout(() => {
                             context.commit('mistleImpact', mistle)
                         }, state.rules.flightTime);
@@ -275,7 +272,6 @@ export default new Vuex.Store({
             }
         },
         startGame: function(context) {
-            console.log("startGame action called");
             context.commit('startGame');
         },
         gameTick: function(context) {
@@ -286,7 +282,7 @@ export default new Vuex.Store({
         },
         endGame: function(context) {
             context.commit('endGame');
-        }
+        },
     },
     mutations: {
         drawMistle: function(state, payload){
@@ -312,10 +308,8 @@ export default new Vuex.Store({
                 sourcePlayer.mana -= card;
                 sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
                 sourcePlayer.selectedCardIndex = -1;
+                state.game.inFlight.push(payload.mistle);
             }
-        },
-        launchMistle: function(state, mistle) {
-            state.game.inFlight.push(mistle);
         },
         mistleImpact: function(state, mistle){
             let sourcePlayer = state.game.players[mistle.sourceId];
@@ -329,8 +323,8 @@ export default new Vuex.Store({
                 }
             }
         },
+        // game management
         startGame: function(state) {
-            console.log("start game mutation called")
             var scope = this;
             // state.game.players.forEach(function(player){
             //    player.deck = state.getters.shuffle(player.deck);
@@ -386,5 +380,4 @@ export default new Vuex.Store({
         lobby,
     },
     strict: debug,
-//    plugins: debug ? [createLogger()] : []
 })

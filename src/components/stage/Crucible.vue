@@ -1,6 +1,5 @@
 <template>
     <div class="crucible">
-
         <button @click="startGame()">Start Game</button>
         <button @click="endGame()">End Game</button>
         <span>{{ this.game.timeRunning }}</span>
@@ -13,7 +12,6 @@
                   v-on:TARGET_PLAYER="targetPlayer">
             </helm>
         </div>
-
     </div>
 </template>
 
@@ -36,6 +34,7 @@
             }
         },
         methods: {
+            // player actions
             drawMistle: function(playerId){
                 store.dispatch({type: 'drawMistle', playerId: playerId});
             },
@@ -45,7 +44,7 @@
             selectCard: function(playerId, cardIndex){
                 store.dispatch({type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
             },
-            targetPlayer: function (sourceId, targetId, cardIndex) {;
+            targetPlayer: function (sourceId, targetId, cardIndex) {
                 store.dispatch({
                     type: 'targetPlayer',
                     sourceId:sourceId,
@@ -53,6 +52,7 @@
                     cardIndex:cardIndex
                 });
             },
+            // game management
             startGame: function() {
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
