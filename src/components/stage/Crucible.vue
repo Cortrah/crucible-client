@@ -19,7 +19,7 @@
 
 <script>
     import Vue from 'vue'
-    import store from '../../store'
+    import store from '../../store/store.js'
     import { mapState } from 'vuex'
 
     import Player from '../cast/Player'
@@ -58,6 +58,7 @@
                 clearInterval(this.manaIntervalId);
                 this.gameIntervalId = setInterval(this.gameTick, 100);
                 this.manaIntervalId = setInterval(this.manaTick, 1000);
+                store.dispatch('startGame');
             },
             gameTick: function() {
                 store.dispatch('gameTick');

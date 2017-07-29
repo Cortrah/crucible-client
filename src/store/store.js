@@ -275,6 +275,7 @@ export default new Vuex.Store({
             }
         },
         startGame: function(context) {
+            console.log("startGame action called");
             context.commit('startGame');
         },
         gameTick: function(context) {
@@ -329,6 +330,7 @@ export default new Vuex.Store({
             }
         },
         startGame: function(state) {
+            console.log("start game mutation called")
             var scope = this;
             // state.game.players.forEach(function(player){
             //    player.deck = state.getters.shuffle(player.deck);

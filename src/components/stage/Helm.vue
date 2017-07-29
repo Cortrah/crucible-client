@@ -176,8 +176,10 @@
                             }
                         }
                     }
-                } else {
+                } else if( this.game.status === "OVER") {
                     clearInterval(this.gameIntervalId);
+                } else {
+                    // console.log("OK");
                 }
             },
             sourceX: function (sourceId) {
