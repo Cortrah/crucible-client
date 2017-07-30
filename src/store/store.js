@@ -326,9 +326,18 @@ export default new Vuex.Store({
         // game management
         startGame: function(state) {
             var scope = this;
-            // state.game.players.forEach(function(player){
-            //    player.deck = state.getters.shuffle(player.deck);
-            // });
+            state.game.players.forEach(function(player){
+                let remaining = player.deck.length;
+                let randomIndex;
+                let last;
+
+                while (remaining) {
+                    randomIndex = Math.floor(Math.random() * remaining--);
+                    last = player.deck[remaining];
+                    player.deck[remaining] = player.deck[randomIndex];
+                    player.deck[randomIndex] = last;
+                }
+            });
             state.game.status = "PLAYING";
             state.game.timeStarted = Date.now();
             state.game.timeRunning = 0;
@@ -361,19 +370,6 @@ export default new Vuex.Store({
         playerById: function(state, playerId){
             //console.log("playerId:" + playerId);
             return state.game.players[playerId];
-        },
-        shuffle: function(state, array) {
-            let remaining = array.length;
-            let randomIndex;
-            let last;
-
-            while (remaining) {
-                randomIndex = Math.floor(Math.random() * remaining--);
-                last = array[remaining];
-                array[remaining] = array[randomIndex];
-                array[randomIndex] = last;
-            }
-            return array;
         }
     },
     modules: {
