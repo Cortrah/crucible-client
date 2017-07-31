@@ -214,7 +214,7 @@ export const state = {
                 "isActive":true
             },
         ],
-        "inFlight":[],
+        "mistles":[],
         "timeRunning": 0,
         "timeStarted": 0,
     },
@@ -234,6 +234,7 @@ export const state = {
 export default new Vuex.Store({
     state,
     actions: {
+        // player actions
         drawMistle(context, payload){
             context.commit('drawMistle', {playerId: payload.playerId});
         },
@@ -255,6 +256,7 @@ export default new Vuex.Store({
                             sourceId: payload.sourceId,
                             targetId: payload.targetId,
                             card: card,
+                            landed: false,
                             flightTime: state.rules.flightTime
                         };
                         context.commit( {
@@ -271,6 +273,7 @@ export default new Vuex.Store({
                 }
             }
         },
+        // game management
         startGame: function(context) {
             context.commit('startGame');
         },
@@ -285,6 +288,7 @@ export default new Vuex.Store({
         },
     },
     mutations: {
+        // player actions
         drawMistle: function(state, payload){
             let player = state.game.players[payload.playerId];
             if(player.mana >= 1 && player.deck.length > 0) {
@@ -308,7 +312,7 @@ export default new Vuex.Store({
                 sourcePlayer.mana -= card;
                 sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
                 sourcePlayer.selectedCardIndex = -1;
-                state.game.inFlight.push(payload.mistle);
+                state.game.mistles.push(payload.mistle);
             }
         },
         mistleImpact: function(state, mistle){
@@ -316,10 +320,11 @@ export default new Vuex.Store({
             let targetPlayer = state.game.players[mistle.targetId];
             if(state.game.status === "PLAYING") {
                 targetPlayer.health = Math.max(0, targetPlayer.health - mistle.card);
+                mistle.landed = true;
                 if (targetPlayer.health <= 0) {
                     targetPlayer.isActive = false;
                     state.game.winner = sourcePlayer.team;
-                    this.endGame();
+                    state.game.status = "OVER";
                 }
             }
         },
@@ -360,16 +365,6 @@ export default new Vuex.Store({
         },
         endGame: function(state) {
             state.game.status = "OVER";
-        }
-    },
-    getters: {
-        numberOfPlayers: state => {
-            //console.log("accessing");
-            return state.game.players.length;
-        },
-        playerById: function(state, playerId){
-            //console.log("playerId:" + playerId);
-            return state.game.players[playerId];
         }
     },
     modules: {

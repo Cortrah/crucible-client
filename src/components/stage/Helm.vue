@@ -93,16 +93,17 @@
 
         <div id="mistles">
             <div class="mistles-container"
-                 v-for="mistle in game.inFlight">
-                <MistleInFlight
+                 v-for="mistle in game.mistles">
+                <Mistle
                     :id = mistle.id
                     :sourceX = sourceX(mistle.sourceId)
                     :sourceY = sourceY(mistle.sourceId)
                     :targetX = targetX(mistle.targetId)
                     :targetY = targetY(mistle.targetId)
                     :card = mistle.card
+                    :landed = mistle.landed
                     :flightTime = mistle.flightTime>
-                </MistleInFlight>
+                </Mistle>
             </div>
         </div>
     </div>
@@ -112,7 +113,7 @@
     import Player from '../cast/Player'
     import Portrait from '../cast/Portrait'
     import PlayerConsole from '../cast/PlayerConsole'
-    import MistleInFlight from '../props/MistleInFlight'
+    import Mistle from '../props/Mistle'
     import StellarMap from './StellarMap'
 
     import { mapState } from 'vuex'
@@ -122,7 +123,7 @@
         props: {
             "playerId": 0,
         },
-        components: {Player, MistleInFlight, Portrait, PlayerConsole, StellarMap},
+        components: {Player, Mistle, Portrait, PlayerConsole, StellarMap},
         data () {
             return {
                 name: this.name,

@@ -13,7 +13,7 @@
     import {TweenMax} from "gsap";
 
     export default {
-        name: "MistleInFlight",
+        name: "Mistle",
         props: {
             "id":{
                 required: true
@@ -35,7 +35,8 @@
             },
             "flightTime": {
                 default: 4
-            }
+            },
+            "landed": false
         },
         data(){
             return {
