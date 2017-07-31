@@ -45,9 +45,12 @@
             }
         },
         mounted: function() {
-            TweenMax.fromTo( this.$el, 4,
+            TweenMax.fromTo(
+                this.$el, 4,
                 {x: this.sourceX, y: this.sourceY},
-                {x: this.targetX, y: this.targetY, ease: Power4.easeInOut, onComplete:this.onImpact});
+                {x: this.targetX, y: this.targetY,
+                    ease: Power4.easeInOut,
+                    onComplete:this.onImpact});
         },
         onImpact: function() {
             this.$emit("IMPACT", this.id)

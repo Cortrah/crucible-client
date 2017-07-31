@@ -277,9 +277,6 @@ export default new Vuex.Store({
         startGame: function(context) {
             context.commit('startGame');
         },
-        gameTick: function(context) {
-            context.commit('gameTick');
-        },
         manaTick: function(context) {
             context.commit('manaTick');
         },
@@ -330,7 +327,7 @@ export default new Vuex.Store({
         },
         // game management
         startGame: function(state) {
-            var scope = this;
+            let scope = this;
             state.game.players.forEach(function(player){
                 let remaining = player.deck.length;
                 let randomIndex;
@@ -346,9 +343,6 @@ export default new Vuex.Store({
             state.game.status = "PLAYING";
             state.game.timeStarted = Date.now();
             state.game.timeRunning = 0;
-        },
-        gameTick: function(state) {
-            state.game.timeRunning = Date.now() - state.game.timeStarted;
         },
         manaTick: function(state) {
             state.game.players.forEach(function(player){

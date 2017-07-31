@@ -2,7 +2,7 @@
     <div class="crucible">
         <button @click="startGame()">Start Game</button>
         <button @click="endGame()">End Game</button>
-        <span>{{ this.game.timeRunning }}</span>
+        <span>{{ this.game.status }}</span>
 
         <div class="players-container">
             <helm ref="helm" playerId="5" :game="game" :rules="rules" :avatars="avatars"
@@ -56,12 +56,8 @@
             startGame: function() {
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
-                this.gameIntervalId = setInterval(this.gameTick, 100);
                 this.manaIntervalId = setInterval(this.manaTick, 1000);
                 store.dispatch('startGame');
-            },
-            gameTick: function() {
-                store.dispatch('gameTick');
             },
             manaTick: function() {
                 store.dispatch('manaTick');
