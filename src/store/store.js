@@ -290,13 +290,21 @@ export default new Vuex.Store({
             let player = state.game.players[payload.playerId];
             if(player.mana >= 1 && player.deck.length > 0) {
                 let drawn = player.deck[0];
-                player.cards.push(drawn);
+                player.cards.push({cardType:"MISTLE", value: drawn});
                 player.deck.splice(0, 1);
                 player.deckSize = player.deck.length;
                 player.mana--;
             }
         },
         drawShield: function(state, playerId){
+            let player = state.game.players[payload.playerId];
+            if(player.mana >= 1 && player.deck.length > 0) {
+                let drawn = player.deck[0];
+                player.cards.push({cardType:"SHIELD", value: drawn});
+                player.deck.splice(0, 1);
+                player.deckSize = player.deck.length;
+                player.mana--;
+            }
         },
         selectCard: function(state, payload){
             let player = state.game.players[payload.playerId];
@@ -305,8 +313,8 @@ export default new Vuex.Store({
         targetPlayer: function (state, payload) {
             let sourcePlayer = state.game.players[payload.sourceId];
             let card = sourcePlayer.cards[payload.cardIndex];
-            if(sourcePlayer.mana >= card){
-                sourcePlayer.mana -= card;
+            if(sourcePlayer.mana >= card.value){
+                sourcePlayer.mana -= card.value;
                 sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
                 sourcePlayer.selectedCardIndex = -1;
                 state.game.mistles.push(payload.mistle);

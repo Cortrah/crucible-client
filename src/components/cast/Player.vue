@@ -17,7 +17,7 @@
 
         <span id="hand">
             <span v-for="(card, index) in this.cards">
-                <span class="card">{{ card }}</span>
+                <span class="card">{{ card.value }}</span>
             </span>
         </span>
     </div>

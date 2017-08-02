@@ -31,7 +31,7 @@
                 default: 0
             },
             "card": {
-                default: 0
+                required: true
             },
             "flightTime": {
                 default: 4

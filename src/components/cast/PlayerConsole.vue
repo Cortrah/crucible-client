@@ -18,10 +18,10 @@
         </div>
 
         <div id="hand">
-            <span v-for="(card, index) in this.cards" ref="cards">
+            <span v-for="(card, index) in cards" ref="cards">
                 <simple-card class="simple-card"
-                             :faceVal="card"
-                             cardType="SHIELD"
+                             :faceVal = card.value
+                             :cardType = card.cardType
                              :myIndex = index
                              :selectedIndex = selectedCardIndex
                              v-on:SELECT_CARD="selectCard(card, index)">

@@ -19,7 +19,7 @@
             "cost": Number,
             "type": {
                 type: String,
-                default: "mistle"
+                default: "MISTLE"
             },
             "symbol": String,
             "illustration": String,

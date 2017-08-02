@@ -150,8 +150,10 @@
             },
             drawShield: function () {
                 let myself = this.game.players[this.playerId];
-                if(this.myself.isActive && this.game.status === "PLAYING"){
-                    this.$emit("DRAW_SHIELD", this.playerId);
+                if(myself.isActive && this.game.status === "PLAYING"){
+                    if(myself.cards.length < 5 && myself.deckSize > 0) {
+                        this.$emit("DRAW_SHIELD", this.playerId);
+                    }
                 }
             },
             selectCard: function (card, cardIndex) {
