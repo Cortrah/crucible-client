@@ -154,10 +154,10 @@
                     this.$emit("DRAW_SHIELD", this.playerId);
                 }
             },
-            selectCard: function (card, index) {
+            selectCard: function (card, cardIndex) {
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
-                    this.$emit("SELECT_CARD", this.playerId, index);
+                    this.$emit("SELECT_CARD", this.playerId, cardIndex);
                 }
             },
             targetPlayer: function (targetId) {
