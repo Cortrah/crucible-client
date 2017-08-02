@@ -21,6 +21,7 @@
             <span v-for="(card, index) in this.cards" ref="cards">
                 <simple-card class="simple-card"
                              :faceVal="card"
+                             cardType="SHIELD"
                              :myIndex = index
                              :selectedIndex = selectedCardIndex
                              v-on:SELECT_CARD="selectCard(card, index)">

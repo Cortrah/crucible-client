@@ -9,16 +9,16 @@
             {{ faceVal }}
         </text>
 
-        <!--<svg id="shieldIcon"-->
-             <!--x="0px" y="0px"-->
-             <!--width="9px" height="9.605px"-->
-             <!--viewBox="0 0 9 9.605"-->
-             <!--enable-background="new 0 0 9 9.605">-->
-            <!--<ellipse fill="#F7F7F7" stroke="#000000" cx="4.5" cy="4.803" rx="4" ry="4.302"/>-->
-            <!--<ellipse fill="#F7F7F7" stroke="#000000" cx="4.5" cy="4.803" rx="1.561" ry="1.86"/>-->
-        <!--</svg>-->
+        <svg id="shieldIcon" v-if="cardType == 'SHIELD'"
+             x="2px" y="2px"
+             width="9px" height="9.605px"
+             viewBox="0 0 9 9.605"
+             enable-background="new 0 0 9 9.605">
+            <ellipse fill="#F7F7F7" stroke="#000000" cx="4.5" cy="4.803" rx="4" ry="4.302"/>
+            <ellipse fill="#F7F7F7" stroke="#000000" cx="4.5" cy="4.803" rx="1.561" ry="1.86"/>
+        </svg>
 
-        <svg id="mistleIcon"
+        <svg id="mistleIcon" v-if="cardType == 'MISTLE'"
              x="2px" y="2px" width="6px" height="10px"
              viewBox="0 0 6 10" enable-background="new 0 0 6 10">
             <ellipse
@@ -42,8 +42,8 @@
             faceVal: {
                 default: 0
             },
-            isMistle: {
-                default: true
+            cardType: {
+                default: "MISTLE"
             },
             myIndex: null,
             selectedIndex: null,
