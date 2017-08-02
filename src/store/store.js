@@ -296,7 +296,7 @@ export default new Vuex.Store({
                 player.mana--;
             }
         },
-        drawShield: function(state, playerId){
+        drawShield: function(state, payload){
             let player = state.game.players[payload.playerId];
             if(player.mana >= 1 && player.deck.length > 0) {
                 let drawn = player.deck[0];
