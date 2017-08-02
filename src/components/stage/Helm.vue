@@ -101,7 +101,7 @@
                     :targetX = targetX(mistle.targetId)
                     :targetY = targetY(mistle.targetId)
                     :card = mistle.card
-                    :landed = mistle.landed
+                    :hasLanded = mistle.hasLanded
                     :flightTime = mistle.flightTime>
                 </Mistle>
             </div>

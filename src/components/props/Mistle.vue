@@ -36,7 +36,7 @@
             "flightTime": {
                 default: 4
             },
-            "landed": false
+            "hasLanded": false
         },
         data(){
             return {

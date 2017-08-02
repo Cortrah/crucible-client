@@ -244,32 +244,53 @@ export default new Vuex.Store({
         selectCard: function(context, payload){
             context.commit({type: 'selectCard', playerId: payload.playerId, cardIndex: payload.cardIndex});
         },
-        targetPlayer: function (context, payload){
+        targetPlayer: function (context, payload) {
             let sourcePlayer = state.game.players[payload.sourceId];
             let targetPlayer = state.game.players[payload.targetId];
-            if (sourcePlayer.team !== targetPlayer.team) {
-                if (sourcePlayer.isActive) {
-                    if (sourcePlayer.selectedCardIndex !== -1) {
-                        let card = sourcePlayer.cards[payload.cardIndex];
-                        let mistle = {
-                            id: new Date(),
-                            sourceId: payload.sourceId,
-                            targetId: payload.targetId,
-                            card: card,
-                            landed: false,
-                            flightTime: state.rules.flightTime
-                        };
-                        context.commit( {
-                            type: 'targetPlayer',
-                            sourceId: payload.sourceId,
-                            targetId: payload.targetId,
-                            cardIndex:payload.cardIndex,
-                            mistle: mistle,
-                        });
-                        setTimeout(() => {
-                            context.commit('mistleImpact', mistle)
-                        }, state.rules.flightTime);
-                    }
+            let card = null;
+            if (sourcePlayer.selectedCardIndex !== -1) {
+                card = sourcePlayer.cards[payload.cardIndex];
+            }
+            if (sourcePlayer.isActive && targetPlayer.isActive) {
+                if (sourcePlayer.team !== targetPlayer.team && card.cardType === "MISTLE") {
+                    let mistle = {
+                        id: new Date(),
+                        sourceId: payload.sourceId,
+                        targetId: payload.targetId,
+                        card: card,
+                        hasLanded: false,
+                        flightTime: state.rules.flightTime
+                    };
+                    context.commit({
+                        type: 'targetPlayer',
+                        sourceId: payload.sourceId,
+                        targetId: payload.targetId,
+                        cardIndex: payload.cardIndex,
+                        mistle: mistle,
+                    });
+                    setTimeout(() => {
+                        context.commit('mistleImpact', mistle)
+                    }, state.rules.flightTime);
+                } else if (sourcePlayer.team === targetPlayer.team && card.cardType === "SHIELD") {
+                    let shield = {
+                        id: new Date(),
+                        sourceId: payload.sourceId,
+                        targetId: payload.targetId,
+                        card: card,
+                        isUp: false,
+                        flightTime: state.rules.flightTime
+                    };
+                    context.commit({
+                        type: 'targetPlayer',
+                        sourceId: payload.sourceId,
+                        targetId: payload.targetId,
+                        cardIndex: payload.cardIndex,
+                        shield: shield,
+                    });
+                    setTimeout(() => {
+                        context.commit('shieldUp', shield)
+                    }, state.rules.flightTime);
+
                 }
             }
         },
@@ -317,14 +338,18 @@ export default new Vuex.Store({
                 sourcePlayer.mana -= card.value;
                 sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
                 sourcePlayer.selectedCardIndex = -1;
-                state.game.mistles.push(payload.mistle);
+                if(card.cardType === "MISTLE") {
+                    state.game.mistles.push(payload.mistle);
+                } else if (card.cardType === "SHIELD"){
+                    state.game.shields.push(payload.shield);
+                }
             }
         },
         mistleImpact: function(state, mistle){
             let sourcePlayer = state.game.players[mistle.sourceId];
             let targetPlayer = state.game.players[mistle.targetId];
             if(state.game.status === "PLAYING") {
-                targetPlayer.health = Math.max(0, targetPlayer.health - mistle.card);
+                targetPlayer.health = Math.max(0, targetPlayer.health - mistle.card.value);
                 mistle.landed = true;
                 if (targetPlayer.health <= 0) {
                     targetPlayer.isActive = false;
