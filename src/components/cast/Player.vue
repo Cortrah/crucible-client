@@ -1,5 +1,5 @@
 <template>
-    <div class="player" v-bind:class="{ inactive: !isActive }" >
+    <div class="player" v-bind:class="{ inactive: !isActive }">
 
         <div id="health">
             Health: {{ health }} of {{ maxHealth }}
@@ -20,6 +20,19 @@
                 <span class="card">{{ card.value }}</span>
             </span>
         </span>
+
+        <div id="shields">
+            <span v-for="(shield, index) in this.shields">
+                <svg id="shieldIcon" v-if="cardType === 'SHIELD'"
+                     x="2px" y="2px"
+                     width="9px" height="9.605px"
+                     viewBox="0 0 9 9.605"
+                     enable-background="new 0 0 9 9.605">
+                    <ellipse fill="#F7F7F7" stroke="#000000" cx="4.5" cy="4.803" rx="4" ry="4.302"/>
+                    <ellipse fill="#F7F7F7" stroke="#000000" cx="4.5" cy="4.803" rx="1.561" ry="1.86"/>
+                </svg>
+            </span>
+        </div>
     </div>
 </template>
 

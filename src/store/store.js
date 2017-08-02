@@ -17,13 +17,13 @@ export const state = {
         "startingDeck": [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
         "startingHandSize": 0,
         "maxCards":5,
-        "flightTime": 4000,
         "manaGrowthInterval":1000,
         "manaReplentishInterval":1000,
         "drawInterval":1000,
         "fireInterval":500,
         "bleedoutInterval":1000,
-        "shieldDecayInterval": 1000
+        "flightTime": 4000,
+        "shieldsUpTime": 1000
     },
     game:{
         "title": 'Waypoint Crucible',
@@ -77,7 +77,7 @@ export const state = {
                 "mana":0,
                 "maxHealth":30,
                 "health":30,
-                "shields":[0],
+                "shields":[],
                 "cards":[],
                 "selectedCardIndex":null,
                 "deck":[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
@@ -278,7 +278,7 @@ export default new Vuex.Store({
                         targetId: payload.targetId,
                         card: card,
                         isUp: false,
-                        flightTime: state.rules.flightTime
+                        upTime: state.rules.shieldsUpTime
                     };
                     context.commit({
                         type: 'targetPlayer',
@@ -289,7 +289,7 @@ export default new Vuex.Store({
                     });
                     setTimeout(() => {
                         context.commit('shieldUp', shield)
-                    }, state.rules.flightTime);
+                    }, state.rules.shieldsUpTime);
 
                 }
             }
@@ -333,6 +333,7 @@ export default new Vuex.Store({
         },
         targetPlayer: function (state, payload) {
             let sourcePlayer = state.game.players[payload.sourceId];
+            let targetPlayer = state.game.players[payload.targetId];
             let card = sourcePlayer.cards[payload.cardIndex];
             if(sourcePlayer.mana >= card.value){
                 sourcePlayer.mana -= card.value;
@@ -341,7 +342,7 @@ export default new Vuex.Store({
                 if(card.cardType === "MISTLE") {
                     state.game.mistles.push(payload.mistle);
                 } else if (card.cardType === "SHIELD"){
-                    state.game.shields.push(payload.shield);
+                    targetPlayer.shields.push(payload.shield);
                 }
             }
         },
@@ -356,6 +357,13 @@ export default new Vuex.Store({
                     state.game.winner = sourcePlayer.team;
                     state.game.status = "OVER";
                 }
+            }
+        },
+        shieldUp: function(state, shield){
+            let sourcePlayer = state.game.players[shield.sourceId];
+            let targetPlayer = state.game.players[shield.targetId];
+            if(state.game.status === "PLAYING") {
+                shield.isUp = true;
             }
         },
         // game management
