@@ -23,7 +23,7 @@
 
         <div id="shields">
             <span v-for="(shield, index) in this.shields">
-                <svg id="shieldIcon" v-if="cardType === 'SHIELD'"
+                <svg id="shieldIcon"
                      x="2px" y="2px"
                      width="9px" height="9.605px"
                      viewBox="0 0 9 9.605"

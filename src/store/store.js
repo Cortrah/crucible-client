@@ -251,7 +251,7 @@ export default new Vuex.Store({
             if (sourcePlayer.selectedCardIndex !== -1) {
                 card = sourcePlayer.cards[payload.cardIndex];
             }
-            if (sourcePlayer.isActive && targetPlayer.isActive) {
+            if (card != null && sourcePlayer.isActive && targetPlayer.isActive) {
                 if (sourcePlayer.team !== targetPlayer.team && card.cardType === "MISTLE") {
                     let mistle = {
                         id: new Date(),
