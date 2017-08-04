@@ -46,10 +46,12 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] stop actions when player is out
 - [X] announce a winner at the end
 - [X] have players bleed out when out of cards
-- [ ] fix id/s and structures so we can target any player
-- [ ] move to veux
+- [X] move to veux
+- [ ] maintain a list of commands
+- [ ] playback a list of commands
 - [ ] retrofit to be a single player game with ai or manual input
-- [ ] set up vue-test and start testing single player client
+- [ ] fix id/s and structures so we can target any player
+- [ ] set up vue-test-utils and start testing single player client
 - [ ] apollo-vue
 - [ ] apollo-tools
 - [ ] lobby

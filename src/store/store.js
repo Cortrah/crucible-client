@@ -2,14 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import lobby from './modules/lobby.js'
-import rules from './modules/rules.js'
-import game from './modules/game.js'
 
-import * as actions from './actions.js'
-import * as getters from './getters.js'
-import mutations from './mutations'
 Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
+
 export const state = {
     rules:{
         "maxMana": 10,
