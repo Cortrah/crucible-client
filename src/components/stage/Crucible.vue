@@ -64,6 +64,20 @@
                 this.queueCommand({ type: "drawMistle", playerId: 5 });
                 this.queueCommand({ type: "drawMistle", playerId: 5 });
                 this.queueCommand({ type: "drawMistle", playerId: 5 });
+                this.queueCommand({ type: "drawMistle", playerId: 5 });
+                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
+                this.queueCommand({ type: "targetPlayer", playerId: 1, cardIndex: 0});
+//                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
+//                this.queueCommand({ type: "targetPlayer", playerId: 1, cardIndex: 0});
+//                this.queueCommand({ type: "drawMistle", playerId: 5 });
+//                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
+//                this.queueCommand({ type: "targetPlayer", playerId: 1, cardIndex: 0});
+//                this.queueCommand({ type: "drawMistle", playerId: 5 });
+//                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
+//                this.queueCommand({ type: "targetPlayer", playerId: 1, cardIndex: 0});
+//                this.queueCommand({ type: "drawMistle", playerId: 5 });
+//                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
+//                this.queueCommand({ type: "targetPlayer", playerId: 1, cardIndex: 0});
             },
 
             // player actions
