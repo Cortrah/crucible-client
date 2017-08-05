@@ -19,14 +19,14 @@ export const state = {
         "fireInterval":500,
         "bleedoutInterval":1000,
         "flightTime": 4000,
-        "shieldsUpTime": 1000
+        "shieldsUpTime": 1000,
+        "shieldDecayRate": 1000
     },
     game:{
         "title": 'Waypoint Crucible',
         "status": "PREPARING",
         "winner": "",
         "commands":[],
-        "events":[],
         "players":[
             {
                 "id":0,

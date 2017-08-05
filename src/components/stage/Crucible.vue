@@ -2,7 +2,8 @@
     <div class="crucible">
         <button @click="startGame()">Start Game</button>
         <button @click="endGame()">End Game</button>
-        <span>{{ this.game.status }}</span>
+        <button @click="replay()">Play Sequence</button>
+        <span>{{ game.status }}</span>
 
         <div class="players-container">
             <helm ref="helm" playerId="5" :game="game" :rules="rules" :avatars="avatars"
@@ -22,6 +23,7 @@
 
     import Player from '../cast/Player'
     import Helm from './Helm'
+    import CommandQueue from "./CommandQueue"
 
     export default {
         name: 'Crucible',
@@ -31,18 +33,48 @@
             return {
                 "gameIntervalId": 0,
                 "manaIntervalId": 0,
+                "playhead": 0,
+                "commands":[]
             }
         },
         methods: {
+            queueCommand: function(command) {
+                this.commands.push(command);
+            },
+
+            gogo: function() {
+                if(this.playhead < this.commands.length){
+                    let command = this.commands[this.playhead];
+                    store.dispatch(command);
+                    if(this.playhead < this.commands.length + 1) {
+                        this.playhead++;
+                    }
+                }
+            },
+
+            ungo: function() {
+                let command = this.commands[this.playhead];
+                store.dispatch(command);
+                if(this.playhead > 0){
+                    this.playhead--;
+                }
+            },
+
+            replay: function(){
+                this.queueCommand({ type: "drawMistle", playerId: 5 });
+                this.queueCommand({ type: "drawMistle", playerId: 5 });
+                this.queueCommand({ type: "drawMistle", playerId: 5 });
+            },
+
             // player actions
             drawMistle: function(playerId){
-                store.dispatch({type: 'drawMistle', playerId: playerId});
+                store.dispatch({ type: 'drawMistle', playerId: playerId});
             },
             drawShield: function(playerId){
-                store.dispatch({type: 'drawShield', playerId: playerId});
+                store.dispatch({ type: 'drawShield', playerId: playerId});
             },
             selectCard: function(playerId, cardIndex){
-                store.dispatch({type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
+                store.dispatch({ type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
             },
             targetPlayer: function (sourceId, targetId, cardIndex) {
                 store.dispatch({
@@ -61,6 +93,7 @@
             },
             manaTick: function() {
                 store.dispatch('manaTick');
+                this.gogo();
             },
             endGame: function() {
                 store.dispatch('endGame');
