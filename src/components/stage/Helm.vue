@@ -169,48 +169,6 @@
                     this.$emit("TARGET_PLAYER", this.playerId, targetId, cardIndex);
                 }
             },
-            // ai
-            tick: function() {
-//                let myself = this.game.players[this.playerId];
-//                if( myself.isActive && this.game.status === "PLAYING"){
-//                    // if I have < 5 cards and more than 1 mana draw a card
-//                    if( myself.cards.length < 5 && myself.mana > 0){
-//                        this.drawMistle();
-//                    }
-//                    // if I have cards and enough mana to fire a mistle
-//                    for(var i = 0; i < myself.cards.length; i++){
-//                        var card = myself.cards[i];
-//                        if(card < mana){
-//                            this.selectCard(card, i);
-//                        }
-//                    }
-//                    // choose an enemy that's still active
-//                    if( myself.team === "Good Guys"){
-//                        for(var i = 0; i < this.$refs.axis.length; i++){
-//                            var foe = this.$refs.axis[i];
-//                            if(foe.isActive === true){
-//                                // and fire at it
-//                                this.targetPlayer(foe.id);
-//                                // but only fire one maximum per tick
-//                                break;
-//                            }
-//                        }
-//                    } else {
-//                        // if we are an enemy the enemy is my ally
-//                        for(var i = 0; i < this.$refs.allies.length; i++){
-//                            var foe = this.$refs.allies[i];
-//                            if(foe.isActive === true){
-//                                // and fire at it
-//                                this.targetPlayer(foe.id);
-//                                // but only fire one maximum per tick
-//                                break;
-//                            }
-//                        }
-//                    }
-//                } else if( this.game.status === "OVER") {
-//                    clearInterval(this.gameIntervalId);
-//                }
-            },
             // helper functions for rendering the view
             sourceX: function (sourceId) {
                 if(typeof sourceId !== "undefined"){

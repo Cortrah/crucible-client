@@ -124,12 +124,70 @@
             startGame: function() {
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
+                this.gameIntervalId = setInterval(this.gameTick, 200);
                 this.manaIntervalId = setInterval(this.manaTick, 1000);
                 store.dispatch('startGame');
             },
+            gameTick: function() {
+                if(this.game.status === "PLAYING"){
+                    for(var i = 0; i < this.game.players.length; i++) {
+                        let player = this.game.players[i];
+                        if (player.isActive && player.controller === "AI") {
+                            // if the player has < 5 cards and more than 1 mana draw a card
+                            if (player.cards.length < 5 && player.mana > 0) {
+                                store.dispatch({ type: 'drawMistle', playerId: i});
+                            }
+                            // if the player has cards and enough mana to fire a mistle
+                            // choose the best mistle possible to fire
+                            var c = 0;
+                            //for (var c = 0; c < player.cards.length; c++) {
+                                var card = player.cards[c];
+                                if (card < player.mana) {
+                                    store.dispatch({ type: 'selectCard', playerId:i, cardIndex:c});
+                                }
+                            //}
+                            // choose an enemy that's still active
+                            if (player.team === "Good Guys") {
+                                for (var f = 0; f < this.game.players.length; f++) {
+                                    var foe = this.game.players[f];
+                                    if (foe.isActive === true && foe.team === "Bad Guys") {
+                                        // and fire at it
+                                        store.dispatch({
+                                            type: 'targetPlayer',
+                                            sourceId:i,
+                                            targetId:foe.id,
+                                            cardIndex:0
+                                        });
+                                        // but only fire one maximum per tick
+                                        break;
+                                    }
+                                }
+                            } else {
+                                // if the player is axis its enemy is an allie
+                                for (var f = 0; f < this.game.players.length; f++) {
+                                    var foe = this.game.players[f];
+                                    if (foe.isActive === true && foe.team === "Good Guys") {
+                                        // and fire at it
+                                        store.dispatch({
+                                            type: 'targetPlayer',
+                                            sourceId:i,
+                                            targetId:foe.id,
+                                            cardIndex:0
+                                        });
+                                        // but only fire one maximum per tick
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else if( this.game.status === "OVER") {
+                    clearInterval(this.gameIntervalId);
+                }
+            },
             manaTick: function() {
                 store.dispatch('manaTick');
-                this.gogo();
+                //this.gogo();
             },
             endGame: function() {
                 store.dispatch('endGame');
