@@ -124,7 +124,7 @@
             startGame: function() {
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
-                this.gameIntervalId = setInterval(this.gameTick, 8000);
+                this.gameIntervalId = setInterval(this.gameTick, 100);
                 this.manaIntervalId = setInterval(this.manaTick, 1000);
                 store.dispatch('startGame');
             },
@@ -136,47 +136,48 @@
                             // if the player has < 5 cards and more than 1 mana draw a card
                             if (player.cards.length < 5 && player.mana > 0) {
                                 store.dispatch({ type: 'drawMistle', playerId: i});
-                            }
-                            // if the player has cards and enough mana to fire a mistle
-                            // choose the best mistle possible to fire
+                            } else {
+                                // if the player has cards and enough mana to fire a mistle
+                                // choose the best mistle possible to fire
 
-                            var c = 0;
-                            //for (var c = 0; c < player.cards.length; c++) {
+                                var c = 0;
+                                //for (var c = 0; c < player.cards.length; c++) {
                                 var card = player.cards[c];
                                 if (card.value < player.mana) {
                                     store.dispatch({ type: 'selectCard', playerId:i, cardIndex:c});
                                 }
-                            //}
-                            // choose an enemy that's still active
-                            if (player.team === "Good Guys") {
-                                for (var f = 0; f < this.game.players.length; f++) {
-                                    var foe = this.game.players[f];
-                                    if (foe.isActive === true && foe.team === "Bad Guys") {
-                                        // and fire at it
-                                        store.dispatch({
-                                            type: 'targetPlayer',
-                                            sourceId:i,
-                                            targetId:foe.id,
-                                            cardIndex:0
-                                        });
-                                        // but only fire one maximum per tick
-                                        break;
+                                //}
+                                // choose an enemy that's still active
+                                if (player.team === "Good Guys") {
+                                    for (var f = 0; f < this.game.players.length; f++) {
+                                        var foe = this.game.players[f];
+                                        if (foe.isActive === true && foe.team === "Bad Guys") {
+                                            // and fire at it
+                                            store.dispatch({
+                                                type: 'targetPlayer',
+                                                sourceId:i,
+                                                targetId:foe.id,
+                                                cardIndex:0
+                                            });
+                                            // but only fire one maximum per tick
+                                            break;
+                                        }
                                     }
-                                }
-                            } else {
-                                // if the player is axis its enemy is an allie
-                                for (var f = 0; f < this.game.players.length; f++) {
-                                    var foe = this.game.players[f];
-                                    if (foe.isActive === true && foe.team === "Good Guys") {
-                                        // and fire at it
-                                        store.dispatch({
-                                            type: 'targetPlayer',
-                                            sourceId:i,
-                                            targetId:foe.id,
-                                            cardIndex:0
-                                        });
-                                        // but only fire one maximum per tick
-                                        break;
+                                } else {
+                                    // if the player is axis its enemy is an allie
+                                    for (var f = 0; f < this.game.players.length; f++) {
+                                        var foe = this.game.players[f];
+                                        if (foe.isActive === true && foe.team === "Good Guys") {
+                                            // and fire at it
+                                            store.dispatch({
+                                                type: 'targetPlayer',
+                                                sourceId:i,
+                                                targetId:foe.id,
+                                                cardIndex:0
+                                            });
+                                            // but only fire one maximum per tick
+                                            break;
+                                        }
                                     }
                                 }
                             }

@@ -360,8 +360,8 @@ export default new Vuex.Store({
                 mistle.landed = true;
                 if (targetPlayer.health <= 0) {
                     targetPlayer.isActive = false;
-                    state.game.winner = sourcePlayer.team;
-                    state.game.status = "OVER";
+                    //state.game.winner = sourcePlayer.team;
+                    //state.game.status = "OVER";
                 }
             }
         },
