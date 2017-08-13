@@ -124,7 +124,7 @@
             startGame: function() {
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
-                this.gameIntervalId = setInterval(this.gameTick, 200);
+                this.gameIntervalId = setInterval(this.gameTick, 8000);
                 this.manaIntervalId = setInterval(this.manaTick, 1000);
                 store.dispatch('startGame');
             },
@@ -139,10 +139,11 @@
                             }
                             // if the player has cards and enough mana to fire a mistle
                             // choose the best mistle possible to fire
+
                             var c = 0;
                             //for (var c = 0; c < player.cards.length; c++) {
                                 var card = player.cards[c];
-                                if (card < player.mana) {
+                                if (card.value < player.mana) {
                                     store.dispatch({ type: 'selectCard', playerId:i, cardIndex:c});
                                 }
                             //}
