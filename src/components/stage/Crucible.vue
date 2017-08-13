@@ -124,7 +124,7 @@
             startGame: function() {
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
-                this.gameIntervalId = setInterval(this.gameTick, 100);
+                this.gameIntervalId = setInterval(this.gameTick, 4000);
                 this.manaIntervalId = setInterval(this.manaTick, 1000);
                 store.dispatch('startGame');
             },
