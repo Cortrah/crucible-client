@@ -54,8 +54,8 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [ ] set up vue-test-utils and start testing single player client
 - [ ] apollo-vue
 - [ ] apollo-tools
-- [ ] lobby
-    - [ ] login (don't need registration/validation yet)
+- [ ] lobby (but don't need persistence yet)
+    - [ ] login 
     - [ ] show lobby (can be hardcoded to start)
     - [ ] chose avatar in profile
     - [ ] create tabletop (also determines host)
@@ -63,7 +63,7 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
     - [ ] choose a side
     - [ ] host starts game
     - [ ] ai takes over remaining slots
-- [ ] choose 1
+- [ ] choose
 	- [ ] spring appolo-android and akka backend
 	- [ ] hapi nes apollo graphql backend
 	- [ ] phoenix GenStage and absynthe backend
@@ -85,5 +85,5 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [ ] larger mistles
 - [ ] larger shields
 - [ ] ships with avatars
-- [ ] login/registration
+- [ ] lobby login/registration persistence
 - [ ] Other Audio
