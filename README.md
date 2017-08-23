@@ -51,9 +51,6 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [X] playback a list of commands
 - [X] retrofit to be a single player game with ai or manual input
 - [X] fix id/s and structures so we can target any player
-- [ ] set up vue-test-utils and start testing single player client
-- [ ] apollo-vue
-- [ ] apollo-tools
 - [ ] lobby (but don't need persistence yet)
     - [ ] login 
     - [ ] show lobby (can be hardcoded to start)
@@ -64,9 +61,10 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
     - [ ] host starts game
     - [ ] ai takes over remaining slots
 - [ ] choose
-	- [ ] spring appolo-android and akka backend
 	- [ ] hapi nes apollo graphql backend
+	- [ ] spring appolo-android and akka backend
 	- [ ] phoenix GenStage and absynthe backend
+- [ ] set up vue-test-utils and start testing single player client
 - [ ] animate health, mana and deck counters
 - [ ] tooltips for text details of health mana and deck counters
 - [ ] have mistles dissapear or become damage after detonating
