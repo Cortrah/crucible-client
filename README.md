@@ -60,8 +60,9 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
     - [ ] choose a side
     - [ ] host starts game
     - [ ] ai takes over remaining slots
-- [ ] choose
-	- [ ] hapi nes apollo graphql backend
+- [X] choose
+	- [X] hapi nes apollo graphql backend
+		- [ ] implement choice
 	- [ ] spring appolo-android and akka backend
 	- [ ] phoenix GenStage and absynthe backend
 - [ ] set up vue-test-utils and start testing single player client
