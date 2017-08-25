@@ -1,6 +1,37 @@
 # Waypoint Crucible
 
-> A simple kata extended into a multiplayer realtime card game with vue and hapi
+Implementing
+http://codingdojo.org/kata/TradingCardGame/
+
+For
+http://agnostechvalley.com/
+
+## The Plan
+
+Hapi on the server side
+
+Vue and SVG on the client side
+
+Make it multiplayer
+
+Add timing to the equation, anybody can attack anyone at any time, but 
+
+1) drawing a card takes one mana and limited by a timed interval
+2) max mana accumulates over a timed interval
+3) mana replentishes over a timed interval
+4) if a deck is empty, damage is done via a timer
+5) if you have 5 cards drawing another card automatically replaces the lowest card you have
+
+The story is that there is an errant WayPoint Jumpgate that sucks in everyone, only one can leave.
+
+If there is time create bots
+
+If there is time after that create a team play scenario where dogs in space suits are under Admiral Hope
+and robots are under General Scum.
+
+The human players are the dogs and need to try to cooperate to defeat the ai bots which might have personalities or strategies or both. (A personality might be how frequently you change your strategy (or to what) based on how frustrated you are or by other semi-arbitrary things such as a lack of success or a sense of patterns, even smack talk?)
+
+Possibly add shields, which would be in the form of a second button to draw from your deck, you can draw a mistle or a shield either way the number is the same but the card that results will be either offensive or defensive, the defensive shield would fade in strength after a certain timeout period, say a point per second.
 
 ## Build Setup
 
