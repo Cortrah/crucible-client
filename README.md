@@ -1,6 +1,6 @@
-# stageground
+# Waypoint Crucible
 
-> A Vue.js project
+> A simple kata extended into a multiplayer realtime card game with vue and hapi
 
 ## Build Setup
 
@@ -8,26 +8,16 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve the client with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
-npm run build
+# run the server in a second command window at localhost:5000
+node server.js
 
-# build for production and view the bundle analyzer report
-npm run build --report
+# visit the lobby to create a match at
+localhost:5000/lobby
 
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
-
-This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## V1
 - [x] Fix Structure
@@ -66,6 +56,7 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 	- [ ] spring appolo-android and akka backend
 	- [ ] phoenix GenStage and absynthe backend
 - [ ] set up vue-test-utils and start testing single player client
+- [ ] add lab tests for server
 - [ ] animate health, mana and deck counters
 - [ ] tooltips for text details of health mana and deck counters
 - [ ] have mistles dissapear or become damage after detonating
@@ -86,3 +77,22 @@ This is using a vue-cli starter see the [guide](http://vuejs-templates.github.io
 - [ ] ships with avatars
 - [ ] lobby login/registration persistence
 - [ ] Other Audio
+
+## More npm commands
+
+``` bash
+# build the client for production with minification
+npm run build
+
+# build the client for production and view the bundle analyzer report
+npm run build --report
+
+# run client unit tests
+npm run unit
+
+# run client e2e tests
+npm run e2e
+
+# run all client tests
+npm test
+```
