@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crucible Match</title>
+</head>
+<body>
+
+<h1>{{ match.name }}</h1>
+
+<h3>{{ match.winner.name }} won</h3>
+
+{{#each match.actions}}
+    <span>{{ playerName }}</span>
+    targets
+    <span>{{ target.row }}{{ target.col}}</span>
+    -
+    <span>{{ result }}</span>
+    <br/>
+{{/each}}
+
+</body>
+</html>

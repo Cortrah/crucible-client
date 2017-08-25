@@ -25,17 +25,17 @@ module.exports = class Match {
     play () {
         while(this.winner === null) {
             // if the other players ships are not sunk
-            if (this.players[1].ai.shipsRemaining() > 0) {
+            if (this.players[1].robot.shipsRemaining() > 0) {
                 // ask for a shot from the first player
-                let shot = this.players[0].ai.targetMyShot();
+                let shot = this.players[0].robot.targetMyShot();
 
                 // get a result from the second player
                 // first via http ala wreck
                 // but also check it for accuracy myself
-                let shotResult = this.players[1].ai.receiveShot(shot.row, shot.col);
+                let shotResult = this.players[1].robot.receiveShot(shot.row, shot.col);
 
                 // return a result to the first player
-                this.players[0].ai.recordMyShotResult(shotResult);
+                this.players[0].robot.recordMyShotResult(shotResult);
 
                 this.actions.push({
                     "action": 'shot',
@@ -45,7 +45,7 @@ module.exports = class Match {
                     "result": shotResult
                 });
 
-                let shipsLeft = this.players[1].ai.shipsRemaining();
+                let shipsLeft = this.players[1].robot.shipsRemaining();
                 // check for victory again
                 if (shipsLeft === 0) {
                     // notify of victory
@@ -55,17 +55,17 @@ module.exports = class Match {
                 }
             }
             if( this.winner === null) {
-                if (this.players[0].ai.shipsRemaining() > 0) {
+                if (this.players[0].robot.shipsRemaining() > 0) {
                     // ask for a shot from the first player
-                    let shot = this.players[1].ai.targetMyShot();
+                    let shot = this.players[1].robot.targetMyShot();
 
                     // get a result from the second player
                     // first via http ala wreck
                     // but also check it for accuracy myself
-                    let shotResult = this.players[0].ai.receiveShot(shot.row, shot.col);
+                    let shotResult = this.players[0].robot.receiveShot(shot.row, shot.col);
 
                     // return a result to the first player
-                    this.players[1].ai.recordMyShotResult(shotResult);
+                    this.players[1].robot.recordMyShotResult(shotResult);
 
                     this.actions.push({
                         "action": 'shot',
@@ -75,7 +75,7 @@ module.exports = class Match {
                         "result": shotResult
                     });
 
-                    let shipsLeft = this.players[0].ai.shipsRemaining();
+                    let shipsLeft = this.players[0].robot.shipsRemaining();
                     // check for victory again
                     if (shipsLeft === 0) {
                         // notify of victory

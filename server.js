@@ -1,15 +1,15 @@
 'use strict';
 
-import hapi from 'hapi';
-import { graphqlHapi } from 'apollo-server-hapi';
-const server = new hapi.Server();
-const HOST = 'localhost';
-const PORT = 5000;
-
+const Hapi = require('hapi');
 const Joi = require('joi');
+const GraphqlHapi = require('apollo-server-hapi');
+
 const Player = require('./domain/player');
 const Match = require('./domain/match');
 const randomName = require('./util/random-name.js');
+
+const HOST = 'localhost';
+const PORT = 5000;
 
 const server = new Hapi.Server();
 server.connection({
@@ -253,13 +253,6 @@ server.register([
                 reporter: [{module: 'good-console'}, 'stdout']
             }
         }
-    },
-    {
-        register: graphqlHapi,
-        options: {
-            path: '/graphql',
-            graphqlOptions: { schema: myGraphQLSchema },
-        },
     }
 ], (err) => {
 

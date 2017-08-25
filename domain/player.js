@@ -1,6 +1,6 @@
 'use strict';
 
-const Ai = require('./ai');
+const Robot = require('./robot');
 
 const uuid = require('uuid');
 
@@ -14,6 +14,6 @@ module.exports = class Player {
         this.port = port;
         this.wins = 0;
         this.losses = 0;
-        this.ai = new Ai();
+        this.robot = new Robot();
     }
 };
