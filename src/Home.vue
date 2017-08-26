@@ -1,10 +1,10 @@
 <template>
-  <div id="home">
-    <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
-      <a href="#" class="pure-menu-link pure-menu-heading" v-link="{ path: '/' }">
-        Home
-      </a>
-      <ul class="pure-menu-list">
+    <div id="home">
+        <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+            <a href="#" class="pure-menu-link pure-menu-heading" v-link="{ path: '/' }">
+                Home
+            </a>
+            <ul class="pure-menu-list">
                 <span v-if="!this.loggedIn">
                     <li class="pure-menu-item">
                         <a href="#" v-link="{ path: 'register' }" class="pure-menu-link">
@@ -17,7 +17,7 @@
                         </a>
                     </li>
                 </span>
-        <span v-else>
+                <span v-else>
                     <li class="pure-menu-item">
                         <a href="#" @click.prevent="gotoLobby()" class="pure-menu-link">
                             Lobby
@@ -28,19 +28,19 @@
                             Profile
                         </a>
                     </li>
-                    <li class="pure-menu-item" >
+                    <li class="pure-menu-item">
                         <a href="#" @click="logoutRequest()" class="pure-menu-link">
                             Sign Out
                         </a>
                     </li>
                 </span>
-      </ul>
-    </div>
+            </ul>
+        </div>
 
-    <div id="stage">
-      <router-view :store="store"></router-view>
+        <div id="stage">
+            <router-view :store="store"></router-view>
+        </div>
     </div>
-  </div>
 </template>
 
 <script type="text/babel">
@@ -257,41 +257,41 @@
 </script>
 
 <style>
-  html {
-    height: 100%;
-  }
+    html {
+        height: 100%;
+    }
 
-  body {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url('../static/nebula/6.jpg');
-  }
+    body {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url('../static/nebula/6.jpg');
+    }
 
-  #header {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    background-color: #f5f5f5;
-  }
+    #header {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        background-color: #f5f5f5;
+    }
 
-  #stage {
-    font-family: Source Sans Pro, Helvetica, sans-serif;
-    align-items: left;
-    margin: 20px;
-    color: #2c3e50;
-    background-color: #f5f5f5;
-  }
+    #stage {
+        font-family: Source Sans Pro, Helvetica, sans-serif;
+        align-items: left;
+        margin: 20px;
+        color: #ee9554;
+        background-color: #000;
+    }
 
-  #main a {
-    color: #42b983;
-    text-decoration: none;
-  }
+    #main a {
+        color: #42b983;
+        text-decoration: none;
+    }
 
-  .avatar {
-    width: 100px;
-    height: 100px
-  }
+    .avatar {
+        width: 100px;
+        height: 100px
+    }
 </style>
