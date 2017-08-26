@@ -37,7 +37,7 @@
                     {height: 400, onComplete: this.go('profile')});
             },
             go: function (route) {
-                this.$route.router.go('/' + route);
+                this.$route.router.push('/' + route);
             }
         }
     }

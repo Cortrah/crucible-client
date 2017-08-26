@@ -74,8 +74,8 @@ localhost:5000/lobby
 - [X] fix id/s and structures so we can target any player
 - [ ] lobby (but don't need persistence yet)
     - [ ] login 
-    - [ ] show lobby (can be hardcoded to start)
-    - [ ] chose avatar in profile
+    - [X] show lobby (can be hardcoded to start)
+    - [X] chose avatar in profile
     - [ ] create tabletop (also determines host)
     - [ ] join tabletop
     - [ ] choose a side
