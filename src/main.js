@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import App from './App.vue';
+import Home from './Home.vue';
 import router from './router.js';
 import store from './store/store.js'
 
@@ -10,6 +10,6 @@ new Vue({
     el: '#main',
     router,
     store,
-    template: '<App/>',
-    components: { App },
+    template: '<Home/>',
+    components: { Home },
 });

@@ -18,8 +18,8 @@
 
 <script>
     import Vue from 'vue'
-    import store from '../../store/store.js'
     import { mapState } from 'vuex'
+    import store from '../../store/store.js'
 
     import Player from '../cast/Player'
     import Helm from './Helm'

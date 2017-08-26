@@ -1,6 +1,5 @@
 <template>
     <div id="stage">
-        <img class="logo" src="../assets/cav.png">
         <div class="splash">
             <h1>{{ title }}</h1>
         </div>
@@ -13,7 +12,7 @@
         name: 'Splash',
         data () {
             return {
-                title: 'Casual Card Table',
+                title: 'Waypoint Crucible',
             }
         }
     }
