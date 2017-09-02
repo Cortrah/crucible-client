@@ -36,7 +36,6 @@
                 </span>
             </ul>
         </div>
-
         <div id="stage">
             <router-view :store="store"></router-view>
         </div>
