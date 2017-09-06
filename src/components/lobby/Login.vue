@@ -19,7 +19,7 @@
                         class="pure-button pure-button-primary">
                     Sign in
                 </button>
-                <a>forgot your password?</a>
+                <router-link to="forgot">forgot your password?</router-link>
                 <br/>
                 <br/>
             </fieldset>

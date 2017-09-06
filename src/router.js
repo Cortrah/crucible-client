@@ -33,9 +33,9 @@ export default new Router({
             component: Login
         },
         {
-            path: '/lobby',
-            name: 'Lobby',
-            component: Lobby
+            path: '/forgot',
+            name: 'Forgot',
+            component: Forgot
         },
         {
             path: '/profile',
@@ -43,14 +43,14 @@ export default new Router({
             component: Profile
         },
         {
+            path: '/lobby',
+            name: 'Lobby',
+            component: Lobby
+        },
+        {
             path: '/host',
             name: 'Host',
             component: Host
-        },
-        {
-            path: '/forgot',
-            name: 'Forgot',
-            component: Forgot
         },
         {
             path: '/tabletop',
