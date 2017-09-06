@@ -250,7 +250,7 @@
                     {height: 400, onComplete: this.nav});
             },
             nav: function () {
-                this.$route.router.push('/' + this.destination);
+                this.$router.push('/' + this.destination);
             }
         }
     }

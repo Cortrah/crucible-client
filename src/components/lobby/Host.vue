@@ -38,7 +38,7 @@
                     {height: 400, onComplete: this.go('tabletop')});
             },
             go: function (route) {
-                this.$route.router.go('/' + route);
+                this.$router.push('/' + route);
             }
         }
     }

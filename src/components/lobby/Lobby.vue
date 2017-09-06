@@ -42,7 +42,7 @@ Register.vue<template>
                     {height: 400, onComplete: this.go('host')});
             },
             go: function (route) {
-                this.$route.router.go('/' + route);
+                this.$router.push('/' + route);
             }
         }
     }
