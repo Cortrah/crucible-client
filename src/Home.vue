@@ -1,13 +1,13 @@
 <template>
     <div id="home">
         <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
-            <a href="#" class="pure-menu-link pure-menu-heading" v-link="{ path: '/' }">
+            <a href="#" class="pure-menu-link pure-menu-heading">
                 Home
             </a>
             <ul class="pure-menu-list">
                 <span v-if="!this.loggedIn">
                     <li class="pure-menu-item">
-                        <a href="#" v-link="{ path: 'register' }" class="pure-menu-link">
+                        <a href="#" class="pure-menu-link">
                             Register
                         </a>
                     </li>
@@ -37,7 +37,7 @@
             </ul>
         </div>
         <div id="stage">
-            <router-view :store="store"></router-view>
+            <router-view></router-view>
         </div>
     </div>
 </template>

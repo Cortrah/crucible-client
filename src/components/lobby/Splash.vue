@@ -35,7 +35,7 @@
         name: 'Splash',
         data () {
             return {
-                title: store.game.title,
+                title: "Waypoint Crucible",
             }
         }
     }

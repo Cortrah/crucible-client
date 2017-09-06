@@ -19,7 +19,7 @@
                         class="pure-button pure-button-primary">
                     Sign in
                 </button>
-                <a v-link="{ path: 'forgot' }">forgot your password?</a>
+                <a>forgot your password?</a>
                 <br/>
                 <br/>
             </fieldset>
