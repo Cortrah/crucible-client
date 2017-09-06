@@ -20,7 +20,6 @@ Add timing to the equation, anybody can attack anyone at any time, but
 2) max mana accumulates over a timed interval
 3) mana replentishes over a timed interval
 4) if a deck is empty, damage is done via a timer
-5) if you have 5 cards drawing another card automatically replaces the lowest card you have
 
 The story is that there is an errant WayPoint Jumpgate that sucks in everyone, only one can leave.
 
