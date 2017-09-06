@@ -38,16 +38,6 @@ export default new Router({
             component: Lobby
         },
         {
-            path: '/crucible',
-            name: 'Crucible',
-            component: Crucible
-        },
-        {
-            path: '/tabletop',
-            name: 'Tabletop',
-            component: Tabletop
-        },
-        {
             path: '/profile',
             name: 'Profile',
             component: Profile
@@ -61,6 +51,16 @@ export default new Router({
             path: '/forgot',
             name: 'Forgot',
             component: Forgot
+        },
+        {
+            path: '/tabletop',
+            name: 'Tabletop',
+            component: Tabletop
+        },
+        {
+            path: '/crucible',
+            name: 'Crucible',
+            component: Crucible
         }
     ]
 })
