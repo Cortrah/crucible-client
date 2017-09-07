@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import VueProgress from 'vue-progress';
 import Router from 'vue-router';
 
 import Splash from './components/lobby/Splash.vue';
@@ -13,7 +12,6 @@ import Forgot from './components/lobby/Forgot.vue';
 import Crucible from './components/stage/Crucible.vue';
 
 Vue.use(Router);
-Vue.use(VueProgress);
 
 export default new Router({
     routes: [
