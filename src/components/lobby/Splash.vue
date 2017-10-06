@@ -31,11 +31,16 @@
 
 <script type="text/babel">
 
+    import Vue from 'vue'
+    //import { mapState } from 'vuex'
+    //import store from '../../../store/store.js'
+
     export default {
         name: 'Splash',
-        data () {
-            return {
-                title: "Waypoint Crucible",
+        computed: {
+            title () {
+                console.log(store);
+                return this.$store.game.title;
             }
         }
     }

@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex'
 import Router from 'vue-router';
-//import { sync } from 'vuex-router-sync';
 
 import Home from './Home.vue';
 import router from './router.js';
@@ -12,8 +11,6 @@ Vue.use(Router);
 
 Vue.config.productionTip = false;
 Vue.config.devTools = true;
-
-//sync(store, router);
 
 new Vue({
     el: '#main',
