@@ -32,15 +32,13 @@
 <script type="text/babel">
 
     import Vue from 'vue'
-    //import { mapState } from 'vuex'
-    //import store from '../../../store/store.js'
+    import store from '../../store/store.js'
 
     export default {
         name: 'Splash',
         computed: {
             title () {
-                console.log(store);
-                return this.$store.game.title;
+                return this.$store.state.game.title;
             }
         }
     }

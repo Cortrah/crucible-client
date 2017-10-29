@@ -86,21 +86,31 @@
 </template>
 
 <script type="text/babel">
+    import store from '../../store/store.js'
 
     export default {
         name: 'Profile',
-        props: ['store'],
         data () {
             return {
                 userName: 'Mina',
                 botChecked: false,
-                selDog: this.store.dogAvatars[0].img,
-                selBot: this.store.botAvatars[0].img,
-                dogs: this.store.dogAvatars,
-                bots: this.store.botAvatars,
                 title: 'Profile'
             }
         },
+        computed: {
+            selDog() {
+                return this.$store.state.dogAvatars[0].img;
+            },
+            selBot(){
+                return  this.$store.state.botAvatars[0].img;
+            },
+            dogs() {
+                return this.$store.state.dogAvatars;
+            },
+            bots() {
+                return  this.$store.state.botAvatars;
+            }
+    },
         methods: {
             toggleGogo: function (amt) {
                 this.displayGogo = !this.displayGogo;
