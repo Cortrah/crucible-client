@@ -5,7 +5,10 @@ Register.vue<template>
         <h2>Tables</h2>
         <ul id="gameList">
             <li v-for="table in tables">
-                {{ table.name }} <button  @click="joinTable(table)">Join</button>
+                {{ table.name }}
+                <button  @click="joinTable(table)">
+                    Join
+                </button>
             </li>
         </ul>
         <p v-if="tables.length == 0">No Tables Yet</p>
@@ -16,16 +19,24 @@ Register.vue<template>
 </template>
 
 <script type="text/babel">
+    import store from '../../store/store.js'
 
     export default {
         name: 'Lobby',
-        props: ['store'],
         data () {
             return {
                 title: 'Lobby',
-                tables: this.store.tables,
-                players: this.store.players,
-                messages: this.store.messages
+            }
+        },
+        computed: {
+            tables() {
+                return this.$store.state.tables;
+            },
+            players(){
+                return  this.$store.state.players;
+            },
+            messages() {
+                return this.$store.state.messages;
             }
         },
         methods: {

@@ -110,7 +110,7 @@
             bots() {
                 return  this.$store.state.botAvatars;
             }
-    },
+        },
         methods: {
             toggleGogo: function (amt) {
                 this.displayGogo = !this.displayGogo;

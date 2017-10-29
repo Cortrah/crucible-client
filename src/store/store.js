@@ -236,6 +236,9 @@ export const state = {
         {id: '3', name: 'Grammarbot', img: '../static/robot3.png'},
         {id: '4', name: 'Lambdabot', img: '../static/robot4.png'}
     ],
+    tables: [],
+    players: [],
+    messages: [],
 };
 export default new Vuex.Store({
     state,
