@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import lobby from './modules/lobby.js'
-
 Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
@@ -413,9 +411,5 @@ export default new Vuex.Store({
         endGame: function(state) {
             state.game.status = "OVER";
         }
-    },
-    modules: {
-        lobby,
-    },
-    strict: debug,
+    }
 })
