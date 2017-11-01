@@ -6,7 +6,7 @@
         <span>{{ game.status }}</span>
 
         <div class="players-container">
-            <helm ref="helm" playerId="5" :game="game" :rules="rules" :avatars="avatars"
+            <helm ref="helm" playerId="7" :game="game" :rules="rules" :avatars="avatars"
                   v-on:DRAW_MISTLE="drawMistle"
                   v-on:DRAW_SHIELD="drawShield"
                   v-on:SELECT_CARD="selectCard"
