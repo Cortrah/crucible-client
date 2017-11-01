@@ -149,9 +149,16 @@
                                 //}
                                 // choose an enemy that's still active
                                 if (player.team === "Good Guys") {
-                                    for (var f = 0; f < this.game.players.length; f++) {
-                                        var foe = this.game.players[f];
-                                        if (foe.isActive === true && foe.team === "Bad Guys") {
+                                    // make the enemy chosen random
+                                    let activeFoes = this.game.players.filter((player) =>
+                                        player.isActive && player.team === "Bad Guys"
+                                    );
+                                    let foeCount = activeFoes.length;
+                                    var foe = activeFoes[0];
+
+//                                    for (var f = 0; f < this.game.players.length; f++) {
+//                                        var foe = this.game.players[f];
+//                                        if (foe.isActive === true && foe.team === "Bad Guys") {
                                             // and fire at it
                                             store.dispatch({
                                                 type: 'targetPlayer',
@@ -160,9 +167,9 @@
                                                 cardIndex:0
                                             });
                                             // but only fire one maximum per tick
-                                            break;
-                                        }
-                                    }
+//                                            break;
+//                                        }
+//                                    }
                                 } else {
                                     // if the player is axis its enemy is an allie
                                     for (var f = 0; f < this.game.players.length; f++) {
