@@ -32,7 +32,6 @@
 
     export default {
         name: 'Login',
-        props: ['store'],
         data () {
             return {
                 title: 'Sign In',
@@ -49,7 +48,7 @@
                     username: this.email,
                     password: this.pwd
                 };
-                this.store.bus.$emit('login-request', formData);
+                this.$store.bus.$emit('login-request', formData);
             }
         }
     }

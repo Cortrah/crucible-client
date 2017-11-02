@@ -24,7 +24,6 @@
 </template>
 
 <script type="text/babel">
-    import store from '../../store/store.js'
 
     export default {
         name: 'Host',

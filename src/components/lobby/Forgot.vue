@@ -27,7 +27,6 @@
 
     export default {
         name: 'Forgot',
-        props: ['store'],
         data () {
             return {
                 sent: false,

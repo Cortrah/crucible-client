@@ -31,9 +31,6 @@
 
 <script type="text/babel">
 
-    import Vue from 'vue'
-    import store from '../../store/store.js'
-
     export default {
         name: 'Splash',
         computed: {

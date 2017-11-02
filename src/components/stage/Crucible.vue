@@ -2,7 +2,6 @@
     <div class="crucible">
         <button @click="startGame()">Start Game</button>
         <button @click="endGame()">End Game</button>
-        <button @click="replay()">Play Sequence</button>
         <span>{{ game.status }}</span>
 
         <div class="players-container">
@@ -19,7 +18,6 @@
 <script>
     import Vue from 'vue'
     import { mapState } from 'vuex'
-    import store from '../../store/store.js'
 
     import Player from '../cast/Player'
     import Helm from './Helm'
@@ -38,16 +36,16 @@
 
             // player actions
             drawMistle: function(playerId){
-                store.dispatch({ type: 'drawMistle', playerId: playerId});
+                this.$store.dispatch({ type: 'drawMistle', playerId: playerId});
             },
             drawShield: function(playerId){
-                store.dispatch({ type: 'drawShield', playerId: playerId});
+                this.$store.dispatch({ type: 'drawShield', playerId: playerId});
             },
             selectCard: function(playerId, cardIndex){
-                store.dispatch({ type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
+                this.$store.dispatch({ type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
             },
             targetPlayer: function (sourceId, targetId, cardIndex) {
-                store.dispatch({
+                this.$store.dispatch({
                     type: 'targetPlayer',
                     sourceId:sourceId,
                     targetId:targetId,
@@ -60,7 +58,7 @@
                 clearInterval(this.manaIntervalId);
                 this.gameIntervalId = setInterval(this.gameTick, 2000);
                 this.manaIntervalId = setInterval(this.manaTick, 1000);
-                store.dispatch('startGame');
+                this.$store.dispatch('startGame');
             },
             gameTick: function() {
                 if(this.game.status === "PLAYING"){
@@ -69,7 +67,7 @@
                         if (player.isActive && player.controller === "AI") {
                             // if the player has < 5 cards and more than 1 mana draw a card
                             if (player.cards.length < 5 && player.mana > 0) {
-                                store.dispatch({ type: 'drawMistle', playerId: i});
+                                this.$store.dispatch({ type: 'drawMistle', playerId: i});
                             } else {
                                 // once a player has 5 cards
                                 // if the player has cards and enough mana to fire a mistle
@@ -78,7 +76,7 @@
                                 var ci = 0;
                                 var card = player.cards[ci];
                                 if (card.value < player.mana) {
-                                    store.dispatch({ type: 'selectCard', playerId:i, cardIndex:ci});
+                                    this.$store.dispatch({ type: 'selectCard', playerId:i, cardIndex:ci});
                                 }
                                 // choose an enemy that's still active
                                 if (player.team === "Good Guys") {
@@ -90,7 +88,7 @@
                                     let foeChosen = Math.floor(Math.random()*foeCount);
                                     let foe = activeFoes[foeChosen];
                                     // and fire at it
-                                    store.dispatch({
+                                    this.$store.dispatch({
                                         type: 'targetPlayer',
                                         sourceId:i,
                                         targetId:foe.id,
@@ -105,7 +103,7 @@
                                     let foeChosen = Math.floor(Math.random()*foeCount);
                                     let foe = activeFoes[foeChosen];
                                     // and fire at it
-                                    store.dispatch({
+                                    this.$store.dispatch({
                                         type: 'targetPlayer',
                                         sourceId:i,
                                         targetId:foe.id,
@@ -120,10 +118,10 @@
                 }
             },
             manaTick: function() {
-                store.dispatch('manaTick');
+                this.$store.dispatch('manaTick');
             },
             endGame: function() {
-                store.dispatch('endGame');
+                this.$store.dispatch('endGame');
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
             }
