@@ -23,7 +23,6 @@
 
     import Player from '../cast/Player'
     import Helm from './Helm'
-    import CommandQueue from "./CommandQueue"
 
     export default {
         name: 'Crucible',
@@ -33,74 +32,9 @@
             return {
                 "gameIntervalId": 0,
                 "manaIntervalId": 0,
-                "playhead": 0,
-                "commands":[]
             }
         },
         methods: {
-            queueCommand: function(command) {
-                this.commands.push(command);
-            },
-
-            gogo: function() {
-                if(this.playhead < this.commands.length){
-                    let command = this.commands[this.playhead];
-                    store.dispatch(command);
-                    if(this.playhead < this.commands.length + 1) {
-                        this.playhead++;
-                    }
-                }
-            },
-
-            ungo: function() {
-                let command = this.commands[this.playhead];
-                store.dispatch(command);
-                if(this.playhead > 0){
-                    this.playhead--;
-                }
-            },
-
-            replay: function(){
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-                this.queueCommand({ type: "drawMistle", playerId: 5 });
-                this.queueCommand({ type: "selectCard", playerId: 5, cardIndex: 0});
-                this.queueCommand({ type: "targetPlayer", sourceId: 5, targetId: 1, cardIndex: 0});
-            },
 
             // player actions
             drawMistle: function(playerId){
@@ -137,16 +71,15 @@
                             if (player.cards.length < 5 && player.mana > 0) {
                                 store.dispatch({ type: 'drawMistle', playerId: i});
                             } else {
+                                // once a player has 5 cards
                                 // if the player has cards and enough mana to fire a mistle
-                                // choose the best mistle possible to fire
-
-                                var c = 0;
-                                //for (var c = 0; c < player.cards.length; c++) {
-                                var card = player.cards[c];
+                                // eventually choose the best mistle possible to fire
+                                // in this case we just choose the first and wait till we can fire it
+                                var ci = 0;
+                                var card = player.cards[ci];
                                 if (card.value < player.mana) {
-                                    store.dispatch({ type: 'selectCard', playerId:i, cardIndex:c});
+                                    store.dispatch({ type: 'selectCard', playerId:i, cardIndex:ci});
                                 }
-                                //}
                                 // choose an enemy that's still active
                                 if (player.team === "Good Guys") {
                                     // make the enemy chosen random
@@ -161,7 +94,7 @@
                                         type: 'targetPlayer',
                                         sourceId:i,
                                         targetId:foe.id,
-                                        cardIndex:0
+                                        cardIndex:ci
                                     });
                                 } else {
                                     // if the player is axis its enemy is an allie
@@ -176,7 +109,7 @@
                                         type: 'targetPlayer',
                                         sourceId:i,
                                         targetId:foe.id,
-                                        cardIndex:0
+                                        cardIndex:ci
                                     });
                                 }
                             }
@@ -188,7 +121,6 @@
             },
             manaTick: function() {
                 store.dispatch('manaTick');
-                //this.gogo();
             },
             endGame: function() {
                 store.dispatch('endGame');
