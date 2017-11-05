@@ -1,8 +1,8 @@
-export class Player {
+export default class Player {
 
     constructor(
         id = 0,
-        name = "",
+        name = "?",
         team = "Bad Guys",
         controller = "AI",
         avatarImg =  "../static/default.png",

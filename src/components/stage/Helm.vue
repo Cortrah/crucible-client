@@ -5,23 +5,9 @@
                 <span v-if="player.team === 'Bad Guys'">
                     <player ref = "axis"
                             :gameStatus = game.status
-                            :id = player.id
-                            :name = player.name
-                            :team = player.team
-                            :avatarImg = player.avatarImg
-                            :maxMana = player.maxMana
-                            :mana = player.mana
-                            :maxHealth = player.maxHealth
-                            :health = player.health
-                            :shields = player.shields
-                            :cards = player.cards
-                            :deck = player.deck
-                            :deckSize = player.deckSize
+                            :player = player
                             :startingDeckLength = rules.startingDeck.length
-                            :drawEnabled = player.drawEnabled
-                            :isBleedingOut = player.isBleedingOut
-                            :isActive = player.isActive
-                            @click = "targetPlayer(this.model.id, this.model.card)"
+                            @click = "targetPlayer(player.id, player.card)"
                             v-on:TARGETED = "targetPlayer">
                     </player>
                 </span>
@@ -41,23 +27,9 @@
                 <span v-if="player.team === 'Good Guys'">
                     <player ref="allies"
                             :gameStatus = game.status
-                            :id = player.id
-                            :name = player.name
-                            :team = player.team
-                            :avatarImg = player.avatarImg
-                            :maxMana = player.maxMana
-                            :mana = player.mana
-                            :maxHealth = player.maxHealth
-                            :health = player.health
-                            :shields = player.shields
-                            :cards = player.cards
-                            :deck = player.deck
-                            :deckSize = player.deckSize
+                            :player = player
                             :startingDeckLength = rules.startingDeck.length
-                            :drawEnabled = player.drawEnabled
-                            :isBleedingOut = player.isBleedingOut
-                            :isActive = player.isActive
-                            @click = "targetPlayer(this.id, this.card)"
+                            @click = "targetPlayer(player.id, player.card)"
                             v-on:TARGETED="targetPlayer">
                     </player>
                 </span>
@@ -67,23 +39,9 @@
         <div class="console">
             <PlayerConsole  ref="player-console"
                             :gameStatus = game.status
-                            :id = playerId
-                            :name = game.players[playerId].name
-                            :team = game.players[playerId].team
+                            :player = game.players[playerId]
                             avatarImg = '../../static/horizontal_control.png'
-                            :maxMana = game.players[playerId].maxMana
-                            :mana = game.players[playerId].mana
-                            :maxHealth = game.players[playerId].maxHealth
-                            :health = game.players[playerId].health
-                            :shields = game.players[playerId].shields
-                            :cards = game.players[playerId].cards
-                            :deck = game.players[playerId].deck
-                            :deckSize = game.players[playerId].deckSize
-                            :selectedCardIndex = game.players[playerId].selectedCardIndex
                             :startingDeckLength = rules.startingDeck.length
-                            :drawEnabled = game.players[playerId].drawEnabled
-                            :isBleedingOut = game.players[playerId].isBleedingOut
-                            :isActive = game.players[playerId].isActive
                             v-on:SELECT_CARD="selectCard">
             </PlayerConsole>
 
@@ -174,12 +132,12 @@
                 if(typeof sourceId !== "undefined"){
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        if (sourceId == this.$refs.axis[i].id){
+                        if (sourceId == this.$refs.axis[i].player.id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        if (sourceId == this.$refs.allies[i].id){
+                        if (sourceId == this.$refs.allies[i].player.id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
                     }
@@ -192,12 +150,12 @@
                 if(typeof sourceId !== "undefined"){
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        if (sourceId == this.$refs.axis[i].id){
+                        if (sourceId == this.$refs.axis[i].player.id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        if (sourceId == this.$refs.allies[i].id){
+                        if (sourceId == this.$refs.allies[i].player.id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
                     }
@@ -210,12 +168,12 @@
                 if(typeof targetId !== "undefined"){
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        if (targetId == this.$refs.axis[i].id){
+                        if (targetId == this.$refs.axis[i].player.id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        if (targetId == this.$refs.allies[i].id){
+                        if (targetId == this.$refs.allies[i].player.id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
                     }
@@ -228,12 +186,12 @@
                 if(typeof targetId !== "undefined") {
                     let rect = null;
                     for (let i = 0; i < this.$refs.axis.length; i++) {
-                        if (targetId == this.$refs.axis[i].id) {
+                        if (targetId == this.$refs.axis[i].player.id) {
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for (let i = 0; i < this.$refs.allies.length; i++) {
-                        if (targetId == this.$refs.allies[i].id) {
+                        if (targetId == this.$refs.allies[i].player.id) {
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
                     }

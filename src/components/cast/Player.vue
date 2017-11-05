@@ -1,28 +1,28 @@
 <template>
-    <div class="player" v-bind:class="{ inactive: !isActive }">
+    <div class="player" v-bind:class="{ inactive: !player.isActive }">
 
         <div id="health">
-            Health: {{ health }} of {{ maxHealth }}
+            Health: {{ player.health }} of {{ player.maxHealth }}
         </div>
 
         <div id="mana">
-            Mana: {{ mana }} of {{ maxMana }}
+            Mana: {{ player.mana }} of {{ player.maxMana }}
         </div>
 
-        <img :src="avatarImg" @click="targeted">
+        <img :src="player.avatarImg" @click="targeted">
 
-        <span>{{ name }}</span>
+        <span>{{ player.name }}</span>
 
-        <span> Deck: {{ deckSize }} of {{ startingDeckLength }}</span>
+        <span> Deck: {{ player.deckSize }} of {{ startingDeckLength }}</span>
 
         <span id="hand">
-            <span v-for="(card, index) in this.cards">
+            <span v-for="(card, index) in player.cards">
                 <span class="card">{{ card.value }}</span>
             </span>
         </span>
 
         <div id="shields">
-            <span v-for="(shield, index) in this.shields">
+            <span v-for="(shield, index) in player.shields">
                 <svg id="shieldIcon"
                      x="2px" y="2px"
                      width="9px" height="9.605px"
@@ -44,22 +44,8 @@
     export default {
         props: [
             "gameStatus",
-            "id",
-            "name",
-            "team",
-            "avatarImg",
-            "maxMana",
-            "mana",
-            "maxHealth",
-            "health",
-            "shields",
-            "deckSize",
-            "drawEnabled",
-            "cards",
-            "selectedCardIndex",
-            "isActive",
-            "isBleedingOut",
-            'startingDeckLength'
+            'startingDeckLength',
+            'player',
         ],
         computed: mapState({
             game: state => state.game,
@@ -67,7 +53,7 @@
         methods: {
             targeted: function () {
                 if(this.gameStatus === "PLAYING"){
-                    this.$emit("TARGETED", this.id);
+                    this.$emit("TARGETED", this.player.id);
                 }
             }
         }

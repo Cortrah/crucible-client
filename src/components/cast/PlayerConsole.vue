@@ -2,28 +2,28 @@
     <div class="player-console" >
 
         <div id="name">
-            {{ name }}
+            {{ player.name }}
         </div>
 
         <div id="health">
-            Health: {{ health }} of {{ maxHealth }}
+            Health: {{ player.health }} of {{ player.maxHealth }}
         </div>
 
         <div id="mana">
-            Mana: {{ mana }} of {{ maxMana }}
+            Mana: {{ player.mana }} of {{ player.maxMana }}
         </div>
 
         <div id="deck">
-            Deck: {{ deckSize }} of {{ startingDeckLength }}
+            Deck: {{ player.deckSize }} of {{ startingDeckLength }}
         </div>
 
         <div id="hand">
-            <span v-for="(card, index) in cards" ref="cards">
+            <span v-for="(card, index) in player.cards" ref="cards">
                 <simple-card class="simple-card"
                              :faceVal = card.value
                              :cardType = card.cardType
                              :myIndex = index
-                             :selectedIndex = selectedCardIndex
+                             :selectedIndex = player.selectedCardIndex
                              v-on:SELECT_CARD="selectCard(card, index)">
                 </simple-card>
             </span>
@@ -43,31 +43,16 @@
           SimpleCard
         },
         props: [
-            "gameStatus",
-            "id",
-            "name",
-            "team",
-            "avatarImg",
-            "maxMana",
-            "mana",
-            "maxHealth",
-            "health",
-            "shields",
-            "deck",
-            "deckSize",
-            "drawEnabled",
-            "cards",
-            "selectedCardIndex",
-            "isActive",
-            "isBleedingOut",
-            'startingDeckLength'
+            'gameStatus',
+            'startingDeckLength',
+            'player',
         ],
         computed: mapState({
             game: state => state.game,
         }),
         methods: {
             selectCard: function (card, index) {
-                if(this.isActive && this.gameStatus === "PLAYING") {
+                if(this.player.isActive && this.gameStatus === "PLAYING") {
                     this.$emit("SELECT_CARD", card, index);
                 }
             }
