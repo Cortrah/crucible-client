@@ -21,7 +21,7 @@ export const state = {
         "shieldDecayRate": 1000
     },
     game:{
-        "title": 'Waypoint Frankenbery Crucible',
+        "title": 'Waypoint Crucible',
         "status": "PREPARING",
         "winner": "",
         "commands":[],
