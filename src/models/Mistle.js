@@ -1,4 +1,4 @@
-export class Mistle {
+export default class Mistle {
 
     constructor(sourcePlayer, targetPlayer, card, flightTime) {
         this.sourcePlayer = sourcePlayer;
