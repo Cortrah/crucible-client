@@ -74,9 +74,10 @@ localhost:5000/lobby
 - [X] playback a list of commands
 - [X] retrofit to be a single player game with ai or manual input
 - [X] fix id/s and structures so we can target any player
+- [X] remove command queue for now, just events are fine
 - [ ] fix routes
 - [ ] tweak bleeding out
-- [ ] lobby (but don't need persistence yet)
+- [ ] lobby (but don't need persistence yet, just client side)
     - [ ] login 
     - [X] show lobby (can be hardcoded to start)
     - [X] chose avatar in profile
@@ -87,7 +88,7 @@ localhost:5000/lobby
     - [ ] ai takes over remaining slots
 - [ ] spec server side interface
 - [X] add shields
-    - [ ] enemies/mistles
+    - [X] enemies/mistles
     - [ ] allies shields
 - [X] choose
 	- [X] hapi nes backend
