@@ -30,7 +30,10 @@ and robots are under General Scum.
 
 The human players are the dogs and need to try to cooperate to defeat the ai bots which might have personalities or strategies or both. (A personality might be how frequently you change your strategy (or to what) based on how frustrated you are or by other semi-arbitrary things such as a lack of success or a sense of patterns, even smack talk?)
 
+*Update for now it will be either a single player game with one player against a bunch of ai's (which works) or two players, one takes general scum and gets 4 ai bots to help him, one takes admiral hope and gets 4 dogs, also played by bots.
+
 Possibly add shields, which would be in the form of a second button to draw from your deck, you can draw a mistle or a shield either way the number is the same but the card that results will be either offensive or defensive, the defensive shield would fade in strength after a certain timeout period, say a point per second.
+
 
 ## Build Setup
 
@@ -77,7 +80,7 @@ localhost:5000/lobby
     - [ ] login 
     - [X] show lobby (can be hardcoded to start)
     - [X] chose avatar in profile
-    - [ ] create tabletop (also determines host)
+    - [ ] host tabletop
     - [ ] join tabletop
     - [ ] choose a side
     - [ ] host starts game
@@ -95,12 +98,14 @@ localhost:5000/lobby
 		- [ ] propagate the game events
 		- [ ] CORS
 		- [ ] CSRF
-		- [ ] persistent accounts
+		- [ ] registration of persistent accounts
 		- [ ] emails and reset
 	- [ ] java akka backend
 	- [ ] phoenix GenStage backend
 - [ ] set up vue-test-utils and start testing single player client
 - [ ] add lab tests for server
+- [ ] add some ai bot strategies
+- [ ] add the ability to change ai bot strategies of your allies from the field while playing
 - [ ] animate health, mana and deck counters
 - [ ] tooltips for text details of health mana and deck counters
 - [ ] have mistles dissapear or become damage after detonating
