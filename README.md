@@ -21,7 +21,7 @@ Add timing to the equation, anybody can attack anyone at any time, but
 3) mana replentishes over a timed interval
 4) if a deck is empty, damage is done via a timer
 
-The story is that there is an errant WayPoint Jumpgate that sucks in everyone, only one can leave.
+The story is that there is an errant WayPoint Jumpgate that sucks in everyone, only one team can leave.
 
 If there is time create bots
 
@@ -71,6 +71,8 @@ localhost:5000/lobby
 - [X] playback a list of commands
 - [X] retrofit to be a single player game with ai or manual input
 - [X] fix id/s and structures so we can target any player
+- [ ] fix routes
+- [ ] tweak bleeding out
 - [ ] lobby (but don't need persistence yet)
     - [ ] login 
     - [X] show lobby (can be hardcoded to start)
@@ -80,11 +82,23 @@ localhost:5000/lobby
     - [ ] choose a side
     - [ ] host starts game
     - [ ] ai takes over remaining slots
+- [ ] spec server side interface
+- [X] add shields
+    - [ ] enemies/mistles
+    - [ ] allies shields
 - [X] choose
-	- [X] hapi nes apollo graphql backend
+	- [X] hapi nes backend
 		- [ ] implement choice
-	- [ ] spring appolo-android and akka backend
-	- [ ] phoenix GenStage and absynthe backend
+		- [ ] login adds a player to the list of players (no registration or persistence yet)
+		- [ ] let a player host a game and choose a side
+		- [ ] let another player join a game
+		- [ ] propagate the game events
+		- [ ] CORS
+		- [ ] CSRF
+		- [ ] persistent accounts
+		- [ ] emails and reset
+	- [ ] java akka backend
+	- [ ] phoenix GenStage backend
 - [ ] set up vue-test-utils and start testing single player client
 - [ ] add lab tests for server
 - [ ] animate health, mana and deck counters
@@ -97,12 +111,9 @@ localhost:5000/lobby
 - [ ] card images
 
 ## V2
-- [X] add shields
-    - [ ] enemies/mistles
-    - [ ] allies shields
 - [ ] launch sounds
 - [ ] explosions
-- [ ] larger mistles
+- [ ] mistles grow to match size as they fly
 - [ ] larger shields
 - [ ] ships with avatars
 - [ ] lobby login/registration persistence
