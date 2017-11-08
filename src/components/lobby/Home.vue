@@ -1,13 +1,13 @@
 <template>
     <div id="stage">
-        <div class="splash">
+        <div class="home">
             <h1>{{ title }}</h1>
             <ul>
                 <li>
                     <router-link to="Register">Register</router-link>
                 </li>
                 <li>
-                    <router-link to="Login">Login</router-link>
+                    <router-link to="SignIn">SignIn</router-link>
                 </li>
                 <li>
                     <router-link to="Forgot">Forgot</router-link>
@@ -32,7 +32,7 @@
 <script type="text/babel">
 
     export default {
-        name: 'Splash',
+        name: 'Home',
         computed: {
             title () {
                 return this.$store.state.game.title;

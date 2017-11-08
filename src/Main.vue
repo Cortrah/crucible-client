@@ -1,8 +1,8 @@
 <template>
-    <div id="home">
+    <div id="main">
         <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
             <a href="#" class="pure-menu-link pure-menu-heading">
-                Home
+                Main
             </a>
             <ul class="pure-menu-list">
                 <span v-if="!this.loggedIn">
@@ -12,7 +12,7 @@
                         </a>
                     </li>
                     <li class="pure-menu-item">
-                        <a href="#" @click.prevent="gotoLogin()" class="pure-menu-link">
+                        <a href="#" @click.prevent="gotoSignIn()" class="pure-menu-link">
                             Sign In
                         </a>
                     </li>
@@ -45,104 +45,21 @@
 <script type="text/babel">
 
     import Vue from 'vue'
-    import Splash from './components/lobby/Splash'
+    import Home from './components/lobby/Home'
     import Crucible from './components/stage/Crucible'
 
     let bus = new Vue();
 
-    let store = new Vue({
-        data () {
-            return {
-                bus: bus,
-                dogAvatars: [
-                    {id: '1', name: 'Cavalier', img: '../static/dog1.png'},
-                    {id: '2', name: 'Mini Schnauser', img: '../static/dog2.png'},
-                    {id: '3', name: 'Boston Terrier', img: '../static/dog3.png'},
-                    {id: '4', name: 'Border Collie', img: '../static/dog4.png'}
-                ],
-                botAvatars: [
-                    {id: '1', name: 'Protobot', img: '../static/robot1.png'},
-                    {id: '2', name: 'Streambot', img: '../static/robot2.png'},
-                    {id: '3', name: 'Grammarbot', img: '../static/robot3.png'},
-                    {id: '4', name: 'Lambdabot', img: '../static/robot4.png'}
-                ],
-                players: [
-                    {
-                        'name': 'Jim',
-                        'dealer': true,
-                        'host': false,
-                        'avatar': 'static/dog1.png',
-                        'bones': 100,
-                        'betting': 60
-                    },
-                    {
-                        'name': 'Whitey',
-                        'dealer': false,
-                        'host': false,
-                        'avatar': 'static/robot1.png',
-                        'bones': 200,
-                        'betting': 0
-                    },
-                    {
-                        'name': 'Dan',
-                        'dealer': false,
-                        'host': false,
-                        'avatar': 'static/dog2.png',
-                        'bones': 300,
-                        'betting': 0
-                    },
-                    {
-                        'name': 'Kyle',
-                        'dealer': false,
-                        'host': false,
-                        'avatar': 'static/dog3.png',
-                        'bones': 400,
-                        'betting': 0
-                    },
-                    {
-                        'name': 'Bob',
-                        'dealer': false,
-                        'host': false,
-                        'avatar': 'static/robot2.png',
-                        'bones': 100,
-                        'betting': 0
-                    },
-                    {
-                        'name': 'Cort',
-                        'dealer': false,
-                        'host': true,
-                        'avatar': 'static/robot3.png',
-                        'bones': 200,
-                        'betting': 0
-                    }
-                ],
-                tables: [],
-                messages: []
-            };
-        },
-        methods: {
-            createTable (tableName) {
-                let t = new DealersChoiceTable();
-                t.name = tableName;
-                this.tables.push(t);
-            },
-            // logout () {
-            //     this.loggedIn = false;
-            //     this.bus.$emit('logout-event');
-            // }
-        }
-    });
-
     export default {
-        name: 'Home',
+        name: 'Main',
         http: {
             root: 'http://localhost:8080/'
         },
         created () {
-            this.bus.$on('login-request', this.loginRequest);
-            this.bus.$on('login-result', this.loginResult);
-            this.bus.$on('logout-request', this.logoutRequest);
-            this.bus.$on('logout-result', this.logoutResult);
+            this.bus.$on('sign-in-request', this.signInRequest);
+            this.bus.$on('sign-in-result', this.signInResult);
+            this.bus.$on('sign-out-request', this.signOutRequest);
+            this.bus.$on('sign-out-result', this.signOutResult);
             this.bus.$on('get-accounts-request', this.getAccounts);
         },
         data () {
@@ -155,29 +72,29 @@
             }
         },
         components: {
-            Splash
+            Home
         },
         methods: {
-            loginRequest: function (formData) {
+            signInRequest: function (formData) {
                 this.$http.post('/hapi/api/login', {
                     username: formData.username,
                     password: formData.password
                 }).then(
                     (response) => {
                         this.loginInfo = response.body;
-                        this.store.bus.$emit('login-result');
+                        this.store.bus.$emit('sign-in-result');
                     }, (error) => {
                         console.log(error);
                         // perhaps give a nice error message and customize login page
                         // for now go to splash just to mark that a change has happened
-                        this.gotoSplash();
+                        this.gotoHome();
                     });
             },
-            loginResult: function () {
+            signInResult: function () {
                 this.loggedIn = true;
                 this.gotoLobby();
             },
-            logoutRequest: function () {
+            signOutRequest: function () {
                 this.$http.delete('/hapi/api/logout', {
                     headers: {
                         username: this.loginInfo.session._id,
@@ -186,18 +103,18 @@
                     }
                 }).then(
                     (response) => {
-                        this.store.bus.$emit('logout-result');
+                        this.store.bus.$emit('sign-out-result');
                     }, (error) => {
                         // either retry or emit logout-result regardless
                         // and let the server side session timeout?
                         console.log(error);
-                        this.store.bus.$emit('logout-result');
+                        this.store.bus.$emit('sign-out-result');
                     });
             },
-            logoutResult: function () {
+            signOutResult: function () {
                 this.loginInfo = {};
                 this.loggedIn = false;
-                this.gotoSplash();
+                this.gotoHome();
             },
             getAccounts: function () {
                 this.$http.get('/hapi/api/accounts', {
@@ -212,16 +129,16 @@
                         this.gotoLobby();
                     }, (error) => {
                         console.log(error);
-                        this.gotoSplash();
+                        this.gotoHome();
                     });
             },
-            gotoLogin: function () {
+            gotoSignIn: function () {
                 let elem = document.getElementById('stage');
-                this.destination = 'login';
+                this.destination = 'sign-in';
                 window.TweenMax.to(elem, 0.5,
                     {height: 350, onComplete: this.nav});
             },
-            gotoSplash: function () {
+            gotoHome: function () {
                 let elem = document.getElementById('stage');
                 this.destination = 'home';
                 window.TweenMax.to(elem, 0.5,
@@ -244,7 +161,7 @@
             gotoTabletop: function () {
                 // this.$children;
                 let elem = document.getElementById('stage');
-                this.destination = 'tabletop';
+                this.destination = 'table-top';
                 window.TweenMax.to(elem, 0.5,
                     {height: 400, onComplete: this.nav});
             },

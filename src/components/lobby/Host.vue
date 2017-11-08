@@ -39,7 +39,7 @@
                 this.$store.createTable(this.tableName);
                 let elem = document.getElementById('stage');
                 window.TweenMax.to(elem, 0.5,
-                    {height: 400, onComplete: this.go('tabletop')});
+                    {height: 400, onComplete: this.go('table-top')});
             },
             go: function (route) {
                 this.$router.push('/' + route);

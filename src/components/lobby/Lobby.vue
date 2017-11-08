@@ -43,7 +43,7 @@ Register.vue<template>
                 // this.$children;
                 let elem = document.getElementById('stage');
                 window.TweenMax.to(elem, 0.5,
-                    {height: 400, onComplete: this.go('tabletop')});
+                    {height: 400, onComplete: this.go('table-top')});
             },
             hostTable: function () {
                 // this.$children;

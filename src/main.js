@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex'
 import Router from 'vue-router';
 
-import Home from './Home.vue';
+import Main from './Main.vue';
 import router from './router.js';
 import store from './store/store.js'
 
@@ -16,6 +16,6 @@ new Vue({
     el: '#main',
     router,
     store,
-    template: '<Home/>',
-    components: { Home },
+    template: '<Main/>',
+    components: { Main },
 });

@@ -15,7 +15,7 @@
                 </label>
                 <br/>
 
-                <button @click="login()"
+                <button @click="signIn()"
                         class="pure-button pure-button-primary">
                     Sign in
                 </button>
@@ -31,7 +31,7 @@
 <script type="text/babel">
 
     export default {
-        name: 'Login',
+        name: 'SignIn',
         data () {
             return {
                 title: 'Sign In',
@@ -43,12 +43,12 @@
             }
         },
         methods: {
-            login: function () {
+            signIn: function () {
                 let formData = {
                     username: this.email,
                     password: this.pwd
                 };
-                this.$store.bus.$emit('login-request', formData);
+                this.$store.bus.$emit('sign-in-request', formData);
             }
         }
     }
