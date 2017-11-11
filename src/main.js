@@ -2,20 +2,22 @@ import Vue from 'vue';
 import Vuex from 'vuex'
 import Router from 'vue-router';
 
-import Main from './Main.vue';
+import App from './App.vue';
 import router from './router.js';
 import store from './store/store.js'
 
 Vue.use(Vuex);
-Vue.use(Router);
+Vue.use(router);
 
 Vue.config.productionTip = false;
 Vue.config.devTools = true;
 
+Vue.prototype.$bus = new Vue();
+
 new Vue({
-    el: '#main',
+    el: '#app',
     router,
     store,
-    template: '<Main/>',
-    components: { Main },
+    template: '<App/>',
+    components: { App },
 });

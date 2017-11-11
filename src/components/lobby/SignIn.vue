@@ -4,14 +4,19 @@
             <fieldset>
                 <h1>{{ title }}</h1>
 
-                <label for="email">Email</label>
+                <label for="email">
+                    Email
+                </label>
                 <input id="email" v-model="email" type="email" placeholder="Email">
 
-                <label for="password">Password</label>
+                <label for="password">
+                    Password
+                </label>
                 <input id="password" v-model="pwd" type="password" placeholder="Password">
 
                 <label for="remember" class="pure-checkbox">
-                    <input id="remember" type="checkbox"> Remember me
+                    <input id="remember" type="checkbox">
+                    Remember me
                 </label>
                 <br/>
 
@@ -19,7 +24,9 @@
                         class="pure-button pure-button-primary">
                     Sign in
                 </button>
-                <router-link to="forgot">forgot your password?</router-link>
+                <router-link to="forgot">
+                    forgot your password?
+                </router-link>
                 <br/>
                 <br/>
             </fieldset>
@@ -46,9 +53,12 @@
             signIn: function () {
                 let formData = {
                     username: this.email,
-                    password: this.pwd
+                    password: this.pwd,
+                    authHeader: '',
+                    sessionId: '',
+                    sessionKey: '',
                 };
-                this.$store.bus.$emit('sign-in-request', formData);
+                this.$bus.$emit('sign-in-request', formData);
             }
         }
     }

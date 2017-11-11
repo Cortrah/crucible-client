@@ -12,7 +12,6 @@ import Tabletop from './components/lobby/Tabletop.vue';
 import Crucible from './components/stage/Crucible.vue';
 
 Vue.use(Router);
-
 export default new Router({
     routes: [
         {
@@ -27,7 +26,7 @@ export default new Router({
         },
         {
             path: '/sign-in',
-            name: 'SingIn',
+            name: 'SignIn',
             component: SignIn
         },
         {
