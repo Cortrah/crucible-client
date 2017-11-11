@@ -74,7 +74,7 @@
                            placeholder=":8080"/>
                 </div>
 
-                <button @click="createAccount()"
+                <button @click="gotoLobby()"
                         class="pure-button pure-button-primary">
                     Goto the Lobby
                 </button>
@@ -91,38 +91,19 @@
         name: 'Profile',
         data () {
             return {
+                title: 'Profile',
                 userName: 'Mina',
                 botChecked: false,
-                title: 'Profile'
-            }
-        },
-        computed: {
-            selDog() {
-                return this.$store.state.dogAvatars[0].img;
-            },
-            selBot(){
-                return  this.$store.state.botAvatars[0].img;
-            },
-            dogs() {
-                return this.$store.state.dogAvatars;
-            },
-            bots() {
-                return  this.$store.state.botAvatars;
+                selDog: this.$store.state.dogAvatars[0].img,
+                selBot: this.$store.state.botAvatars[0].img,
+                dogs: this.$store.state.dogAvatars,
+                bots: this.$store.state.botAvatars,
             }
         },
         methods: {
-            toggleGogo: function (amt) {
-                this.displayGogo = !this.displayGogo;
+            gotoLobby: function () {
+                this.$bus.$emit('go-to', {'destination': 'Lobby'});
             },
-            createAccount: function () {
-                // this.$children;
-                let elem = document.getElementById('stage');
-                window.TweenMax.to(elem, 0.5,
-                    {height: 400, onComplete: this.go('lobby')});
-            },
-            go: function (route) {
-                this.$router.push('/' + route);
-            }
         }
     }
 </script>

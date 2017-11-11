@@ -35,7 +35,6 @@
         },
         methods: {
             createTable: function () {
-                // this.$children;
                 this.$store.createTable(this.tableName);
                 let elem = document.getElementById('stage');
                 window.TweenMax.to(elem, 0.5,
