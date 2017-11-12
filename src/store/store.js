@@ -1,48 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Player from '../models/Player'
+import Rules from '../models/Rules'
+import Game from '../models/Game'
 
 Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 export const state = {
-    rules:{
-        "maxMana": 10,
-        "maxHealth": 30,
-        "startingDeck": [0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
-        "startingHandSize": 0,
-        "maxCards":5,
-        "manaGrowthInterval":1000,
-        "manaReplentishInterval":1000,
-        "drawInterval":1000,
-        "fireInterval":500,
-        "bleedoutInterval":1000,
-        "flightTime": 4000,
-        "shieldsUpTime": 1000,
-        "shieldDecayRate": 1000
-    },
-    game:{
-        "id":0,
-        "title": 'Waypoint Crucible',
-        "status": "PREPARING",
-        "winner": "",
-        "commands":[],
-        "players":[
-            new Player( 0, "Grammarbot", "Bad Guys", "AI", "../static/robot1.png"),
-            new Player( 1, "Protobot", "Bad Guys", "AI", "../static/robot2.png"),
-            new Player( 2, "General Scum", "Bad Guys", "AI", "../static/general_scum.png"),
-            new Player( 3, "Streambot", "Bad Guys", "AI", "../static/robot3.png"),
-            new Player( 4, "Lambdabot", "Bad Guys", "AI", "../static/robot4.png"),
-            new Player( 5, "Phoebe", "Good Guys", "AI", "../static/dog2.png"),
-            new Player( 6, "Mina", "Good Guys", "AI", "../static/dog1.png"),
-            new Player( 7, "Admiral Hope", "Good Guys", "player7", "../static/admiral_hope.png"),
-            new Player( 8, "Lucy", "Good Guys", "AI", "../static/dog3.png"),
-            new Player( 9, "Max", "Good Guys", "AI", "../static/dog4.png"),
-        ],
-        "mistles":[],
-        "timeRunning": 0,
-        "timeStarted": 0,
-    },
+    rules: new Rules(),
+    game: new Game(),
     dogAvatars: [
         {id: '1', name: 'Cavalier', img: '../static/dog1.png'},
         {id: '2', name: 'Mini Schnauser', img: '../static/dog2.png'},
@@ -62,7 +29,9 @@ export const state = {
 export default new Vuex.Store({
     state,
     actions: {
+        // ------------------
         // player actions
+        // ------------------
         createTable(context, payload){
             context.commit('createTable', payload);
         },
@@ -125,7 +94,10 @@ export default new Vuex.Store({
                 }
             }
         },
+
+        // ------------------
         // game management
+        // ------------------
         startGame: function(context) {
             context.commit('startGame');
         },
