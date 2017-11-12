@@ -265,7 +265,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-image: url('../static/nebula/6.jpg');
+        background-image: url('../static/nebula/stars.jpg');
     }
 
     #header {

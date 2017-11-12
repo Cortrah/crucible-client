@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span>{{ tables[game.id].name }}</span>
+        <span v-if="tables.length > 0">{{ tables[game.id].name }}</span>
         <button @click="startGame()">Start Game</button>
         <button @click="endGame()">End Game</button>
         <span>{{ game.status }}</span>
@@ -19,7 +19,7 @@
     export default {
         name: 'TableTop',
         components: {Crucible},
-        computed: mapState(['rules', 'game', 'tables', 'players']),
+        computed: mapState(['game', 'tables']),
     }
 </script>
 
