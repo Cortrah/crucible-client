@@ -12,8 +12,9 @@
                 <br/>
 
                 <button @click="createAccount()"
-                        class="pure-button pure-button-primary">  Create my account  </button>
-
+                        class="pure-button pure-button-primary">
+                    Create my account
+                </button>
             </fieldset>
         </form>
     </div>
@@ -30,14 +31,14 @@
         },
         methods: {
             createAccount: function () {
-                // this.$children;
-                // this.store.login();
-                let elem = document.getElementById('stage');
-                window.TweenMax.to(elem, 0.5,
-                    {height: 400, onComplete: this.go('profile')});
-            },
-            go: function (route) {
-                this.$router.push('/' + route);
+                let formData = {
+                    username: this.email,
+                    password: this.pwd,
+                    authHeader: '',
+                    sessionId: '',
+                    sessionKey: '',
+                };
+                this.$bus.$emit('register-request', formData);
             }
         }
     }

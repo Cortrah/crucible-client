@@ -59,6 +59,7 @@
         "go-to",
         'sign-in-request', 'sign-in-result',
         'sign-out-request', 'sign-out-result',
+        'register-request', 'register-response',
         'get-accounts-request','get-accounts-result',
         "error"
     ];
@@ -123,6 +124,10 @@
                             {height: 400, width: 600, onComplete: this.nav});
                         break;
                     }
+                    case 'register-request': {
+                        this.registerRequest(data);
+                        break;
+                    }
                     case 'sign-in-request': {
                         this.signInRequest(data);
                         break;
@@ -153,6 +158,28 @@
                 this.$router.push({ name: this.eventData.destination, params: this.eventData});
             },
 
+            registerRequest: function (formData) {
+                if(this.serverIsRunning) {
+                    this.$http.post('/hapi/api/login', formData).then(
+                        (response) => {
+                            this.loginInfo = response.body;
+                            this.store.bus.$emit('sign-in-result');
+                        }, (error) => {
+                            console.log(error);
+                            // perhaps give a nice error message and customize login page
+                            // for now go to splash just to mark that a change has happened
+                            this.gotoHome();
+                        });
+                } else {
+                    // just fake it
+                    this.$bus.$emit('register-result');
+                }
+            },
+            registerResult: function (data) {
+                this.signedIn = true;
+                this.$bus.$emit('go-to', {'destination': 'Lobby'});
+            },
+
             signInRequest: function (formData) {
                 if(this.serverIsRunning) {
                     this.$http.post('/hapi/api/login', formData).then(
@@ -174,6 +201,7 @@
                 this.signedIn = true;
                 this.$bus.$emit('go-to', {'destination': 'Lobby'});
             },
+
             signOutRequest: function (data) {
                 if(this.serverIsRunning) {
                     this.$http.delete('/hapi/api/logout', {
@@ -202,6 +230,7 @@
                 this.signedIn = false;
                 this.$bus.$emit('go-to', {'destination': 'Home'});
             },
+
             getAccounts: function () {
                 this.$http.get('/hapi/api/accounts', {
                     headers: {
