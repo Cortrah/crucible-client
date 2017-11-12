@@ -8,7 +8,7 @@ import Forgot from './components/lobby/Forgot.vue';
 import Profile from './components/lobby/Profile.vue';
 import Lobby from './components/lobby/Lobby.vue';
 import Host from './components/lobby/Host.vue';
-import Tabletop from './components/lobby/Tabletop.vue';
+import TableTop from './components/lobby/TableTop.vue';
 import Crucible from './components/stage/Crucible.vue';
 
 Vue.use(Router);
@@ -51,8 +51,8 @@ export default new Router({
         },
         {
             path: '/table-top',
-            name: 'Tabletop',
-            component: Tabletop
+            name: 'TableTop',
+            component: TableTop
         },
         {
             path: '/crucible',
