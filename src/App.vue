@@ -61,7 +61,7 @@
         'sign-out-request', 'sign-out-result',
         'register-request', 'register-response',
         'get-accounts-request','get-accounts-result',
-        "error"
+        'create-table', "error"
     ];
 
     export default {
@@ -146,6 +146,10 @@
                     }
                     case 'get-accounts-request': {
                         this.getAccounts(data);
+                        break;
+                    }
+                    case 'create-table': {
+                        this.createTable(data);
                         break;
                     }
                     default: {
@@ -246,6 +250,10 @@
                         console.log(error);
                         this.gotoHome();
                     });
+            },
+            createTable: function (date) {
+                console.log("create table");
+                this.$bus.$emit('go-to', {'destination': 'TableTop'});
             },
         }
     }
