@@ -2,7 +2,7 @@
     <div>
         <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
             <a href="#" class="pure-menu-link pure-menu-heading">
-                <img src="../static/icon/crucible5.jpg" style="height:40px;width40px"/>
+                <img src="../static/icon/crucible5.jpg" style="height:40px;width:40px"/>
             </a>
             <ul class="pure-menu-list">
                 <span v-if="signedIn">
