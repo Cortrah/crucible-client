@@ -61,7 +61,8 @@
         'sign-out-request', 'sign-out-result',
         'register-request', 'register-response',
         'get-accounts-request','get-accounts-result',
-        'create-table', "error"
+        'create-table', 'start-game', 'end-game',
+        'error'
     ];
 
     export default {
@@ -152,6 +153,14 @@
                         this.createTable(data);
                         break;
                     }
+                    case 'start-game': {
+                        this.startGame(data);
+                        break;
+                    }
+                    case 'end-game': {
+                        this.endGame(data);
+                        break;
+                    }
                     default: {
                         throw "App error, invalid event: " + event + " .";
                     }
@@ -167,7 +176,7 @@
                     this.$http.post('/hapi/api/login', formData).then(
                         (response) => {
                             this.loginInfo = response.body;
-                            this.store.bus.$emit('sign-in-result');
+                            this.$bus.$emit('sign-in-result');
                         }, (error) => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
@@ -188,7 +197,7 @@
                     this.$http.post('/hapi/api/login', formData).then(
                         (response) => {
                             this.loginInfo = response.body;
-                            this.store.bus.$emit('sign-in-result');
+                            this.$bus.$emit('sign-in-result');
                         }, (error) => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
@@ -215,11 +224,11 @@
                     })
                         .then(
                             (response) => {
-                                this.store.bus.$emit('sign-out-result');
+                                this.$bus.$emit('sign-out-result');
                             }, (error) => {
                                 // either retry or emit logout-result regardless
                                 // and let the server side session timeout?
-                                this.store.bus.$emit('sign-out-result');
+                                this.$bus.$emit('sign-out-result');
                             });
                 } else {
                     // just fake it
@@ -250,6 +259,14 @@
             createTable: function (data) {
                 this.$store.dispatch({ type: 'createTable', data});
                 this.$bus.$emit('go-to', {'destination': 'TableTop'});
+            },
+
+            startGame: function (data) {
+                this.$store.dispatch({ type: 'startGame', data});
+            },
+
+            endGame: function (data) {
+                this.$store.dispatch({ type: 'endGame', data});
             },
         }
     }

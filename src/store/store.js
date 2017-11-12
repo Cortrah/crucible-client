@@ -98,18 +98,20 @@ export default new Vuex.Store({
         // ------------------
         // game management
         // ------------------
-        startGame: function(context) {
-            context.commit('startGame');
+        startGame: function(context, payload) {
+            context.commit('startGame', payload);
         },
-        manaTick: function(context) {
-            context.commit('manaTick');
+        manaTick: function(context, payload) {
+            context.commit('manaTick', payload);
         },
-        endGame: function(context) {
-            context.commit('endGame');
+        endGame: function(context, payload) {
+            context.commit('endGame', payload);
         },
     },
     mutations: {
+        // ------------------
         // player actions
+        // ------------------
         drawMistle: function(state, payload){
             let player = state.game.players[payload.playerId];
             if(player.mana >= 1 && player.deck.length > 0) {
@@ -172,15 +174,19 @@ export default new Vuex.Store({
                 shield.isUp = true;
             }
         },
+        // ------------------
         // game management
+        // ------------------
         createTable: function(state, payload) {
             // ToDo: should create the game give it an id and tie that id to the payload
             // should also create the game instance and add players dynamically
             // should do this on the server
-            payload.data.id = '1';
+            payload.data.id = '0';
             state.tables.push(payload.data);
         },
-        startGame: function(state) {
+        startGame: function(state, payload) {
+            console.log('startgame payload');
+            console.log(payload);
             let scope = this;
             state.game.players.forEach(function(player){
                 let remaining = player.deck.length;
@@ -211,7 +217,7 @@ export default new Vuex.Store({
                 }
             })
         },
-        endGame: function(state) {
+        endGame: function(state, payload) {
             state.game.status = "OVER";
         }
     }
