@@ -1,9 +1,5 @@
 <template>
     <div class="crucible">
-        <button @click="startGame()">Start Game</button>
-        <button @click="endGame()">End Game</button>
-        <span>{{ game.status }}</span>
-
         <div class="players-container">
             <helm ref="helm" playerId="7" :game="game" :rules="rules" :avatars="avatars"
                   v-on:DRAW_MISTLE="drawMistle"

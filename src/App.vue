@@ -169,7 +169,6 @@
                             this.loginInfo = response.body;
                             this.store.bus.$emit('sign-in-result');
                         }, (error) => {
-                            console.log(error);
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
                             this.gotoHome();
@@ -191,7 +190,6 @@
                             this.loginInfo = response.body;
                             this.store.bus.$emit('sign-in-result');
                         }, (error) => {
-                            console.log(error);
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
                             this.gotoHome();
@@ -221,7 +219,6 @@
                             }, (error) => {
                                 // either retry or emit logout-result regardless
                                 // and let the server side session timeout?
-                                console.log(error);
                                 this.store.bus.$emit('sign-out-result');
                             });
                 } else {
@@ -244,15 +241,14 @@
                     }
                 }).then(
                     (response) => {
-                        console.log(response);
                         this.gotoLobby();
                     }, (error) => {
-                        console.log(error);
                         this.gotoHome();
                     });
             },
-            createTable: function (date) {
-                console.log("create table");
+
+            createTable: function (data) {
+                this.$store.dispatch({ type: 'createTable', data});
                 this.$bus.$emit('go-to', {'destination': 'TableTop'});
             },
         }

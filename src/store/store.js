@@ -22,6 +22,7 @@ export const state = {
         "shieldDecayRate": 1000
     },
     game:{
+        "id":0,
         "title": 'Waypoint Crucible',
         "status": "PREPARING",
         "winner": "",
@@ -54,7 +55,7 @@ export const state = {
         {id: '3', name: 'Grammarbot', img: '../static/robot3.png'},
         {id: '4', name: 'Lambdabot', img: '../static/robot4.png'}
     ],
-    tables: [],
+    tables: [{'id':0, 'name':'Gogo Gadgeteer'}],
     players: [],
     messages: [],
 };
@@ -62,6 +63,9 @@ export default new Vuex.Store({
     state,
     actions: {
         // player actions
+        createTable(context, payload){
+            context.commit('createTable', payload);
+        },
         drawMistle(context, payload){
             context.commit('drawMistle', {playerId: payload.playerId});
         },
@@ -197,6 +201,11 @@ export default new Vuex.Store({
             }
         },
         // game management
+        createTable: function(state, payload) {
+            // should create the game give it an id and tie that id to the payload
+            payload.data.id = '1';
+            state.tables.push(payload.data);
+        },
         startGame: function(state) {
             let scope = this;
             state.game.players.forEach(function(player){

@@ -35,7 +35,7 @@
         },
         methods: {
             createTable: function () {
-                this.$bus.$emit('create-table', {tableName: this.tableName});
+                this.$bus.$emit('create-table', {name: this.tableName});
             }
         }
     }
