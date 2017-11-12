@@ -7,7 +7,6 @@ export default class Game {
         this.title = 'Waypoint Crucible';
         this.status = "PREPARING";
         this.winner = "";
-        this.commands =[];
         this.players = [
             new Player( '0', "Grammarbot", "Bad Guys", "AI", "../static/robot1.png"),
             new Player( '1', "Protobot", "Bad Guys", "AI", "../static/robot2.png"),

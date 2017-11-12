@@ -62,6 +62,8 @@
         'register-request', 'register-response',
         'get-accounts-request','get-accounts-result',
         'create-table', 'start-game', 'end-game',
+        'draw-mistle','select-card','target-player',
+        'mana-tick', 'game-tick',
         'error'
     ];
 

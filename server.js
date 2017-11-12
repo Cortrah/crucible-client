@@ -2,7 +2,6 @@
 
 const Hapi = require('hapi');
 const Joi = require('joi');
-const GraphqlHapi = require('apollo-server-hapi');
 
 const Player = require('./domain/player');
 const Match = require('./domain/match');
