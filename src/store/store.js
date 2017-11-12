@@ -55,7 +55,7 @@ export const state = {
         {id: '3', name: 'Grammarbot', img: '../static/robot3.png'},
         {id: '4', name: 'Lambdabot', img: '../static/robot4.png'}
     ],
-    tables: [{'id':0, 'name':'Gogo Gadgeteer'}],
+    tables: [],
     players: [],
     messages: [],
 };
@@ -202,7 +202,9 @@ export default new Vuex.Store({
         },
         // game management
         createTable: function(state, payload) {
-            // should create the game give it an id and tie that id to the payload
+            // ToDo: should create the game give it an id and tie that id to the payload
+            // should also create the game instance and add players dynamically
+            // should do this on the server
             payload.data.id = '1';
             state.tables.push(payload.data);
         },

@@ -40,13 +40,13 @@ Register.vue<template>
         },
         methods: {
             joinTable: function (table) {
-                // this.$children;
                 let elem = document.getElementById('stage');
+                // ToDo: emit this as an event
+                // and pass the id through the router to get the right table
                 window.TweenMax.to(elem, 0.5,
                     {height: 400, onComplete: this.go('table-top')});
             },
             hostTable: function () {
-                // this.$children;
                 let elem = document.getElementById('stage');
                 window.TweenMax.to(elem, 0.5,
                     {height: 400, onComplete: this.go('host')});
