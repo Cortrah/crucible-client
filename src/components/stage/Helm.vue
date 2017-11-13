@@ -115,7 +115,6 @@
                 }
             },
             selectCard: function (card, cardIndex) {
-                console.log("in helm")
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("select-card", this.playerId, cardIndex);

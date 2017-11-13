@@ -185,8 +185,6 @@ export default new Vuex.Store({
             state.tables.push(payload.data);
         },
         startGame: function(state, payload) {
-            console.log('startgame payload');
-            console.log(payload);
             let scope = this;
             state.game.players.forEach(function(player){
                 let remaining = player.deck.length;

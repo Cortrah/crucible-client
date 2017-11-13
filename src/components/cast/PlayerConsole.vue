@@ -52,7 +52,6 @@
         }),
         methods: {
             selectCard: function (card, index) {
-                console.log("PlayerConsole select-card")
                 if(this.player.isActive && this.gameStatus === "PLAYING") {
                     this.$emit("select-card", card, index);
                 }
