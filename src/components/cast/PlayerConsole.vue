@@ -24,7 +24,7 @@
                              :cardType = card.cardType
                              :myIndex = index
                              :selectedIndex = player.selectedCardIndex
-                             v-on:SELECT_CARD="selectCard(card, index)">
+                             v-on:select-card="selectCard(card, index)">
                 </simple-card>
             </span>
         </div>
@@ -52,8 +52,9 @@
         }),
         methods: {
             selectCard: function (card, index) {
+                console.log("PlayerConsole select-card")
                 if(this.player.isActive && this.gameStatus === "PLAYING") {
-                    this.$emit("SELECT_CARD", card, index);
+                    this.$emit("select-card", card, index);
                 }
             }
         }

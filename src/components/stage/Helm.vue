@@ -8,7 +8,7 @@
                             :player = player
                             :startingDeckLength = rules.startingDeck.length
                             @click = "targetPlayer(player.id, player.card)"
-                            v-on:TARGETED = "targetPlayer">
+                            v-on:targeted = "targetPlayer">
                     </player>
                 </span>
             </div>
@@ -30,7 +30,7 @@
                             :player = player
                             :startingDeckLength = rules.startingDeck.length
                             @click = "targetPlayer(player.id, player.card)"
-                            v-on:TARGETED="targetPlayer">
+                            v-on:targeted="targetPlayer">
                     </player>
                 </span>
             </div>
@@ -42,7 +42,7 @@
                             :player = game.players[playerId]
                             avatarImg = '../../static/horizontal_control.png'
                             :startingDeckLength = rules.startingDeck.length
-                            v-on:SELECT_CARD="selectCard">
+                            v-on:select-card="selectCard">
             </PlayerConsole>
 
             <button @click="drawMistle()">Draw Mistle</button>
@@ -102,7 +102,7 @@
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     if(myself.cards.length < 5 && myself.deckSize > 0){
-                        this.$emit("DRAW_MISTLE", this.playerId);
+                        this.$emit("draw-mistle", this.playerId);
                     }
                 }
             },
@@ -110,21 +110,22 @@
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     if(myself.cards.length < 5 && myself.deckSize > 0) {
-                        this.$emit("DRAW_SHIELD", this.playerId);
+                        this.$emit("draw-shield", this.playerId);
                     }
                 }
             },
             selectCard: function (card, cardIndex) {
+                console.log("in helm")
                 let myself = this.game.players[this.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
-                    this.$emit("SELECT_CARD", this.playerId, cardIndex);
+                    this.$emit("select-card", this.playerId, cardIndex);
                 }
             },
             targetPlayer: function (targetId) {
                 let myself = this.game.players[this.playerId];
                 let cardIndex = myself.selectedCardIndex;
                 if(myself.isActive && this.game.status === "PLAYING"){
-                    this.$emit("TARGET_PLAYER", this.playerId, targetId, cardIndex);
+                    this.$emit("target-player", this.playerId, targetId, cardIndex);
                 }
             },
             // helper functions for rendering the view

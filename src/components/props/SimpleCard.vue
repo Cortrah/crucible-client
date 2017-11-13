@@ -61,7 +61,7 @@
         },
         methods: {
             select: function () {
-                this.$emit('SELECT_CARD', true)
+                this.$emit('select-card', true)
             }
         }
     }

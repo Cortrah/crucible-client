@@ -53,7 +53,7 @@
                     onComplete:this.onImpact});
         },
         onImpact: function() {
-            this.$emit("IMPACT", this.id)
+            //this.$emit("impact", this.id)
         }
     }
 </script>

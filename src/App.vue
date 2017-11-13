@@ -182,7 +182,7 @@
                         }, (error) => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
-                            this.gotoHome();
+                            this.$bus.$emit('go-to', {'destination': 'Home'});
                         });
                 } else {
                     // just fake it
@@ -203,7 +203,7 @@
                         }, (error) => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
-                            this.gotoHome();
+                            this.$bus.$emit('go-to', {'destination': 'Home'});
                         });
                 } else {
                     // just fake it
@@ -252,7 +252,7 @@
                     }
                 }).then(
                     (response) => {
-                        this.gotoLobby();
+                        this.$bus.$emit('go-to', {'destination': 'Lobby'});
                     }, (error) => {
                         this.gotoHome();
                     });

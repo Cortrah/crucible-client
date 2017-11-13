@@ -53,7 +53,7 @@
         methods: {
             targeted: function () {
                 if(this.gameStatus === "PLAYING"){
-                    this.$emit("TARGETED", this.player.id);
+                    this.$emit("targeted", this.player.id);
                 }
             }
         }

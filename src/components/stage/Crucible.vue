@@ -2,10 +2,10 @@
     <div class="crucible">
         <div class="players-container">
             <helm ref="helm" playerId="7" :game="game" :rules="rules" :avatars="avatars"
-                  v-on:DRAW_MISTLE="drawMistle"
-                  v-on:DRAW_SHIELD="drawShield"
-                  v-on:SELECT_CARD="selectCard"
-                  v-on:TARGET_PLAYER="targetPlayer">
+                  v-on:draw-mistle="drawMistle"
+                  v-on:draw-shield="drawShield"
+                  v-on:select-card="selectCard"
+                  v-on:target-player="targetPlayer">
             </helm>
         </div>
     </div>

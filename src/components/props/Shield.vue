@@ -36,7 +36,7 @@
                     onComplete:this.onUp});
         },
         onUp: function() {
-            this.$emit("SHIELD_UP", this.id)
+            //this.$emit("shield-up", this.id)
         }
     }
 </script>
