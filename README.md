@@ -43,12 +43,6 @@ npm install
 # serve the client with hot reload at localhost:8080
 npm run dev
 
-# run the server in a second command window at localhost:5000
-node server.js
-
-# visit the lobby to create a match at
-localhost:5000/lobby
-
 ```
 
 ## To Play
