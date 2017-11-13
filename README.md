@@ -53,7 +53,7 @@ Click on Sign-In, sign in with the default user, click on 'Host a Table', then "
  
 You are now at your table 
 
-Currently it's you and your 4 ai bot dogs vs General Scum and his 4 ai bot robots.
+Currently it's you and your 4 ai bot dogs vs General Scum(ai) and his 4 ai bot robots.
 
 ![A screenshot of the current state of the game, 10 postage stamp sized avatars and some dots for mistles](./design/five_vs_five.png?raw=true "Five on Five")
 
@@ -149,21 +149,3 @@ Last team standing will win.
 - [ ] Create a map of locations that the ships can navigate ala Faster Than Light
 - [ ] create a surrounding vortex that forces the ships closer and closer to the center
 
-## More npm commands
-
-``` bash
-# build the client for production with minification
-npm run build
-
-# build the client for production and view the bundle analyzer report
-npm run build --report
-
-# run client unit tests
-npm run unit
-
-# run client e2e tests
-npm run e2e
-
-# run all client tests
-npm test
-```
