@@ -1,6 +1,6 @@
 'use strict';
 
-const Robot = require('./robot');
+const Robot = require('./Robot');
 
 const uuid = require('uuid');
 

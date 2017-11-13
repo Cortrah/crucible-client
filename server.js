@@ -3,8 +3,8 @@
 const Hapi = require('hapi');
 const Joi = require('joi');
 
-const Player = require('./domain/player');
-const Match = require('./domain/match');
+const Player = require('./domain/Player');
+const Match = require('./domain/Match');
 const randomName = require('./util/random-name.js');
 
 const HOST = 'localhost';
@@ -105,8 +105,8 @@ server.route([
         method: 'POST',
         path: '/crucible/api/match',
         config: {
-            description: 'Takes two registered players ids and spawns a match for them, returning the results',
-            notes: ['uses guids for the players and match ids, monitor play with local game board to determine victor'],
+            description: 'Takes two registered players ids and spawns a match for them',
+            notes: ['uses guids for the player and match ids'],
             validate: {
                 payload: {
                     player1Id: Joi.string().guid().required(),
@@ -155,7 +155,7 @@ server.route([
             players.push(player1);
             let player2 = new Player(randomName());
             players.push(player2);
-            let newMatch = new Match(player1, player2);
+            //let newMatch = new Match(player1, player2);
 
             matches.push(newMatch);
             // then play the match until there is a winner
