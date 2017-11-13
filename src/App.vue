@@ -2,7 +2,7 @@
     <div>
         <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
             <a href="#" class="pure-menu-link pure-menu-heading">
-                <img src="../static/icon/crucible5.jpg" style="height:40px;width:40px"/>
+                <img id="logo" src="../static/logo.jpg"/>
             </a>
             <ul class="pure-menu-list">
                 <span v-if="signedIn">
@@ -284,7 +284,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-image: url('../static/nebula/stars.jpg');
+        background-image: url('../static/stars.jpg');
     }
 
     #header {
@@ -308,8 +308,9 @@
         text-decoration: none;
     }
 
-    .avatar {
-        width: 100px;
-        height: 100px
+    #logo {
+        height:40px;
+        width:40px;
     }
+
 </style>
