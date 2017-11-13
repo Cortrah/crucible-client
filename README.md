@@ -16,10 +16,9 @@ Make it multiplayer
 
 Add timing to the equation, anybody can attack anyone at any time, but 
 
-1) drawing a card takes one mana and limited by a timed interval
-2) max mana accumulates over a timed interval
-3) mana replentishes over a timed interval
-4) if a deck is empty, damage is done via a timer
+1) drawing a card takes one mana and is limited by a timed interval
+2) mana replentishes over a timed interval (up to 10)
+3) if a deck is empty, damage is done via a timer
 
 The story is that there is an errant WayPoint Jumpgate that sucks in everyone, only one (team?) can leave.
 
@@ -30,7 +29,7 @@ and robots are under General Scum.
 
 The human players are the dogs and need to try to cooperate to defeat the ai bots which might have personalities or strategies or both. (A personality might be how frequently you change your strategy (or to what) based on how frustrated you are or by other semi-arbitrary things such as a lack of success or a sense of patterns, even smack talk?)
 
-*Update for now it will be either a single player game with one player against a bunch of ai's (which works) or two players, one takes general scum and gets 4 ai bots to help him, one takes admiral hope and gets 4 dogs, also played by bots.
+*Update for now it will be either a single player game with one player against a bunch of ai's (which works) or two players, one takes general scum and gets 4 ai bots to help him, one takes admiral hope and gets 4 dogs, also played by bots. Next up.
 
 Possibly add shields, which would be in the form of a second button to draw from your deck, you can draw a mistle or a shield either way the number is the same but the card that results will be either offensive or defensive, the defensive shield would fade in strength after a certain timeout period, say a point per second.
 
@@ -56,17 +55,23 @@ localhost:5000/lobby
 
 run the app as above with 'npm run dev'
 
-![A screenshot of the current state of the game, 10 postage stamp sized avatars and some dots for mistles](./design/five_vs_five.png?raw=true "Five on Five")
+Click on Sign-In, sign in with the default user, click on 'Host a Table', then "Create Table"
+ 
+You are now at your table 
 
 Currently it's you and your 4 ai bot dogs vs General Scum and his 4 ai bot robots.
 
+![A screenshot of the current state of the game, 10 postage stamp sized avatars and some dots for mistles](./design/five_vs_five.png?raw=true "Five on Five")
+
 You are Admiral Hope, the manatee in the center of the bottom row, allied with the dogs.
 
-click on draw mistle to draw up to 5 mistles (shields don't work yet)
+Click 'Start Game' to start it. Players will start accumulating mana.
 
-click on a card to select it
+Click on draw mistle to draw up to 5 mistles (shields don't work yet)
 
-click on General Scum or one of his robots to target them, if you have the mana, you'll launch the mistle.
+Click on a card to select it
+
+Click on General Scum or one of his robots to target them, if you have the mana, you'll launch the mistle.
 
 Last team standing will win.
 
