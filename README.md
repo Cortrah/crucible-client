@@ -21,7 +21,7 @@ Add timing to the equation, anybody can attack anyone at any time, but
 3) mana replentishes over a timed interval
 4) if a deck is empty, damage is done via a timer
 
-The story is that there is an errant WayPoint Jumpgate that sucks in everyone, only one team can leave.
+The story is that there is an errant WayPoint Jumpgate that sucks in everyone, only one (team?) can leave.
 
 If there is time create bots
 
@@ -52,6 +52,25 @@ localhost:5000/lobby
 
 ```
 
+## To Play
+
+run the app as above with 'npm run dev'
+
+![A screenshot of the current state of the game, 10 postage stamp sized avatars and some dots for mistles](./design/five_vs_five.png?raw=true "Five on Five")
+
+Currently it's you and your 4 ai bot dogs vs General Scum and his 4 ai bot robots.
+
+You are Admiral Hope, the manatee in the center of the bottom row, allied with the dogs.
+
+click on draw mistle to draw up to 5 mistles (shields don't work yet)
+
+click on a card to select it
+
+click on General Scum or one of his robots to target them, if you have the mana, you'll launch the mistle.
+
+Last team standing will win.
+
+
 ## V1
 - [x] Fix Structure
 - [X] Error checking
@@ -75,24 +94,24 @@ localhost:5000/lobby
 - [X] retrofit to be a single player game with ai or manual input
 - [X] fix id/s and structures so we can target any player
 - [X] remove command queue for now, just events are fine
-- [ ] fix routes
-- [ ] tweak bleeding out
-- [ ] lobby (but don't need persistence yet, just client side)
-    - [ ] login 
+- [X] fix routes
+- [X] tweak bleeding out
+- [X] lobby (but don't need persistence yet, just client side)
+    - [X] login 
     - [X] show lobby (can be hardcoded to start)
     - [X] chose avatar in profile
-    - [ ] host tabletop
-    - [ ] join tabletop
+    - [X] host tabletop
+    - [X] join tabletop
     - [ ] choose a side
-    - [ ] host starts game
-    - [ ] ai takes over remaining slots
+    - [X] host starts game
+    - [X] ai takes over remaining slots
 - [ ] spec server side interface
 - [X] add shields
     - [X] enemies/mistles
     - [ ] allies shields
 - [X] choose
 	- [X] hapi nes backend
-		- [ ] implement choice
+		- [ ] configure basics
 		- [ ] login adds a player to the list of players (no registration or persistence yet)
 		- [ ] let a player host a game and choose a side
 		- [ ] let another player join a game
@@ -124,6 +143,12 @@ localhost:5000/lobby
 - [ ] ships with avatars
 - [ ] lobby login/registration persistence
 - [ ] Other Audio
+
+## V3
+- [ ] Change group combat to one on one on one (3 max at one time)
+- [ ] Create nicer ships with some variety
+- [ ] Create a map of locations that the ships can navigate ala Faster Than Light
+- [ ] create a surrounding vortex that forces the ships closer and closer to the center
 
 ## More npm commands
 

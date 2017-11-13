@@ -69,7 +69,6 @@
 
 <script type="text/babel">
     import Player from '../cast/Player'
-    import Portrait from '../cast/Portrait'
     import PlayerConsole from '../cast/PlayerConsole'
     import Mistle from '../props/Mistle'
     import StellarMap from './StellarMap'
@@ -81,7 +80,7 @@
         props: {
             "playerId": 0,
         },
-        components: {Player, Mistle, Portrait, PlayerConsole, StellarMap},
+        components: {Player, Mistle, PlayerConsole, StellarMap},
         data () {
             return {
                 name: this.name,
