@@ -61,7 +61,7 @@ You are Admiral Hope, the manatee in the center of the bottom row, allied with t
 
 Click 'Start Game' to start it. Players will start accumulating mana.
 
-Click on draw mistle to draw up to 5 mistles (shields don't work yet)
+Click on 'Draw Mistle' to draw up to 5 mistles (You can draw shields, but you can't target pack buddies yet)
 
 Click on a card to select it
 
