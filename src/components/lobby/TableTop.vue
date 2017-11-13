@@ -32,7 +32,6 @@
                 clearInterval(this.manaIntervalId);
                 this.gameIntervalId = setInterval(this.gameTick, 2000);
                 this.manaIntervalId = setInterval(this.manaTick, 1000);
-                //this.$store.dispatch('startGame');
                 this.$bus.$emit('start-game', {'gameId': this.$store.state.game.id});
             },
             gameTick: function() {
@@ -42,7 +41,6 @@
                         if (player.isActive && player.controller === "AI") {
                             // if the player has < 5 cards and more than 1 mana draw a card
                             if (player.cards.length < 5 && player.mana > 0) {
-                                //this.$store.dispatch({ type: 'drawMistle', playerId: i});
                                 this.$bus.$emit('draw-mistle', {'playerId': i});
                             } else {
                                 // once a player has 5 cards
@@ -52,8 +50,7 @@
                                 var ci = 0;
                                 var card = player.cards[ci];
                                 if (card.value < player.mana) {
-                                    //this.$store.dispatch({ type: 'selectCard', playerId:i, cardIndex:ci});
-                                    this.$bus.$emit('select-card', {'playerId': i, cardIndex: ci});
+                                      this.$bus.$emit('select-card', {'playerId': i, cardIndex: ci});
                                 }
                                 // choose an enemy that's still active
                                 if (player.team === "Good Guys") {
@@ -64,13 +61,6 @@
                                     let foeCount = activeFoes.length;
                                     let foeChosen = Math.floor(Math.random()*foeCount);
                                     let foe = activeFoes[foeChosen];
-                                    // and fire at it
-                                    //this.$store.dispatch({
-                                    //    type: 'targetPlayer',
-                                    //    sourceId:i,
-                                    //    targetId:foe.id,
-                                    //    cardIndex:ci
-                                    //});
                                     this.$bus.$emit('target-player', {
                                         'sourceId': i,
                                         'targetId': foe.id,
@@ -84,13 +74,6 @@
                                     let foeCount = activeFoes.length;
                                     let foeChosen = Math.floor(Math.random()*foeCount);
                                     let foe = activeFoes[foeChosen];
-                                    // and fire at it
-                                    //this.$store.dispatch({
-                                    //    type: 'targetPlayer',
-                                    //    sourceId:i,
-                                    //    targetId:foe.id,
-                                    //    cardIndex:ci
-                                    //});
                                     this.$bus.$emit('target-player', {
                                         'sourceId': i,
                                         'targetId': foe.id,
@@ -105,13 +88,11 @@
                 }
             },
             manaTick: function() {
-                //this.$store.dispatch('manaTick');
                 this.$bus.$emit('mana-tick');
             },
             endGame: function() {
                 clearInterval(this.gameIntervalId);
                 clearInterval(this.manaIntervalId);
-                //this.$store.dispatch('endGame');
                 this.$bus.$emit('end-game', {'gameId': this.$store.state.game.id});
             }
         }
