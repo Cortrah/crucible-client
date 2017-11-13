@@ -117,8 +117,12 @@
                 }
             },
             eventSwitch: function(event, data) {
-                console.log(event);
-                console.log(data);
+                // if(event !== "player-tick" && event !== "mana-tick"){
+                //    console.log(event);
+                //    if(typeof data !== 'undefined') {
+                //        console.log(data);
+                //    }
+                // }
                 switch (event) {
                     case 'go-to': {
                         let elem = document.getElementById('stage');
@@ -157,6 +161,30 @@
                     }
                     case 'start-game': {
                         this.startGame(data);
+                        break;
+                    }
+                    case 'game-tick': {
+                        this.$store.dispatch('gameTick', data);
+                        break;
+                    }
+                    case 'mana-tick': {
+                        this.$store.dispatch('manaTick', data);
+                        break;
+                    }
+                    case 'draw-mistle': {
+                        this.$store.dispatch('drawMistle', data);
+                        break;
+                    }
+                    case 'draw-shield': {
+                        this.$store.dispatch('drawShield', data);
+                        break;
+                    }
+                    case 'select-card': {
+                        this.$store.dispatch('selectCard', data);
+                        break;
+                    }
+                    case 'target-player': {
+                        this.$store.dispatch('targetPlayer', data);
                         break;
                     }
                     case 'end-game': {
