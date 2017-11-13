@@ -13,7 +13,9 @@
                     <label for="email">What's your email?</label>
                     <input id="email" type="email" placeholder="Email">
                     <br/>
-                    <button @click="reset()" class="pure-button pure-button-primary"> Send reset </button>
+                    <button @click="reset()" class="pure-button pure-button-primary">
+                        Send reset
+                    </button>
                 </div>
 
                 <br/>

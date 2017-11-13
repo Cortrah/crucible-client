@@ -117,18 +117,15 @@
                 }
             },
             eventSwitch: function(event, data) {
-                // if(event !== "player-tick" && event !== "mana-tick"){
-                //    console.log(event);
-                //    if(typeof data !== 'undefined') {
-                //        console.log(data);
-                //    }
-                // }
                 switch (event) {
                     case 'go-to': {
                         let elem = document.getElementById('stage');
                         this.eventData = data;
-                        window.TweenMax.to(elem, 0.5,
-                            {height: 400, width: 600, onComplete: this.nav});
+                        window.TweenMax.to(elem, 0.5, {
+                            height: 400,
+                            width: 600,
+                            onComplete: this.nav
+                        });
                         break;
                     }
                     case 'register-request': {
@@ -223,9 +220,9 @@
             },
 
             signInRequest: function (formData) {
-                if(this.serverIsRunning) {
-                    this.$http.post('/hapi/api/login', formData).then(
-                        (response) => {
+                if (this.serverIsRunning) {
+                    this.$http.post('/hapi/api/login', formData)
+                        .then((response) => {
                             this.loginInfo = response.body;
                             this.$bus.$emit('sign-in-result');
                         }, (error) => {
@@ -244,22 +241,19 @@
             },
 
             signOutRequest: function (data) {
-                if(this.serverIsRunning) {
-                    this.$http.delete('/hapi/api/logout', {
-                        headers: {
-                            username: this.loginInfo.session._id,
-                            password: this.loginInfo.session.key,
-                            authorization: this.loginInfo.authHeader,
-                        }
-                    })
-                        .then(
-                            (response) => {
-                                this.$bus.$emit('sign-out-result');
-                            }, (error) => {
-                                // either retry or emit logout-result regardless
-                                // and let the server side session timeout?
-                                this.$bus.$emit('sign-out-result');
-                            });
+                if (this.serverIsRunning) {
+                    this.$http.delete('/hapi/api/logout', { headers: {
+                                username: this.loginInfo.session._id,
+                                password: this.loginInfo.session.key,
+                                authorization: this.loginInfo.authHeader,
+                            }
+                        }).then((response) => {
+                            this.$bus.$emit('sign-out-result');
+                        }, (error) => {
+                            // either retry or emit logout-result regardless
+                            // and let the server side session timeout?
+                            this.$bus.$emit('sign-out-result');
+                        });
                 } else {
                     // just fake it
                     this.$bus.$emit('sign-out-result');
@@ -278,12 +272,11 @@
                         password: this.loginInfo.session.key,
                         authorization: this.loginInfo.authHeader,
                     }
-                }).then(
-                    (response) => {
-                        this.$bus.$emit('go-to', {'destination': 'Lobby'});
-                    }, (error) => {
-                        this.gotoHome();
-                    });
+                }).then((response) => {
+                    this.$bus.$emit('go-to', {'destination': 'Lobby'});
+                }, (error) => {
+                    this.gotoHome();
+                });
             },
 
             createTable: function (data) {
