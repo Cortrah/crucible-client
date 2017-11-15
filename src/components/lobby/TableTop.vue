@@ -1,12 +1,11 @@
 <template>
     <div>
-        <span v-if="tables.length > 0">{{ tables[game.id].name }}</span>
-        <button @click="startGame()">Start Game</button>
-        <button @click="endGame()">End Game</button>
-        <span>{{ game.status }}</span>
-
         <div id="stage">
             <crucible></crucible>
+            <span v-if="tables.length > 0">{{ tables[game.id].name }}</span>
+            <button @click="startGame()">Start Game</button>
+            <button @click="endGame()">End Game</button>
+            <span>{{ game.status }}</span>
         </div>
     </div>
 </template>
