@@ -322,7 +322,6 @@
         top: 50px;
         left: 50px;
         position: absolute;
-        margin: 20px;
         color: #ee9554;
         background-color: #000;
     }

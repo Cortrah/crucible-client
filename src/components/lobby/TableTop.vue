@@ -99,4 +99,7 @@
 </script>
 
 <style>
+    #stage {
+        bottom-padding: 0px
+    }
 </style>

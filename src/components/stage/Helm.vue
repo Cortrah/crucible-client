@@ -206,7 +206,7 @@
 <style scoped>
     .helm {
         width: 650px;
-        height: 600px;
+        height: 500px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
