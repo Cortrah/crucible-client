@@ -152,3 +152,10 @@ Last team standing will win.
 - [ ] Create a map of locations that the ships can navigate ala Faster Than Light
 - [ ] create a surrounding vortex that forces the ships closer and closer to the center
 
+## Technical Experiments
+
+Event bus vs veux actions vs commands
+
+Unifying router with events and veux actions
+
+Have transitions determine their layouts via knowledge of both the vues and the viewport ala media queries
