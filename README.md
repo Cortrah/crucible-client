@@ -8,13 +8,13 @@ http://agnostechvalley.com/
 
 ## The Plan
 
-Hapi on the server side
+Hapi and nes on the server side
 
 Vue and SVG on the client side
 
 Make it multiplayer
 
-Add timing to the equation, anybody can attack anyone at any time, but 
+Add timing to the equation, you can attack in real time, but 
 
 1) drawing a card takes one mana and is limited by a timed interval
 2) mana replentishes over a timed interval (up to 10)
@@ -27,12 +27,15 @@ If there is time create bots
 If there is time after that create a team play scenario where dogs in space suits are under Admiral Hope
 and robots are under General Scum.
 
+Finally add shields, which would be in the form of a second button to draw from your deck, you can draw a mistle or a shield either way the number is the same but the card that results will be either offensive or defensive, the defensive shield would fade in strength after a certain timeout period, say a point per second.
+
 The human players are the dogs and need to try to cooperate to defeat the ai bots which might have personalities or strategies or both. (A personality might be how frequently you change your strategy (or to what) based on how frustrated you are or by other semi-arbitrary things such as a lack of success or a sense of patterns, even smack talk?)
 
-*Update for now it will be either a single player game with one player against a bunch of ai's (which works) or two players, one takes general scum and gets 4 ai bots to help him, one takes admiral hope and gets 4 dogs, also played by bots. Next up.
+## status
 
-Possibly add shields, which would be in the form of a second button to draw from your deck, you can draw a mistle or a shield either way the number is the same but the card that results will be either offensive or defensive, the defensive shield would fade in strength after a certain timeout period, say a point per second.
+For now it is a single player game with one player as admiral hope with 4 dog ai's vs general scum and his 4 bot ai's
 
+At this point the ai's just choose a random opponent to fire at. I'd like to implement an interface for ai's so we can focus just on writing them.
 
 ## Build Setup
 
@@ -61,7 +64,7 @@ You are Admiral Hope, the manatee in the center of the bottom row, allied with t
 
 Click 'Start Game' to start it. Players will start accumulating mana.
 
-Click on 'Draw Mistle' to draw up to 5 mistles (You can draw shields, but you can't target pack buddies yet)
+Click on 'Draw Mistle' to draw up to 5 mistles (You can draw shields, but you can't target pack buddies with them yet)
 
 Click on a card to select it
 
@@ -108,7 +111,7 @@ Last team standing will win.
 - [X] add shields
     - [X] enemies/mistles
     - [ ] allies shields
-- [X] choose
+- [X] choose between hapi/nes, phoenix and akka
 	- [X] hapi nes backend
 		- [ ] configure basics
 		- [ ] login adds a player to the list of players (no registration or persistence yet)
