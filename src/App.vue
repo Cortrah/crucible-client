@@ -2,8 +2,7 @@
     <div >
         <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
             <a href="#" class="pure-menu-link pure-menu-heading">
-                <!--<img id="logo" src="../static/logo.jpg"/>-->
-                Waypoint Crucible
+                <img id="logo" src="../static/logo.jpg"/>
             </a>
             <ul class="pure-menu-list">
                 <span v-if="signedIn">
@@ -327,11 +326,9 @@
 
     #stage {
         font-family: Source Sans Pro, Helvetica, sans-serif;
-        top: 50px;
-        left: 50px;
         height: 200px;
         width: 300px;
-        position: absolute;
+        margin: 20px;
         color: #ee9554;
         background-color: #000;
     }
