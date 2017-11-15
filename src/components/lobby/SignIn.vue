@@ -20,7 +20,7 @@
                 </label>
                 <br/>
 
-                <button @click="signIn()"
+                <button @click.prevent="signIn()"
                         class="pure-button pure-button-primary">
                     Sign in
                 </button>

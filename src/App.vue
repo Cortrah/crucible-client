@@ -118,6 +118,10 @@
                 }
             },
             eventSwitch: function(event, data) {
+                // console.log(event);
+                // if(typeof data !== 'undefined'){
+                //    console.log(data);
+                // }
                 switch (event) {
                     case 'go-to': {
                         let elem = document.getElementById('stage');
@@ -212,12 +216,13 @@
                         });
                 } else {
                     // just fake it
-                    this.$bus.$emit('register-result');
+                    this.signedIn = true;
+                    this.$bus.$emit('go-to', {'destination': 'Profile'});
                 }
             },
             registerResult: function (data) {
                 this.signedIn = true;
-                this.$bus.$emit('go-to', {'destination': 'Lobby'});
+                this.$bus.$emit('go-to', {'destination': 'Profile'});
             },
 
             signInRequest: function (formData) {
@@ -233,7 +238,8 @@
                         });
                 } else {
                     // just fake it
-                    this.$bus.$emit('sign-in-result');
+                    this.signedIn = true;
+                    this.$bus.$emit('go-to', {'destination': 'Lobby'});
                 }
             },
             signInResult: function (data) {
@@ -257,7 +263,9 @@
                         });
                 } else {
                     // just fake it
-                    this.$bus.$emit('sign-out-result');
+                    this.loginInfo = {};
+                    this.signedIn = false;
+                    this.$bus.$emit('go-to', {'destination': 'Home'});
                 }
             },
             signOutResult: function (data) {
@@ -321,6 +329,8 @@
         font-family: Source Sans Pro, Helvetica, sans-serif;
         top: 50px;
         left: 50px;
+        height: 200px;
+        width: 300px;
         position: absolute;
         color: #ee9554;
         background-color: #000;
