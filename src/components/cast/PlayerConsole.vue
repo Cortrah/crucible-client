@@ -32,7 +32,6 @@
 </template>
 
 <script type="text/babel">
-    import Vue from 'vue';
     import SimpleCard from '../props/SimpleCard.vue';
 
     import { mapState } from 'vuex'

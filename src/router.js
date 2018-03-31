@@ -9,7 +9,6 @@ import Profile from './components/lobby/Profile.vue';
 import Lobby from './components/lobby/Lobby.vue';
 import Host from './components/lobby/Host.vue';
 import TableTop from './components/lobby/TableTop.vue';
-import Crucible from './components/stage/Crucible.vue';
 
 Vue.use(Router);
 export default new Router({
@@ -53,11 +52,6 @@ export default new Router({
             path: '/table-top',
             name: 'TableTop',
             component: TableTop
-        },
-        {
-            path: '/crucible',
-            name: 'Crucible',
-            component: Crucible
         }
     ]
 })

@@ -13,7 +13,6 @@
 </template>
 
 <script type="text/babel">
-    import Vue from 'vue'
     import Crucible from '../stage/Crucible'
     import { mapState } from 'vuex'
 

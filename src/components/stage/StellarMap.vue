@@ -8,8 +8,6 @@
 
 
 <script type="text/babel">
-    import Vue from 'vue'
-
     export default {
         name: 'stellar-map',
         data: function() {
