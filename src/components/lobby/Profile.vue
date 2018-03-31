@@ -102,7 +102,7 @@
         },
         methods: {
             gotoLobby: function () {
-                this.$bus.$emit('go-to', {'destination': 'Lobby'});
+                this.$bus.$emit('goto-lobby');
             },
         }
     }

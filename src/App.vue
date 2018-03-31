@@ -8,19 +8,19 @@
                 <span v-if="signedIn">
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="goto('Lobby')">
+                           @click.prevent="eventSwitch('goto-lobby')">
                             Lobby
                         </a>
                     </li>
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="goto('TableTop')">
+                           @click.prevent="eventSwitch('goto-table-top')">
                             Table Top
                         </a>
                     </li>
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="goto('Profile')">
+                           @click.prevent="eventSwitch('goto-profile')">
                             Profile
                         </a>
                     </li>
@@ -34,13 +34,13 @@
                 <span v-else>
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="goto('Register')">
+                           @click.prevent="eventSwitch('goto-register')">
                             Register
                         </a>
                     </li>
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="goto('SignIn')">
+                           @click.prevent="eventSwitch('goto-sign-in')">
                             Sign In
                         </a>
                     </li>
@@ -56,7 +56,9 @@
 <script type="text/babel">
 
     let eventList = [
-        "go-to",
+        "goto-home",
+        "goto-sign-in", "goto-register", "goto-forgot",
+        "goto-profile", "goto-lobby", "goto-host", "goto-table-top",
         'sign-in-request', 'sign-in-result',
         'sign-out-request', 'sign-out-result',
         'register-request', 'register-response',
@@ -98,108 +100,82 @@
             }
         },
 
-        computed: {
-            routes () {
-                let routes = [];
-                this.$router.options.routes.forEach( function(item) {
-                    routes.push(item.name);
-                });
-                return routes;
-            }
-        },
-
         methods: {
-
-            // convert a named route into a event and trigger it
-            goto(destination){
-                if(this.routes.includes(destination) ){
-                    this.eventSwitch('go-to', {'destination': destination});
-                }
-            },
             eventSwitch: function(event, data) {
                 // console.log(event);
                 // if(typeof data !== 'undefined'){
                 //    console.log(data);
                 // }
-                switch (event) {
-                    case 'go-to': {
-                        let elem = document.getElementById('stage');
-                        this.eventData = data;
-                        window.TweenMax.to(elem, 0.5, {
-                            height: 400,
-                            width: 600,
-                            onComplete: this.nav
-                        });
-                        break;
-                    }
-                    case 'register-request': {
-                        this.registerRequest(data);
-                        break;
-                    }
-                    case 'sign-in-request': {
-                        this.signInRequest(data);
-                        break;
-                    }
-                    case 'sign-in-result': {
-                        this.signInResult(data);
-                        break;
-                    }
-                    case 'sign-out-request': {
-                        this.signOutRequest(data);
-                        break;
-                    }
-                    case 'sign-out-result': {
-                        this.signOutResult(data);
-                        break;
-                    }
-                    case 'get-accounts-request': {
-                        this.getAccounts(data);
-                        break;
-                    }
-                    case 'create-table': {
-                        this.createTable(data);
-                        break;
-                    }
-                    case 'start-game': {
-                        this.startGame(data);
-                        break;
-                    }
-                    case 'game-tick': {
-                        this.$store.dispatch('gameTick', data);
-                        break;
-                    }
-                    case 'mana-tick': {
-                        this.$store.dispatch('manaTick', data);
-                        break;
-                    }
-                    case 'draw-mistle': {
-                        this.$store.dispatch('drawMistle', data);
-                        break;
-                    }
-                    case 'draw-shield': {
-                        this.$store.dispatch('drawShield', data);
-                        break;
-                    }
-                    case 'select-card': {
-                        this.$store.dispatch('selectCard', data);
-                        break;
-                    }
-                    case 'target-player': {
-                        this.$store.dispatch('targetPlayer', data);
-                        break;
-                    }
-                    case 'end-game': {
-                        this.endGame(data);
-                        break;
-                    }
-                    default: {
-                        throw "App error, invalid event: " + event + " .";
+                if(event.substring(0,5) === 'goto-'){
+                    let newRoute = event.substring(5);
+                    this.$router.push({ name: newRoute, params: data});
+                } else {
+                    switch (event) {
+                        case 'register-request': {
+                            this.registerRequest(data);
+                            break;
+                        }
+                        case 'sign-in-request': {
+                            this.signInRequest(data);
+                            break;
+                        }
+                        case 'sign-in-result': {
+                            this.signInResult(data);
+                            break;
+                        }
+                        case 'sign-out-request': {
+                            this.signOutRequest(data);
+                            break;
+                        }
+                        case 'sign-out-result': {
+                            this.signOutResult(data);
+                            break;
+                        }
+                        case 'get-accounts-request': {
+                            this.getAccounts(data);
+                            break;
+                        }
+                        case 'create-table': {
+                            this.createTable(data);
+                            break;
+                        }
+                        case 'start-game': {
+                            this.startGame(data);
+                            break;
+                        }
+                        case 'game-tick': {
+                            this.$store.dispatch('gameTick', data);
+                            break;
+                        }
+                        case 'mana-tick': {
+                            this.$store.dispatch('manaTick', data);
+                            break;
+                        }
+                        case 'draw-mistle': {
+                            this.$store.dispatch('drawMistle', data);
+                            break;
+                        }
+                        case 'draw-shield': {
+                            this.$store.dispatch('drawShield', data);
+                            break;
+                        }
+                        case 'select-card': {
+                            this.$store.dispatch('selectCard', data);
+                            break;
+                        }
+                        case 'target-player': {
+                            this.$store.dispatch('targetPlayer', data);
+                            break;
+                        }
+                        case 'end-game': {
+                            this.endGame(data);
+                            break;
+                        }
+                        default: {
+                            throw "App error, invalid event: " + event + " .";
+                        }
                     }
                 }
-            },
-
-            nav: function () {
-                this.$router.push({ name: this.eventData.destination, params: this.eventData});
             },
 
             registerRequest: function (formData) {
@@ -211,17 +187,17 @@
                         }, (error) => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
-                            this.$bus.$emit('go-to', {'destination': 'Home'});
+                            this.$bus.$emit('goto-home');
                         });
                 } else {
                     // just fake it
                     this.signedIn = true;
-                    this.$bus.$emit('go-to', {'destination': 'Profile'});
+                    this.$bus.$emit('goto-profile');
                 }
             },
             registerResult: function (data) {
                 this.signedIn = true;
-                this.$bus.$emit('go-to', {'destination': 'Profile'});
+                this.$bus.$emit('goto-profile');
             },
 
             signInRequest: function (formData) {
@@ -233,17 +209,17 @@
                         }, (error) => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
-                            this.$bus.$emit('go-to', {'destination': 'Home'});
+                            this.$bus.$emit('goto-home');
                         });
                 } else {
                     // just fake it
                     this.signedIn = true;
-                    this.$bus.$emit('go-to', {'destination': 'Lobby'});
+                    this.$bus.$emit('goto-lobby');
                 }
             },
             signInResult: function (data) {
                 this.signedIn = true;
-                this.$bus.$emit('go-to', {'destination': 'Lobby'});
+                this.$bus.$emit('goto-lobby');
             },
 
             signOutRequest: function (data) {
@@ -264,13 +240,13 @@
                     // just fake it
                     this.loginInfo = {};
                     this.signedIn = false;
-                    this.$bus.$emit('go-to', {'destination': 'Home'});
+                    this.$bus.$emit('goto-home');
                 }
             },
             signOutResult: function (data) {
                 this.loginInfo = {};
                 this.signedIn = false;
-                this.$bus.$emit('go-to', {'destination': 'Home'});
+                this.$bus.$emit('goto-home');
             },
 
             getAccounts: function () {
@@ -281,7 +257,7 @@
                         authorization: this.loginInfo.authHeader,
                     }
                 }).then((response) => {
-                    this.$bus.$emit('go-to', {'destination': 'Lobby'});
+                    this.$bus.$emit('goto-lobby');
                 }, (error) => {
                     this.gotoHome();
                 });
@@ -289,7 +265,7 @@
 
             createTable: function (data) {
                 this.$store.dispatch({ type: 'createTable', data});
-                this.$bus.$emit('go-to', {'destination': 'TableTop'});
+                this.$bus.$emit('goto-table-top');
             },
 
             startGame: function (data) {

@@ -34,7 +34,6 @@
 </template>
 
 <script type="text/babel">
-    import Vue from 'vue';
 
     export default {
         name: "SimpleCard",

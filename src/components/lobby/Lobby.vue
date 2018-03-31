@@ -40,10 +40,10 @@ Register.vue<template>
         },
         methods: {
             joinTable: function (table) {
-                this.$bus.$emit('go-to', {'destination': 'TableTop'});
+                this.$bus.$emit('goto-table-top');
             },
             hostTable: function () {
-                this.$bus.$emit('go-to', {'destination': 'Host'});
+                this.$bus.$emit('goto-host');
             },
         }
     }

@@ -15,42 +15,42 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'Home',
+            name: 'home',
             component: Home
         },
         {
             path: '/register',
-            name: 'Register',
+            name: 'register',
             component: Register
         },
         {
             path: '/sign-in',
-            name: 'SignIn',
+            name: 'sign-in',
             component: SignIn
         },
         {
             path: '/forgot',
-            name: 'Forgot',
+            name: 'forgot',
             component: Forgot
         },
         {
             path: '/profile',
-            name: 'Profile',
+            name: 'profile',
             component: Profile
         },
         {
             path: '/lobby',
-            name: 'Lobby',
+            name: 'lobby',
             component: Lobby
         },
         {
             path: '/host',
-            name: 'Host',
+            name: 'host',
             component: Host
         },
         {
             path: '/table-top',
-            name: 'TableTop',
+            name: 'table-top',
             component: TableTop
         }
     ]
