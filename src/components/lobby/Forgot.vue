@@ -28,7 +28,7 @@
 <script type="text/babel">
 
     export default {
-        name: 'Forgot',
+        name: 'forgot',
         data () {
             return {
                 sent: false,

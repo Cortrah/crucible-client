@@ -14,7 +14,7 @@
     import {TweenMax} from "gsap";
 
     export default {
-        name: "Shield",
+        name: "shield",
         props: {
             "id":{
                 required: true

@@ -88,7 +88,7 @@
 <script type="text/babel">
 
     export default {
-        name: 'Profile',
+        name: 'profile',
         data () {
             return {
                 title: 'Profile',

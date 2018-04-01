@@ -17,7 +17,7 @@
     import { mapState } from 'vuex'
 
     export default {
-        name: 'TableTop',
+        name: 'table-top',
         components: {Crucible},
         computed: mapState(['game', 'tables']),
         data () {

@@ -13,7 +13,7 @@
     import {TweenMax} from "gsap";
 
     export default {
-        name: "Mistle",
+        name: "mistle",
         props: {
             "id":{
                 required: true

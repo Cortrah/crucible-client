@@ -38,7 +38,7 @@
 <script type="text/babel">
 
     export default {
-        name: 'SignIn',
+        name: 'sign-in',
         data () {
             return {
                 title: 'Sign In',

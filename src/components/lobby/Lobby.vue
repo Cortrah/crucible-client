@@ -21,7 +21,7 @@ Register.vue<template>
 <script type="text/babel">
 
     export default {
-        name: 'Lobby',
+        name: 'lobby',
         data () {
             return {
                 title: 'Lobby',

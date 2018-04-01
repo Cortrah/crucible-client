@@ -26,7 +26,7 @@
 <script type="text/babel">
 
     export default {
-        name: 'Host',
+        name: 'host',
         data () {
             return {
                 title: 'Host a Table',

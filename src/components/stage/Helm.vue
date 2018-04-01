@@ -68,15 +68,15 @@
 </template>
 
 <script type="text/babel">
-    import Player from '../cast/Player'
-    import PlayerConsole from '../cast/PlayerConsole'
-    import Mistle from '../props/Mistle'
+    import Player from './PlayerStatus'
+    import PlayerConsole from './PlayerConsole'
+    import Mistle from './Mistle'
     import StellarMap from './StellarMap'
 
     import { mapState } from 'vuex'
 
     export default {
-        name: "Helm",
+        name: "helm",
         props: {
             "playerId": 0,
         },

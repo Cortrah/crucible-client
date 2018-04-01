@@ -14,11 +14,11 @@
 <script>
     import { mapState } from 'vuex'
 
-    import Player from '../cast/Player'
+    import Player from './PlayerStatus'
     import Helm from './Helm'
 
     export default {
-        name: 'Crucible',
+        name: 'crucible',
         components: {Helm, Player},
         computed: mapState(['rules', 'game', 'avatars']),
 

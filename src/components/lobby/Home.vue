@@ -9,7 +9,7 @@
 <script type="text/babel">
 
     export default {
-        name: 'Home',
+        name: 'home',
         computed: {
             title () {
                 return this.$store.state.game.title;

@@ -23,6 +23,7 @@
 <script type="text/babel">
 
     export default {
+        name: 'register',
         data () {
             return {
                 userName: '',

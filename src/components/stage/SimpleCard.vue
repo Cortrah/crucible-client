@@ -36,7 +36,7 @@
 <script type="text/babel">
 
     export default {
-        name: "SimpleCard",
+        name: "simple-card",
         props: {
             faceVal: {
                 default: 0
