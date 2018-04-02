@@ -264,7 +264,7 @@ server.register([
             hbs: require('handlebars')
         },
         relativeTo: __dirname,
-        path: './views',
+        path: './pages',
         isCached: false
     });
 
