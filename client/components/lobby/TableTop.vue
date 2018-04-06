@@ -36,7 +36,7 @@
             },
             gameTick: function() {
                 if(this.game.status === "PLAYING"){
-                    for(var i = 0; i < this.game.actors.length; i++) {
+                    for(let i = 0; i < this.game.actors.length; i++) {
                         let actor = this.game.actors[i];
                         if (actor.isActive && actor.controller === "AI") {
                             // if the actor has < 5 cards and more than 1 mana draw a card
@@ -47,8 +47,8 @@
                                 // if the actor has cards and enough mana to fire a mistle
                                 // eventually choose the best mistle possible to fire
                                 // in this case we just choose the first and wait till we can fire it
-                                var ci = 0;
-                                var card = actor.cards[ci];
+                                let ci = 0;
+                                let card = actor.cards[ci];
                                 if (card.value < actor.mana) {
                                       this.$bus.$emit('select-card', {'actorId': i, cardIndex: ci});
                                 }

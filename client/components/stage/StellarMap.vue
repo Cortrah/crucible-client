@@ -1,7 +1,10 @@
 <template>
     <div class="stellar-map">
         <svg height="80" width="650">
-            <circle  v-for='star in stars' :cx='star.x' :cy='star.y' :r='star.r' fill='#fff'></circle>
+            <circle  v-for='star in stars'
+                     :cx='star.x' :cy='star.y'
+                     :r='star.r' fill='#fff'>
+            </circle>
         </svg>
     </div>
 </template>
@@ -21,7 +24,7 @@
         },
 
         created: function () {
-            for (var i = 0; i < 100; ++i) {
+            for (let i = 0; i < 100; ++i) {
                 this.stars.push({
                     x: Math.random() * 650,
                     y: Math.random() * 80,
