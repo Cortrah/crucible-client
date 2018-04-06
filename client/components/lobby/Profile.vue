@@ -72,8 +72,17 @@
                     <input id="port"
                            type="text"
                            placeholder=":8080"/>
+                    <label for="token">
+                        Token
+                    </label>
+                    <input id="token"
+                           type="text"
+                           placeholder="umaguma"/>
                 </div>
-
+                <button @click="saveChanges()"
+                        class="pure-button pure-button-primary">
+                    Save Changes
+                </button>
                 <button @click="gotoLobby()"
                         class="pure-button pure-button-primary">
                     Goto the Lobby
@@ -94,6 +103,9 @@
                 title: 'Profile',
                 userName: 'Mina',
                 botChecked: false,
+                ipAddress: 'https://123.122.1.2',
+                port: '8000',
+                token:"umagumma",
                 selDog: this.$store.state.dogAvatars[0].img,
                 selBot: this.$store.state.botAvatars[0].img,
                 dogs: this.$store.state.dogAvatars,
@@ -103,6 +115,16 @@
         methods: {
             gotoLobby: function () {
                 this.$bus.$emit('goto-lobby');
+            },
+            saveChanges: function () {
+                let formData = {
+                    email: this.email,
+                    password: this.pwd,
+                    authHeader: '',
+                    sessionId: '',
+                    sessionKey: '',
+                };
+                this.$bus.$emit('update-profile', formData);
             },
         }
     }

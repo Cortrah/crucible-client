@@ -52,7 +52,7 @@
         methods: {
             signIn: function () {
                 let formData = {
-                    username: this.email,
+                    email: this.email,
                     password: this.pwd,
                     authHeader: '',
                     sessionId: '',

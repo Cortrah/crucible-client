@@ -1,7 +1,7 @@
 <template>
     <div id="stage">
         <div class="home">
-            <h1>{{ title }}</h1>
+            <h1>Waypont Crucible</h1>
         </div>
     </div>
 </template>
@@ -10,10 +10,5 @@
 
     export default {
         name: 'home',
-        computed: {
-            title () {
-                return this.$store.state.game.title;
-            }
-        }
     }
 </script>

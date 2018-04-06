@@ -26,14 +26,14 @@
         name: 'register',
         data () {
             return {
-                userName: '',
+                email: '',
                 title: 'Register'
             }
         },
         methods: {
             createAccount: function () {
                 let formData = {
-                    username: this.email,
+                    email: this.email,
                     password: this.pwd,
                     authHeader: '',
                     sessionId: '',

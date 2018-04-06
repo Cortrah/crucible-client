@@ -56,12 +56,12 @@
 <script type="text/babel">
 
     let eventList = [
-        "goto-home",
-        "goto-sign-in", "goto-register", "goto-forgot",
-        "goto-profile", "goto-lobby", "goto-host", "goto-table-top",
-        'sign-in-request', 'sign-in-result',
+        'goto-home',
+        'goto-sign-in', 'goto-register', 'goto-forgot',
+        'goto-profile', 'goto-lobby', 'goto-host', 'goto-table-top',
+        'register-request', 'sign-in-request',
+        'update-profile',
         'sign-out-request', 'sign-out-result',
-        'register-request', 'register-response',
         'get-accounts-request','get-accounts-result',
         'create-table', 'start-game', 'end-game',
         'draw-mistle','select-card','target-actor',
@@ -119,8 +119,8 @@
                             this.signInRequest(data);
                             break;
                         }
-                        case 'sign-in-result': {
-                            this.signInResult(data);
+                        case 'update-profile': {
+                            this.updateProfile(data);
                             break;
                         }
                         case 'sign-out-request': {
@@ -180,10 +180,11 @@
 
             registerRequest: function (formData) {
                 if(this.serverIsRunning) {
-                    this.$http.post('/hapi/api/login', formData).then(
+                    this.$http.post('/hapi/api/accounts', formData).then(
                         (response) => {
                             this.loginInfo = response.body;
-                            this.$bus.$emit('sign-in-result');
+                            this.signedIn = true;
+                            this.$bus.$emit('goto-profile');
                         }, (error) => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
@@ -195,17 +196,14 @@
                     this.$bus.$emit('goto-profile');
                 }
             },
-            registerResult: function (data) {
-                this.signedIn = true;
-                this.$bus.$emit('goto-profile');
-            },
 
             signInRequest: function (formData) {
                 if (this.serverIsRunning) {
                     this.$http.post('/hapi/api/login', formData)
                         .then((response) => {
                             this.loginInfo = response.body;
-                            this.$bus.$emit('sign-in-result');
+                            this.signedIn = true;
+                            this.$bus.$emit('goto-profile');
                         }, (error) => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
@@ -217,24 +215,39 @@
                     this.$bus.$emit('goto-lobby');
                 }
             },
-            signInResult: function (data) {
-                this.signedIn = true;
-                this.$bus.$emit('goto-lobby');
+
+
+            updateProfile: function (formData) {
+                if(this.serverIsRunning) {
+                    this.$http.patch('/hapi/api/accounts', formData).then(
+                        (response) => {
+                            // ok?
+                        }, (error) => {
+                            // perhaps give a nice error message
+                        });
+                } else {
+                    // not sure
+                }
             },
 
             signOutRequest: function (data) {
                 if (this.serverIsRunning) {
-                    this.$http.delete('/hapi/api/logout', { headers: {
+                    this.$http.delete('/hapi/api/logout', {
+                            headers: {
                                 username: this.loginInfo.session._id,
                                 password: this.loginInfo.session.key,
                                 authorization: this.loginInfo.authHeader,
                             }
                         }).then((response) => {
-                            this.$bus.$emit('sign-out-result');
+                            this.loginInfo = {};
+                            this.signedIn = false;
+                            this.$bus.$emit('goto-home');
                         }, (error) => {
-                            // either retry or emit logout-result regardless
-                            // and let the server side session timeout?
-                            this.$bus.$emit('sign-out-result');
+                            // either retry or emit error message?
+                            // let the server side session timeout?
+                            this.loginInfo = {};
+                            this.signedIn = false;
+                            this.$bus.$emit('goto-home');
                         });
                 } else {
                     // just fake it
@@ -242,11 +255,6 @@
                     this.signedIn = false;
                     this.$bus.$emit('goto-home');
                 }
-            },
-            signOutResult: function (data) {
-                this.loginInfo = {};
-                this.signedIn = false;
-                this.$bus.$emit('goto-home');
             },
 
             getAccounts: function () {

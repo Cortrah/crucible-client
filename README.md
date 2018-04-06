@@ -114,14 +114,17 @@ Last team standing will win.
 - [X] choose between hapi/nes, phoenix and akka
 	- [X] hapi nes backend
 		- [ ] configure basics
-		- [ ] login adds a player to the list of players (no registration or persistence yet)
-		- [ ] let a player host a game and choose a side
-		- [ ] let another player join a game
+		- [ ] register adds a player to the list of players (no registration or persistence yet)
+		- [ ] login 
+		- [ ] edit profile
+		- [ ] load a list of tables
+		- [ ] let a player host a game 
+		- [ ] let another player join a game, replacing a bot
+		- [ ] CORS configuration
+		- [ ] CSRF interceptor
 		- [ ] propagate the game events
-		- [ ] CORS
-		- [ ] CSRF
-		- [ ] registration of persistent accounts
-		- [ ] emails and reset
+				- [ ] registration of persistent accounts
+        		- [ ] emails and reset
 	- [ ] java akka backend
 	- [ ] phoenix GenStage backend
 - [ ] set up vue-test-utils and start testing single player client
