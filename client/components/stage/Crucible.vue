@@ -1,11 +1,11 @@
 <template>
     <div class="crucible">
-        <div class="players-container">
-            <helm ref="helm" playerId="7" :game="game" :rules="rules" :avatars="avatars"
+        <div class="actors-container">
+            <helm ref="helm" actorId="7" :game="game" :rules="rules" :avatars="avatars"
                   v-on:draw-mistle="drawMistle"
                   v-on:draw-shield="drawShield"
                   v-on:select-card="selectCard"
-                  v-on:target-player="targetPlayer">
+                  v-on:target-actor="targetActor">
             </helm>
         </div>
     </div>
@@ -14,28 +14,28 @@
 <script>
     import { mapState } from 'vuex'
 
-    import Player from './PlayerStatus'
+    import ActorStatus from './ActorStatus'
     import Helm from './Helm'
 
     export default {
         name: 'crucible',
-        components: {Helm, Player},
+        components: {Helm, ActorStatus},
         computed: mapState(['rules', 'game', 'avatars']),
 
         methods: {
-            // player actions
-            drawMistle: function(playerId){
-                this.$store.dispatch({ type: 'drawMistle', playerId: playerId});
+            // actor actions
+            drawMistle: function(actorId){
+                this.$store.dispatch({ type: 'drawMistle', actorId: actorId});
             },
-            drawShield: function(playerId){
-                this.$store.dispatch({ type: 'drawShield', playerId: playerId});
+            drawShield: function(actorId){
+                this.$store.dispatch({ type: 'drawShield', actorId: actorId});
             },
-            selectCard: function(playerId, cardIndex){
-                this.$store.dispatch({ type: 'selectCard', playerId:playerId, cardIndex:cardIndex});
+            selectCard: function(actorId, cardIndex){
+                this.$store.dispatch({ type: 'selectCard', actorId:actorId, cardIndex:cardIndex});
             },
-            targetPlayer: function (sourceId, targetId, cardIndex) {
+            targetActor: function (sourceId, targetId, cardIndex) {
                 this.$store.dispatch({
-                    type: 'targetPlayer',
+                    type: 'targetActor',
                     sourceId:sourceId,
                     targetId:targetId,
                     cardIndex:cardIndex
@@ -46,7 +46,7 @@
 </script>
 
 <style scoped>
-    .players-container {
+    .actors-container {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

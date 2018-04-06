@@ -1,15 +1,15 @@
 <template>
     <div class="helm">
         <div id="axis" class="team">
-            <div class="team-container" v-for="player in game.players">
-                <span v-if="player.team === 'Bad Guys'">
-                    <player ref = "axis"
+            <div class="team-container" v-for="actor in game.actors">
+                <span v-if="actor.team === 'Bad Guys'">
+                    <actor ref = "axis"
                             :gameStatus = game.status
-                            :player = player
+                            :actor = actor
                             :startingDeckLength = rules.startingDeck.length
-                            @click = "targetPlayer(player.id, player.card)"
-                            v-on:targeted = "targetPlayer">
-                    </player>
+                            @click = "targetActor(actor.id, actor.card)"
+                            v-on:targeted = "targetActor">
+                    </actor>
                 </span>
             </div>
         </div>
@@ -23,15 +23,15 @@
         </div>
 
         <div id="allies" class="team">
-            <div class="team-container" v-for="player in game.players">
-                <span v-if="player.team === 'Good Guys'">
-                    <player ref="allies"
+            <div class="team-container" v-for="actor in game.actors">
+                <span v-if="actor.team === 'Good Guys'">
+                    <actor ref="allies"
                             :gameStatus = game.status
-                            :player = player
+                            :actor = actor
                             :startingDeckLength = rules.startingDeck.length
-                            @click = "targetPlayer(player.id, player.card)"
-                            v-on:targeted="targetPlayer">
-                    </player>
+                            @click = "targetActor(actor.id, actor.card)"
+                            v-on:targeted="targetActor">
+                    </actor>
                 </span>
             </div>
         </div>
@@ -39,7 +39,7 @@
         <div class="console">
             <PlayerConsole  ref="player-console"
                             :gameStatus = game.status
-                            :player = game.players[playerId]
+                            :actor = game.actors[actorId]
                             avatarImg = '../../static/horizontal_control.png'
                             :startingDeckLength = rules.startingDeck.length
                             v-on:select-card="selectCard">
@@ -68,7 +68,7 @@
 </template>
 
 <script type="text/babel">
-    import Player from './PlayerStatus'
+    import Actor from './ActorStatus'
     import PlayerConsole from './PlayerConsole'
     import Mistle from './Mistle'
     import StellarMap from './StellarMap'
@@ -78,9 +78,9 @@
     export default {
         name: "helm",
         props: {
-            "playerId": 0,
+            "actorId": 0,
         },
-        components: {Player, Mistle, PlayerConsole, StellarMap},
+        components: {Actor, Mistle, PlayerConsole, StellarMap},
         data () {
             return {
                 name: this.name,
@@ -96,34 +96,34 @@
             avatars: state => state.avatars
         }),
         methods: {
-            // main player actions
+            // main actor actions
             drawMistle: function () {
-                let myself = this.game.players[this.playerId];
+                let myself = this.game.actors[this.actorId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     if(myself.cards.length < 5 && myself.deckSize > 0){
-                        this.$emit("draw-mistle", this.playerId);
+                        this.$emit("draw-mistle", this.actorId);
                     }
                 }
             },
             drawShield: function () {
-                let myself = this.game.players[this.playerId];
+                let myself = this.game.actors[this.actorId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     if(myself.cards.length < 5 && myself.deckSize > 0) {
-                        this.$emit("draw-shield", this.playerId);
+                        this.$emit("draw-shield", this.actorId);
                     }
                 }
             },
             selectCard: function (card, cardIndex) {
-                let myself = this.game.players[this.playerId];
+                let myself = this.game.actors[this.actorId];
                 if(myself.isActive && this.game.status === "PLAYING"){
-                    this.$emit("select-card", this.playerId, cardIndex);
+                    this.$emit("select-card", this.actorId, cardIndex);
                 }
             },
-            targetPlayer: function (targetId) {
-                let myself = this.game.players[this.playerId];
+            targetActor: function (targetId) {
+                let myself = this.game.actors[this.actorId];
                 let cardIndex = myself.selectedCardIndex;
                 if(myself.isActive && this.game.status === "PLAYING"){
-                    this.$emit("target-player", this.playerId, targetId, cardIndex);
+                    this.$emit("target-actor", this.actorId, targetId, cardIndex);
                 }
             },
             // helper functions for rendering the view
@@ -131,12 +131,12 @@
                 if(typeof sourceId !== "undefined"){
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        if (sourceId == this.$refs.axis[i].player.id){
+                        if (sourceId == this.$refs.axis[i].actor.id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        if (sourceId == this.$refs.allies[i].player.id){
+                        if (sourceId == this.$refs.allies[i].actor.id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
                     }
@@ -149,12 +149,12 @@
                 if(typeof sourceId !== "undefined"){
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        if (sourceId == this.$refs.axis[i].player.id){
+                        if (sourceId == this.$refs.axis[i].actor.id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        if (sourceId == this.$refs.allies[i].player.id){
+                        if (sourceId == this.$refs.allies[i].actor.id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
                     }
@@ -167,12 +167,12 @@
                 if(typeof targetId !== "undefined"){
                     let rect = null;
                     for(let i = 0; i < this.$refs.axis.length; i++){
-                        if (targetId == this.$refs.axis[i].player.id){
+                        if (targetId == this.$refs.axis[i].actor.id){
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for(let i = 0; i < this.$refs.allies.length; i++){
-                        if (targetId == this.$refs.allies[i].player.id){
+                        if (targetId == this.$refs.allies[i].actor.id){
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
                     }
@@ -185,12 +185,12 @@
                 if(typeof targetId !== "undefined") {
                     let rect = null;
                     for (let i = 0; i < this.$refs.axis.length; i++) {
-                        if (targetId == this.$refs.axis[i].player.id) {
+                        if (targetId == this.$refs.axis[i].actor.id) {
                             rect = this.$refs.axis[i].$el.getBoundingClientRect()
                         }
                     }
                     for (let i = 0; i < this.$refs.allies.length; i++) {
-                        if (targetId == this.$refs.allies[i].player.id) {
+                        if (targetId == this.$refs.allies[i].actor.id) {
                             rect = this.$refs.allies[i].$el.getBoundingClientRect()
                         }
                     }

@@ -2,28 +2,28 @@
     <div class="player-console" >
 
         <div id="name">
-            {{ player.name }}
+            {{ actor.name }}
         </div>
 
         <div id="health">
-            Health: {{ player.health }} of {{ player.maxHealth }}
+            Health: {{ actor.health }} of {{ actor.maxHealth }}
         </div>
 
         <div id="mana">
-            Mana: {{ player.mana }} of {{ player.maxMana }}
+            Mana: {{ actor.mana }} of {{ actor.maxMana }}
         </div>
 
         <div id="deck">
-            Deck: {{ player.deckSize }} of {{ startingDeckLength }}
+            Deck: {{ actor.deckSize }} of {{ startingDeckLength }}
         </div>
 
         <div id="hand">
-            <span v-for="(card, index) in player.cards" ref="cards">
+            <span v-for="(card, index) in actor.cards" ref="cards">
                 <simple-card class="simple-card"
                              :faceVal = card.value
                              :cardType = card.cardType
                              :myIndex = index
-                             :selectedIndex = player.selectedCardIndex
+                             :selectedIndex = actor.selectedCardIndex
                              v-on:select-card="selectCard(card, index)">
                 </simple-card>
             </span>
@@ -44,14 +44,14 @@
         props: [
             'gameStatus',
             'startingDeckLength',
-            'player',
+            'actor',
         ],
         computed: mapState({
             game: state => state.game,
         }),
         methods: {
             selectCard: function (card, index) {
-                if(this.player.isActive && this.gameStatus === "PLAYING") {
+                if(this.actor.isActive && this.gameStatus === "PLAYING") {
                     this.$emit("select-card", card, index);
                 }
             }

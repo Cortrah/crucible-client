@@ -31,8 +31,8 @@ Register.vue<template>
             tables() {
                 return this.$store.state.tables;
             },
-            players(){
-                return  this.$store.state.players;
+            actors(){
+                return  this.$store.state.actors;
             },
             messages() {
                 return this.$store.state.messages;

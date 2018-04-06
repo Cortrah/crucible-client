@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Player from '../models/Player'
+import Actor from '../models/Actor'
 import Rules from '../models/Rules'
 import Game from '../models/Game'
 
@@ -23,36 +23,36 @@ export const state = {
         {id: '4', name: 'Lambdabot', img: '../static/robot4.png'}
     ],
     tables: [],
-    players: [],
+    actors: [],
     messages: [],
 };
 export default new Vuex.Store({
     state,
     actions: {
         // ------------------
-        // player actions
+        // actor actions
         // ------------------
         createTable(context, payload){
             context.commit('createTable', payload);
         },
         drawMistle(context, payload){
-            context.commit('drawMistle', {playerId: payload.playerId});
+            context.commit('drawMistle', {actorId: payload.actorId});
         },
         drawShield(context, payload){
-            context.commit('drawShield', {playerId: payload.playerId});
+            context.commit('drawShield', {actorId: payload.actorId});
         },
         selectCard: function(context, payload){
-            context.commit({type: 'selectCard', playerId: payload.playerId, cardIndex: payload.cardIndex});
+            context.commit({type: 'selectCard', actorId: payload.actorId, cardIndex: payload.cardIndex});
         },
-        targetPlayer: function (context, payload) {
-            let sourcePlayer = state.game.players[payload.sourceId];
-            let targetPlayer = state.game.players[payload.targetId];
+        targetActor: function (context, payload) {
+            let sourceActor = state.game.actors[payload.sourceId];
+            let targetActor = state.game.actors[payload.targetId];
             let card = null;
-            if (sourcePlayer.selectedCardIndex !== -1) {
-                card = sourcePlayer.cards[payload.cardIndex];
+            if (sourceActor.selectedCardIndex !== -1) {
+                card = sourceActor.cards[payload.cardIndex];
             }
-            if (card != null && sourcePlayer.isActive && targetPlayer.isActive) {
-                if (sourcePlayer.team !== targetPlayer.team && card.cardType === "MISTLE") {
+            if (card != null && sourceActor.isActive && targetActor.isActive) {
+                if (sourceActor.team !== targetActor.team && card.cardType === "MISTLE") {
                     let mistle = {
                         id: new Date(),
                         sourceId: payload.sourceId,
@@ -62,7 +62,7 @@ export default new Vuex.Store({
                         flightTime: state.rules.flightTime
                     };
                     context.commit({
-                        type: 'targetPlayer',
+                        type: 'targetActor',
                         sourceId: payload.sourceId,
                         targetId: payload.targetId,
                         cardIndex: payload.cardIndex,
@@ -71,7 +71,7 @@ export default new Vuex.Store({
                     setTimeout(() => {
                         context.commit('mistleImpact', mistle)
                     }, state.rules.flightTime);
-                } else if (sourcePlayer.team === targetPlayer.team && card.cardType === "SHIELD") {
+                } else if (sourceActor.team === targetActor.team && card.cardType === "SHIELD") {
                     let shield = {
                         id: new Date(),
                         sourceId: payload.sourceId,
@@ -81,7 +81,7 @@ export default new Vuex.Store({
                         upTime: state.rules.shieldsUpTime
                     };
                     context.commit({
-                        type: 'targetPlayer',
+                        type: 'targetActor',
                         sourceId: payload.sourceId,
                         targetId: payload.targetId,
                         cardIndex: payload.cardIndex,
@@ -110,66 +110,66 @@ export default new Vuex.Store({
     },
     mutations: {
         // ------------------
-        // player actions
+        // Actor actions
         // ------------------
         drawMistle: function(state, payload){
-            let player = state.game.players[payload.playerId];
-            if(player.mana >= 1 && player.deck.length > 0) {
-                let drawn = player.deck[0];
-                player.cards.push({cardType:"MISTLE", value: drawn});
-                player.deck.splice(0, 1);
-                player.deckSize = player.deck.length;
-                player.mana--;
+            let actor = state.game.actors[payload.actorId];
+            if(actor.mana >= 1 && actor.deck.length > 0) {
+                let drawn = actor.deck[0];
+                actor.cards.push({cardType:"MISTLE", value: drawn});
+                actor.deck.splice(0, 1);
+                actor.deckSize = actor.deck.length;
+                actor.mana--;
             }
         },
         drawShield: function(state, payload){
-            let player = state.game.players[payload.playerId];
-            if(player.mana >= 1 && player.deck.length > 0) {
-                let drawn = player.deck[0];
-                player.cards.push({cardType:"SHIELD", value: drawn});
-                player.deck.splice(0, 1);
-                player.deckSize = player.deck.length;
-                player.mana--;
+            let actor = state.game.actors[payload.actorId];
+            if(actor.mana >= 1 && actor.deck.length > 0) {
+                let drawn = actor.deck[0];
+                actor.cards.push({cardType:"SHIELD", value: drawn});
+                actor.deck.splice(0, 1);
+                actor.deckSize = actor.deck.length;
+                actor.mana--;
             }
         },
         selectCard: function(state, payload){
-            let player = state.game.players[payload.playerId];
-            player.selectedCardIndex = payload.cardIndex;
+            let actor = state.game.actors[payload.actorId];
+            actor.selectedCardIndex = payload.cardIndex;
         },
-        targetPlayer: function (state, payload) {
-            let sourcePlayer = state.game.players[payload.sourceId];
-            let targetPlayer = state.game.players[payload.targetId];
-            let card = sourcePlayer.cards[payload.cardIndex];
-            if(sourcePlayer.mana >= card.value){
-                sourcePlayer.mana -= card.value;
-                sourcePlayer.cards.splice(sourcePlayer.selectedCardIndex, 1);
-                sourcePlayer.selectedCardIndex = -1;
+        targetActor: function (state, payload) {
+            let sourceActor = state.game.actors[payload.sourceId];
+            let targetActor = state.game.actors[payload.targetId];
+            let card = sourceActor.cards[payload.cardIndex];
+            if(sourceActor.mana >= card.value){
+                sourceActor.mana -= card.value;
+                sourceActor.cards.splice(sourceActor.selectedCardIndex, 1);
+                sourceActor.selectedCardIndex = -1;
                 if(card.cardType === "MISTLE") {
                     state.game.mistles.push(payload.mistle);
                 } else if (card.cardType === "SHIELD"){
-                    targetPlayer.shields.push(payload.shield);
+                    targetActor.shields.push(payload.shield);
                 }
             }
         },
         mistleImpact: function(state, mistle){
-            let sourcePlayer = state.game.players[mistle.sourceId];
-            let targetPlayer = state.game.players[mistle.targetId];
+            let sourceActor = state.game.actors[mistle.sourceId];
+            let targetActor = state.game.actors[mistle.targetId];
             if(state.game.status === "PLAYING") {
-                targetPlayer.health = Math.max(0, targetPlayer.health - mistle.card.value);
+                targetActor.health = Math.max(0, targetActor.health - mistle.card.value);
                 mistle.landed = true;
-                if (targetPlayer.health <= 0) {
-                    targetPlayer.isActive = false;
-                    let activeOpponents = state.game.players.filter(player => (player.isActive && player.team === targetPlayer.team));
+                if (targetActor.health <= 0) {
+                    targetActor.isActive = false;
+                    let activeOpponents = state.game.actors.filter(actor => (actor.isActive && actor.team === targetActor.team));
                     if(activeOpponents.length === 0){
-                        state.game.winner = sourcePlayer.team;
+                        state.game.winner = sourceActor.team;
                         state.game.status = "OVER";
                     }
                 }
             }
         },
         shieldUp: function(state, shield){
-            let sourcePlayer = state.game.players[shield.sourceId];
-            let targetPlayer = state.game.players[shield.targetId];
+            let sourceActor = state.game.actors[shield.sourceId];
+            let targetActor = state.game.actors[shield.targetId];
             if(state.game.status === "PLAYING") {
                 shield.isUp = true;
             }
@@ -179,23 +179,23 @@ export default new Vuex.Store({
         // ------------------
         createTable: function(state, payload) {
             // ToDo: should create the game give it an id and tie that id to the payload
-            // should also create the game instance and add players dynamically
+            // should also create the game instance and add actors dynamically
             // should do this on the server
             payload.data.id = '0';
             state.tables.push(payload.data);
         },
         startGame: function(state, payload) {
             let scope = this;
-            state.game.players.forEach(function(player){
-                let remaining = player.deck.length;
+            state.game.actors.forEach(function(actor){
+                let remaining = actor.deck.length;
                 let randomIndex;
                 let last;
 
                 while (remaining) {
                     randomIndex = Math.floor(Math.random() * remaining--);
-                    last = player.deck[remaining];
-                    player.deck[remaining] = player.deck[randomIndex];
-                    player.deck[randomIndex] = last;
+                    last = actor.deck[remaining];
+                    actor.deck[remaining] = actor.deck[randomIndex];
+                    actor.deck[randomIndex] = last;
                 }
             });
             state.game.status = "PLAYING";
@@ -203,15 +203,15 @@ export default new Vuex.Store({
             state.game.timeRunning = 0;
         },
         manaTick: function(state) {
-            state.game.players.forEach(function(player){
-                if(player.maxMana < 10){
-                    player.maxMana++;
+            state.game.actors.forEach(function(actor){
+                if(actor.maxMana < 10){
+                    actor.maxMana++;
                 }
-                if(player.mana < player.maxMana){
-                    player.mana++;
+                if(actor.mana < actor.maxMana){
+                    actor.mana++;
                 }
-                if(player.deck.length <= 0 && player.cards.length === 0 && player.isActive){
-                    player.health--;
+                if(actor.deck.length <= 0 && actor.cards.length === 0 && actor.isActive){
+                    actor.health--;
                 }
             })
         },

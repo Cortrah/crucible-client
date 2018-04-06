@@ -64,7 +64,7 @@
         'register-request', 'register-response',
         'get-accounts-request','get-accounts-result',
         'create-table', 'start-game', 'end-game',
-        'draw-mistle','select-card','target-player',
+        'draw-mistle','select-card','target-actor',
         'mana-tick', 'game-tick',
         'error'
     ];
@@ -163,8 +163,8 @@
                             this.$store.dispatch('selectCard', data);
                             break;
                         }
-                        case 'target-player': {
-                            this.$store.dispatch('targetPlayer', data);
+                        case 'target-actor': {
+                            this.$store.dispatch('targetActor', data);
                             break;
                         }
                         case 'end-game': {

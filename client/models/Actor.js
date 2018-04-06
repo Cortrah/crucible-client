@@ -1,4 +1,4 @@
-export default class Player {
+export default class Actor {
 
     constructor(
         id = '0',
