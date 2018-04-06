@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/stageground.iml" filepath="$PROJECT_DIR$/.idea/stageground.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/crucible-client.iml" filepath="$PROJECT_DIR$/.idea/crucible-client.iml" />
     </modules>
   </component>
 </project>
