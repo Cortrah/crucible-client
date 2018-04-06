@@ -113,9 +113,10 @@ Last team standing will win.
     - [ ] allies shields
 - [X] choose between hapi/nes, phoenix and akka
 	- [X] hapi nes backend
-		- [ ] configure basics
+		- [x] configure basics
+		- [ ] transfer login state into the vuex store
 		- [ ] register adds a player to the list of players (no registration or persistence yet)
-		- [ ] login 
+		- [ ] register and login return initial state data, with default profile information
 		- [ ] edit profile
 		- [ ] load a list of tables
 		- [ ] let a player host a game 
