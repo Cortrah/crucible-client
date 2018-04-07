@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Actor from '../models/Actor'
+import User from '../models/User'
 import Rules from '../models/Rules'
 import Game from '../models/Game'
 
@@ -8,6 +8,7 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 export const state = {
+    user: new User(),
     rules: new Rules(),
     game: new Game(),
     dogAvatars: [
