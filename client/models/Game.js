@@ -3,7 +3,7 @@ import Actor from './Actor'
 export default class Game {
 
     constructor() {
-        this.id = '0';
+        this.id = 0;
         this.title = 'Waypoint Crucible Game 1';
         this.status = "PREPARING";
         this.winner = "";
@@ -26,8 +26,9 @@ export default class Game {
         this.slots = [];
         for(let i = 0; i < this.actorCount; i++){
             this.slots.push(new Actor());
-            if (i < this.actorCount/2){
-                this.slots[i].team = "Bad Guys";
+            this.slots[i].id = i;
+            if (i > this.actorCount/2){
+                this.slots[i].team = "Good Guys";
             }
         }
         this.playerId = 7;

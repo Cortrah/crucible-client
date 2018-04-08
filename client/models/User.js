@@ -18,6 +18,7 @@ export default class User {
         if(options != null) {
             this.email = options.email || defaults.email;
             this.password = options.password || defaults.password;
+
             this.session = options.session ? new Session(options.session) : session;
             this.profile = options.profile ? new Profile(options.profile) : profile;
             this.actor = options.actor ? new Actor(options.actor) : actor;
