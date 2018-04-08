@@ -39,7 +39,7 @@
         <div class="console">
             <PlayerConsole  ref="player-console"
                             :gameStatus = game.status
-                            :actor = game.actors[actorId]
+                            :actor = game.slots[game.playerId]
                             avatarImg = '../../static/horizontal_control.png'
                             :startingDeckLength = rules.startingDeck.length
                             v-on:select-card="selectCard">

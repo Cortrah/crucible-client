@@ -1,5 +1,5 @@
 let defaults = {
-    id: null,
+    id: 0,
     name:"?",
     team:"Bad Guys",
     controller:"AI",
@@ -10,7 +10,7 @@ let defaults = {
     health:30,
     shields:[],
     cards:[],
-    selectedCardIndex:null,
+    selectedCardIndex:0,
     deck:[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
     deckSize:20,
     drawEnabled:false,
@@ -21,8 +21,6 @@ let defaults = {
 export default class Actor {
 
     constructor(options) {
-        console.log(typeof options);
-        console.log(options);
         if(typeof options !== 'undefined'){
             this.id = options.id || defaults.id; //get randomId or use index
             this.name = options.name || defaults.name;

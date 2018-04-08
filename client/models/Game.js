@@ -25,12 +25,12 @@ export default class Game {
         this.actorCount = 10;
         this.slots = [];
         for(let i = 0; i < this.actorCount; i++){
+            this.slots.push(new Actor());
             if (i < this.actorCount/2){
-                this.slots.push(new Actor({id:i, team:"Bad Guys"}));
-            } else {
-                this.slots.push(new Actor({id:i, team:"Good Guys"}));
+                this.slots[i].team = "Bad Guys";
             }
         }
+        this.playerId = 7;
         this.mistles = [];
         this.shields = [];
         this.timeStarted = 0;
