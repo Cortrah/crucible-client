@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import User from '../models/User'
-import Rules from '../models/Rules'
 import Game from '../models/Game'
 
 Vue.use(Vuex);
@@ -9,7 +8,6 @@ const debug = process.env.NODE_ENV !== 'production';
 
 export const state = {
     user: new User(),
-    rules: new Rules(),
     game: new Game(),
     dogAvatars: [
         {id: '1', name: 'Cavalier', img: '../static/dog1.png'},
@@ -60,7 +58,7 @@ export default new Vuex.Store({
                         targetId: payload.targetId,
                         card: card,
                         hasLanded: false,
-                        flightTime: state.rules.flightTime
+                        flightTime: state.game.rules.flightTime
                     };
                     context.commit({
                         type: 'targetActor',
@@ -71,7 +69,7 @@ export default new Vuex.Store({
                     });
                     setTimeout(() => {
                         context.commit('mistleImpact', mistle)
-                    }, state.rules.flightTime);
+                    }, state.game.rules.flightTime);
                 } else if (sourceActor.team === targetActor.team && card.cardType === "SHIELD") {
                     let shield = {
                         id: new Date(),
@@ -79,7 +77,7 @@ export default new Vuex.Store({
                         targetId: payload.targetId,
                         card: card,
                         isUp: false,
-                        upTime: state.rules.shieldsUpTime
+                        upTime: state.game.rules.shieldsUpTime
                     };
                     context.commit({
                         type: 'targetActor',
@@ -90,7 +88,7 @@ export default new Vuex.Store({
                     });
                     setTimeout(() => {
                         context.commit('shieldUp', shield)
-                    }, state.rules.shieldsUpTime);
+                    }, state.game.rules.shieldsUpTime);
 
                 }
             }

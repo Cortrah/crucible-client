@@ -5,13 +5,14 @@
 
             <div class="pure-g">
                 <div class="pure-u-1 pure-u-md-1-3">
-                    <h1>{{ title }}</h1>
+                    <h1>Profile</h1>
 
                     <label for="email">
                         Email
                     </label>
                     <input id="email"
                            type="email"
+                           v-model="this.model.email"
                            placeholder="Email">
 
                     <label for="password">
@@ -19,13 +20,14 @@
                     </label>
                     <input id="password"
                            type="password"
+                           v-model="this.model.password"
                            placeholder="Password">
 
                     <label for="userName">
                         Username
                     </label>
                     <input id="userName"
-                           v-model="userName"
+                           v-model="this.model.name"
                            type="text"
                            placeholder="Mina"/>
                 </div>
@@ -45,7 +47,7 @@
                         <label for="checkbox" >
                             <input id="checkbox"
                                    type="checkbox"
-                                   v-model="botChecked">
+                                   v-model="this.model.botChecked">
                             Or use a Bot
                         </label>
                     </div>
@@ -65,19 +67,22 @@
                     </label>
                     <input id="ipAddress"
                            type="text"
-                           placeholder="https://123.122.1.2"/>
+                           placeholder="https://123.122.1.2"
+                           v-model="this.model.ipAddress"/>
                     <label for="port">
                         Port
                     </label>
                     <input id="port"
                            type="text"
-                           placeholder=":8080"/>
+                           placeholder=":8080"
+                            v-model="this.model.port"/>
                     <label for="token">
                         Token
                     </label>
                     <input id="token"
                            type="text"
-                           placeholder="umaguma"/>
+                           placeholder="umaguma"
+                           v-model="this.model.token"/>
                 </div>
                 <button @click="saveChanges()"
                         class="pure-button pure-button-primary">
@@ -95,19 +100,13 @@
 </template>
 
 <script type="text/babel">
+    import Profile from '../../models/Profile.js'
 
     export default {
         name: 'profile',
         data () {
             return {
-                title: 'Profile',
-                userName: 'Mina',
-                botChecked: false,
-                ipAddress: 'https://123.122.1.2',
-                port: '8000',
-                token:"umagumma",
-                selDog: this.$store.state.dogAvatars[0].img,
-                selBot: this.$store.state.botAvatars[0].img,
+                model: new Profile(),
                 dogs: this.$store.state.dogAvatars,
                 bots: this.$store.state.botAvatars,
             }
@@ -117,14 +116,7 @@
                 this.$bus.$emit('goto-lobby');
             },
             saveChanges: function () {
-                let formData = {
-                    email: this.email,
-                    password: this.pwd,
-                    authHeader: '',
-                    sessionId: '',
-                    sessionKey: '',
-                };
-                this.$bus.$emit('update-profile', formData);
+                this.$bus.$emit('update-profile', this.model);
             },
         }
     }

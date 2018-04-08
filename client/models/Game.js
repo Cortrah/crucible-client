@@ -7,20 +7,33 @@ export default class Game {
         this.title = 'Waypoint Crucible Game 1';
         this.status = "PREPARING";
         this.winner = "";
-        this.actors = [
-            new Actor( '0', "Grammarbot", "Bad Guys", "AI", "../static/robot1.png"),
-            new Actor( '1', "Protobot", "Bad Guys", "AI", "../static/robot2.png"),
-            new Actor( '2', "General Scum", "Bad Guys", "AI", "../static/general_scum.png"),
-            new Actor( '3', "Streambot", "Bad Guys", "AI", "../static/robot3.png"),
-            new Actor( '4', "Lambdabot", "Bad Guys", "AI", "../static/robot4.png"),
-            new Actor( '5', "Phoebe", "Good Guys", "AI", "../static/dog2.png"),
-            new Actor( '6', "Mina", "Good Guys", "AI", "../static/dog1.png"),
-            new Actor( '7', "Admiral Hope", "Good Guys", "actor7", "../static/admiral_hope.png"),
-            new Actor( '8', "Lucy", "Good Guys", "AI", "../static/dog3.png"),
-            new Actor( '9', "Max", "Good Guys", "AI", "../static/dog4.png"),
-        ];
+        this.rules = {
+            maxMana:10,
+            maxHealth:30,
+            startingDeck:[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
+            startingHandSize:0,
+            maxCards:5,
+            manaGrowthInterval:1000,
+            manaReplentishInterval:1000,
+            drawInterval:1000,
+            fireInterval:500,
+            bleedoutInterval:1000,
+            flightTime:4000,
+            shieldsUpTime:1000,
+            shieldDecayRate:1000,
+        }
+        this.actorCount = 10;
+        this.slots = [];
+        for(let i = 0; i < this.actorCount; i++){
+            if (i < this.actorCount/2){
+                this.slots.push(new Actor({id:i, team:"Bad Guys"}));
+            } else {
+                this.slots.push(new Actor({id:i, team:"Good Guys"}));
+            }
+        }
         this.mistles = [];
-        this.timeRunning = 0;
+        this.shields = [];
         this.timeStarted = 0;
+        this.timeRunning = 0;
     }
 }

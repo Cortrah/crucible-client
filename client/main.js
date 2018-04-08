@@ -8,8 +8,8 @@ import store from './store/store.js'
 Vue.use(Vuex);
 Vue.use(router);
 
-Vue.config.productionTip = false;
 Vue.config.devTools = true;
+Vue.config.productionTip = false;
 
 Vue.prototype.$bus = new Vue();
 

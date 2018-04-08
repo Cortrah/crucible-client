@@ -92,7 +92,7 @@
         },
         computed: mapState({
             game: state => state.game,
-            rules: state => state.rules,
+            rules: state => state.game.rules,
             avatars: state => state.avatars
         }),
         methods: {
