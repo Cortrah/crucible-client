@@ -4,7 +4,7 @@ export default class Game {
 
     constructor() {
         this.id = 0;
-        this.title = 'Waypoint Crucible Game 1';
+        this.title = 'Waypoint Crucible Game X';
         this.status = "PREPARING";
         this.winner = "";
         this.rules = {
@@ -23,16 +23,15 @@ export default class Game {
             shieldDecayRate:1000,
         }
         this.actorCount = 10;
-        this.slots = [];
+        this.actors = [];
         for(let i = 0; i < this.actorCount; i++){
-            this.slots.push(new Actor());
-            this.slots[i].id = i;
-            this.slots[i].avatarImg = this.randomRobot();
+            this.actors.push(new Actor());
+            this.actors[i].id = i;
+            this.actors[i].avatarImg = this.randomRobot();
             if (i >= this.actorCount/2){
-                this.slots[i].team = "Good Guys";
+                this.actors[i].team = "Good Guys";
             }
         }
-        this.playerId = 7;
         this.mistles = [];
         this.shields = [];
         this.timeStarted = 0;

@@ -63,7 +63,9 @@
         'update-profile',
         'sign-out-request', 'sign-out-result',
         'get-accounts-request','get-accounts-result',
-        'create-table', 'start-game', 'end-game',
+        'create-table',
+        'sit-at-table','stand-from-table',
+        'start-game', 'end-game',
         'draw-mistle','select-card','target-actor',
         'mana-tick', 'game-tick',
         'error'
@@ -167,6 +169,14 @@
                             this.$store.dispatch('targetActor', data);
                             break;
                         }
+                        case 'sit-at-table': {
+                            this.$store.dispatch('sitAtTable', data);
+                            break;
+                        }
+                        case 'stand-from-table': {
+                            this.$store.dispatch('standFromTable', data);
+                            break;
+                        }
                         case 'end-game': {
                             this.endGame(data);
                             break;
@@ -215,7 +225,6 @@
                     this.$bus.$emit('goto-lobby');
                 }
             },
-
 
             updateProfile: function (formData) {
                 if(this.serverIsRunning) {

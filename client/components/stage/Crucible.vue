@@ -1,7 +1,7 @@
 <template>
     <div class="crucible">
         <div class="actors-container">
-            <helm ref="helm" actorId="7" :game="game" :avatars="avatars"
+            <helm ref="helm" :game="game" :avatars="avatars"
                   v-on:draw-mistle="drawMistle"
                   v-on:draw-shield="drawShield"
                   v-on:select-card="selectCard"

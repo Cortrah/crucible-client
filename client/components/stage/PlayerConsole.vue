@@ -1,5 +1,5 @@
 <template>
-    <div class="player-console" >
+    <div v-if="user.playerId != null" class="player-console" >
 
         <div id="name">
             {{ actor.name }}
@@ -14,7 +14,7 @@
         </div>
 
         <div id="deck">
-            Deck: {{ actor.deckSize }} of {{ startingDeckLength }}
+            Deck: {{ actor.deckSize }} of {{ game.rules.startingDeck.length }}
         </div>
 
         <div id="hand">
@@ -43,11 +43,11 @@
         },
         props: [
             'gameStatus',
-            'startingDeckLength',
-            'actor',
         ],
         computed: mapState({
+            user: state => state.user,
             game: state => state.game,
+            actor: state => state.game.actors[state.user.playerId]
         }),
         methods: {
             selectCard: function (card, index) {

@@ -5,6 +5,7 @@ import Actor from './Actor';
 let defaults = {
     email: '',
     password: '',
+    playerId: null,
 }
 
 export default class User {
@@ -18,6 +19,7 @@ export default class User {
         if(options != null) {
             this.email = options.email || defaults.email;
             this.password = options.password || defaults.password;
+            this.playerId = options.playerId || defaults.playerId;
 
             this.session = options.session ? new Session(options.session) : session;
             this.profile = options.profile ? new Profile(options.profile) : profile;

@@ -13,7 +13,7 @@
 
         <span>{{ actor.name }}</span>
 
-        <span> Deck: {{ actor.deckSize }} of {{ startingDeckLength }}</span>
+        <span> Deck: {{ actor.deckSize }} of {{ game.rules.startingDeck.length }}</span>
 
         <span id="hand">
             <span v-for="(card, index) in actor.cards">
@@ -44,7 +44,6 @@
 
         props: [
             "gameStatus",
-            'startingDeckLength',
             'actor',
         ],
         computed: mapState({

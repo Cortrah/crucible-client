@@ -95,6 +95,16 @@ export default new Vuex.Store({
         },
 
         // ------------------
+        // table management
+        // ------------------
+        sitAtTable: function(context, payload){
+            context.commit({type: 'sitAtTable', playerId: payload.playerId});
+        },
+        standFromTable: function(context, payload){
+            context.commit({type: 'standFromTable', playerId: payload.playerId});
+        },
+
+        // ------------------
         // game management
         // ------------------
         startGame: function(context, payload) {
@@ -173,6 +183,21 @@ export default new Vuex.Store({
                 shield.isUp = true;
             }
         },
+
+        // ------------------
+        // table management
+        // ToDo: should create the game give it an id and tie that id to the payload
+        // should also create the game instance and add actors dynamically
+        // should do this on the server
+        // ------------------
+        sitAtTable: function(state, payload) {
+            state.user.playerId = (payload.data);
+            //change other props
+        },
+        standFromTable: function(state, payload) {
+            state.user.playerId = (payload.data);
+        },
+
         // ------------------
         // game management
         // ------------------
