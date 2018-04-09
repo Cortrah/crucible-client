@@ -1,5 +1,5 @@
 <template>
-    <div class="actor" v-bind:class="{ inactive: !actor.isActive }">
+    <div class="actor-portrait" v-bind:class="{ inactive: !actor.isActive }">
 
         <div id="health">
             Health: {{ actor.health }} of {{ actor.maxHealth }}
@@ -41,9 +41,8 @@
     import { mapState } from 'vuex'
 
     export default {
-
+        name: "actor-portrait",
         props: [
-            "gameStatus",
             'actor',
         ],
         computed: mapState({
@@ -51,7 +50,7 @@
         }),
         methods: {
             targeted: function () {
-                if(this.gameStatus === "PLAYING"){
+                if(this.game.status === "PLAYING"){
                     this.$emit("targeted", this.actor.id);
                 }
             }
@@ -60,7 +59,7 @@
 </script>
 
 <style scoped>
-    .actor {
+    .actor-portrait {
         width: 130px;
         height: 160px;
         display: flex;

@@ -2,28 +2,28 @@
     <div v-if="user.playerId != null" class="player-console" >
 
         <div id="name">
-            {{ actor.name }}
+            {{ player.name }}
         </div>
 
         <div id="health">
-            Health: {{ actor.health }} of {{ actor.maxHealth }}
+            Health: {{ player.health }} of {{ player.maxHealth }}
         </div>
 
         <div id="mana">
-            Mana: {{ actor.mana }} of {{ actor.maxMana }}
+            Mana: {{ player.mana }} of {{ player.maxMana }}
         </div>
 
         <div id="deck">
-            Deck: {{ actor.deckSize }} of {{ game.rules.startingDeck.length }}
+            Deck: {{ player.deckSize }} of {{ game.rules.startingDeck.length }}
         </div>
 
         <div id="hand">
-            <span v-for="(card, index) in actor.cards" ref="cards">
+            <span v-for="(card, index) in player.cards" ref="cards">
                 <simple-card class="simple-card"
                              :faceVal = card.value
                              :cardType = card.cardType
                              :myIndex = index
-                             :selectedIndex = actor.selectedCardIndex
+                             :selectedIndex = player.selectedCardIndex
                              v-on:select-card="selectCard(card, index)">
                 </simple-card>
             </span>
@@ -41,17 +41,14 @@
         components: {
           SimpleCard
         },
-        props: [
-            'gameStatus',
-        ],
         computed: mapState({
             user: state => state.user,
             game: state => state.game,
-            actor: state => state.game.actors[state.user.playerId]
+            player: state => state.game.actors[state.user.playerId]
         }),
         methods: {
             selectCard: function (card, index) {
-                if(this.actor.isActive && this.gameStatus === "PLAYING") {
+                if(this.user.actor.status.isActive && this.game.status === "PLAYING") {
                     this.$emit("select-card", card, index);
                 }
             }

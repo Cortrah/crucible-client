@@ -3,13 +3,11 @@
         <div id="axis" class="team">
             <div class="team-container" v-for="actor in game.actors">
                 <span v-if="actor.team === 'Bad Guys'">
-                    <actor ref = "axis"
-                            :gameStatus = game.status
+                    <actor-portrait ref = "axis"
                             :actor = actor
-                            :startingDeckLength = game.rules.startingDeck.length
                             @click = "targetActor(actor.id, actor.card)"
                             v-on:targeted = "targetActor">
-                    </actor>
+                    </actor-portrait>
                 </span>
             </div>
         </div>
@@ -25,26 +23,23 @@
         <div id="allies" class="team">
             <div class="team-container" v-for="actor in game.actors">
                 <span v-if="actor.team === 'Good Guys'">
-                    <actor ref="allies"
-                            :gameStatus = game.status
+                    <actor-portrait ref="allies"
                             :actor = actor
-                            :startingDeckLength = game.rules.startingDeck.length
                             @click = "targetActor(actor.id, actor.card)"
                             v-on:targeted="targetActor">
-                    </actor>
+                    </actor-portrait>
                 </span>
             </div>
         </div>
 
         <div class="console">
             <PlayerConsole  ref="player-console"
-                            :gameStatus = game.status
-                            avatarImg = '../../static/horizontal_control.png'
                             v-on:select-card="selectCard">
             </PlayerConsole>
 
             <button @click="drawMistle()">Draw Mistle</button>
             <button @click="drawShield()">Draw Shield</button>
+            <button @click="standFromTable(user.playerId)">stand from table</button>
         </div>
 
         <div id="mistles">
@@ -62,12 +57,11 @@
                 </Mistle>
             </div>
         </div>
-        <button @click="standFromTable(user.playerId)">stand from table</button>
     </div>
 </template>
 
 <script type="text/babel">
-    import Actor from './ActorStatus'
+    import ActorPortrait from './ActorPortrait'
     import PlayerConsole from './PlayerConsole'
     import Mistle from './Mistle'
     import StellarMap from './StellarMap'
@@ -76,10 +70,9 @@
 
     export default {
         name: "helm",
-        components: {Actor, Mistle, PlayerConsole, StellarMap},
+        components: {ActorPortrait, Mistle, PlayerConsole, StellarMap},
         data () {
             return {
-                name: this.name,
                 gameIntervalId: 0
             }
         },
@@ -94,36 +87,36 @@
         methods: {
             // main actor actions
             drawMistle: function () {
-                let myself = this.game.actors[user.playerId];
+                let myself = this.game.actors[this.user.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     if(myself.cards.length < 5 && myself.deckSize > 0){
-                        this.$emit("draw-mistle", this.actorId);
+                        this.$emit("draw-mistle", this.user.playerId);
                     }
                 }
             },
             drawShield: function () {
-                let myself = this.game.actors[user.playerId];
+                let myself = this.game.actors[this.user.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     if(myself.cards.length < 5 && myself.deckSize > 0) {
-                        this.$emit("draw-shield", this.actorId);
+                        this.$emit("draw-shield", this.user.playerId);
                     }
                 }
             },
             selectCard: function (card, cardIndex) {
-                let myself = this.game.actors[user.playerId];
+                let myself = this.game.actors[this.user.playerId];
                 if(myself.isActive && this.game.status === "PLAYING"){
-                    this.$emit("select-card", this.actorId, cardIndex);
+                    this.$emit("select-card", this.user.playerId, cardIndex);
                 }
             },
             targetActor: function (targetId) {
                 // if no store.user.actorId == null and game.status === "Preparing"
                 // then we are setting a slot to a player instead of a bot
-                // (if there is an actorId there should be a way to leave a spot)
+                // (if there is an actorId there should be a way to leave a spot by setting it back to null)
                 if ((this.user.playerId == null) && (this.game.status === "Preparing")){
                     this.$emit("sit-at-table", targetId);
                 }
 
-                let myself = this.game.actors[this.actorId];
+                let myself = this.game.actors[this.user.playerId];
                 let cardIndex = myself.selectedCardIndex;
                 if(myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("target-actor", this.user.playerId, targetId, cardIndex);

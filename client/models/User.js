@@ -5,7 +5,7 @@ import Actor from './Actor';
 let defaults = {
     email: '',
     password: '',
-    playerId: null,
+    playerId: 7,
 }
 
 export default class User {

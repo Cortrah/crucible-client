@@ -1,8 +1,7 @@
 <template>
     <div class="crucible">
         <div class="actors-container">
-            <helm ref="helm" :game="game" :avatars="avatars"
-                  v-on:draw-mistle="drawMistle"
+            <helm v-on:draw-mistle="drawMistle"
                   v-on:draw-shield="drawShield"
                   v-on:select-card="selectCard"
                   v-on:target-actor="targetActor">
@@ -12,16 +11,11 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
-
-    import ActorStatus from './ActorStatus'
     import Helm from './Helm'
 
     export default {
         name: 'crucible',
-        components: {Helm, ActorStatus},
-        computed: mapState(['game', 'avatars']),
-
+        components: {Helm},
         methods: {
             // actor actions
             drawMistle: function(actorId){
