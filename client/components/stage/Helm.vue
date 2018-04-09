@@ -1,12 +1,12 @@
 <template>
     <div class="helm">
         <div id="axis" class="team">
-            <div class="team-container" v-for="actor in game.actors">
+            <div class="team-container" v-for="actor in game.slots">
                 <span v-if="actor.team === 'Bad Guys'">
                     <actor ref = "axis"
                             :gameStatus = game.status
                             :actor = actor
-                            :startingDeckLength = rules.startingDeck.length
+                            :startingDeckLength = game.rules.startingDeck.length
                             @click = "targetActor(actor.id, actor.card)"
                             v-on:targeted = "targetActor">
                     </actor>
@@ -23,12 +23,12 @@
         </div>
 
         <div id="allies" class="team">
-            <div class="team-container" v-for="actor in game.actors">
+            <div class="team-container" v-for="actor in game.slots">
                 <span v-if="actor.team === 'Good Guys'">
                     <actor ref="allies"
                             :gameStatus = game.status
                             :actor = actor
-                            :startingDeckLength = rules.startingDeck.length
+                            :startingDeckLength = game.rules.startingDeck.length
                             @click = "targetActor(actor.id, actor.card)"
                             v-on:targeted="targetActor">
                     </actor>
@@ -41,7 +41,7 @@
                             :gameStatus = game.status
                             :actor = game.slots[game.playerId]
                             avatarImg = '../../static/horizontal_control.png'
-                            :startingDeckLength = rules.startingDeck.length
+                            :startingDeckLength = game.rules.startingDeck.length
                             v-on:select-card="selectCard">
             </PlayerConsole>
 
@@ -92,13 +92,12 @@
         },
         computed: mapState({
             game: state => state.game,
-            rules: state => state.game.rules,
             avatars: state => state.avatars
         }),
         methods: {
             // main actor actions
             drawMistle: function () {
-                let myself = this.game.actors[this.actorId];
+                let myself = this.game.slots[this.actorId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     if(myself.cards.length < 5 && myself.deckSize > 0){
                         this.$emit("draw-mistle", this.actorId);
@@ -106,7 +105,7 @@
                 }
             },
             drawShield: function () {
-                let myself = this.game.actors[this.actorId];
+                let myself = this.game.slots[this.actorId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     if(myself.cards.length < 5 && myself.deckSize > 0) {
                         this.$emit("draw-shield", this.actorId);
@@ -114,13 +113,13 @@
                 }
             },
             selectCard: function (card, cardIndex) {
-                let myself = this.game.actors[this.actorId];
+                let myself = this.game.slots[this.actorId];
                 if(myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("select-card", this.actorId, cardIndex);
                 }
             },
             targetActor: function (targetId) {
-                let myself = this.game.actors[this.actorId];
+                let myself = this.game.slots[this.actorId];
                 let cardIndex = myself.selectedCardIndex;
                 if(myself.isActive && this.game.status === "PLAYING"){
                     this.$emit("target-actor", this.actorId, targetId, cardIndex);

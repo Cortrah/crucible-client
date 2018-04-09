@@ -1,7 +1,7 @@
 <template>
     <div class="crucible">
         <div class="actors-container">
-            <helm ref="helm" actorId="7" :game="game" :rules="rules" :avatars="avatars"
+            <helm ref="helm" actorId="7" :game="game" :avatars="avatars"
                   v-on:draw-mistle="drawMistle"
                   v-on:draw-shield="drawShield"
                   v-on:select-card="selectCard"
@@ -20,7 +20,7 @@
     export default {
         name: 'crucible',
         components: {Helm, ActorStatus},
-        computed: mapState(['rules', 'game', 'avatars']),
+        computed: mapState(['game', 'avatars']),
 
         methods: {
             // actor actions

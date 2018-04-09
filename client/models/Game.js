@@ -27,7 +27,8 @@ export default class Game {
         for(let i = 0; i < this.actorCount; i++){
             this.slots.push(new Actor());
             this.slots[i].id = i;
-            if (i > this.actorCount/2){
+            this.slots[i].avatarImg = this.randomRobot();
+            if (i >= this.actorCount/2){
                 this.slots[i].team = "Good Guys";
             }
         }
@@ -36,5 +37,10 @@ export default class Game {
         this.shields = [];
         this.timeStarted = 0;
         this.timeRunning = 0;
+    }
+
+    randomRobot(){
+        const randomIndex = Math.round(Math.random() * 4);
+        return "../static/robot" + randomIndex + ".png"
     }
 }

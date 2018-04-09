@@ -3,7 +3,7 @@ let defaults = {
     name:"?",
     team:"Bad Guys",
     controller:"AI",
-    avatarImg:"../static/default.png",
+    avatarImg:"../static/robot2.png",
     maxMana:0,
     mana:0,
     maxHealth:30,
