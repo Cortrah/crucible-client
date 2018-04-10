@@ -55,18 +55,6 @@
 
 <script type="text/babel">
 
-    // for now just one profile, later on we can have multiples
-    // 'list-profiles' => profiles
-    // 'add-profile' =>
-    // 'delete-profile'
-    // 'set-currrent-profile'
-
-    // needed?
-    // 'get-accounts-result'
-    // 'sign-out-result'
-    // 'get-accounts-request'
-
-
     // -----------------------
     // local events
     // -----------------------
