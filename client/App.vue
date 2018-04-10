@@ -55,6 +55,61 @@
 
 <script type="text/babel">
 
+    // for now just one profile, later on we can have multiples
+    // 'list-profiles' => profiles
+    // 'add-profile' =>
+    // 'delete-profile'
+    // 'set-currrent-profile'
+
+    // needed?
+    // 'get-accounts-result'
+    // 'sign-out-result'
+    // 'get-accounts-request'
+
+
+    // -----------------------
+    // local events
+    // -----------------------
+    // 'goto-home',
+    // 'goto-sign-in', 'goto-register', 'goto-forgot',
+    // 'goto-profile', 'goto-lobby', 'goto-host', 'goto-table-top',
+    // 'error' msg
+
+    // -----------------------
+    // remote rest based account creation and lobby management
+    // -----------------------
+    //== accounts ==
+    // 'register-request' user:{email,password,session,profile} => user:{email, password, _session_, profile}
+    // 'sign-in-request' email, password => user:{email, password, _session_, profile}
+    // 'forgot-password' email
+    //== profiles ==
+    // 'update-profile'
+    // 'sign-out-request'
+    //== tables (and games) ==
+    // 'list-tables' => tables
+    // 'create-table' rules numActors => table (&game)
+
+    // -----------------------
+    // nes websocket client events
+    // -----------------------
+    // 'join-table' playerId tableId => table.game
+    // 'sit-at-table' playerId slotId
+    // 'stand-from-table' playerId slotId => actor
+    // 'start-game' table.game
+    // 'draw-mistle' gameId playerId
+    // 'draw-shield' gameId  playerId
+    // 'select-card' gameId  playerId cardIndex
+    // 'target-actor' gameId  sourceId targetId cardIndex
+
+    // -----------------------
+    // nes websocket server initiated
+    // -----------------------
+    // 'mana-tick',
+    // 'game-tick',
+    // 'mistle-impact',
+    // 'shield-up',
+    // 'end-game'
+
     let eventList = [
         'goto-home',
         'goto-sign-in', 'goto-register', 'goto-forgot',
