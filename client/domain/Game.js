@@ -4,7 +4,7 @@ export default class Game {
 
     constructor() {
         this.id = 0;
-        this.title = 'Waypoint Crucible Game X';
+        this.name = 'Waypoint Crucible Game X';
         this.status = "PREPARING";
         this.winner = "";
         this.rules = {
