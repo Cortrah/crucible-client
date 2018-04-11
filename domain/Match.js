@@ -2,8 +2,8 @@
 
 const uuid = require('uuid');
 
-import Rules from '../src/models/Rules.js'
-import Game from '../src/models/Game.js'
+import Rules from '../src/domain/Rules.js'
+import Game from '../src/domain/Game.js'
 
 module.exports = class Match {
 

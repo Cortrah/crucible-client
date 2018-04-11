@@ -67,12 +67,14 @@
     // remote rest based account creation and lobby management
     // -----------------------
     //== accounts ==
-    // 'register-request' user:{email,password,session,profile} => user:{email, password, _session_, profile}
-    // 'sign-in-request' email, password => user:{email, password, _session_, profile}
-    // 'forgot-password' email
+    // 'register-user' user:{email,password,session,profile} => user:{email, password, _session_, profile}
+    // 'sign-in-user' email, password => user:{email, password, _session_, profile}
+    //--'forgot-password' email
+
     //== profiles ==
     // 'update-profile'
-    // 'sign-out-request'
+    //--'sign-out-user'
+
     //== tables (and games) ==
     // 'list-tables' => tables
     // 'create-table' rules numActors => table (&game)

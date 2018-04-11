@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import User from '../models/User'
-import Game from '../models/Game'
+import User from '../domain/User'
+import Game from '../domain/Game'
 
 Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
