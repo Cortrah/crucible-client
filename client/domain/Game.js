@@ -38,6 +38,39 @@ export default class Game {
         this.timeRunning = 0;
     }
 
+    init(){
+    }
+
+    startGame(){
+    }
+
+    endGame(){
+    }
+
+    gameTick(){
+    }
+
+    manaTick(){
+    }
+
+    mistleDrawn(){
+    }
+
+    shieldDrawn(){
+    }
+
+    cardSelected(){
+    }
+
+    actorTargeted(){
+    }
+
+    mistleImpacted(){
+    }
+
+    shieldUp(){
+    }
+
     randomRobot(){
         const randomIndex = Math.round(Math.random() * 4);
         return "../static/robot" + randomIndex + ".png"
