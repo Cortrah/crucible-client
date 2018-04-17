@@ -39,9 +39,13 @@ export default class Game {
     }
 
     init(){
+        let options = {optionA: "A", optionB: "B"};
+        this.addEventListener('start-game',this.startGame, options);
+        this.removeEventListener('start-game',this.startGame);
     }
 
-    startGame(){
+    startGame(options){
+        console.log(options);
     }
 
     endGame(){
