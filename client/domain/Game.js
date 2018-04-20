@@ -17,6 +17,8 @@ export default class Game {
             manaReplentishInterval:1000,
             drawInterval:1000,
             fireInterval:500,
+            gameTickInterval:1000,
+            manaTickInterval:1000,
             bleedoutInterval:1000,
             flightTime:4000,
             shieldsUpTime:1000,
@@ -34,17 +36,20 @@ export default class Game {
         }
         this.mistles = [];
         this.shields = [];
+        this.gameIntervalId = 0;
+        this.manaIntervalId = 0;
         this.timeStarted = 0;
         this.timeRunning = 0;
+        this.init();
     }
 
     init(){
         let options = {optionA: "A", optionB: "B"};
-        this.addEventListener('start-game',this.startGame, options);
-        this.removeEventListener('start-game',this.startGame);
+        this.gameIntervalId = setInterval(this.gameTick, 1000);
     }
 
     startGame(options){
+        console.log('started');
         console.log(options);
     }
 
@@ -52,6 +57,7 @@ export default class Game {
     }
 
     gameTick(){
+        console.log("tick");
     }
 
     manaTick(){

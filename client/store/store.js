@@ -8,6 +8,7 @@ const debug = process.env.NODE_ENV !== 'production';
 
 export const state = {
     user: new User(),
+    tables: [],
     game: new Game(),
     dogAvatars: [
         {id: '1', name: 'Cavalier', img: '../static/dog1.png'},
@@ -21,9 +22,6 @@ export const state = {
         {id: '3', name: 'Grammarbot', img: '../static/robot3.png'},
         {id: '4', name: 'Lambdabot', img: '../static/robot4.png'}
     ],
-    tables: [],
-    actors: [],
-    messages: [],
 };
 export default new Vuex.Store({
     state,

@@ -55,44 +55,66 @@
 
 <script type="text/babel">
 
-    // -----------------------
-    // local events
-    // -----------------------
-    // 'goto-home',
-    // 'goto-sign-in', 'goto-register', 'goto-forgot',
-    // 'goto-profile', 'goto-lobby', 'goto-host', 'goto-table-top',
-    // 'error' msg
+    import Game from './domain/Game';
 
-    // -----------------------
+    // -----------------------------------
+    // local, mostly navigation events
+    // -----------------------------------
+    let localEvents = [
+        'goto-home',
+        'goto-sign-in', 'goto-register', 'goto-forgot',
+        'goto-profile', 'goto-lobby', 'goto-host', 'goto-table-top',
+        'error'
+    ];
+
+    // -------------------------------------------------------------
     // remote rest based account creation and lobby management
-    // -----------------------
-    //== accounts ==
-    // 'register-user' user:{email,password,session,profile} => user:{email, password, _session_, profile}
-    // 'sign-in-user' email, password => user:{email, password, _session_, profile}
-    //--'forgot-password' email
+    // accounts (and sessions)
+    //      'register' user:{email,password,session,profile} => user:{email, password, _session_, profile}
+    //      'sign-in' email, password => user:{email, password, _session_, profile}
+    //
+    // profiles
+    //      'update-profile'
+    //
+    // tables (and games)
+    //      'list-tables' => tables
+    //      'create-table' rules numActors => table (&game)
+    //
+    // 'forgot-password' email
+    // 'sign-out-user'
+    // -------------------------------------------------------------
+    let lobbyEvents = [
+        'register', 'sign-in',
+        'update-profile', 'get-accounts',
+        'create-table',
+        'sign-out',
+    ];
 
-    //== profiles ==
-    // 'update-profile'
-    //--'sign-out-user'
-
-    //== tables (and games) ==
-    // 'list-tables' => tables
-    // 'create-table' rules numActors => table (&game)
-
-    // -----------------------
-    // nes websocket client events
-    // -----------------------
+    // ------------------------------------------------------------
+    // nes websocket client events for players
     // 'join-table' playerId tableId => table.game
     // 'sit-at-table' playerId slotId
     // 'stand-from-table' playerId slotId => actor
+    //
+    // host only
     // 'start-game' table.game
-    // 'draw-mistle' gameId playerId
-    // 'draw-shield' gameId  playerId
-    // 'select-card' gameId  playerId cardIndex
+    //
+    // server events for actors, client events for players
+    // 'draw-mistle' gameId actorId
+    // 'draw-shield' gameId  actorId
+    // 'select-card' gameId  actorId cardIndex
     // 'target-actor' gameId  sourceId targetId cardIndex
+    // ------------------------------------------------------------
+    let tableEvents = [
+        'join-table',
+        'sit-at-table','stand-from-table',
+        'start-game',
+        'draw-mistle','draw-shield',
+        'select-card','target-actor',
+    ];
 
     // -----------------------
-    // nes websocket server initiated
+    // nes websocket always server initiated
     // -----------------------
     // 'mana-tick',
     // 'game-tick',
@@ -100,23 +122,7 @@
     // 'shield-up',
     // 'end-game'
 
-    let eventList = [
-        'goto-home',
-        'goto-sign-in', 'goto-register', 'goto-forgot',
-        'goto-profile', 'goto-lobby', 'goto-host', 'goto-table-top',
-        'register-request', 'sign-in-request',
-        'update-profile',
-        'sign-out-request', 'sign-out-result',
-        'get-accounts-request','get-accounts-result',
-        'create-table',
-        'sit-at-table','stand-from-table',
-        'start-game', 'end-game',
-        'draw-mistle','select-card','target-actor',
-        'mana-tick', 'game-tick',
-        'error'
-    ];
-
-    export default {
+   export default {
         name: 'App',
 
         http: {
@@ -124,8 +130,11 @@
         },
 
         created () {
+            console.log("Created");
+            this.gameInst = new Game();
+
             let _self = this;
-            eventList.forEach(eventName => {
+            localEvents.forEach(eventName => {
                 this.$bus.$on(eventName, function(data) {
                     _self.eventSwitch(eventName, data);
                 });
@@ -133,7 +142,7 @@
         },
 
         beforeDestroy () {
-            eventList.forEach(eventName => {
+            localEvents.forEach(eventName => {
                 this.$bus.$off(eventName);
             });
         },
