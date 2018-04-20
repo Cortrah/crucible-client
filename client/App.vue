@@ -130,7 +130,6 @@
         },
 
         created () {
-            console.log("Created");
             this.gameInst = new Game();
 
             let _self = this;

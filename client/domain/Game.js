@@ -4,6 +4,7 @@ export default class Game {
 
     constructor() {
         this.id = 0;
+        this.tableId = 0;
         this.name = 'Waypoint Crucible Game X';
         this.status = "PREPARING";
         this.winner = "";
@@ -40,20 +41,32 @@ export default class Game {
         this.manaIntervalId = 0;
         this.timeStarted = 0;
         this.timeRunning = 0;
-        this.init();
+        this.created();
     }
 
-    init(){
+    created(){
         let options = {optionA: "A", optionB: "B"};
-        this.gameIntervalId = setInterval(this.gameTick, 1000);
+        this.gameIntervalId = setInterval(this.gameTick, this.rules.gameTickInterval);
     }
+
+    beforeDestroy(){
+        clearInterval(this.gameIntervalId);
+    }
+
+    // covered with rest
+    // createTable(){
+    //     this.$store.dispatch({ type: 'createTable', data});
+    //     this.$bus.$emit('goto-table-top');
+    // }
 
     startGame(options){
         console.log('started');
         console.log(options);
+        this.$store.dispatch({ type: 'startGame', data});
     }
 
     endGame(){
+        this.$store.dispatch({ type: 'endGame', data});
     }
 
     gameTick(){

@@ -45,14 +45,51 @@ export default class Actor {
     }
 
     drawMistle(){
+        let myself = this.game.actors[this.user.playerId];
+        if(myself.isActive && this.game.status === "PLAYING"){
+            if(myself.cards.length < 5 && myself.deckSize > 0){
+                this.$bus.$emit("draw-mistle", this.user.playerId);
+                //this.$store.dispatch({ type: 'drawMistle', actorId: actorId});
+            }
+        }
     }
 
     drawShield(){
+        let myself = this.game.actors[this.user.playerId];
+        if(myself.isActive && this.game.status === "PLAYING"){
+            if(myself.cards.length < 5 && myself.deckSize > 0) {
+                this.$bus.$emit("draw-shield", this.user.playerId);
+                //this.$store.dispatch({ type: 'drawShield', actorId: actorId});
+            }
+        }
     }
 
     selectCard(){
+        let myself = this.game.actors[this.user.playerId];
+        if(myself.isActive && this.game.status === "PLAYING"){
+            this.$bus.$emit("select-card", this.user.playerId, cardIndex);
+            //this.$store.dispatch({ type: 'selectCard', actorId:actorId, cardIndex:cardIndex});
+        }
     }
 
     targetActor(){
+        // if no store.user.actorId == null and game.status === "Preparing"
+        // then we are setting a slot to a player instead of a bot
+        // (if there is an actorId there should be a way to leave a spot by setting it back to null)
+        if ((this.user.playerId == null) && (this.game.status === "Preparing")){
+            this.$bus.$emit("sit-at-table", targetId);
+        }
+
+        let myself = this.game.actors[this.user.playerId];
+        let cardIndex = myself.selectedCardIndex;
+        if(myself.isActive && this.game.status === "PLAYING"){
+            this.$bus.$emit("target-actor", this.user.playerId, targetId, cardIndex);
+            // this.$store.dispatch({
+            //     type: 'targetActor',
+            //     sourceId:sourceId,
+            //     targetId:targetId,
+            //     cardIndex:cardIndex
+            // });
+        }
     }
 }
