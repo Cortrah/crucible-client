@@ -91,7 +91,7 @@
     ];
 
     // ------------------------------------------------------------
-    // nes websocket client events for players
+    // nes websocket src events for players
     // 'join-table' playerId tableId => table.game
     // 'sit-at-table' playerId slotId
     // 'stand-from-table' playerId slotId => actor
@@ -99,7 +99,7 @@
     // host only
     // 'start-game' table.game
     //
-    // server events for actors, client events for players
+    // server events for actors, src events for players
     // 'draw-mistle' gameId actorId
     // 'draw-shield' gameId  actorId
     // 'select-card' gameId  actorId cardIndex

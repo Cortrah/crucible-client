@@ -1,5 +1,5 @@
 
-import Profile from 'client/domain/Profile.js';
+import Profile from 'src/domain/Profile.js';
 
 describe('Profile', () => {
     it('Has expected default values', () => {

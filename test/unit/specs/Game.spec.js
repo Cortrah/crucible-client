@@ -1,4 +1,4 @@
-import Game from '../../../client/domain/Game.js';
+import Game from '../../../src/domain/Game.js';
 
 const Code = require('code');
 const Lab = require('lab');

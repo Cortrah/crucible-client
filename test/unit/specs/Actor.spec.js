@@ -1,5 +1,5 @@
 
-import Actor from 'client/domain/Actor.js';
+import Actor from 'src/domain/Actor.js';
 
 describe('Actor', () => {
   it('Has expected default values', () => {
