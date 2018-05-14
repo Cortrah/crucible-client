@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Home from './components/lobby/Home.vue';
-import Register from './components/lobby/Register.vue';
-import SignIn from './components/lobby/SignIn.vue';
-import Forgot from './components/lobby/Forgot.vue';
-import Profile from './components/lobby/Profile.vue';
-import Lobby from './components/lobby/Lobby.vue';
-import Host from './components/lobby/Host.vue';
-import TableTop from './components/lobby/TableTop.vue';
+import Home from './lobby/views/Home.vue';
+import Register from './lobby/views/Register.vue';
+import SignIn from './lobby/views/SignIn.vue';
+import Forgot from './lobby/views/Forgot.vue';
+import Profile from './lobby/views/Profile.vue';
+import Lobby from './lobby/views/Lobby.vue';
+import Host from './lobby/views/Host.vue';
+import Stage from './stage/TableTop.vue';
 
 Vue.use(Router);
 export default new Router({
@@ -49,9 +49,9 @@ export default new Router({
             component: Host
         },
         {
-            path: '/table-top',
-            name: 'table-top',
-            component: TableTop
+            path: '/stage',
+            name: 'stage',
+            component: Stage
         }
     ]
 })

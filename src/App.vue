@@ -47,7 +47,7 @@
                 </span>
             </ul>
         </div>
-        <div id="stage">
+        <div id="router-view-container">
             <router-view></router-view>
         </div>
     </div>
@@ -55,7 +55,7 @@
 
 <script type="text/babel">
 
-    import Game from './domain/Game';
+    import Game from './stage/Game';
 
     // -----------------------------------
     // local, mostly navigation events
@@ -370,7 +370,7 @@
         background-color: #f5f5f5;
     }
 
-    #stage {
+    #router-view-container {
         font-family: Source Sans Pro, Helvetica, sans-serif;
         height: 200px;
         width: 300px;

@@ -54,6 +54,12 @@
                     this.$emit("targeted", this.actor.id);
                 }
             }
+            // if no store.user.actorId == null and game.status === "Preparing"
+            // then we are setting a slot to a player instead of a bot
+            // (if there is an actorId there should be a way to leave a spot by setting it back to null)
+            // if ((this.user.playerId == null) && (this.game.status === "Preparing")){
+            //    this.$bus.$emit("sit-at-table", targetId);
+            // }
         }
     }
 </script>

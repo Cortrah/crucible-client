@@ -1,5 +1,5 @@
 <template>
-    <div class="crucible">
+    <div class="table-top">
         <div id="axis" class="team">
             <div class="team-container" v-for="actor in game.actors">
                 <span v-if="actor.team === 'Bad Guys'">
@@ -61,10 +61,10 @@
 </template>
 
 <script type="text/babel">
-    import ActorPortrait from './ActorPortrait'
-    import PlayerConsole from './PlayerConsole'
+    import ActorPortrait from './views/ActorPortrait'
+    import PlayerConsole from './views/PlayerConsole'
+    import StellarMap from './views/StellarMap'
     import Mistle from './Mistle'
-    import StellarMap from './StellarMap'
 
     import { mapState } from 'vuex'
 
@@ -213,7 +213,7 @@
 </script>
 
 <style scoped>
-    .crucible {
+    .table-top {
         width: 650px;
         height: 500px;
         display: flex;
