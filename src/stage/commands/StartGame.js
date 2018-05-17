@@ -10,6 +10,11 @@ module.exports = class StartGame extends Command {
     }
 
     doAction(store, command) {
+        console.log("StartGame")
+        console.log("store")
+        console.log(store)
+        console.log("command")
+        console.log(command)
 
         if(typeof store !== 'undefined'){
             store.gameIntervalId = setInterval(this.gameTick, store.rules.gameTickInterval);

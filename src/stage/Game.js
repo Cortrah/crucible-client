@@ -85,7 +85,7 @@ export default class Game {
             _scope.bus.addEventListener(command.name, _scope.eventHandler);
         });
         // 0 is the start command goofy, but temporary
-        // stargame will initialize the gameIntervalId
+        // StartGame will initialize the gameIntervalId
         this.commands[0].dispatch(this.bus, this.store);
         // or
         // this.$store.dispatch({ type: 'startGame', data});
@@ -95,10 +95,12 @@ export default class Game {
     }
 
     eventHandler(event, data){
-        //console.log(event);
-        // if(typeof data !== 'undefined'){
-        //    console.log(data);
-        // }
+        console.log("Game eventHandler event");
+        console.log(event);
+        if(typeof data !== 'undefined'){
+            console.log("Game eventHandler data");
+            console.log(data);
+        }
         //command.doAction(_scope.store, command);
     }
 

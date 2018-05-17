@@ -29,6 +29,11 @@ let defaults = {
 export default class Actor {
 
     constructor(index, bus, options) {
+        console.log("Actor Constructing");
+        console.log(index);
+        console.log(bus);
+        console.log(options);
+
         this.id = UUID.v4();
 
         // required
@@ -55,20 +60,22 @@ export default class Actor {
         } else {
             Object.assign(this, defaults);
         }
-        this.created();
-    }
-
-    created(){
-        // listening to the event, not registering to listen to the command, is that wierd?
-        // generic
         this.bus.addEventListener('game-tick', (command) => {
             this.gameTick(command)
         });
-        // vue
-        // this.$bus.$on('game-tick', (command) => {
-        //    this.gameTick(command)
-        // });
     }
+
+    // created(){
+    //     // listening to the event, not registering to listen to the command, is that wierd?
+    //     // generic
+    //     this.bus.addEventListener('game-tick', (command) => {
+    //         this.gameTick(command)
+    //     });
+    //     // vue
+    //     // this.$bus.$on('game-tick', (command) => {
+    //     //    this.gameTick(command)
+    //     // });
+    // }
 
     gameTick(command){
         // decide weather to draw a mistle, a shield, select a card or target an actor

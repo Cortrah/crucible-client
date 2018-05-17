@@ -100,7 +100,7 @@
 </template>
 
 <script type="text/babel">
-    import Profile from '../../domain/Profile.js'
+    import Profile from '../Profile.js'
 
     export default {
         name: 'profile',

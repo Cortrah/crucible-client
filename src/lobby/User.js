@@ -1,6 +1,6 @@
 import Session from './Session';
 import Profile from './Profile';
-import Actor from './Actor';
+//import Actor from '../stage/Actor';
 
 let defaults = {
     email: '',
@@ -14,7 +14,7 @@ export default class User {
 
         let session = new Session();
         let profile = new Profile();
-        let actor = new Actor();
+        //let actor = new Actor();
 
         if(options != null) {
             this.email = options.email || defaults.email;
@@ -23,12 +23,12 @@ export default class User {
 
             this.session = options.session ? new Session(options.session) : session;
             this.profile = options.profile ? new Profile(options.profile) : profile;
-            this.actor = options.actor ? new Actor(options.actor) : actor;
+            //this.actor = options.actor ? new Actor(options.actor) : actor;
         } else {
             Object.assign(this, defaults);
             this.session = session;
             this.profile = profile;
-            this.actor = actor;
+            //this.actor = actor;
         }
     }
 }
