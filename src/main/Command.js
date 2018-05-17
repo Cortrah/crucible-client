@@ -2,15 +2,13 @@
 
 module.exports = class Command {
 
-    constructor(name, data) {
+    constructor(name, stage, data) {
         this.name = name;
+        this.stage = stage; // has bus and store
         this.data = data;
-        this.at = new Date();
     };
 
-    dispatch(bus, store) {
-        this.bus = bus;
-        this.store = store;
-        this.bus.dispatchEvent(this.name, store);
+    dispatch() {
+        this.stage.bus.dispatchEvent(this.name, this.data);
     }
 };

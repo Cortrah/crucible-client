@@ -5,22 +5,17 @@ const GameTick = require("./GameTick");
 
 module.exports = class StartGame extends Command {
 
-    constructor() {
-        super('start-game');
+    constructor(stage, data) {
+        super('start-game', stage, data);
     }
 
-    doAction(store, command) {
-        console.log("StartGame")
-        console.log("store")
-        console.log(store)
-        console.log("command")
-        console.log(command)
+    doAction() {
 
-        if(typeof store !== 'undefined'){
-            store.gameIntervalId = setInterval(this.gameTick, store.rules.gameTickInterval);
+        if(typeof this.stage.store !== 'undefined'){
+            this.stage.store.gameIntervalId = setInterval(this.gameTick, this.stage.store.rules.gameTickInterval);
 
             // shuffle each actors deck
-            store.actors.forEach(function(actor){
+            this.stage.store.actors.forEach(function(actor){
                 let remaining = actor.deck.length;
                 let randomIndex;
                 let last;
@@ -31,14 +26,14 @@ module.exports = class StartGame extends Command {
                     actor.deck[randomIndex] = last;
                 }
             });
-            store.status = "PLAYING";
-            store.timeStarted = Date.now();
-            store.timeRunning = 0;
+            this.stage.store.status = "PLAYING";
+            this.stage.store.timeStarted = Date.now();
+            this.stage.store.timeRunning = 0;
         }
         return 'ok'
     }
 
     gameTick(){
-        new GameTick().dispatch(this.bus, this.store);
+        new GameTick(this.stage, this.data).dispatch();
     }
 };

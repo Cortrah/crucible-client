@@ -52,7 +52,7 @@ export default class Game {
         };
 
         this.commands = [
-            new StartGame(),
+            new StartGame(this),
             new DrawMistle(), new DrawShield(),
             new SelectCard(), new TargetActor(),
             new GameTick(), new ManaTick(),
