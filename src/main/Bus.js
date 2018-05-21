@@ -14,9 +14,11 @@ module.exports = class Bus {
     };
 
     dispatchEvent(eventName, eventArgs){
-        this.events[eventName].callbacks.forEach(function(callback){
-            callback(eventArgs);
-        });
+        if(this.events[eventName] != undefined){
+            this.events[eventName].callbacks.forEach(function(callback){
+                callback(eventArgs);
+            });
+        }
     };
 
     addEventListener(eventName, callback){

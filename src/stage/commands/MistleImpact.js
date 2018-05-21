@@ -4,14 +4,15 @@ const Command = require("../../main/Command");
 
 module.exports = class MistleImpact extends Command {
 
-    constructor(mistle) {
-        super('mistle-impact');
-        this.data = {
-            mistle: mistle
-        };
+    constructor(stage, data) {
+        // this.data = {
+        //     mistle: mistle
+        // };
+        super('mistle-impact', stage, data);
     }
 
-    doAction(store, command) {
+    doAction() {
+        let store = this.stage.store;
         let sourceActor = store.actors[this.data.mistle.sourceId];
         let targetActor = store.actors[this.data.mistle.targetId];
         if(store.status === "PLAYING") {

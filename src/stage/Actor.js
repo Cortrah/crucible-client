@@ -29,11 +29,6 @@ let defaults = {
 export default class Actor {
 
     constructor(index, parent, options) {
-        console.log("Actor Constructing");
-        console.log(index);
-        console.log(parent);
-        console.log(options);
-
         this.id = UUID.v4();
 
         // required
@@ -64,7 +59,6 @@ export default class Actor {
     }
 
     gameTick(command){
-        console.log('Actor gameTick');
         // decide weather to draw a mistle, a shield, select a card or target an actor
         if(command.store.status === 'PLAYING'){
             let actor = command.store.actors[this.index];
@@ -73,7 +67,7 @@ export default class Actor {
                 // if the actor has < 5 cards and more than 1 mana draw a card
                 if (actor.cards.length < 5 && actor.mana > 0) {
                     // ToDo: choose to draw a mistle or a shield
-                    new DrawMistle(this.parent, actor.index).dispatch();
+                    new DrawMistle(this.parent, {actorId: actor.index}).dispatch();
                 } else {
                     // if the actor has cards and enough mana to fire a mistle
                     // ToDo: choose a mistle based on a strategy
@@ -94,9 +88,11 @@ export default class Actor {
                         let foe = activeFoes[foeChosen];
                         // and fire at it
                         new TargetActor(
-                            actor.index,
-                            foe.id,
-                            cardIndex
+                            this.parent, {
+                                sourceId: actor.index,
+                                targetId: foe.id,
+                                cardIndex: cardIndex
+                            }
                         ).dispatch();
                     } else {
                         // if the actor is axis its enemy is an allie
@@ -108,7 +104,7 @@ export default class Actor {
                         let foe = activeFoes[foeChosen];
                         // and fire at it
                         new TargetActor(
-                            parent, {
+                            this.parent, {
                                 sourceId: actor.index,
                                 targetId: foe.id,
                                 cardIndex: cardIndex

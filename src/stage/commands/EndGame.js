@@ -4,11 +4,12 @@ const Command = require("../../main/Command");
 
 module.exports = class EndGame extends Command {
 
-    constructor() {
+    constructor(stage, data) {
         super('end-game');
     }
 
-    doAction(store, command) {
+    doAction() {
+        let store = this.stage.store;
         store.status = "OVER";
         return 'ok'
     }

@@ -4,11 +4,12 @@ const Command = require("../../main/Command");
 
 module.exports = class ManaTick extends Command {
 
-    constructor() {
+    constructor(stage, data) {
         super('mana-tick');
     }
 
-    doAction(store, command) {
+    doAction() {
+        let store = this.stage.store;
         store.actors.forEach(function(actor){
             if(actor.maxMana < 10){
                 actor.maxMana++;

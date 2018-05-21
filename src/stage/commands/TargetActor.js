@@ -4,13 +4,8 @@ const Command = require("../../main/Command");
 
 module.exports = class TargetActor extends Command {
 
-    constructor(sourceId, targetId, cardIndex) {
-        super('target-actor');
-        this.data = {
-            sourceId: sourceId || 0,
-            targetId: targetId || 0,
-            cardIndex: cardIndex || 0,
-        };
+    constructor(stage, data) {
+        super('target-actor', stage, data);
     }
 
     doAction() {

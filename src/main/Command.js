@@ -9,6 +9,6 @@ module.exports = class Command {
     };
 
     dispatch() {
-        this.stage.bus.dispatchEvent(this.name, this.data);
+        this.stage.bus.dispatchEvent(this.name, this.stage, this.data);
     }
 };

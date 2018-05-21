@@ -4,11 +4,8 @@ const Command = require("../../main/Command");
 
 module.exports = class SelectCard extends Command {
 
-    constructor(actorId) {
-        super('select-card');
-        this.data = {
-            actorId: actorId || 40
-        };
+    constructor(stage, data) {
+        super('select-card', stage, data);
     }
 
     doAction() {

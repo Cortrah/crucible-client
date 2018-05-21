@@ -132,20 +132,7 @@
 
         created () {
             this.stage = new Game();
-            let startCommand = new StartGame(this.stage).dispatch();4
-
-            let _self = this;
-            localEvents.forEach(eventName => {
-                this.$bus.$on(eventName, function(data) {
-                    _self.eventSwitch(eventName, data);
-                });
-            });
-        },
-
-        beforeDestroy () {
-            localEvents.forEach(eventName => {
-                this.$bus.$off(eventName);
-            });
+            let startCommand = new StartGame(this.stage, this.stage.store).dispatch();
         },
 
         data () {

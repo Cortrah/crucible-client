@@ -10,10 +10,9 @@ module.exports = class StartGame extends Command {
     }
 
     doAction() {
-
+        let store = this.stage.store;
         if(typeof this.stage.store !== 'undefined'){
-            this.stage.store.gameIntervalId = setInterval(this.gameTick, this.stage.store.rules.gameTickInterval);
-
+            this.stage.store.gameIntervalId = setInterval(this.gameTick, this.stage.store.rules.gameTickInterval, this.stage);
             // shuffle each actors deck
             this.stage.store.actors.forEach(function(actor){
                 let remaining = actor.deck.length;
@@ -33,7 +32,7 @@ module.exports = class StartGame extends Command {
         return 'ok'
     }
 
-    gameTick(){
-        new GameTick(this.stage, this.data).dispatch();
+    gameTick(stage){
+        new GameTick(stage).dispatch();
     }
 };
