@@ -13,8 +13,9 @@ module.exports = class TargetActor extends Command {
         };
     }
 
-    doAction(store, command) {
-        let data = command.data;
+    doAction() {
+        let store = this.stage.store;
+        let data = this.data;
         let sourceActor = store.actors[data.sourceId];
         let targetActor = store.actors[data.targetId];
         let card = sourceActor.cards[data.cardIndex];

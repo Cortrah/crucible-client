@@ -4,15 +4,13 @@ const Command = require("../../main/Command");
 
 module.exports = class DrawMistle extends Command {
 
-    constructor(actorId) {
-        super('draw-mistle');
-        this.data = {
-            actorId: actorId || 0
-        };
+    constructor(stage, actorId) {
+        super('draw-mistle', stage, { actorId: actorId || 0});
     }
 
-    doAction(store, command) {
-        let data = command.data;
+    doAction() {
+        let store = this.stage.store;
+        let data = this.data;
         let actor = store.actors[data.actorId];
         if(actor.mana >= 1 && actor.deck.length > 0) {
             let drawn = actor.deck[0];

@@ -28,17 +28,18 @@ let defaults = {
 
 export default class Actor {
 
-    constructor(index, bus, options) {
+    constructor(index, parent, options) {
         console.log("Actor Constructing");
         console.log(index);
-        console.log(bus);
+        console.log(parent);
         console.log(options);
 
         this.id = UUID.v4();
 
         // required
         this.index = index;
-        this.bus = bus;
+        this.parent = parent;
+        this.bus = parent.bus;
 
         if (typeof options !== 'undefined'){
             this.name = options.name || defaults.name;
@@ -60,24 +61,10 @@ export default class Actor {
         } else {
             Object.assign(this, defaults);
         }
-        this.bus.addEventListener('game-tick', (command) => {
-            this.gameTick(command)
-        });
     }
 
-    // created(){
-    //     // listening to the event, not registering to listen to the command, is that wierd?
-    //     // generic
-    //     this.bus.addEventListener('game-tick', (command) => {
-    //         this.gameTick(command)
-    //     });
-    //     // vue
-    //     // this.$bus.$on('game-tick', (command) => {
-    //     //    this.gameTick(command)
-    //     // });
-    // }
-
     gameTick(command){
+        console.log('Actor gameTick');
         // decide weather to draw a mistle, a shield, select a card or target an actor
         if(command.store.status === 'PLAYING'){
             let actor = command.store.actors[this.index];
@@ -86,9 +73,7 @@ export default class Actor {
                 // if the actor has < 5 cards and more than 1 mana draw a card
                 if (actor.cards.length < 5 && actor.mana > 0) {
                     // ToDo: choose to draw a mistle or a shield
-                    new DrawMistle(actor.index).dispatch(command.bus, command.store);
-                    //this.$bus.$emit("draw-mistle", this.user.playerId);
-                    //this.$store.dispatch({ type: 'drawMistle', actorId: actorId});
+                    new DrawMistle(this.parent, actor.index).dispatch();
                 } else {
                     // if the actor has cards and enough mana to fire a mistle
                     // ToDo: choose a mistle based on a strategy
@@ -96,10 +81,7 @@ export default class Actor {
                     let cardIndex = 0;
                     let card = actor.cards[cardIndex];
                     if (card.value < actor.mana) {
-                        new SelectCard(actor.index, cardIndex).dispatch(command.bus, command.store);
-                        //this.$bus.$emit("select-card", this.user.playerId, cardIndex);
-                        //this.$store.dispatch({ type: 'selectCard', actorId:actorId, cardIndex:cardIndex});
-
+                        new SelectCard(this.parent, {actorIndex: actor.index, cardIndex: cardIndex}).dispatch();
                     }
                     // choose an enemy that's still active
                     if (actor.team === "Good Guys") {
@@ -115,7 +97,7 @@ export default class Actor {
                             actor.index,
                             foe.id,
                             cardIndex
-                        ).dispatch(command.bus, command.store);
+                        ).dispatch();
                     } else {
                         // if the actor is axis its enemy is an allie
                         let activeFoes = command.store.actors.filter((actor) =>
@@ -126,17 +108,12 @@ export default class Actor {
                         let foe = activeFoes[foeChosen];
                         // and fire at it
                         new TargetActor(
-                            actor.index,
-                            foe.id,
-                            cardIndex
-                        ).dispatch(command.bus, command.store);
-                        //this.$bus.$emit("target-actor", this.user.playerId, targetId, cardIndex);
-                        // this.$store.dispatch({
-                        //     type: 'targetActor',
-                        //     sourceId:sourceId,
-                        //     targetId:targetId,
-                        //     cardIndex:cardIndex
-                        // });
+                            parent, {
+                                sourceId: actor.index,
+                                targetId: foe.id,
+                                cardIndex: cardIndex
+                            }
+                        ).dispatch();
                     }
                 }
             }

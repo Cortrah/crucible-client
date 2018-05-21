@@ -56,6 +56,7 @@
 <script type="text/babel">
 
     import Game from './stage/Game';
+    import StartGame from './stage/commands/StartGame';
 
     // -----------------------------------
     // local, mostly navigation events
@@ -130,7 +131,8 @@
         },
 
         created () {
-            this.gameInst = new Game();
+            this.stage = new Game();
+            let startCommand = new StartGame(this.stage).dispatch();4
 
             let _self = this;
             localEvents.forEach(eventName => {

@@ -1,16 +1,14 @@
 'use strict';
 
 const Command = require("../../main/Command");
-const ManaTick = require("./ManaTick");
 
 module.exports = class GameTick extends Command {
 
-    constructor() {
-        super('game-tick');
+    constructor(stage, data) {
+        super('game-tick', stage, data);
     }
 
     doAction(store, command) {
-        new ManaTick().dispatch(store);
         return 'ok'
     }
 };

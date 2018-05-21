@@ -7,12 +7,13 @@ module.exports = class SelectCard extends Command {
     constructor(actorId) {
         super('select-card');
         this.data = {
-            actorId: actorId || 0
+            actorId: actorId || 40
         };
     }
 
-    doAction(store, command) {
-        let data = command.data;
+    doAction() {
+        let store = this.stage.store;
+        let data = this.data;
         let actor = store.actors[data.actorId];
         actor.selectedCardIndex = data.cardIndex;
         return 'ok'
