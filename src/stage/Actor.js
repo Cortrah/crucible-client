@@ -59,6 +59,7 @@ export default class Actor {
     }
 
     gameTick(command){
+        console.log("Actor gameTick");
         // decide weather to draw a mistle, a shield, select a card or target an actor
         if(command.store.status === 'PLAYING'){
             let actor = command.store.actors[this.index];

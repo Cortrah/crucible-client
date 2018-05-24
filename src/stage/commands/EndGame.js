@@ -5,7 +5,7 @@ const Command = require("../../main/Command");
 module.exports = class EndGame extends Command {
 
     constructor(stage, data) {
-        super('end-game');
+        super('end-game', stage, data);
     }
 
     doAction() {

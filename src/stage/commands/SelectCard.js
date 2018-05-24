@@ -11,8 +11,12 @@ module.exports = class SelectCard extends Command {
     doAction() {
         let store = this.stage.store;
         let data = this.data;
-        let actor = store.actors[data.actorId];
-        actor.selectedCardIndex = data.cardIndex;
+        if(typeof data !== 'undefined') {
+            let actor = store.actors[data.actorId];
+            if (typeof actor != 'undefined') {
+                actor.selectedCardIndex = data.cardIndex;
+            }
+        }
         return 'ok'
     }
 };

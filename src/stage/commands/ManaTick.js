@@ -5,7 +5,7 @@ const Command = require("../../main/Command");
 module.exports = class ManaTick extends Command {
 
     constructor(stage, data) {
-        super('mana-tick');
+        super('mana-tick', stage, data);
     }
 
     doAction() {

@@ -9,12 +9,12 @@ module.exports = class ShieldUp extends Command {
     }
 
     doAction() {
-        let store = this.stage.store;
-        let sourceActor = store.actors[this.data.shield.sourceId];
-        let targetActor = store.actors[this.data.shield.targetId];
-        if(store.status === "PLAYING") {
-            this.data.shield.isUp = true;
-        }
+        // let store = this.stage.store;
+        // let sourceActor = store.actors[this.data.shield.sourceId];
+        // let targetActor = store.actors[this.data.shield.targetId];
+        // if(store.status === "PLAYING") {
+        //     this.data.shield.isUp = true;
+        // }
         return 'ok'
     }
 };

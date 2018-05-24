@@ -52,11 +52,11 @@ export default class Game {
 
         this.commands = [
             new StartGame(this),
-            // new DrawMistle(this), new DrawShield(this),
-            // new SelectCard(this), new TargetActor(this),
-            // new GameTick(this), new ManaTick(this),
-            // new MistleImpact(this), new ShieldUp(this),
-            // new EndGame(this)
+            new DrawMistle(this), new DrawShield(this),
+            new SelectCard(this), new TargetActor(this),
+            new GameTick(this), new ManaTick(this),
+            new MistleImpact(this), new ShieldUp(this),
+            new EndGame(this)
         ];
 
         // init actors
@@ -82,7 +82,7 @@ export default class Game {
 
         this.commands.forEach(command => {
             _scope.bus.registerEvent(command.name);
-            _scope.bus.addEventListener(command.name, command.doAction(_scope.store, command));
+            _scope.bus.addEventListener(command.name, command.doAction(_scope, command));
         });
     }
 }
