@@ -13,10 +13,10 @@ module.exports = class Bus {
         this.events[eventName] = event;
     };
 
-    dispatchEvent(eventName, eventArgs){
+    dispatchEvent(eventName, stage, data){
         if(this.events[eventName] != undefined){
             this.events[eventName].callbacks.forEach(function(callback){
-                callback(eventArgs);
+                callback(stage, data);
             });
         }
     };

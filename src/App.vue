@@ -131,8 +131,8 @@
         },
 
         created () {
-            this.stage = new Game();
-            let startCommand = new StartGame(this.stage, this.stage.store).dispatch();
+            let stage = new Game();
+            let startCommand = new StartGame(stage, {'gogo':'gadget'}).dispatch();
         },
 
         data () {

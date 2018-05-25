@@ -1,3 +1,5 @@
+'use strict';
+
 import Actor from './Actor'
 
 const UUID = require('uuid');
@@ -19,7 +21,6 @@ export default class Game {
     constructor(options) {
         this.id = UUID.v4();
         this.bus = new Bus();
-
         this.store = {
             name:'Waypoint Crucible Game X',
             status:'PREPARING',
@@ -54,35 +55,38 @@ export default class Game {
             new StartGame(this),
             new DrawMistle(this), new DrawShield(this),
             new SelectCard(this), new TargetActor(this),
-            new GameTick(this), new ManaTick(this),
+            new GameTick(this),
+            new ManaTick(this),
             new MistleImpact(this), new ShieldUp(this),
             new EndGame(this)
         ];
 
+        let _scope = this;
         // init actors
-        for (let index = 0; index < this.store.actorCount; index++) {
+        for (let index = 0; index < _scope.store.actorCount; index++) {
             const randomIndex = Math.round(Math.random() * 4);
             let avatarImg = '../static/robot' + randomIndex + '.png';
             let team = "Bad Guys";
-            if (index >= this.store.actorCount / 2) {
+            if (index >= _scope.store.actorCount / 2) {
                 team = 'Good Guys';
             }
             let actorOptions = {
                 team: team,
                 avatarImg: avatarImg,
             };
-            let newActor = new Actor(index, this, actorOptions);
-            this.store.actors.push(newActor);
+            let newActor = new Actor(index, _scope, actorOptions);
+            _scope.store.actors.push(newActor);
         }
-        this.created();
-    }
-
-    created(){
-        const _scope = this;
-
         this.commands.forEach(command => {
             _scope.bus.registerEvent(command.name);
-            _scope.bus.addEventListener(command.name, command.doAction(_scope, command));
+            _scope.bus.addEventListener(command.name, command.doAction);
         });
+    }
+
+    gameTick(stage, data){
+        let tick = new GameTick(stage, data).dispatch()
+        stage.store.actors.forEach(actor => {
+            actor.gameTick(stage, {index: actor.index});
+        })
     }
 }

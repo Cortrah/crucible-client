@@ -8,7 +8,7 @@ module.exports = class GameTick extends Command {
         super('game-tick', stage, data);
     }
 
-    doAction() {
+    doAction(stage, data) {
         return 'ok'
     }
 };

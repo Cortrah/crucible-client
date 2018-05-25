@@ -1,7 +1,6 @@
 'use strict';
 
 const Command = require("../../main/Command");
-const GameTick = require("./GameTick");
 
 module.exports = class StartGame extends Command {
 
@@ -9,13 +8,12 @@ module.exports = class StartGame extends Command {
         super('start-game', stage, data);
     }
 
-    doAction() {
-        let store = this.stage.store;
-        let stage = this.stage;
-        if(typeof this.stage.store !== 'undefined'){
-            this.stage.store.gameIntervalId = setInterval(this.gameTick, this.stage.store.rules.gameTickInterval, stage );
+    doAction(stage, data) {
+        let store = stage.store;
+        if(typeof store !== 'undefined'){
+            store.gameIntervalId = setInterval(stage.gameTick, store.rules.gameTickInterval, stage, data);
             // shuffle each actors deck
-            this.stage.store.actors.forEach(function(actor){
+            store.actors.forEach(function(actor){
                 let remaining = actor.deck.length;
                 let randomIndex;
                 let last;
@@ -26,15 +24,10 @@ module.exports = class StartGame extends Command {
                     actor.deck[randomIndex] = last;
                 }
             });
-            this.stage.store.status = "PLAYING";
-            this.stage.store.timeStarted = Date.now();
-            this.stage.store.timeRunning = 0;
+            store.status = "PLAYING";
+            store.timeStarted = Date.now();
+            store.timeRunning = 0;
         }
         return 'ok'
-    }
-
-    gameTick(stage){
-        //console.log(stage)
-        new GameTick(stage).dispatch();
     }
 };

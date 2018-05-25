@@ -1,3 +1,5 @@
+'use strict';
+
 const UUID = require('uuid');
 
 const DrawMistle = require('./commands/DrawMistle');
@@ -28,13 +30,13 @@ let defaults = {
 
 export default class Actor {
 
-    constructor(index, parent, options) {
+    constructor(index, stage, options) {
         this.id = UUID.v4();
 
         // required
         this.index = index;
-        this.parent = parent;
-        this.bus = parent.bus;
+        this.stage = stage;
+        this.bus = stage.bus;
 
         if (typeof options !== 'undefined'){
             this.name = options.name || defaults.name;
@@ -58,17 +60,20 @@ export default class Actor {
         }
     }
 
-    gameTick(command){
-        console.log("Actor gameTick");
+    shuffle() {
+
+    }
+
+    gameTick(stage, data){
         // decide weather to draw a mistle, a shield, select a card or target an actor
-        if(command.store.status === 'PLAYING'){
-            let actor = command.store.actors[this.index];
+        if(stage.store.status === 'PLAYING'){
+            let actor = stage.store.actors[data.index];
             if (actor.isActive && actor.controller === "AI") {
                 // ToDo: choose whether to use an existing card instead of drawing a new one
                 // if the actor has < 5 cards and more than 1 mana draw a card
                 if (actor.cards.length < 5 && actor.mana > 0) {
                     // ToDo: choose to draw a mistle or a shield
-                    new DrawMistle(this.parent, {actorId: actor.index}).dispatch();
+                    new DrawMistle(stage, {actorId: actor.index}).dispatch();
                 } else {
                     // if the actor has cards and enough mana to fire a mistle
                     // ToDo: choose a mistle based on a strategy
@@ -76,7 +81,7 @@ export default class Actor {
                     let cardIndex = 0;
                     let card = actor.cards[cardIndex];
                     if (card.value < actor.mana) {
-                        new SelectCard(this.parent, {actorIndex: actor.index, cardIndex: cardIndex}).dispatch();
+                        new SelectCard(stage, {actorIndex: actor.index, cardIndex: cardIndex}).dispatch();
                     }
                     // choose an enemy that's still active
                     if (actor.team === "Good Guys") {
@@ -89,7 +94,7 @@ export default class Actor {
                         let foe = activeFoes[foeChosen];
                         // and fire at it
                         new TargetActor(
-                            this.parent, {
+                            stage, {
                                 sourceId: actor.index,
                                 targetId: foe.id,
                                 cardIndex: cardIndex
@@ -105,7 +110,7 @@ export default class Actor {
                         let foe = activeFoes[foeChosen];
                         // and fire at it
                         new TargetActor(
-                            this.parent, {
+                            stage, {
                                 sourceId: actor.index,
                                 targetId: foe.id,
                                 cardIndex: cardIndex

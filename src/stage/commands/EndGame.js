@@ -9,8 +9,8 @@ module.exports = class EndGame extends Command {
     }
 
     doAction() {
-        let store = this.stage.store;
-        store.status = "OVER";
+        // let store = this.stage.store;
+        // store.status = "OVER";
         return 'ok'
     }
 };
