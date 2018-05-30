@@ -50,7 +50,7 @@ export default class Actor {
             this.shields = options.shields || [];
             this.cards = options.cards || [];
             this.selectedCardIndex = options.selectedCardIndex || defaults.selectedCardIndex;
-            this.deck = options.deck ? Object.assign({}, options.deck) : Object.assign({}, defaults.deck);
+            //this.deck = options.deck ? this.shuffle(options.deck) : this.shuffle(defaults.deck);
             this.deckSize = options.deckSize || defaults.deckSize;
             this.drawEnabled = options.drawEnabled || defaults.drawEnabled;
             this.isbleedingOut = options.isbleedingOut || defaults.isbleedingOut;
@@ -58,10 +58,21 @@ export default class Actor {
         } else {
             Object.assign(this, defaults);
         }
+        this.shuffle(defaults.deck);
+        console.log(this.deck);
     }
 
-    shuffle() {
-
+    shuffle(deck) {
+        this.deck = deck;
+        let remaining = this.deck.length;
+        let randomIndex;
+        let last;
+        while (remaining) {
+            randomIndex = Math.floor(Math.random() * remaining--);
+            last = this.deck[remaining];
+            this.deck[remaining] = this.deck[randomIndex];
+            this.deck[randomIndex] = last;
+        }
     }
 
     gameTick(stage, data){
@@ -71,9 +82,13 @@ export default class Actor {
             if (actor.isActive && actor.controller === "AI") {
                 // ToDo: choose whether to use an existing card instead of drawing a new one
                 // if the actor has < 5 cards and more than 1 mana draw a card
-                if (actor.cards.length < 5 && actor.mana > 0) {
-                    // ToDo: choose to draw a mistle or a shield
-                    new DrawMistle(stage, {actorId: actor.index}).dispatch();
+                if (actor.cards.length < 5 && (actor.mana >= 0)) {
+                    if(actor.mana > 0){
+                        // ToDo: choose to draw a mistle or a shield
+                        new DrawMistle(stage, {actorId: actor.index}).dispatch();
+                    } else {
+                        // wait till we have mana to draw a card
+                    }
                 } else {
                     // if the actor has cards and enough mana to fire a mistle
                     // ToDo: choose a mistle based on a strategy
