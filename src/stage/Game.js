@@ -84,7 +84,9 @@ export default class Game {
     }
 
     gameTick(stage, data){
-        let tick = new GameTick(stage, data).dispatch()
+        let gtick = new GameTick(stage, data).dispatch();
+        let mtick = new ManaTick(stage, data).dispatch();
+
         stage.store.actors.forEach(actor => {
             actor.gameTick(stage, {index: actor.index});
         })
