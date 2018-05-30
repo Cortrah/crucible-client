@@ -59,7 +59,6 @@ export default class Actor {
             Object.assign(this, defaults);
         }
         this.shuffle(defaults.deck);
-        console.log(this.deck);
     }
 
     shuffle(deck) {
@@ -76,6 +75,7 @@ export default class Actor {
     }
 
     gameTick(stage, data){
+        console.log('actor tick');
         // decide weather to draw a mistle, a shield, select a card or target an actor
         if(stage.store.status === 'PLAYING'){
             let actor = stage.store.actors[data.index];
