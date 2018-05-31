@@ -131,12 +131,12 @@
         },
 
         created () {
-            let stage = new Game();
-            let startCommand = new StartGame(stage, {'gogo':'gadget'}).dispatch();
+            let startCommand = new StartGame(this.stage, {'gogo':'gadget'}).dispatch();
         },
 
         data () {
             return {
+                stage: new Game(),
                 serverIsRunning: false,
                 signedIn: false,
                 loginInfo: {},
