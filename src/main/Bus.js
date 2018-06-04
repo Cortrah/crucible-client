@@ -9,6 +9,7 @@ module.exports = class Bus {
     }
 
     registerEvent(eventName){
+        console.log('Bus registerEvent ' + eventName );
         let event = new Event(eventName);
         this.events[eventName] = event;
     };
@@ -22,6 +23,13 @@ module.exports = class Bus {
     };
 
     addEventListener(eventName, callback){
-        this.events[eventName].registerCallback(callback);
+        // console.log('Bus addEventListener');
+        // console.log(this.events);
+        // console.log(this.events[eventName]);
+        if(this.events[eventName]){
+            this.events[eventName].registerCallback(callback);
+        } else {
+            console.log(this)
+        }
     };
 };

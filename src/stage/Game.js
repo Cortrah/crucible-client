@@ -19,6 +19,7 @@ const EndGame = require('./commands/EndGame');
 export default class Game {
 
     constructor(options) {
+        console.log('Game constructor');
         this.id = UUID.v4();
         this.bus = new Bus();
         this.store = {
@@ -84,11 +85,11 @@ export default class Game {
     }
 
     gameTick(stage, data){
-        let gtick = new GameTick(stage, data).dispatch();
-        let mtick = new ManaTick(stage, data).dispatch();
+        let gameTick = new GameTick(stage, data).dispatch();
+        //let manaTick = new ManaTick(stage, data).dispatch();
 
-        stage.store.actors.forEach(actor => {
-            actor.gameTick(stage, {index: actor.index});
-        })
+        //stage.store.actors.forEach(actor => {
+        //    actor.gameTick(stage, {index: actor.index});
+        //})
     }
 }

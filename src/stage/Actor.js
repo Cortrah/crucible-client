@@ -36,7 +36,6 @@ export default class Actor {
         // required
         this.index = index;
         this.stage = stage;
-        this.bus = stage.bus;
 
         if (typeof options !== 'undefined'){
             this.name = options.name || defaults.name;
@@ -59,6 +58,10 @@ export default class Actor {
             Object.assign(this, defaults);
         }
         this.shuffle(defaults.deck);
+        console.log('Actor constructor');
+        console.log(this.stage.bus);
+        console.log(this);
+        this.stage.bus.addEventListener('game-tick', this);
     }
 
     shuffle(deck) {

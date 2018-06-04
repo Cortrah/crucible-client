@@ -10,7 +10,6 @@ module.exports = class GameTick extends Command {
     }
 
     doAction(stage, data) {
-        console.log('tick');
         const manaTick = new ManaTick(stage, data).dispatch();
         return 'ok'
     }
