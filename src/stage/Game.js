@@ -4,6 +4,7 @@ import Actor from './Actor'
 
 const UUID = require('uuid');
 const Bus = require('../main/Bus');
+const Queue = require('../main/Queue');
 
 const StartGame = require('./commands/StartGame');
 const DrawMistle = require('./commands/DrawMistle');
@@ -19,9 +20,18 @@ const EndGame = require('./commands/EndGame');
 export default class Game {
 
     constructor(options) {
-        console.log('Game constructor');
+        let _scope = this;
+
         this.id = UUID.v4();
         this.bus = new Bus();
+
+        // required
+        if(typeof options !== 'undefined'){
+            this.que = options.que;
+        } else {
+            this.que = new Queue();
+        }
+
         this.store = {
             name:'Waypoint Crucible Game X',
             status:'PREPARING',
@@ -61,9 +71,12 @@ export default class Game {
             new MistleImpact(this), new ShieldUp(this),
             new EndGame(this)
         ];
+        this.commands.forEach(command => {
+            _scope.bus.registerEvent(command.name);
+            _scope.bus.addEventListener(command.name, command.doAction);
+        });
 
-        let _scope = this;
-        // init actors
+        // init 10 actors: 5 'Good Guys', 5 'Bad Guys'
         for (let index = 0; index < _scope.store.actorCount; index++) {
             const randomIndex = Math.round(Math.random() * 4);
             let avatarImg = '../static/robot' + randomIndex + '.png';
@@ -78,13 +91,10 @@ export default class Game {
             let newActor = new Actor(index, _scope, actorOptions);
             _scope.store.actors.push(newActor);
         }
-        this.commands.forEach(command => {
-            _scope.bus.registerEvent(command.name);
-            _scope.bus.addEventListener(command.name, command.doAction);
-        });
     }
 
     gameTick(stage, data){
+        console.log("Game game-tick")
         let gameTick = new GameTick(stage, data).dispatch();
         //let manaTick = new ManaTick(stage, data).dispatch();
 

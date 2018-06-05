@@ -9,8 +9,8 @@ module.exports = class Bus {
     }
 
     registerEvent(eventName){
-        console.log('Bus registerEvent ' + eventName );
-        let event = new Event(eventName);
+        // console.log('Bus registerEvent ' + eventName );
+        // let event = new Event(eventName);
         this.events[eventName] = event;
     };
 

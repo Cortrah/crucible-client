@@ -12,11 +12,11 @@ module.exports = class Queue {
         this.commands.push(command);
     }
 
-    async play(s, d) {
+    async play(stage, data) {
         this.isRunning = true;
         while(this.isRunning && (this.playhead < this.commands.length)){
             let command = this.commands[this.playhead];
-            await command.doAction(s, d)
+            await command.doAction(stage, data)
             if(this.playhead < this.commands.length + 1) {
                 this.playhead++;
             }

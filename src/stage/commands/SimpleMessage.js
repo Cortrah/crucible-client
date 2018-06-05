@@ -9,12 +9,6 @@ module.exports = class SimpleMessage extends Command {
     }
 
     doAction(stage, data) {
-        console.log("simple message")
-        console.log(this.stage)
-        console.log(this.data)
-        console.log(stage)
-        console.log(data)
         return 'ok'
-
     }
 };

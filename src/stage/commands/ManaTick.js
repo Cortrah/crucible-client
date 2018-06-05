@@ -9,6 +9,7 @@ module.exports = class ManaTick extends Command {
     }
 
     doAction(stage, data) {
+        console.log('mana-tick:' + data);
         let store = stage.store;
         store.actors.forEach(function(actor){
             if(actor.maxMana < 10){

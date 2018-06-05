@@ -57,10 +57,7 @@
 
     import Game from './stage/Game';
     import StartGame from './stage/commands/StartGame';
-
-    import Queue from './main/Queue'
     import SimpleMesage from './stage/commands/SimpleMessage';
-
 
     // -----------------------------------
     // local, mostly navigation events
@@ -135,18 +132,14 @@
         },
 
         created () {
-            let q = new Queue();
-            let sm = new SimpleMesage("stage", "data");
-            q.add(sm);
-            let result = q.play('s', 'd');
-            console.log(result);
-
             let startCommand = new StartGame(this.stage, {'gogo':'gadget'}).dispatch();
+            this.$que.add(startCommand);
+            let result =  this.$que.play();
         },
 
         data () {
             return {
-                stage: new Game(),
+                stage: new Game({'que': this.$que}),
                 serverIsRunning: false,
                 signedIn: false,
                 loginInfo: {},
