@@ -3,8 +3,9 @@
 import Actor from './Actor'
 
 const UUID = require('uuid');
-const Bus = require('../main/Bus');
-const Queue = require('../main/Queue');
+
+//import Bus from '../main/Bus'
+//import Queue from '../main/Queue'
 
 const StartGame = require('./commands/StartGame');
 const DrawMistle = require('./commands/DrawMistle');
@@ -20,17 +21,13 @@ const EndGame = require('./commands/EndGame');
 export default class Game {
 
     constructor(options) {
-        let _scope = this;
-
+        console.log('Game constructor');
         this.id = UUID.v4();
-        this.bus = new Bus();
 
+        console.log(options);
         // required
-        if(typeof options !== 'undefined'){
-            this.que = options.que;
-        } else {
-            this.que = new Queue();
-        }
+        this.que = options.que;
+        this.bus = options.bus;
 
         this.store = {
             name:'Waypoint Crucible Game X',
@@ -62,6 +59,7 @@ export default class Game {
             timeRunning: 0,
         };
 
+        let _scope = this;
         this.commands = [
             new StartGame(this),
             new DrawMistle(this), new DrawShield(this),
@@ -72,12 +70,13 @@ export default class Game {
             new EndGame(this)
         ];
         this.commands.forEach(command => {
-            _scope.bus.registerEvent(command.name);
+            console.log(command.name);
             _scope.bus.addEventListener(command.name, command.doAction);
         });
 
         // init 10 actors: 5 'Good Guys', 5 'Bad Guys'
         for (let index = 0; index < _scope.store.actorCount; index++) {
+            console.log(index);
             const randomIndex = Math.round(Math.random() * 4);
             let avatarImg = '../static/robot' + randomIndex + '.png';
             let team = "Bad Guys";
@@ -96,10 +95,10 @@ export default class Game {
     gameTick(stage, data){
         console.log("Game game-tick")
         let gameTick = new GameTick(stage, data).dispatch();
-        //let manaTick = new ManaTick(stage, data).dispatch();
+    }
 
-        //stage.store.actors.forEach(actor => {
-        //    actor.gameTick(stage, {index: actor.index});
-        //})
+    manaTick(stage, data){
+        console.log("Game mana-tick")
+        let manaTick = new ManaTick(stage, data).dispatch();
     }
 }

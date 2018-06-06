@@ -5,22 +5,16 @@ const Command = require("../../main/Command");
 module.exports = class StartGame extends Command {
 
     constructor(stage, data) {
-        console.log("start-game constructor");
-        console.log(stage);
-        console.log(data);
+
         super('start-game', stage, data);
     }
 
     doAction(stage, data) {
         console.log("start-game");
-        console.log(this.stage);
-        console.log(this.data);
-        console.log(stage);
-        console.log(data);
-
         let store = stage.store;
         if(typeof store !== 'undefined'){
             store.gameIntervalId = setInterval(stage.gameTick, store.rules.gameTickInterval, stage, data);
+            store.manaIntervalId = setInterval(stage.manaTick, store.rules.manaTickInterval, stage, data);
             // shuffle each actors deck
             store.actors.forEach(function(actor){
                 let remaining = actor.deck.length;

@@ -31,6 +31,8 @@ let defaults = {
 export default class Actor {
 
     constructor(index, stage, options) {
+        console.log('Actor constructor');
+
         this.id = UUID.v4();
 
         // required

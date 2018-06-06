@@ -56,8 +56,9 @@
 <script type="text/babel">
 
     import Game from './stage/Game';
+    import Bus from './main/Bus.js'
+    import Queue from './main/Queue.js'
     import StartGame from './stage/commands/StartGame';
-    import SimpleMesage from './stage/commands/SimpleMessage';
 
     // -----------------------------------
     // local, mostly navigation events
@@ -110,9 +111,12 @@
     let tableEvents = [
         'join-table',
         'sit-at-table','stand-from-table',
+    ];
+
+    let gameEvents = [
         'start-game',
         'draw-mistle','draw-shield',
-        'select-card','target-actor',
+        'select-card','target-actor'
     ];
 
     // -----------------------
@@ -132,14 +136,39 @@
         },
 
         created () {
+            console.log('App created');
+            console.log(this);
+
+            let _scope = this;
+            this.bus = new Bus();
+            this.commands = [
+                new StartGame(this),
+                new DrawMistle(this), new DrawShield(this),
+                new SelectCard(this), new TargetActor(this),
+                new GameTick(this),
+                new ManaTick(this),
+                new MistleImpact(this), new ShieldUp(this),
+                new EndGame(this)
+            ];
+            this.commands.forEach(command => {
+                console.log(command.name);
+                _scope.bus.registerEvent(command.name);
+            });
+
+            this.que = new Queue();
+            this.stage = new Game({
+                'que': this.que,
+                'bus': this.bus,
+            });
+
             let startCommand = new StartGame(this.stage, {'gogo':'gadget'}).dispatch();
-            this.$que.add(startCommand);
-            let result =  this.$que.play();
+            this.que.add(startCommand);
+            let result =  this.que.play();
         },
 
         data () {
             return {
-                stage: new Game({'que': this.$que}),
+                stage: null,
                 serverIsRunning: false,
                 signedIn: false,
                 loginInfo: {},
