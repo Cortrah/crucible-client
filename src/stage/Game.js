@@ -24,10 +24,10 @@ export default class Game {
         console.log('Game constructor');
         this.id = UUID.v4();
 
-        console.log(options);
         // required
-        this.que = options.que;
-        this.bus = options.bus;
+        console.log(options);
+        //this.que = options.que;
+        //this.bus = options.bus;
 
         this.store = {
             name:'Waypoint Crucible Game X',
@@ -71,12 +71,11 @@ export default class Game {
         ];
         this.commands.forEach(command => {
             console.log(command.name);
-            _scope.bus.addEventListener(command.name, command.doAction);
+           // _scope.bus.addEventListener(command.name, command.doAction);
         });
 
         // init 10 actors: 5 'Good Guys', 5 'Bad Guys'
         for (let index = 0; index < _scope.store.actorCount; index++) {
-            console.log(index);
             const randomIndex = Math.round(Math.random() * 4);
             let avatarImg = '../static/robot' + randomIndex + '.png';
             let team = "Bad Guys";

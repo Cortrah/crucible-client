@@ -59,6 +59,15 @@
     import Bus from './main/Bus.js'
     import Queue from './main/Queue.js'
     import StartGame from './stage/commands/StartGame';
+    import DrawMistle from './stage/commands/DrawMistle';
+    import DrawShield from './stage/commands/DrawShield';
+    import SelectCard from './stage/commands/SelectCard';
+    import TargetActor from './stage/commands/TargetActor';
+    import GameTick from './stage/commands/GameTick';
+    import ManaTick from './stage/commands/ManaTick';
+    import MistleImpact from './stage/commands/MistleImpact';
+    import ShieldUp from './stage/commands/ShieldUp';
+    import EndGame from './stage/commands/EndGame';
 
     // -----------------------------------
     // local, mostly navigation events
@@ -168,7 +177,7 @@
 
         data () {
             return {
-                stage: null,
+                stage: new Game({'que': this.$que}),
                 serverIsRunning: false,
                 signedIn: false,
                 loginInfo: {},
