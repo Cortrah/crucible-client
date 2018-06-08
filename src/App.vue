@@ -56,8 +56,6 @@
 <script type="text/babel">
 
     import Game from './stage/Game';
-    import Bus from './main/Bus.js'
-    import Queue from './main/Queue.js'
     import StartGame from './stage/commands/StartGame';
     import DrawMistle from './stage/commands/DrawMistle';
     import DrawShield from './stage/commands/DrawShield';
@@ -149,7 +147,6 @@
             console.log(this);
 
             let _scope = this;
-            this.bus = new Bus();
             this.commands = [
                 new StartGame(this),
                 new DrawMistle(this), new DrawShield(this),
@@ -161,18 +158,12 @@
             ];
             this.commands.forEach(command => {
                 console.log(command.name);
-                _scope.bus.registerEvent(command.name);
-            });
-
-            this.que = new Queue();
-            this.stage = new Game({
-                'que': this.que,
-                'bus': this.bus,
+                _scope.$bus.$on(command.name, command.doAction);
             });
 
             let startCommand = new StartGame(this.stage, {'gogo':'gadget'}).dispatch();
-            this.que.add(startCommand);
-            let result =  this.que.play();
+            this.$que.add(startCommand);
+            let result =  this.$que.play();
         },
 
         data () {
