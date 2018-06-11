@@ -4,9 +4,6 @@ import Actor from './Actor'
 
 const UUID = require('uuid');
 
-//import Bus from '../main/Bus'
-//import Queue from '../main/Queue'
-
 const StartGame = require('./commands/StartGame');
 const DrawMistle = require('./commands/DrawMistle');
 const DrawShield = require('./commands/DrawShield');
@@ -24,8 +21,8 @@ export default class Game {
         this.id = UUID.v4();
 
         // required
-        console.log('options');
-        console.log(options);
+        this.que = options.que;
+        this.bus = options.bus;
 
         this.store = {
             name:'Waypoint Crucible Game X',
@@ -57,21 +54,9 @@ export default class Game {
             timeRunning: 0,
         };
 
-        let _scope = this;
-        this.commands = [
-            new StartGame(this),
-            new DrawMistle(this), new DrawShield(this),
-            new SelectCard(this), new TargetActor(this),
-            new GameTick(this),
-            new ManaTick(this),
-            new MistleImpact(this), new ShieldUp(this),
-            new EndGame(this)
-        ];
-        this.commands.forEach(command => {
-            console.log(command.name);
-           // _scope.bus.addEventListener(command.name, command.doAction);
-        });
+        this.bus.$on('start-game', this.startGame);
 
+        let _scope = this;
         // init 10 actors: 5 'Good Guys', 5 'Bad Guys'
         for (let index = 0; index < _scope.store.actorCount; index++) {
             const randomIndex = Math.round(Math.random() * 4);
@@ -87,6 +72,10 @@ export default class Game {
             let newActor = new Actor(index, _scope, actorOptions);
             _scope.store.actors.push(newActor);
         }
+    }
+
+    startGame(stage, data){
+        console.log("Game start-game")
     }
 
     gameTick(stage, data){

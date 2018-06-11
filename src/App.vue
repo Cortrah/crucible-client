@@ -143,9 +143,6 @@
         },
 
         created () {
-            console.log('App created');
-            console.log(this);
-
             let _scope = this;
             this.commands = [
                 new StartGame(this),
@@ -157,19 +154,23 @@
                 new EndGame(this)
             ];
             this.commands.forEach(command => {
-                console.log(command.name);
                 _scope.$bus.$on(command.name, command.doAction);
             });
-            console.log("setting the stage");
 
-            let startCommand = new StartGame(this.stage, {'gogo':'gadget'}).dispatch();
+            let startCommand = new StartGame(this.stage, {'gogo':'gadget'});
+            console.log(startCommand);
             this.$que.add(startCommand);
-            let result =  this.$que.play();
+            console.log(this.$que);
+            let result =  this.$que.play(this,{'extras':'gadgeteer'} );
         },
 
         data () {
             return {
-                stage: new Game({'que': this.$que}),
+                stage: new Game({
+                    'que': this.$que,
+                    'bus': this.$bus,
+
+                }),
                 serverIsRunning: false,
                 signedIn: false,
                 loginInfo: {},
@@ -187,79 +188,79 @@
                     let newRoute = event.substring(5);
                     this.$router.push({ name: newRoute, params: data});
                 } else {
-                    switch (event) {
-                        case 'register-request': {
-                            this.registerRequest(data);
-                            break;
-                        }
-                        case 'sign-in-request': {
-                            this.signInRequest(data);
-                            break;
-                        }
-                        case 'update-profile': {
-                            this.updateProfile(data);
-                            break;
-                        }
-                        case 'sign-out-request': {
-                            this.signOutRequest(data);
-                            break;
-                        }
-                        case 'sign-out-result': {
-                            this.signOutResult(data);
-                            break;
-                        }
-                        case 'get-accounts-request': {
-                            this.getAccounts(data);
-                            break;
-                        }
-                        case 'create-table': {
-                            this.createTable(data);
-                            break;
-                        }
-                        case 'start-game': {
-                            this.startGame(data);
-                            break;
-                        }
-                        case 'game-tick': {
-                            this.$store.dispatch('gameTick', data);
-                            break;
-                        }
-                        case 'mana-tick': {
-                            this.$store.dispatch('manaTick', data);
-                            break;
-                        }
-                        case 'draw-mistle': {
-                            this.$store.dispatch('drawMistle', data);
-                            break;
-                        }
-                        case 'draw-shield': {
-                            this.$store.dispatch('drawShield', data);
-                            break;
-                        }
-                        case 'select-card': {
-                            this.$store.dispatch('selectCard', data);
-                            break;
-                        }
-                        case 'target-actor': {
-                            this.$store.dispatch('targetActor', data);
-                            break;
-                        }
-                        case 'sit-at-table': {
-                            this.$store.dispatch('sitAtTable', data);
-                            break;
-                        }
-                        case 'stand-from-table': {
-                            this.$store.dispatch('standFromTable', data);
-                            break;
-                        }
-                        case 'end-game': {
-                            this.endGame(data);
-                            break;
-                        }
-                        default: {
-                            throw "App error, invalid event: " + event + " .";
-                        }
-                    }
+                    // switch (event) {
+                    //     case 'register-request': {
+                    //         this.registerRequest(data);
+                    //         break;
+                    //     }
+                    //     case 'sign-in-request': {
+                    //         this.signInRequest(data);
+                    //         break;
+                    //     }
+                    //     case 'update-profile': {
+                    //         this.updateProfile(data);
+                    //         break;
+                    //     }
+                    //     case 'sign-out-request': {
+                    //         this.signOutRequest(data);
+                    //         break;
+                    //     }
+                    //     case 'sign-out-result': {
+                    //         this.signOutResult(data);
+                    //         break;
+                    //     }
+                    //     case 'get-accounts-request': {
+                    //         this.getAccounts(data);
+                    //         break;
+                    //     }
+                    //     case 'create-table': {
+                    //         this.createTable(data);
+                    //         break;
+                    //     }
+                    //     case 'start-game': {
+                    //         this.startGame(data);
+                    //         break;
+                    //     }
+                    //     case 'game-tick': {
+                    //         this.$store.dispatch('gameTick', data);
+                    //         break;
+                    //     }
+                    //     case 'mana-tick': {
+                    //         this.$store.dispatch('manaTick', data);
+                    //         break;
+                    //     }
+                    //     case 'draw-mistle': {
+                    //         this.$store.dispatch('drawMistle', data);
+                    //         break;
+                    //     }
+                    //     case 'draw-shield': {
+                    //         this.$store.dispatch('drawShield', data);
+                    //         break;
+                    //     }
+                    //     case 'select-card': {
+                    //         this.$store.dispatch('selectCard', data);
+                    //         break;
+                    //     }
+                    //     case 'target-actor': {
+                    //         this.$store.dispatch('targetActor', data);
+                    //         break;
+                    //     }
+                    //     case 'sit-at-table': {
+                    //         this.$store.dispatch('sitAtTable', data);
+                    //         break;
+                    //     }
+                    //     case 'stand-from-table': {
+                    //         this.$store.dispatch('standFromTable', data);
+                    //         break;
+                    //     }
+                    //     case 'end-game': {
+                    //         this.endGame(data);
+                    //         break;
+                    //     }
+                    //     default: {
+                    //         throw "App error, invalid event: " + event + " .";
+                    //     }
+                    //}
                 }
             },
 
@@ -356,16 +357,16 @@
             },
 
             createTable: function (data) {
-                this.$store.dispatch({ type: 'createTable', data});
-                this.$bus.$emit('goto-table-top');
+                //this.$store.dispatch({ type: 'createTable', data});
+                //this.$bus.$emit('goto-table-top');
             },
 
             startGame: function (data) {
-                this.$store.dispatch({ type: 'startGame', data});
+                //this.$store.dispatch({ type: 'startGame', data});
             },
 
             endGame: function (data) {
-                this.$store.dispatch({ type: 'endGame', data});
+                //this.$store.dispatch({ type: 'endGame', data});
             },
         }
     }

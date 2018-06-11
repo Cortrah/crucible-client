@@ -15,8 +15,6 @@ Vue.config.productionTip = false;
 Vue.prototype.$bus = new Vue();
 Vue.prototype.$que = new Queue();
 
-console.log('main');
-
 new Vue({
     el: '#app',
     router,
