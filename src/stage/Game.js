@@ -21,13 +21,11 @@ const EndGame = require('./commands/EndGame');
 export default class Game {
 
     constructor(options) {
-        console.log('Game constructor');
         this.id = UUID.v4();
 
         // required
+        console.log('options');
         console.log(options);
-        //this.que = options.que;
-        //this.bus = options.bus;
 
         this.store = {
             name:'Waypoint Crucible Game X',

@@ -160,6 +160,7 @@
                 console.log(command.name);
                 _scope.$bus.$on(command.name, command.doAction);
             });
+            console.log("setting the stage");
 
             let startCommand = new StartGame(this.stage, {'gogo':'gadget'}).dispatch();
             this.$que.add(startCommand);

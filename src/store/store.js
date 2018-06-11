@@ -9,7 +9,7 @@ const debug = process.env.NODE_ENV !== 'production';
 export const state = {
     user: new User(),
     tables: [],
-    game: new Game(),
+    game: null,
     dogAvatars: [
         {id: '1', name: 'Cavalier', img: '../static/dog1.png'},
         {id: '2', name: 'Mini Schnauser', img: '../static/dog2.png'},
