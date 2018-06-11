@@ -148,8 +148,7 @@
                 new StartGame(this),
                 new DrawMistle(this), new DrawShield(this),
                 new SelectCard(this), new TargetActor(this),
-                new GameTick(this),
-                new ManaTick(this),
+                new GameTick(this), new ManaTick(this),
                 new MistleImpact(this), new ShieldUp(this),
                 new EndGame(this)
             ];
@@ -157,18 +156,16 @@
                 _scope.$bus.$on(command.name, command.doAction);
             });
 
-            let startCommand = new StartGame(this.stage, {'gogo':'gadget'});
-            console.log(startCommand);
+            let startCommand = new StartGame(_scope, {'gogo':'gadget'});
             this.$que.add(startCommand);
-            console.log(this.$que);
-            let result =  this.$que.play(this,{'extras':'gadgeteer'} );
+            let result =  this.$que.play();
         },
 
         data () {
             return {
                 stage: new Game({
-                    'que': this.$que,
-                    'bus': this.$bus,
+                    '$que': this.$que,
+                    '$bus': this.$bus,
 
                 }),
                 serverIsRunning: false,

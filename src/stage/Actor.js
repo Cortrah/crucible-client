@@ -24,18 +24,18 @@ let defaults = {
     deck:[0,0,1,1,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,8],
     deckSize:20,
     drawEnabled:false,
-    isbleedingOut:false,
+    isBleedingOut:false,
     isActive:true
 };
 
 export default class Actor {
 
-    constructor(index, stage, options) {
+    constructor(index, parent, options) {
         this.id = UUID.v4();
 
         // required
         this.index = index;
-        this.stage = stage;
+        this.parent = parent;
 
         if (typeof options !== 'undefined'){
             this.name = options.name || defaults.name;
@@ -52,13 +52,13 @@ export default class Actor {
             //this.deck = options.deck ? this.shuffle(options.deck) : this.shuffle(defaults.deck);
             this.deckSize = options.deckSize || defaults.deckSize;
             this.drawEnabled = options.drawEnabled || defaults.drawEnabled;
-            this.isbleedingOut = options.isbleedingOut || defaults.isbleedingOut;
+            this.isBleedingOut = options.isBleedingOut || defaults.isBleedingOut;
             this.isActive = options.isActive || defaults.isActive;
         } else {
             Object.assign(this, defaults);
         }
         this.shuffle(defaults.deck);
-        //this.stage.bus.addEventListener('game-tick', this);
+        this.parent.$bus.$on('game-tick', this);
     }
 
     shuffle(deck) {
@@ -75,7 +75,9 @@ export default class Actor {
     }
 
     gameTick(stage, data){
-        // decide weather to draw a mistle, a shield, select a card or target an actor
+        console.log("Actor game-tick");
+        console.log(stage);
+        // decide whether to draw a mistle, a shield, select a card or target an actor
         if(stage.store.status === 'PLAYING'){
             let actor = stage.store.actors[data.index];
             if (actor.isActive && actor.controller === "AI") {
@@ -84,7 +86,7 @@ export default class Actor {
                 if (actor.cards.length < 5 && (actor.mana >= 0)) {
                     if(actor.mana > 0){
                         // ToDo: choose to draw a mistle or a shield
-                        new DrawMistle(stage, {actorId: actor.index}).dispatch();
+                        new DrawMistle(stage, {actorId: actor.index});
                     } else {
                         // wait till we have mana to draw a card
                     }
@@ -113,7 +115,7 @@ export default class Actor {
                                 targetId: foe.id,
                                 cardIndex: cardIndex
                             }
-                        ).dispatch();
+                        )
                     } else {
                         // if the actor is axis its enemy is an allie
                         let activeFoes = command.store.actors.filter((actor) =>
@@ -129,7 +131,7 @@ export default class Actor {
                                 targetId: foe.id,
                                 cardIndex: cardIndex
                             }
-                        ).dispatch();
+                        )
                     }
                 }
             }

@@ -5,13 +5,17 @@ const Command = require("../../main/Command");
 module.exports = class StartGame extends Command {
 
     constructor(stage, data) {
+        console.log("start-game constructor");
+        console.log(stage);
+        console.log(data);
         super('start-game', stage, data);
     }
 
     doAction(stage, data) {
         console.log("start-game doAction");
-        console.log(this.stage);
-        console.log(this.data);
+        console.log(stage);
+        console.log(data);
+
         let store = stage.store;
         if(typeof store !== 'undefined'){
             store.gameIntervalId = setInterval(stage.gameTick, store.rules.gameTickInterval, stage, data);

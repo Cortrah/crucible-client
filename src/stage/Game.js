@@ -21,8 +21,8 @@ export default class Game {
         this.id = UUID.v4();
 
         // required
-        this.que = options.que;
-        this.bus = options.bus;
+        this.$que = options.$que;
+        this.$bus = options.$bus;
 
         this.store = {
             name:'Waypoint Crucible Game X',
@@ -54,23 +54,25 @@ export default class Game {
             timeRunning: 0,
         };
 
-        this.bus.$on('start-game', this.startGame);
+        this.$bus.$on('start-game', this.startGame);
+        this.$bus.$on('game-tick', this.gameTick);
+        this.$bus.$on('mana-tick', this.manaTick);
 
-        let _scope = this;
+        let _parent = this;
         // init 10 actors: 5 'Good Guys', 5 'Bad Guys'
-        for (let index = 0; index < _scope.store.actorCount; index++) {
+        for (let index = 0; index < _parent.store.actorCount; index++) {
             const randomIndex = Math.round(Math.random() * 4);
             let avatarImg = '../static/robot' + randomIndex + '.png';
             let team = "Bad Guys";
-            if (index >= _scope.store.actorCount / 2) {
+            if (index >= _parent.store.actorCount / 2) {
                 team = 'Good Guys';
             }
             let actorOptions = {
                 team: team,
                 avatarImg: avatarImg,
             };
-            let newActor = new Actor(index, _scope, actorOptions);
-            _scope.store.actors.push(newActor);
+            let newActor = new Actor(index, _parent, actorOptions);
+            _parent.store.actors.push(newActor);
         }
     }
 
@@ -80,11 +82,9 @@ export default class Game {
 
     gameTick(stage, data){
         console.log("Game game-tick")
-        let gameTick = new GameTick(stage, data).dispatch();
     }
 
     manaTick(stage, data){
         console.log("Game mana-tick")
-        let manaTick = new ManaTick(stage, data).dispatch();
     }
 }
