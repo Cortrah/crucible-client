@@ -21,6 +21,8 @@ module.exports = class Bus {
     };
 
     addEventListener(eventName, callback){
+        console.log(eventName);
+        console.log(callback);
         if(this.events[eventName]){
             this.events[eventName].registerCallback(callback);
         } else {

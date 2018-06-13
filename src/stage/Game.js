@@ -71,11 +71,6 @@ export default class Game {
         this.bus.addEventListener('game-tick', this.gameTick);
         this.bus.addEventListener('mana-tick', this.manaTick);
 
-        let startCommand = new StartGame(this);
-        this.que.add(startCommand);
-        this.que.play();
-
-
         // init 10 actors: 5 'Good Guys', 5 'Bad Guys'
         for (let index = 0; index < this.store.actorCount; index++) {
             const randomIndex = Math.round(Math.random() * 4);
@@ -91,6 +86,10 @@ export default class Game {
             let newActor = new Actor(index, this, actorOptions);
             this.store.actors.push(newActor);
         }
+
+        let startCommand = new StartGame(this);
+        this.que.add(startCommand);
+        this.que.play();
     }
 
     startGame(stage, data){
@@ -98,7 +97,7 @@ export default class Game {
     }
 
     gameTick(stage, data){
-        //console.log("Game game-tick")
+        console.log("Game game-tick")
     }
 
     manaTick(stage, data){

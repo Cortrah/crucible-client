@@ -58,7 +58,8 @@ export default class Actor {
             Object.assign(this, defaults);
         }
         this.shuffle(defaults.deck);
-        this._parent.bus.addEventListener('game-tick', this);
+
+        this._parent.bus.addEventListener('game-tick', this.gameTick);
     }
 
     shuffle(deck) {
