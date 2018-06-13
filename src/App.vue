@@ -142,32 +142,9 @@
             root: 'http://localhost:8080/'
         },
 
-        created () {
-            let _scope = this;
-            this.commands = [
-                new StartGame(this),
-                new DrawMistle(this), new DrawShield(this),
-                new SelectCard(this), new TargetActor(this),
-                new GameTick(this), new ManaTick(this),
-                new MistleImpact(this), new ShieldUp(this),
-                new EndGame(this)
-            ];
-            this.commands.forEach(command => {
-                _scope.$bus.$on(command.name, command.doAction);
-            });
-
-            let startCommand = new StartGame(_scope, {'gogo':'gadget'});
-            this.$que.add(startCommand);
-            let result =  this.$que.play();
-        },
-
         data () {
             return {
-                stage: new Game({
-                    '$que': this.$que,
-                    '$bus': this.$bus,
-
-                }),
+                stage: new Game(),
                 serverIsRunning: false,
                 signedIn: false,
                 loginInfo: {},

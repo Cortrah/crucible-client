@@ -35,7 +35,7 @@ export default class Actor {
 
         // required
         this.index = index;
-        this.parent = parent;
+        this._parent = parent;
 
         if (typeof options !== 'undefined'){
             this.name = options.name || defaults.name;
@@ -58,7 +58,7 @@ export default class Actor {
             Object.assign(this, defaults);
         }
         this.shuffle(defaults.deck);
-        this.parent.$bus.$on('game-tick', this);
+        this._parent.bus.addEventListener('game-tick', this);
     }
 
     shuffle(deck) {

@@ -10,7 +10,6 @@ module.exports = class GameTick extends Command {
     }
 
     doAction(stage, data) {
-        console.log('game-tick');
         return 'ok'
     }
 };
