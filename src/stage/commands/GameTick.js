@@ -1,7 +1,6 @@
 'use strict';
 
 const Command = require("../../main/Command");
-const ManaTick = require("./ManaTick");
 
 module.exports = class GameTick extends Command {
 

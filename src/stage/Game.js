@@ -2,7 +2,6 @@
 
 import Actor from './Actor'
 import Queue from '../main/Queue'
-import Bus from '../main/Bus'
 
 const UUID = require('uuid');
 
@@ -22,7 +21,6 @@ export default class Game {
 
     constructor(options) {
         this.id = UUID.v4();
-        this.bus = new Bus();
         this.que = new Queue();
 
         this.store = {
@@ -67,9 +65,9 @@ export default class Game {
         //this.commands.forEach(command => {
         //    _scope.bus.addEventListener('start-game', _scope.startGame);
         //});
-        this.bus.addEventListener('start-game', this.startGame);
-        this.bus.addEventListener('game-tick', this.gameTick);
-        this.bus.addEventListener('mana-tick', this.manaTick);
+        this.que.addEventListener('start-game', this.startGame);
+        this.que.addEventListener('game-tick', this.gameTick);
+        this.que.addEventListener('mana-tick', this.manaTick);
 
         // init 10 actors: 5 'Good Guys', 5 'Bad Guys'
         for (let index = 0; index < this.store.actorCount; index++) {
@@ -89,18 +87,24 @@ export default class Game {
 
         let startCommand = new StartGame(this);
         this.que.add(startCommand);
-        this.que.play();
     }
 
     startGame(stage, data){
-        //console.log("Game start-game")
+        console.log("Game start-game")
+        store.gameIntervalId = setInterval(this.gameTick, this.store.rules.gameTickInterval, this, data);
+        store.manaIntervalId = setInterval(this.manaTick, this.store.rules.manaTickInterval, this, data);
     }
 
     gameTick(stage, data){
         console.log("Game game-tick")
+        let gameTickCommand = new GameTick(stage, data);
+        this.que.add(gameTickCommand);
+        this.que.dispatchEvent('game')
     }
 
     manaTick(stage, data){
-        //console.log("Game mana-tick")
+        console.log("Game mana-tick")
+        let manaTickCommand = new ManaTick(stage, data);
+        this.que.add(manaTickCommand);
     }
 }
