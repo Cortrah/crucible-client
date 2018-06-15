@@ -24,7 +24,7 @@ module.exports = class Queue {
             if(this.playhead < this.commands.length + 1) {
                 this.playhead++;
             }
-            this.dispatchEvent(command.name, command.stage, command.data);
+            //this.dispatchEvent(command.name, command.stage, command.data);
         }
         this.pause()
     }
@@ -36,8 +36,6 @@ module.exports = class Queue {
     dispatchEvent(eventName, stage, data){
         if(this.events[eventName] != undefined){
             this.events[eventName].callbacks.forEach(function(callback){
-                console.log('stage');
-                console.log(stage);
                 callback(stage, data);
             });
         }

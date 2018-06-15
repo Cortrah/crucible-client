@@ -8,8 +8,7 @@ module.exports = class GameTick extends Command {
         super('game-tick', stage, data);
     }
 
-    doAction(stage, data) {
-        console.log('GameTick doAction');
+    async doAction(stage, data) {
         return 'ok'
     }
 };
