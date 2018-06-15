@@ -1,7 +1,6 @@
 'use strict';
 
 const Command = require("../../main/Command");
-const ManaTick = require("./ManaTick");
 
 module.exports = class GameTick extends Command {
 
@@ -10,6 +9,7 @@ module.exports = class GameTick extends Command {
     }
 
     doAction(stage, data) {
+        console.log('GameTick doAction');
         return 'ok'
     }
 };

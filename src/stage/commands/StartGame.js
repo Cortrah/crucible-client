@@ -11,8 +11,6 @@ module.exports = class StartGame extends Command {
     doAction() {
         let store = this.stage.store;
         if(typeof store !== 'undefined'){
-            store.gameIntervalId = setInterval(this.stage.gameTick, store.rules.gameTickInterval, this.stage, this.data);
-            store.manaIntervalId = setInterval(this.stage.manaTick, store.rules.manaTickInterval, this.stage, this.data);
             // shuffle each actors deck
             store.actors.forEach(function(actor){
                 let remaining = actor.deck.length;

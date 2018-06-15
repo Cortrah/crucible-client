@@ -2,7 +2,6 @@
 
 import Actor from './Actor'
 import Queue from '../main/Queue'
-import Bus from '../main/Bus'
 
 const UUID = require('uuid');
 
@@ -22,7 +21,6 @@ export default class Game {
 
     constructor(options) {
         this.id = UUID.v4();
-        this.bus = new Bus();
         this.que = new Queue();
 
         this.store = {
@@ -35,7 +33,7 @@ export default class Game {
                 startingDeck: [0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8],
                 startingHandSize: 0,
                 maxCards: 5,
-                gameTickInterval: 300,
+                gameTickInterval: 500,
                 manaGrowthInterval: 1000,
                 manaReplentishInterval: 1000,
                 drawInterval: 1000,
@@ -55,21 +53,21 @@ export default class Game {
             timeRunning: 0,
         };
 
-        this.commands = [
-            new StartGame(this),
-            new DrawMistle(this), new DrawShield(this),
-            new SelectCard(this), new TargetActor(this),
-            new GameTick(this), new ManaTick(this),
-            new MistleImpact(this), new ShieldUp(this),
-            new EndGame(this)
-        ];
+        // this.commands = [
+        //     new StartGame(this),
+        //     new DrawMistle(this), new DrawShield(this),
+        //     new SelectCard(this), new TargetActor(this),
+        //     new GameTick(this), new ManaTick(this),
+        //     new MistleImpact(this), new ShieldUp(this),
+        //     new EndGame(this)
+        // ];
         //let _scope = this;
         //this.commands.forEach(command => {
         //    _scope.bus.addEventListener('start-game', _scope.startGame);
         //});
-        this.bus.addEventListener('start-game', this.startGame);
-        this.bus.addEventListener('game-tick', this.gameTick);
-        this.bus.addEventListener('mana-tick', this.manaTick);
+        this.que.addEventListener('start-game', this.startGame);
+        this.que.addEventListener('game-tick', this.gameTick);
+        this.que.addEventListener('mana-tick', this.manaTick);
 
         // init 10 actors: 5 'Good Guys', 5 'Bad Guys'
         for (let index = 0; index < this.store.actorCount; index++) {
@@ -89,15 +87,16 @@ export default class Game {
 
         let startCommand = new StartGame(this);
         this.que.add(startCommand);
-        this.que.play();
     }
 
     startGame(stage, data){
-        //console.log("Game start-game")
+        stage.store.gameIntervalId = setInterval(stage.gameTick, stage.store.rules.gameTickInterval, stage, data);
+        stage.store.manaIntervalId = setInterval(stage.manaTick, stage.store.rules.manaTickInterval, stage, data);
     }
 
     gameTick(stage, data){
-        console.log("Game game-tick")
+        let gameTick = new GameTick(stage);
+        stage.que.add(gameTick)
     }
 
     manaTick(stage, data){
