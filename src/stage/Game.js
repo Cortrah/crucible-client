@@ -95,6 +95,7 @@ export default class Game {
     }
 
     gameTick(stage, data){
+        console.log("Game gameTick");
         let gameTick = new GameTick(stage);
         stage.que.add(gameTick)
     }

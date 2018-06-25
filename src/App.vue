@@ -120,11 +120,14 @@
         'sit-at-table','stand-from-table',
     ];
 
-    let gameEvents = [
-        'start-game',
-        'draw-mistle','draw-shield',
-        'select-card','target-actor'
-    ];
+    // -----------------------
+    // handled at the game and actor levels
+    // -----------------------
+    // let gameEvents = [
+    //     'start-game',
+    //     'draw-mistle','draw-shield',
+    //     'select-card','target-actor'
+    // ];
 
     // -----------------------
     // nes websocket always server initiated
@@ -142,8 +145,24 @@
             root: 'http://localhost:8080/'
         },
 
-        data () {
+       created() {
+           let _self = this;
+           this.eventList.forEach(eventName => {
+               this.$bus.$on(eventName, function(data) {
+                   _self.eventSwitch(eventName, data);
+               });
+           });
+       },
+
+       beforeDestroy () {
+           this.eventList.forEach(eventName => {
+               this.$bus.$off(eventName);
+           });
+       },
+
+       data () {
             return {
+                eventList: localEvents.concat(lobbyEvents, tableEvents),
                 stage: new Game(),
                 serverIsRunning: false,
                 signedIn: false,
@@ -154,87 +173,83 @@
 
         methods: {
             eventSwitch: function(event, data) {
-                // console.log(event);
-                // if(typeof data !== 'undefined'){
-                //    console.log(data);
-                // }
                 if(event.substring(0,5) === 'goto-'){
                     let newRoute = event.substring(5);
                     this.$router.push({ name: newRoute, params: data});
                 } else {
-                    // switch (event) {
-                    //     case 'register-request': {
-                    //         this.registerRequest(data);
-                    //         break;
-                    //     }
-                    //     case 'sign-in-request': {
-                    //         this.signInRequest(data);
-                    //         break;
-                    //     }
-                    //     case 'update-profile': {
-                    //         this.updateProfile(data);
-                    //         break;
-                    //     }
-                    //     case 'sign-out-request': {
-                    //         this.signOutRequest(data);
-                    //         break;
-                    //     }
-                    //     case 'sign-out-result': {
-                    //         this.signOutResult(data);
-                    //         break;
-                    //     }
-                    //     case 'get-accounts-request': {
-                    //         this.getAccounts(data);
-                    //         break;
-                    //     }
-                    //     case 'create-table': {
-                    //         this.createTable(data);
-                    //         break;
-                    //     }
-                    //     case 'start-game': {
-                    //         this.startGame(data);
-                    //         break;
-                    //     }
-                    //     case 'game-tick': {
-                    //         this.$store.dispatch('gameTick', data);
-                    //         break;
-                    //     }
-                    //     case 'mana-tick': {
-                    //         this.$store.dispatch('manaTick', data);
-                    //         break;
-                    //     }
-                    //     case 'draw-mistle': {
-                    //         this.$store.dispatch('drawMistle', data);
-                    //         break;
-                    //     }
-                    //     case 'draw-shield': {
-                    //         this.$store.dispatch('drawShield', data);
-                    //         break;
-                    //     }
-                    //     case 'select-card': {
-                    //         this.$store.dispatch('selectCard', data);
-                    //         break;
-                    //     }
-                    //     case 'target-actor': {
-                    //         this.$store.dispatch('targetActor', data);
-                    //         break;
-                    //     }
-                    //     case 'sit-at-table': {
-                    //         this.$store.dispatch('sitAtTable', data);
-                    //         break;
-                    //     }
-                    //     case 'stand-from-table': {
-                    //         this.$store.dispatch('standFromTable', data);
-                    //         break;
-                    //     }
-                    //     case 'end-game': {
-                    //         this.endGame(data);
-                    //         break;
-                    //     }
-                    //     default: {
-                    //         throw "App error, invalid event: " + event + " .";
-                    //     }
-                    //}
+                    switch (event) {
+                        case 'register': {
+                            this.registerRequest(data);
+                            break;
+                        }
+                        case 'sign-in': {
+                            this.signInRequest(data);
+                            break;
+                        }
+                        case 'update-profile': {
+                            this.updateProfile(data);
+                            break;
+                        }
+                        case 'get-accounts': {
+                            this.getAccounts(data);
+                            break;
+                        }
+                        case 'create-table': {
+                            this.createTable(data);
+                            break;
+                        }
+                        case 'sign-out': {
+                            this.signOutRequest(data);
+                            break;
+                        }
+                        // case 'start-game': {
+                        //     this.startGame(data);
+                        //     break;
+                        // }
+                        // case 'game-tick': {
+                        //     this.$store.dispatch('gameTick', data);
+                        //     break;
+                        // }
+                        // case 'mana-tick': {
+                        //     this.$store.dispatch('manaTick', data);
+                        //     break;
+                        // }
+                        // case 'draw-mistle': {
+                        //     this.$store.dispatch('drawMistle', data);
+                        //     break;
+                        // }
+                        // case 'draw-shield': {
+                        //     this.$store.dispatch('drawShield', data);
+                        //     break;
+                        // }
+                        // case 'select-card': {
+                        //     this.$store.dispatch('selectCard', data);
+                        //     break;
+                        // }
+                        // case 'target-actor': {
+                        //     this.$store.dispatch('targetActor', data);
+                        //     break;
+                        // }
+                        // case 'end-game': {
+                        //     this.endGame(data);
+                        //     break;
+                        // }
+                        case 'join-table': {
+                            this.$store.dispatch('joinTable', data);
+                            break;
+                        }
+                        case 'sit-at-table': {
+                            this.$store.dispatch('sitAtTable', data);
+                            break;
+                        }
+                        case 'stand-from-table': {
+                            this.$store.dispatch('standFromTable', data);
+                            break;
+                        }
+                        default: {
+                            throw "App error, invalid event: " + event + " .";
+                        }
+                    }
                 }
             },
 
