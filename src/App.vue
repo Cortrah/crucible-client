@@ -70,11 +70,10 @@
     // -----------------------------------
     // local, mostly navigation events
     // -----------------------------------
-    let localEvents = [
+    let navigationEvents = [
         'goto-home',
         'goto-sign-in', 'goto-register', 'goto-forgot',
         'goto-profile', 'goto-lobby', 'goto-host', 'goto-table-top',
-        'error'
     ];
 
     // -------------------------------------------------------------
@@ -162,7 +161,7 @@
 
        data () {
             return {
-                eventList: localEvents.concat(lobbyEvents, tableEvents),
+                eventList: navigationEvents.concat(lobbyEvents, tableEvents, 'error'),
                 stage: new Game(),
                 serverIsRunning: false,
                 signedIn: false,
@@ -173,7 +172,7 @@
 
         methods: {
             eventSwitch: function(event, data) {
-                if(event.substring(0,5) === 'goto-'){
+                if(navigationEvents.contains(event)){
                     let newRoute = event.substring(5);
                     this.$router.push({ name: newRoute, params: data});
                 } else {
