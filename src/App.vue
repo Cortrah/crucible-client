@@ -147,6 +147,7 @@
        created() {
            let _self = this;
            this.eventList.forEach(eventName => {
+               console.log(eventName);
                this.$bus.$on(eventName, function(data) {
                    _self.eventSwitch(eventName, data);
                });
@@ -154,7 +155,7 @@
        },
 
        beforeDestroy () {
-           this.eventList.forEach(eventName => {
+           this.eventList.forEach( eventName => {
                this.$bus.$off(eventName);
            });
        },
@@ -172,10 +173,12 @@
 
         methods: {
             eventSwitch: function(event, data) {
-                if(navigationEvents.contains(event)){
+                console.log(event);
+                if( navigationEvents.includes(event)){
                     let newRoute = event.substring(5);
                     this.$router.push({ name: newRoute, params: data});
                 } else {
+                    console.log(event);
                     switch (event) {
                         case 'register': {
                             this.registerRequest(data);
@@ -255,11 +258,11 @@
             registerRequest: function (formData) {
                 if(this.serverIsRunning) {
                     this.$http.post('/hapi/api/accounts', formData).then(
-                        (response) => {
+                        response => {
                             this.loginInfo = response.body;
                             this.signedIn = true;
                             this.$bus.$emit('goto-profile');
-                        }, (error) => {
+                        }, error => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
                             this.$bus.$emit('goto-home');
@@ -274,11 +277,11 @@
             signInRequest: function (formData) {
                 if (this.serverIsRunning) {
                     this.$http.post('/hapi/api/login', formData)
-                        .then((response) => {
+                        .then( response => {
                             this.loginInfo = response.body;
                             this.signedIn = true;
                             this.$bus.$emit('goto-profile');
-                        }, (error) => {
+                        }, error => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
                             this.$bus.$emit('goto-home');
@@ -293,9 +296,9 @@
             updateProfile: function (formData) {
                 if(this.serverIsRunning) {
                     this.$http.patch('/hapi/api/accounts', formData).then(
-                        (response) => {
+                        response => {
                             // ok?
-                        }, (error) => {
+                        }, error => {
                             // perhaps give a nice error message
                         });
                 } else {
@@ -311,11 +314,11 @@
                                 password: this.loginInfo.session.key,
                                 authorization: this.loginInfo.authHeader,
                             }
-                        }).then((response) => {
+                        }).then( response => {
                             this.loginInfo = {};
                             this.signedIn = false;
                             this.$bus.$emit('goto-home');
-                        }, (error) => {
+                        }, error => {
                             // either retry or emit error message?
                             // let the server side session timeout?
                             this.loginInfo = {};
@@ -337,9 +340,9 @@
                         password: this.loginInfo.session.key,
                         authorization: this.loginInfo.authHeader,
                     }
-                }).then((response) => {
+                }).then( response => {
                     this.$bus.$emit('goto-lobby');
-                }, (error) => {
+                }, error => {
                     this.gotoHome();
                 });
             },

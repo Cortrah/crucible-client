@@ -39,7 +39,7 @@
                     sessionId: '',
                     sessionKey: '',
                 };
-                this.$bus.$emit('register-request', formData);
+                this.$bus.$emit('register', formData);
             }
         }
     }
