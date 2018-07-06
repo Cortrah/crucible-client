@@ -9,6 +9,7 @@ module.exports = class StartGame extends Command {
     }
 
     doAction() {
+        console.log("StartGame doAction")
         let store = this.stage.store;
         if(typeof store !== 'undefined'){
             // shuffle each actors deck

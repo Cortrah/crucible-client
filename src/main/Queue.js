@@ -16,17 +16,15 @@ module.exports = class Queue {
         this.play();
     }
 
-   async play() {
+
+    async play() {
         this.isRunning = true;
         while(this.isRunning && (this.playhead < this.commands.length)){
             let command = this.commands[this.playhead];
             await command.doAction(command.stage, command.data)
-            if(this.playhead < this.commands.length + 1) {
-                this.playhead++;
-            }
-            //this.dispatchEvent(command.name, command.stage, command.data);
+            this.playhead++;
         }
-        this.pause()
+       this.pause()
     }
 
     pause() {

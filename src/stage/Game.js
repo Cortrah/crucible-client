@@ -17,9 +17,14 @@ const MistleImpact = require('./commands/MistleImpact');
 const ShieldUp = require('./commands/ShieldUp');
 const EndGame = require('./commands/EndGame');
 
+const AddOne = require('./commands/AddOne');
+const SubOne = require('./commands/SubOne');
+
+
 export default class Game {
 
     constructor(options) {
+        console.log("Game constructor called");
         this.id = UUID.v4();
         this.que = new Queue();
 
@@ -86,10 +91,30 @@ export default class Game {
         }
 
         let startCommand = new StartGame(this);
+        let add1a  = new AddOne(this);
+        let add1b  = new AddOne(this);
+        let add1c  = new AddOne(this);
+        let add1d  = new AddOne(this);
+
+        let sub1a  = new SubOne(this);
+        let sub1b  = new SubOne(this);
+
         this.que.add(startCommand);
+        this.que.add(add1a);
+        console.log(this.store.timeRunning + " should be 1");
+        this.que.add(add1b);
+        this.que.add(add1c);
+        console.log(this.store.timeRunning + " should be 3");
+        this.que.add(sub1a);
+        console.log(this.store.timeRunning + " should be 2");
+        this.que.add(add1d);
+        console.log(this.store.timeRunning + " should be 3");
+        this.que.add(sub1b);
+        console.log(this.store.timeRunning + " should be 2");
     }
 
     startGame(stage, data){
+        console.log("Game startGame");
         stage.store.gameIntervalId = setInterval(stage.gameTick, stage.store.rules.gameTickInterval, stage, data);
         stage.store.manaIntervalId = setInterval(stage.manaTick, stage.store.rules.manaTickInterval, stage, data);
     }
@@ -101,6 +126,6 @@ export default class Game {
     }
 
     manaTick(stage, data){
-        //console.log("Game mana-tick")
+        console.log("Game mana-tick")
     }
 }

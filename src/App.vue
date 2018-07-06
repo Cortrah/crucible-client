@@ -14,7 +14,7 @@
                     </li>
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-table-top')">
+                           @click.prevent="eventSwitch('goto-stage')">
                             Table Top
                         </a>
                     </li>
@@ -48,7 +48,7 @@
             </ul>
         </div>
         <div id="router-view-container">
-            <router-view></router-view>
+            <!--<router-view></router-view>-->
         </div>
     </div>
 </template>
@@ -73,7 +73,7 @@
     let navigationEvents = [
         'goto-home',
         'goto-sign-in', 'goto-register', 'goto-forgot',
-        'goto-profile', 'goto-lobby', 'goto-host', 'goto-table-top',
+        'goto-profile', 'goto-lobby', 'goto-host', 'goto-stage',
     ];
 
     // -------------------------------------------------------------
@@ -145,11 +145,9 @@
         },
 
        created() {
-           let _self = this;
            this.eventList.forEach(eventName => {
-               console.log(eventName);
-               this.$bus.$on(eventName, function(data) {
-                   _self.eventSwitch(eventName, data);
+               this.$bus.$on(eventName, data => {
+                   this.eventSwitch(eventName, data);
                });
            });
        },
@@ -173,12 +171,10 @@
 
         methods: {
             eventSwitch: function(event, data) {
-                console.log(event);
                 if( navigationEvents.includes(event)){
                     let newRoute = event.substring(5);
                     this.$router.push({ name: newRoute, params: data});
                 } else {
-                    console.log(event);
                     switch (event) {
                         case 'register': {
                             this.registerRequest(data);
@@ -204,38 +200,38 @@
                             this.signOutRequest(data);
                             break;
                         }
-                        // case 'start-game': {
-                        //     this.startGame(data);
-                        //     break;
-                        // }
-                        // case 'game-tick': {
-                        //     this.$store.dispatch('gameTick', data);
-                        //     break;
-                        // }
-                        // case 'mana-tick': {
-                        //     this.$store.dispatch('manaTick', data);
-                        //     break;
-                        // }
-                        // case 'draw-mistle': {
-                        //     this.$store.dispatch('drawMistle', data);
-                        //     break;
-                        // }
-                        // case 'draw-shield': {
-                        //     this.$store.dispatch('drawShield', data);
-                        //     break;
-                        // }
-                        // case 'select-card': {
-                        //     this.$store.dispatch('selectCard', data);
-                        //     break;
-                        // }
-                        // case 'target-actor': {
-                        //     this.$store.dispatch('targetActor', data);
-                        //     break;
-                        // }
-                        // case 'end-game': {
-                        //     this.endGame(data);
-                        //     break;
-                        // }
+                        case 'start-game': {
+                            this.startGame(data);
+                            break;
+                        }
+                        case 'game-tick': {
+                            this.$store.dispatch('gameTick', data);
+                            break;
+                        }
+                        case 'mana-tick': {
+                            this.$store.dispatch('manaTick', data);
+                            break;
+                        }
+                        case 'draw-mistle': {
+                            this.$store.dispatch('drawMistle', data);
+                            break;
+                        }
+                        case 'draw-shield': {
+                            this.$store.dispatch('drawShield', data);
+                            break;
+                        }
+                        case 'select-card': {
+                            this.$store.dispatch('selectCard', data);
+                            break;
+                        }
+                        case 'target-actor': {
+                            this.$store.dispatch('targetActor', data);
+                            break;
+                        }
+                        case 'end-game': {
+                            this.endGame(data);
+                            break;
+                        }
                         case 'join-table': {
                             this.$store.dispatch('joinTable', data);
                             break;
@@ -348,16 +344,16 @@
             },
 
             createTable: function (data) {
-                //this.$store.dispatch({ type: 'createTable', data});
-                //this.$bus.$emit('goto-table-top');
+                this.$store.dispatch({ type: 'createTable', data});
+                this.$bus.$emit('goto-stage');
             },
 
             startGame: function (data) {
-                //this.$store.dispatch({ type: 'startGame', data});
+                this.$store.dispatch({ type: 'startGame', data});
             },
 
             endGame: function (data) {
-                //this.$store.dispatch({ type: 'endGame', data});
+                this.$store.dispatch({ type: 'endGame', data});
             },
         }
     }
