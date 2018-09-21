@@ -17,9 +17,8 @@ const MistleImpact = require('./commands/MistleImpact');
 const ShieldUp = require('./commands/ShieldUp');
 const EndGame = require('./commands/EndGame');
 
-const AddOne = require('./commands/AddOne');
-const SubOne = require('./commands/SubOne');
-
+const AddSome = require('./commands/AddSome');
+const SubSome = require('./commands/SubSome');
 
 export default class Game {
 
@@ -48,6 +47,7 @@ export default class Game {
                 shieldsUpTime: 1000,
                 shieldDecayRate: 1000
             },
+            counter: 0,
             actorCount:10,
             actors:[],
             mistles:[],
@@ -91,26 +91,34 @@ export default class Game {
         }
 
         let startCommand = new StartGame(this);
-        let add1a  = new AddOne(this);
-        let add1b  = new AddOne(this);
-        let add1c  = new AddOne(this);
-        let add1d  = new AddOne(this);
+        let adda  = new AddSome(this, 1);
+        let addb  = new AddSome(this, 2);
+        let addc  = new AddSome(this, 3);
+        let addd  = new AddSome(this, 1);
 
-        let sub1a  = new SubOne(this);
-        let sub1b  = new SubOne(this);
+        let suba  = new SubSome(this, 1);
+        let subb  = new SubSome(this, 2);
 
+        console.log('----------------');
         this.que.add(startCommand);
-        this.que.add(add1a);
-        console.log(this.store.timeRunning + " should be 1");
-        this.que.add(add1b);
-        this.que.add(add1c);
-        console.log(this.store.timeRunning + " should be 3");
-        this.que.add(sub1a);
-        console.log(this.store.timeRunning + " should be 2");
-        this.que.add(add1d);
-        console.log(this.store.timeRunning + " should be 3");
-        this.que.add(sub1b);
-        console.log(this.store.timeRunning + " should be 2");
+        this.que.add(adda);
+        console.log(this.store.counter);
+        this.que.add(addb);
+        console.log(this.store.counter);
+        this.que.add(addc);
+        console.log(this.store.counter);
+        this.que.add(suba);
+        console.log(this.store.counter);
+        this.que.add(addd);
+        console.log(this.store.counter);
+        this.que.add(subb);
+        console.log(this.store.counter);
+        console.log('----------------');
+        this.que.play();
+
+        console.log('===============');
+        console.log(this.store.counter);
+        console.log('===============');
     }
 
     startGame(stage, data){

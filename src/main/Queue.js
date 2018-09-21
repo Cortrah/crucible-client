@@ -16,7 +16,6 @@ module.exports = class Queue {
         this.play();
     }
 
-
     async play() {
         this.isRunning = true;
         while(this.isRunning && (this.playhead < this.commands.length)){
@@ -32,7 +31,7 @@ module.exports = class Queue {
     }
 
     dispatchEvent(eventName, stage, data){
-        if(this.events[eventName] != undefined){
+        if(typeof this.events[eventName] !== 'undefined'){
             this.events[eventName].callbacks.forEach(function(callback){
                 callback(stage, data);
             });

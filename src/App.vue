@@ -1,54 +1,54 @@
 <template>
     <div >
-        <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
-            <a href="#" class="pure-menu-link pure-menu-heading">
-                <img id="logo" src="../static/logo.jpg"/>
-            </a>
-            <ul class="pure-menu-list">
-                <span v-if="signedIn">
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-lobby')">
-                            Lobby
-                        </a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-stage')">
-                            Table Top
-                        </a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-profile')">
-                            Profile
-                        </a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="signOutRequest()">
-                            Sign Out
-                        </a>
-                    </li>
-                </span>
-                <span v-else>
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-register')">
-                            Register
-                        </a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-sign-in')">
-                            Sign In
-                        </a>
-                    </li>
-                </span>
-            </ul>
-        </div>
+        <!--<div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">-->
+            <!--<a href="#" class="pure-menu-link pure-menu-heading">-->
+                <!--<img id="logo" src="../static/logo.jpg"/>-->
+            <!--</a>-->
+            <!--<ul class="pure-menu-list">-->
+                <!--<span v-if="signedIn">-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="eventSwitch('goto-lobby')">-->
+                            <!--Lobby-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="eventSwitch('goto-stage')">-->
+                            <!--Table Top-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="eventSwitch('goto-profile')">-->
+                            <!--Profile-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="signOutRequest()">-->
+                            <!--Sign Out-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</span>-->
+                <!--<span v-else>-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="eventSwitch('goto-register')">-->
+                            <!--Register-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="eventSwitch('goto-sign-in')">-->
+                            <!--Sign In-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</span>-->
+            <!--</ul>-->
+        <!--</div>-->
         <div id="router-view-container">
-            <!--<router-view></router-view>-->
+            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -137,7 +137,7 @@
     // 'shield-up',
     // 'end-game'
 
-   export default {
+   export default Vue.extend( {
         name: 'App',
 
         http: {
@@ -356,7 +356,7 @@
                 this.$store.dispatch({ type: 'endGame', data});
             },
         }
-    }
+    })
 </script>
 
 <style>
@@ -369,7 +369,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-image: url('../static/stars.jpg');
+        /*background-image: url('../static/stars.jpg');*/
     }
 
     #header {

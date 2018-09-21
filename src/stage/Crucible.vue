@@ -1,62 +1,62 @@
 <template>
     <div class="table-top">
-        <!--<div id="axis" class="team">-->
-            <!--<div class="team-container" v-for="actor in game.actors">-->
-                <!--<span v-if="actor.team === 'Bad Guys'">-->
-                    <!--<actor-portrait ref = "axis"-->
-                            <!--:actor = actor-->
-                            <!--@click = "targetActor(actor.id, actor.card)"-->
-                            <!--v-on:targeted = "targetActor">-->
-                    <!--</actor-portrait>-->
-                <!--</span>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div id="axis" class="team">
+            <div class="team-container" v-for="actor in game.actors">
+                <span v-if="actor.team === 'Bad Guys'">
+                    <actor-portrait ref = "axis"
+                            :actor = actor
+                            @click = "targetActor(actor.id, actor.card)"
+                            v-on:targeted = "targetActor">
+                    </actor-portrait>
+                </span>
+            </div>
+        </div>
 
-        <!--<div id="no-mans-land">-->
-            <!--<stellar-map></stellar-map>-->
-        <!--</div>-->
+        <div id="no-mans-land">
+            <stellar-map></stellar-map>
+        </div>
 
-        <!--<div v-if="game.winner !== ''">-->
-            <!--{{game.winner}} Victorious-->
-        <!--</div>-->
+        <div v-if="game.winner !== ''">
+            {{game.winner}} Victorious
+        </div>
 
-        <!--<div id="allies" class="team">-->
-            <!--<div class="team-container" v-for="actor in game.actors">-->
-                <!--<span v-if="actor.team === 'Good Guys'">-->
-                    <!--<actor-portrait ref="allies"-->
-                            <!--:actor = actor-->
-                            <!--@click = "targetActor(actor.id, actor.card)"-->
-                            <!--v-on:targeted="targetActor">-->
-                    <!--</actor-portrait>-->
-                <!--</span>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div id="allies" class="team">
+            <div class="team-container" v-for="actor in game.actors">
+                <span v-if="actor.team === 'Good Guys'">
+                    <actor-portrait ref="allies"
+                            :actor = actor
+                            @click = "targetActor(actor.id, actor.card)"
+                            v-on:targeted="targetActor">
+                    </actor-portrait>
+                </span>
+            </div>
+        </div>
 
-        <!--<div class="console">-->
-            <!--<PlayerConsole  ref="player-console"-->
-                            <!--v-on:select-card="selectCard">-->
-            <!--</PlayerConsole>-->
+        <div class="console">
+            <PlayerConsole  ref="player-console"
+                            v-on:select-card="selectCard">
+            </PlayerConsole>
 
-            <!--<button @click="drawMistle()">Draw Mistle</button>-->
-            <!--<button @click="drawShield()">Draw Shield</button>-->
-            <!--<button @click="standFromTable(user.playerId)">stand from table</button>-->
-        <!--</div>-->
+            <button @click="drawMistle()">Draw Mistle</button>
+            <button @click="drawShield()">Draw Shield</button>
+            <button @click="standFromTable(user.playerId)">stand from table</button>
+        </div>
 
-        <!--<div id="mistles">-->
-            <!--<div class="mistles-container"-->
-                 <!--v-for="mistle in game.mistles">-->
-                <!--<Mistle-->
-                    <!--:id = mistle.id-->
-                    <!--:sourceX = sourceX(mistle.sourceId)-->
-                    <!--:sourceY = sourceY(mistle.sourceId)-->
-                    <!--:targetX = targetX(mistle.targetId)-->
-                    <!--:targetY = targetY(mistle.targetId)-->
-                    <!--:card = mistle.card-->
-                    <!--:hasLanded = mistle.hasLanded-->
-                    <!--:flightTime = mistle.flightTime>-->
-                <!--</Mistle>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div id="mistles">
+            <div class="mistles-container"
+                 v-for="mistle in game.mistles">
+                <Mistle
+                    :id = mistle.id
+                    :sourceX = sourceX(mistle.sourceId)
+                    :sourceY = sourceY(mistle.sourceId)
+                    :targetX = targetX(mistle.targetId)
+                    :targetY = targetY(mistle.targetId)
+                    :card = mistle.card
+                    :hasLanded = mistle.hasLanded
+                    :flightTime = mistle.flightTime>
+                </Mistle>
+            </div>
+        </div>
     </div>
 </template>
 

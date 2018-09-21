@@ -11,6 +11,8 @@ module.exports = class StartGame extends Command {
     doAction() {
         console.log("StartGame doAction")
         let store = this.stage.store;
+        console.log(store);
+
         if(typeof store !== 'undefined'){
             // shuffle each actors deck
             store.actors.forEach(function(actor){
