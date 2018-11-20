@@ -7,6 +7,9 @@
     <exe-path>/usr/local/bin/bower</exe-path>
     <config-path />
   </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/src/main/Queue.js" />
+  </component>
   <component name="masterDetails">
     <states>
       <state key="ScopeChooserConfigurable.UI">

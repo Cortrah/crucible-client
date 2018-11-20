@@ -4,11 +4,11 @@ const Command = require("../../main/Command");
 
 module.exports = class SimpleMessage extends Command {
 
-    constructor(stage, data) {
-        super('simple-message', stage, data);
+    constructor(data) {
+        super('SimpleMessage', data);
     }
 
-    doAction(stage, data) {
+    async do(state){
         return 'ok'
     }
 };

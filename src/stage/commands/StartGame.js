@@ -4,12 +4,12 @@ const Command = require("../../main/Command");
 
 module.exports = class StartGame extends Command {
 
-    constructor(stage, data) {
-        super('start-game', stage, data);
+    constructor(data) {
+        super('StartGame', data);
     }
 
-    doAction() {
-        let store = this.stage.store;
+    async do(state){
+        let store = stage.store;
         if(typeof store !== 'undefined'){
             // shuffle each actors deck
             store.actors.forEach(function(actor){

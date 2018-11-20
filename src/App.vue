@@ -152,6 +152,16 @@
             }
         },
 
+       created() {
+           this.$bus.$on('enqueue', (command) => {
+               return this.$store.dispatch({ type: "enqueue", command});
+           });
+       },
+
+       beforeDestroy () {
+           this.$bus.$off('enqueue');
+       },
+
         methods: {
             eventSwitch: function(event, data) {
                 // console.log(event);
