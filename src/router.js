@@ -8,7 +8,7 @@ import Forgot from './lobby/views/Forgot.vue';
 import Profile from './lobby/views/Profile.vue';
 import Lobby from './lobby/views/Lobby.vue';
 import Host from './lobby/views/Host.vue';
-import Stage from './stage/TableTop.vue';
+import Stage from './lobby/views/Stage.vue';
 
 Vue.use(Router);
 export default new Router({

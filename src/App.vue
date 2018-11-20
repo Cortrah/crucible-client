@@ -1,52 +1,52 @@
 <template>
     <div >
-        <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
-            <a href="#" class="pure-menu-link pure-menu-heading">
-                <img id="logo" src="../static/logo.jpg"/>
-            </a>
-            <ul class="pure-menu-list">
-                <span v-if="signedIn">
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-lobby')">
-                            Lobby
-                        </a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-table-top')">
-                            Table Top
-                        </a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-profile')">
-                            Profile
-                        </a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="signOutRequest()">
-                            Sign Out
-                        </a>
-                    </li>
-                </span>
-                <span v-else>
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-register')">
-                            Register
-                        </a>
-                    </li>
-                    <li class="pure-menu-item">
-                        <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-sign-in')">
-                            Sign In
-                        </a>
-                    </li>
-                </span>
-            </ul>
-        </div>
+        <!--<div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">-->
+            <!--<a href="#" class="pure-menu-link pure-menu-heading">-->
+                <!--<img id="logo" src="../static/logo.jpg"/>-->
+            <!--</a>-->
+            <!--<ul class="pure-menu-list">-->
+                <!--<span v-if="signedIn">-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="eventSwitch('goto-lobby')">-->
+                            <!--Lobby-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="eventSwitch('goto-stage')">-->
+                            <!--Table Top-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="eventSwitch('goto-profile')">-->
+                            <!--Profile-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="signOutRequest()">-->
+                            <!--Sign Out-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</span>-->
+                <!--<span v-else>-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="eventSwitch('goto-register')">-->
+                            <!--Register-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="pure-menu-item">-->
+                        <!--<a href="#" class="pure-menu-link"-->
+                           <!--@click.prevent="eventSwitch('goto-sign-in')">-->
+                            <!--Sign In-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</span>-->
+            <!--</ul>-->
+        <!--</div>-->
         <div id="router-view-container">
             <router-view></router-view>
         </div>
@@ -70,11 +70,10 @@
     // -----------------------------------
     // local, mostly navigation events
     // -----------------------------------
-    let localEvents = [
+    let navigationEvents = [
         'goto-home',
         'goto-sign-in', 'goto-register', 'goto-forgot',
-        'goto-profile', 'goto-lobby', 'goto-host', 'goto-table-top',
-        'error'
+        'goto-profile', 'goto-lobby', 'goto-host', 'goto-stage',
     ];
 
     // -------------------------------------------------------------
@@ -120,11 +119,14 @@
         'sit-at-table','stand-from-table',
     ];
 
-    let gameEvents = [
-        'start-game',
-        'draw-mistle','draw-shield',
-        'select-card','target-actor'
-    ];
+    // -----------------------
+    // handled at the game and actor levels
+    // -----------------------
+    // let gameEvents = [
+    //     'start-game',
+    //     'draw-mistle','draw-shield',
+    //     'select-card','target-actor'
+    // ];
 
     // -----------------------
     // nes websocket always server initiated
@@ -135,15 +137,30 @@
     // 'shield-up',
     // 'end-game'
 
-   export default {
+   export default Vue.extend( {
         name: 'App',
 
         http: {
             root: 'http://localhost:8080/'
         },
 
-        data () {
+       created() {
+           this.eventList.forEach(eventName => {
+               this.$bus.$on(eventName, data => {
+                   this.eventSwitch(eventName, data);
+               });
+           });
+       },
+
+       beforeDestroy () {
+           this.eventList.forEach( eventName => {
+               this.$bus.$off(eventName);
+           });
+       },
+
+       data () {
             return {
+                eventList: navigationEvents.concat(lobbyEvents, tableEvents, 'error'),
                 stage: new Game(),
                 serverIsRunning: false,
                 signedIn: false,
@@ -164,98 +181,94 @@
 
         methods: {
             eventSwitch: function(event, data) {
-                // console.log(event);
-                // if(typeof data !== 'undefined'){
-                //    console.log(data);
-                // }
-                if(event.substring(0,5) === 'goto-'){
+                if( navigationEvents.includes(event)){
                     let newRoute = event.substring(5);
                     this.$router.push({ name: newRoute, params: data});
                 } else {
-                    // switch (event) {
-                    //     case 'register-request': {
-                    //         this.registerRequest(data);
-                    //         break;
-                    //     }
-                    //     case 'sign-in-request': {
-                    //         this.signInRequest(data);
-                    //         break;
-                    //     }
-                    //     case 'update-profile': {
-                    //         this.updateProfile(data);
-                    //         break;
-                    //     }
-                    //     case 'sign-out-request': {
-                    //         this.signOutRequest(data);
-                    //         break;
-                    //     }
-                    //     case 'sign-out-result': {
-                    //         this.signOutResult(data);
-                    //         break;
-                    //     }
-                    //     case 'get-accounts-request': {
-                    //         this.getAccounts(data);
-                    //         break;
-                    //     }
-                    //     case 'create-table': {
-                    //         this.createTable(data);
-                    //         break;
-                    //     }
-                    //     case 'start-game': {
-                    //         this.startGame(data);
-                    //         break;
-                    //     }
-                    //     case 'game-tick': {
-                    //         this.$store.dispatch('gameTick', data);
-                    //         break;
-                    //     }
-                    //     case 'mana-tick': {
-                    //         this.$store.dispatch('manaTick', data);
-                    //         break;
-                    //     }
-                    //     case 'draw-mistle': {
-                    //         this.$store.dispatch('drawMistle', data);
-                    //         break;
-                    //     }
-                    //     case 'draw-shield': {
-                    //         this.$store.dispatch('drawShield', data);
-                    //         break;
-                    //     }
-                    //     case 'select-card': {
-                    //         this.$store.dispatch('selectCard', data);
-                    //         break;
-                    //     }
-                    //     case 'target-actor': {
-                    //         this.$store.dispatch('targetActor', data);
-                    //         break;
-                    //     }
-                    //     case 'sit-at-table': {
-                    //         this.$store.dispatch('sitAtTable', data);
-                    //         break;
-                    //     }
-                    //     case 'stand-from-table': {
-                    //         this.$store.dispatch('standFromTable', data);
-                    //         break;
-                    //     }
-                    //     case 'end-game': {
-                    //         this.endGame(data);
-                    //         break;
-                    //     }
-                    //     default: {
-                    //         throw "App error, invalid event: " + event + " .";
-                    //     }
-                    //}
+                    switch (event) {
+                        case 'register': {
+                            this.registerRequest(data);
+                            break;
+                        }
+                        case 'sign-in': {
+                            this.signInRequest(data);
+                            break;
+                        }
+                        case 'update-profile': {
+                            this.updateProfile(data);
+                            break;
+                        }
+                        case 'get-accounts': {
+                            this.getAccounts(data);
+                            break;
+                        }
+                        case 'create-table': {
+                            this.createTable(data);
+                            break;
+                        }
+                        case 'sign-out': {
+                            this.signOutRequest(data);
+                            break;
+                        }
+                        case 'start-game': {
+                            this.startGame(data);
+                            break;
+                        }
+                        case 'game-tick': {
+                            this.$store.dispatch('gameTick', data);
+                            break;
+                        }
+                        case 'mana-tick': {
+                            this.$store.dispatch('manaTick', data);
+                            break;
+                        }
+                        case 'draw-mistle': {
+                            this.$store.dispatch('drawMistle', data);
+                            break;
+                        }
+                        case 'draw-shield': {
+                            this.$store.dispatch('drawShield', data);
+                            break;
+                        }
+                        case 'select-card': {
+                            this.$store.dispatch('selectCard', data);
+                            break;
+                        }
+                        case 'target-actor': {
+                            this.$store.dispatch('targetActor', data);
+                            break;
+                        }
+                        case 'end-game': {
+                            this.endGame(data);
+                            break;
+                        }
+                        case 'join-table': {
+                            this.$store.dispatch('joinTable', data);
+                            break;
+                        }
+                        case 'sit-at-table': {
+                            this.$store.dispatch('sitAtTable', data);
+                            break;
+                        }
+                        case 'stand-from-table': {
+                            this.$store.dispatch('standFromTable', data);
+                            break;
+                        }
+                        default: {
+                            throw "App error, invalid event: " + event + " .";
+                        }
+                    }
                 }
             },
 
             registerRequest: function (formData) {
                 if(this.serverIsRunning) {
                     this.$http.post('/hapi/api/accounts', formData).then(
-                        (response) => {
+                        response => {
                             this.loginInfo = response.body;
                             this.signedIn = true;
                             this.$bus.$emit('goto-profile');
-                        }, (error) => {
+                        }, error => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
                             this.$bus.$emit('goto-home');
@@ -270,11 +283,11 @@
             signInRequest: function (formData) {
                 if (this.serverIsRunning) {
                     this.$http.post('/hapi/api/login', formData)
-                        .then((response) => {
+                        .then( response => {
                             this.loginInfo = response.body;
                             this.signedIn = true;
                             this.$bus.$emit('goto-profile');
-                        }, (error) => {
+                        }, error => {
                             // perhaps give a nice error message and customize login page
                             // for now go to splash just to mark that a change has happened
                             this.$bus.$emit('goto-home');
@@ -289,9 +302,9 @@
             updateProfile: function (formData) {
                 if(this.serverIsRunning) {
                     this.$http.patch('/hapi/api/accounts', formData).then(
-                        (response) => {
+                        response => {
                             // ok?
-                        }, (error) => {
+                        }, error => {
                             // perhaps give a nice error message
                         });
                 } else {
@@ -307,11 +320,11 @@
                                 password: this.loginInfo.session.key,
                                 authorization: this.loginInfo.authHeader,
                             }
-                        }).then((response) => {
+                        }).then( response => {
                             this.loginInfo = {};
                             this.signedIn = false;
                             this.$bus.$emit('goto-home');
-                        }, (error) => {
+                        }, error => {
                             // either retry or emit error message?
                             // let the server side session timeout?
                             this.loginInfo = {};
@@ -333,27 +346,27 @@
                         password: this.loginInfo.session.key,
                         authorization: this.loginInfo.authHeader,
                     }
-                }).then((response) => {
+                }).then( response => {
                     this.$bus.$emit('goto-lobby');
-                }, (error) => {
+                }, error => {
                     this.gotoHome();
                 });
             },
 
             createTable: function (data) {
-                //this.$store.dispatch({ type: 'createTable', data});
-                //this.$bus.$emit('goto-table-top');
+                this.$store.dispatch({ type: 'createTable', data});
+                this.$bus.$emit('goto-stage');
             },
 
             startGame: function (data) {
-                //this.$store.dispatch({ type: 'startGame', data});
+                this.$store.dispatch({ type: 'startGame', data});
             },
 
             endGame: function (data) {
-                //this.$store.dispatch({ type: 'endGame', data});
+                this.$store.dispatch({ type: 'endGame', data});
             },
         }
-    }
+    })
 </script>
 
 <style>
@@ -366,7 +379,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-image: url('../static/stars.jpg');
+        /*background-image: url('../static/stars.jpg');*/
     }
 
     #header {

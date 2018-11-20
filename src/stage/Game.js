@@ -17,9 +17,13 @@ const MistleImpact = require('./commands/MistleImpact');
 const ShieldUp = require('./commands/ShieldUp');
 const EndGame = require('./commands/EndGame');
 
+const AddSome = require('./commands/AddSome');
+const SubSome = require('./commands/SubSome');
+
 export default class Game {
 
     constructor(options) {
+        console.log("Game constructor called");
         this.id = UUID.v4();
         this.que = new Queue();
 
@@ -43,6 +47,7 @@ export default class Game {
                 shieldsUpTime: 1000,
                 shieldDecayRate: 1000
             },
+            counter: 0,
             actorCount:10,
             actors:[],
             mistles:[],
@@ -86,20 +91,49 @@ export default class Game {
         }
 
         let startCommand = new StartGame(this);
+        let adda  = new AddSome(this, 1);
+        let addb  = new AddSome(this, 2);
+        let addc  = new AddSome(this, 3);
+        let addd  = new AddSome(this, 1);
+
+        let suba  = new SubSome(this, 1);
+        let subb  = new SubSome(this, 2);
+
+        console.log('----------------');
         this.que.add(startCommand);
+        this.que.add(adda);
+        console.log(this.store.counter);
+        this.que.add(addb);
+        console.log(this.store.counter);
+        this.que.add(addc);
+        console.log(this.store.counter);
+        this.que.add(suba);
+        console.log(this.store.counter);
+        this.que.add(addd);
+        console.log(this.store.counter);
+        this.que.add(subb);
+        console.log(this.store.counter);
+        console.log('----------------');
+        this.que.play();
+
+        console.log('===============');
+        console.log(this.store.counter);
+        console.log('===============');
     }
 
     startGame(stage, data){
+        console.log("Game startGame");
         stage.store.gameIntervalId = setInterval(stage.gameTick, stage.store.rules.gameTickInterval, stage, data);
         stage.store.manaIntervalId = setInterval(stage.manaTick, stage.store.rules.manaTickInterval, stage, data);
     }
 
     gameTick(stage, data){
+        console.log("Game gameTick");
         let gameTick = new GameTick(stage);
         stage.que.add(gameTick)
     }
 
     manaTick(stage, data){
-        //console.log("Game mana-tick")
+        console.log("Game mana-tick")
     }
 }

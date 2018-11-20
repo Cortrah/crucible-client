@@ -51,6 +51,7 @@
         },
         methods: {
             signIn: function () {
+                console.log("Signing IN");
                 let formData = {
                     email: this.email,
                     password: this.pwd,
@@ -58,7 +59,7 @@
                     sessionId: '',
                     sessionKey: '',
                 };
-                this.$bus.$emit('sign-in-request', formData);
+                this.$bus.$emit('sign-in', formData);
             }
         }
     }
