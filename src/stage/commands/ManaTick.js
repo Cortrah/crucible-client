@@ -8,8 +8,7 @@ module.exports = class ManaTick extends Command {
         super('ManaTick', data);
     }
 
-    async do(state){
-        let store = stage.store;
+    async do(store){
         store.actors.forEach(function(actor){
             if(actor.maxMana < 10){
                 actor.maxMana++;

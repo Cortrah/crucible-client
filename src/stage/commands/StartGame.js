@@ -1,5 +1,7 @@
 'use strict';
 
+import Actor from "../Actor";
+
 const Command = require("../../main/Command");
 
 module.exports = class StartGame extends Command {
@@ -8,9 +10,24 @@ module.exports = class StartGame extends Command {
         super('StartGame', data);
     }
 
-    async do(state){
-        let store = stage.store;
+    async do(store){
         if(typeof store !== 'undefined'){
+            // init 10 actors: 5 'Good Guys', 5 'Bad Guys'
+            for (let index = 0; index < store.actorCount; index++) {
+                const randomIndex = Math.round(Math.random() * 4);
+                let avatarImg = '../static/robot' + randomIndex + '.png';
+                let team = "Bad Guys";
+                if (index >= store.actorCount / 2) {
+                    team = 'Good Guys';
+                }
+                let actorOptions = {
+                    team: team,
+                    avatarImg: avatarImg,
+                };
+                let newActor = new Actor(index, this, actorOptions);
+                store.actors.push(newActor);
+            }
+
             // shuffle each actors deck
             store.actors.forEach(function(actor){
                 let remaining = actor.deck.length;

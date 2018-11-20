@@ -8,8 +8,7 @@ module.exports = class TargetActor extends Command {
         super('TargetActor', data);
     }
 
-    async do(state){
-        let store = this.stage.store;
+    async do(store){
         let data = this.data;
         if(typeof data !== 'undefined') {
             let sourceActor = store.actors[data.sourceId];

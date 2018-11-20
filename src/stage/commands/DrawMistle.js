@@ -8,8 +8,7 @@ module.exports = class DrawMistle extends Command {
         super('DrawMistle', data);
     }
 
-    async do(state){
-        let store = this.stage.store;
+    async do(store){
         let data = this.data;
         if(data != undefined ){
             let actor = store.actors[data.actorId];

@@ -8,8 +8,7 @@ module.exports = class EndGame extends Command {
         super('EndGame', data);
     }
 
-    async do(state){
-        let store = this.stage.store;
+    async do(store){
         store.status = "OVER";
         return 'ok'
     }

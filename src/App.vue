@@ -1,52 +1,52 @@
 <template>
     <div >
-        <!--<div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">-->
-            <!--<a href="#" class="pure-menu-link pure-menu-heading">-->
-                <!--<img id="logo" src="../static/logo.jpg"/>-->
-            <!--</a>-->
-            <!--<ul class="pure-menu-list">-->
-                <!--<span v-if="signedIn">-->
-                    <!--<li class="pure-menu-item">-->
-                        <!--<a href="#" class="pure-menu-link"-->
-                           <!--@click.prevent="eventSwitch('goto-lobby')">-->
-                            <!--Lobby-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="pure-menu-item">-->
-                        <!--<a href="#" class="pure-menu-link"-->
-                           <!--@click.prevent="eventSwitch('goto-stage')">-->
-                            <!--Table Top-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="pure-menu-item">-->
-                        <!--<a href="#" class="pure-menu-link"-->
-                           <!--@click.prevent="eventSwitch('goto-profile')">-->
-                            <!--Profile-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="pure-menu-item">-->
-                        <!--<a href="#" class="pure-menu-link"-->
-                           <!--@click.prevent="signOutRequest()">-->
-                            <!--Sign Out-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</span>-->
-                <!--<span v-else>-->
-                    <!--<li class="pure-menu-item">-->
-                        <!--<a href="#" class="pure-menu-link"-->
-                           <!--@click.prevent="eventSwitch('goto-register')">-->
-                            <!--Register-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="pure-menu-item">-->
-                        <!--<a href="#" class="pure-menu-link"-->
-                           <!--@click.prevent="eventSwitch('goto-sign-in')">-->
-                            <!--Sign In-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</span>-->
-            <!--</ul>-->
-        <!--</div>-->
+        <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+            <a href="#" class="pure-menu-link pure-menu-heading">
+                <img id="logo" src="../static/logo.jpg"/>
+            </a>
+            <ul class="pure-menu-list">
+                <span v-if="signedIn">
+                    <li class="pure-menu-item">
+                        <a href="#" class="pure-menu-link"
+                           @click.prevent="eventSwitch('goto-lobby')">
+                            Lobby
+                        </a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#" class="pure-menu-link"
+                           @click.prevent="eventSwitch('goto-stage')">
+                            Table Top
+                        </a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#" class="pure-menu-link"
+                           @click.prevent="eventSwitch('goto-profile')">
+                            Profile
+                        </a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#" class="pure-menu-link"
+                           @click.prevent="signOutRequest()">
+                            Sign Out
+                        </a>
+                    </li>
+                </span>
+                <span v-else>
+                    <li class="pure-menu-item">
+                        <a href="#" class="pure-menu-link"
+                           @click.prevent="eventSwitch('goto-register')">
+                            Register
+                        </a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#" class="pure-menu-link"
+                           @click.prevent="eventSwitch('goto-sign-in')">
+                            Sign In
+                        </a>
+                    </li>
+                </span>
+            </ul>
+        </div>
         <div id="router-view-container">
             <router-view></router-view>
         </div>
@@ -55,7 +55,6 @@
 
 <script type="text/babel">
 
-    import Game from './stage/Game';
     import StartGame from './stage/commands/StartGame';
     import DrawMistle from './stage/commands/DrawMistle';
     import DrawShield from './stage/commands/DrawShield';

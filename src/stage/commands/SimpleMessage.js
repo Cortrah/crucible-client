@@ -8,7 +8,7 @@ module.exports = class SimpleMessage extends Command {
         super('SimpleMessage', data);
     }
 
-    async do(state){
+    async do(store){
         return 'ok'
     }
 };

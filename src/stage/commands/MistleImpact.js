@@ -8,8 +8,7 @@ module.exports = class MistleImpact extends Command {
         super('MistleImpact', data);
     }
 
-    async do(state){
-        let store = this.stage.store;
+    async do(store){
         let sourceActor = store.actors[this.data.mistle.sourceId];
         let targetActor = store.actors[this.data.mistle.targetId];
         if(store.status === "PLAYING") {

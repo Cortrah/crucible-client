@@ -8,10 +8,7 @@ module.exports = class SubSome extends Command {
         super('sub-some', stage, data);
     }
 
-    async doAction() {
-        await console.log("SubSome doAction")
-        console.log(this.data);
-        let store = this.stage.store;
+    async do(store){
         if(typeof store !== 'undefined'){
             store.counter -= this.data;
         }
