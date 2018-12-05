@@ -143,20 +143,6 @@
             root: 'http://localhost:8080/'
         },
 
-       created() {
-           this.eventList.forEach(eventName => {
-               this.$bus.$on(eventName, data => {
-                   this.eventSwitch(eventName, data);
-               });
-           });
-       },
-
-       beforeDestroy () {
-           this.eventList.forEach( eventName => {
-               this.$bus.$off(eventName);
-           });
-       },
-
        data () {
             return {
                 eventList: navigationEvents.concat(lobbyEvents, tableEvents, 'error'),
@@ -169,202 +155,15 @@
         },
 
        created() {
-           this.$bus.$on('enqueue', (command) => {
-               return this.$store.dispatch({ type: "enqueue", command});
+           this.$bus.$on('enque', (command) => {
+               return this.$store.dispatch({ type: "enque", command});
            });
        },
 
        beforeDestroy () {
-           this.$bus.$off('enqueue');
+           this.$bus.$off('enque');
        },
 
-        methods: {
-            eventSwitch: function(event, data) {
-                if( navigationEvents.includes(event)){
-                    let newRoute = event.substring(5);
-                    this.$router.push({ name: newRoute, params: data});
-                } else {
-                    switch (event) {
-                        case 'register': {
-                            this.registerRequest(data);
-                            break;
-                        }
-                        case 'sign-in': {
-                            this.signInRequest(data);
-                            break;
-                        }
-                        case 'update-profile': {
-                            this.updateProfile(data);
-                            break;
-                        }
-                        case 'get-accounts': {
-                            this.getAccounts(data);
-                            break;
-                        }
-                        case 'create-table': {
-                            this.createTable(data);
-                            break;
-                        }
-                        case 'sign-out': {
-                            this.signOutRequest(data);
-                            break;
-                        }
-                        case 'start-game': {
-                            this.startGame(data);
-                            break;
-                        }
-                        case 'game-tick': {
-                            this.$store.dispatch('gameTick', data);
-                            break;
-                        }
-                        case 'mana-tick': {
-                            this.$store.dispatch('manaTick', data);
-                            break;
-                        }
-                        case 'draw-mistle': {
-                            this.$store.dispatch('drawMistle', data);
-                            break;
-                        }
-                        case 'draw-shield': {
-                            this.$store.dispatch('drawShield', data);
-                            break;
-                        }
-                        case 'select-card': {
-                            this.$store.dispatch('selectCard', data);
-                            break;
-                        }
-                        case 'target-actor': {
-                            this.$store.dispatch('targetActor', data);
-                            break;
-                        }
-                        case 'end-game': {
-                            this.endGame(data);
-                            break;
-                        }
-                        case 'join-table': {
-                            this.$store.dispatch('joinTable', data);
-                            break;
-                        }
-                        case 'sit-at-table': {
-                            this.$store.dispatch('sitAtTable', data);
-                            break;
-                        }
-                        case 'stand-from-table': {
-                            this.$store.dispatch('standFromTable', data);
-                            break;
-                        }
-                        default: {
-                            throw "App error, invalid event: " + event + " .";
-                        }
-                    }
-                }
-            },
-
-            registerRequest: function (formData) {
-                if(this.serverIsRunning) {
-                    this.$http.post('/hapi/api/accounts', formData).then(
-                        response => {
-                            this.loginInfo = response.body;
-                            this.signedIn = true;
-                            this.$bus.$emit('goto-profile');
-                        }, error => {
-                            // perhaps give a nice error message and customize login page
-                            // for now go to splash just to mark that a change has happened
-                            this.$bus.$emit('goto-home');
-                        });
-                } else {
-                    // just fake it
-                    this.signedIn = true;
-                    this.$bus.$emit('goto-profile');
-                }
-            },
-
-            signInRequest: function (formData) {
-                if (this.serverIsRunning) {
-                    this.$http.post('/hapi/api/login', formData)
-                        .then( response => {
-                            this.loginInfo = response.body;
-                            this.signedIn = true;
-                            this.$bus.$emit('goto-profile');
-                        }, error => {
-                            // perhaps give a nice error message and customize login page
-                            // for now go to splash just to mark that a change has happened
-                            this.$bus.$emit('goto-home');
-                        });
-                } else {
-                    // just fake it
-                    this.signedIn = true;
-                    this.$bus.$emit('goto-lobby');
-                }
-            },
-
-            updateProfile: function (formData) {
-                if(this.serverIsRunning) {
-                    this.$http.patch('/hapi/api/accounts', formData).then(
-                        response => {
-                            // ok?
-                        }, error => {
-                            // perhaps give a nice error message
-                        });
-                } else {
-                    // not sure
-                }
-            },
-
-            signOutRequest: function (data) {
-                if (this.serverIsRunning) {
-                    this.$http.delete('/hapi/api/logout', {
-                            headers: {
-                                username: this.loginInfo.session._id,
-                                password: this.loginInfo.session.key,
-                                authorization: this.loginInfo.authHeader,
-                            }
-                        }).then( response => {
-                            this.loginInfo = {};
-                            this.signedIn = false;
-                            this.$bus.$emit('goto-home');
-                        }, error => {
-                            // either retry or emit error message?
-                            // let the server side session timeout?
-                            this.loginInfo = {};
-                            this.signedIn = false;
-                            this.$bus.$emit('goto-home');
-                        });
-                } else {
-                    // just fake it
-                    this.loginInfo = {};
-                    this.signedIn = false;
-                    this.$bus.$emit('goto-home');
-                }
-            },
-
-            getAccounts: function () {
-                this.$http.get('/hapi/api/accounts', {
-                    headers: {
-                        username: this.loginInfo.session._id,
-                        password: this.loginInfo.session.key,
-                        authorization: this.loginInfo.authHeader,
-                    }
-                }).then( response => {
-                    this.$bus.$emit('goto-lobby');
-                }, error => {
-                    this.gotoHome();
-                });
-            },
-
-            createTable: function (data) {
-                this.$store.dispatch({ type: 'createTable', data});
-                this.$bus.$emit('goto-stage');
-            },
-
-            startGame: function (data) {
-                this.$store.dispatch({ type: 'startGame', data});
-            },
-
-            endGame: function (data) {
-                this.$store.dispatch({ type: 'endGame', data});
-            },
-        }
     })
 </script>
 

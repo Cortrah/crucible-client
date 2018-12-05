@@ -8,7 +8,7 @@ module.exports = class GameTick extends Command {
         super('GameTick', data);
     }
 
-    async do(store){
+    do(store){
         return 'ok'
     }
 };

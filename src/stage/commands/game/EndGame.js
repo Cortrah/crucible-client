@@ -8,7 +8,7 @@ module.exports = class EndGame extends Command {
         super('EndGame', data);
     }
 
-    async do(store){
+    do(store){
         store.status = "OVER";
         return 'ok'
     }

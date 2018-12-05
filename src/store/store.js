@@ -50,7 +50,7 @@ export default new Vuex.Store({
         {id: '4', name: 'Lambdabot', img: '../static/robot4.png'}
     ],
     actions: {
-        enqueue(context, command) {
+        enque(context, command) {
             return  context.commit('do', command);
         },
     },

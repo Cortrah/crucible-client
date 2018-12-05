@@ -8,7 +8,7 @@ module.exports = class ShieldUp extends Command {
         super('ShieldUp', data);
     }
 
-    async do(store){
+    do(store){
         let sourceActor = store.actors[this.data.shield.sourceId];
         let targetActor = store.actors[this.data.shield.targetId];
         if(store.status === "PLAYING") {

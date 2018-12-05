@@ -8,7 +8,7 @@ module.exports = class SelectCard extends Command {
         super('SelectCard', data);
     }
 
-    async do(store){
+    do(store){
         let data = this.data;
         if(typeof data !== 'undefined') {
             let actor = store.actors[data.actorId];

@@ -10,7 +10,7 @@ module.exports = class StartGame extends Command {
         super('StartGame', data);
     }
 
-    async do(store){
+    do(store){
         if(typeof store !== 'undefined'){
             // init 10 actors: 5 'Good Guys', 5 'Bad Guys'
             for (let index = 0; index < store.actorCount; index++) {
