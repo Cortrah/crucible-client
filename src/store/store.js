@@ -1,15 +1,42 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import User from '../lobby/User'
-import Game from '../stage/Game'
 
 Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
-export const state = {
+export default new Vuex.Store({
     user: new User(),
     tables: [],
     game: null,
+    name:'Waypoint Crucible Game X',
+    status:'PREPARING',
+    winner:'',
+    rules: {
+        maxMana: 10,
+        maxHealth: 30,
+        startingDeck: [0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8],
+        startingHandSize: 0,
+        maxCards: 5,
+        gameTickInterval: 500,
+        manaGrowthInterval: 1000,
+        manaReplentishInterval: 1000,
+        drawInterval: 1000,
+        fireInterval: 500,
+        bleedoutInterval: 1000,
+        flightTime: 4000,
+        shieldsUpTime: 1000,
+        shieldDecayRate: 1000
+    },
+    actorCount:10,
+    actors:[],
+    mistles:[],
+    shields:[],
+    gameIntervalId: null,
+    manaIntervalId: null,
+    timeStarted: 0,
+    timeRunning: 0,
+    counter: 0,
     dogAvatars: [
         {id: '1', name: 'Cavalier', img: '../static/dog1.png'},
         {id: '2', name: 'Mini Schnauser', img: '../static/dog2.png'},
@@ -22,12 +49,8 @@ export const state = {
         {id: '3', name: 'Grammarbot', img: '../static/robot3.png'},
         {id: '4', name: 'Lambdabot', img: '../static/robot4.png'}
     ],
-};
-
-export default new Vuex.Store({
-    state,
     actions: {
-        enqueue(context, command) {
+        enque(context, command) {
             return  context.commit('do', command);
         },
     },
