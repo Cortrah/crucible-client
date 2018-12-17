@@ -8,19 +8,19 @@
                 <span v-if="signedIn">
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-lobby')">
+                           @click.prevent="navigate('Lobby')" >
                             Lobby
                         </a>
                     </li>
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-stage')">
+                           @click.prevent="navigate('TableTop')">
                             Table Top
                         </a>
                     </li>
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-profile')">
+                           @click.prevent="navigate('Profile')">
                             Profile
                         </a>
                     </li>
@@ -34,13 +34,13 @@
                 <span v-else>
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-register')">
+                           @click.prevent="navigate('Register')">
                             Register
                         </a>
                     </li>
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="eventSwitch('goto-sign-in')">
+                           @click.prevent="navigate('SignIn')">
                             Sign In
                         </a>
                     </li>
@@ -55,6 +55,7 @@
 
 <script type="text/babel">
     import Vue from "vue";
+    import Goto from "./stage/commands/Goto";
 
     import StartGame from './stage/commands/game/StartGame';
     import DrawMistle from './stage/commands/game/DrawMistle';
@@ -163,6 +164,15 @@
        beforeDestroy () {
            this.$bus.$off('enque');
        },
+
+       methods: {
+           signOutRequest: function() {
+           },
+
+           navigate: function(destination){
+               this.$bus.$emit('enque', new Goto({name: destination, router: this.$router}))
+           }
+       }
 
     })
 </script>
