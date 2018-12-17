@@ -1,8 +1,6 @@
-'use strict';
+import Command from "../../../main/Command";
 
-const Command = require("../../main/Command");
-
-module.exports = class TargetActor extends Command {
+export default class TargetActor extends Command {
 
     constructor(data) {
         super('TargetActor', data);

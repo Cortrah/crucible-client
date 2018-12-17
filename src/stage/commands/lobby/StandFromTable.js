@@ -1,4 +1,4 @@
-const Command = require("../../main/Command");
+import Command from "../../../main/Command";
 
 export default class StandFromTable extends Command {
 

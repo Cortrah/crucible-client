@@ -1,8 +1,7 @@
 'use strict';
+import Command from "../../../main/Command";
 
-const Command = require("../../main/Command");
-
-module.exports = class SelectCard extends Command {
+export default class SelectCard extends Command {
 
     constructor(data) {
         super('SelectCard', data);

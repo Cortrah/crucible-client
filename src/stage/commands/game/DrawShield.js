@@ -1,8 +1,6 @@
-'use strict';
+import Command from "../../../main/Command";
 
-const Command = require("../../main/Command");
-
-module.exports = class DrawShield extends Command {
+export default class DrawShield extends Command {
 
     constructor(data) {
         super('DrawShield', data);

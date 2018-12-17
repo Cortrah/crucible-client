@@ -1,8 +1,6 @@
-'use strict';
+import Command from "../../../main/Command";
 
-const Command = require("../../main/Command");
-
-module.exports = class ManaTick extends Command {
+export default class ManaTick extends Command {
 
     constructor(data) {
         super('ManaTick', data);

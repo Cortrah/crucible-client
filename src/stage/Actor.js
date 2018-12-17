@@ -2,10 +2,10 @@
 
 const UUID = require('uuid');
 
-const DrawMistle = require('./commands/DrawMistle');
-const DrawShield = require('./commands/DrawShield');
-const SelectCard = require('./commands/SelectCard');
-const TargetActor = require('./commands/TargetActor');
+const DrawMistle = require('./commands/game/DrawMistle');
+const DrawShield = require('./commands/game/DrawShield');
+const SelectCard = require('./commands/game/SelectCard');
+const TargetActor = require('./commands/game/TargetActor');
 
 let defaults = {
     id: null,

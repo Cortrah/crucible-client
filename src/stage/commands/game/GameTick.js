@@ -1,8 +1,6 @@
-'use strict';
+import Command from "../../../main/Command";
 
-const Command = require("../../main/Command");
-
-module.exports = class GameTick extends Command {
+export default class GameTick extends Command {
 
     constructor(data) {
         super('GameTick', data);

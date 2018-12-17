@@ -1,8 +1,6 @@
-'use strict';
+import Command from "../../../main/Command";
 
-const Command = require("../../main/Command");
-
-module.exports = class ShieldUp extends Command {
+export default class ShieldUp extends Command {
 
     constructor(data) {
         super('ShieldUp', data);

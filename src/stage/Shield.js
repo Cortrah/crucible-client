@@ -1,6 +1,6 @@
-'use strict';
+import Command from "../../../main/Command";
 
-module.exports = class Shield {
+export default class Shield {
 
     constructor(sourceActor, targetActor, cardValue, upTime) {
 

@@ -1,10 +1,6 @@
-'use strict';
+import Command from "../../../main/Command";
 
-import Actor from "../Actor";
-
-const Command = require("../../main/Command");
-
-module.exports = class StartGame extends Command {
+export default class StartGame extends Command {
 
     constructor(data) {
         super('StartGame', data);

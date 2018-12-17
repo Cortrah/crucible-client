@@ -1,8 +1,6 @@
-'use strict';
+import Command from "../../../main/Command";
 
-const Command = require("../../main/Command");
-
-module.exports = class MistleImpact extends Command {
+export default class MistleImpact extends Command {
 
     constructor(data) {
         super('MistleImpact', data);

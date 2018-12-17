@@ -54,17 +54,18 @@
 </template>
 
 <script type="text/babel">
+    import Vue from "vue";
 
-    import StartGame from './stage/commands/StartGame';
-    import DrawMistle from './stage/commands/DrawMistle';
-    import DrawShield from './stage/commands/DrawShield';
-    import SelectCard from './stage/commands/SelectCard';
-    import TargetActor from './stage/commands/TargetActor';
-    import GameTick from './stage/commands/GameTick';
-    import ManaTick from './stage/commands/ManaTick';
-    import MistleImpact from './stage/commands/MistleImpact';
-    import ShieldUp from './stage/commands/ShieldUp';
-    import EndGame from './stage/commands/EndGame';
+    import StartGame from './stage/commands/game/StartGame';
+    import DrawMistle from './stage/commands/game/DrawMistle';
+    import DrawShield from './stage/commands/game/DrawShield';
+    import SelectCard from './stage/commands/game/SelectCard';
+    import TargetActor from './stage/commands/game/TargetActor';
+    import GameTick from './stage/commands/game/GameTick';
+    import ManaTick from './stage/commands/game/ManaTick';
+    import MistleImpact from './stage/commands/game/MistleImpact';
+    import ShieldUp from './stage/commands/game/ShieldUp';
+    import EndGame from './stage/commands/game/EndGame';
 
     // -----------------------------------
     // local, mostly navigation events
@@ -146,7 +147,6 @@
        data () {
             return {
                 eventList: navigationEvents.concat(lobbyEvents, tableEvents, 'error'),
-                stage: new Game(),
                 serverIsRunning: false,
                 signedIn: false,
                 loginInfo: {},
@@ -177,7 +177,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        /*background-image: url('../static/stars.jpg');*/
+        background-image: url('../static/stars.jpg');
     }
 
     #header {
