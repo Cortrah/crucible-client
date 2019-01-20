@@ -156,13 +156,40 @@
         },
 
        created() {
-           this.$bus.$on('enque', (command) => {
-               return this.$store.dispatch({ type: "enque", command});
-           });
+           this.$bus.$on('onDispatch',
+               command => {
+                   return this.$store.dispatch(
+                       {
+                           type: "onDispatch",
+                           command: command
+                       }
+                   ).then(
+                       result => {
+                           console.log(result);
+                           // this.$toasted({
+                           //     type: 'success',
+                           //     text: command.name + " was victorious: " + result,
+                           //     position: 'bottom-right',
+                           //     duration: 2000,
+                           // });
+                       }
+                   ).catch(
+                       error => {
+                           console.log(error);
+                           // this.$toasted({
+                           //     type: 'error',
+                           //     text: command.name + ' errored: ' + error,
+                           //     position: 'bottom-right',
+                           //     duration: 0,
+                           // });
+                       }
+                   );
+               }
+           );
        },
 
        beforeDestroy () {
-           this.$bus.$off('enque');
+           this.$bus.$off('onDispatch');
        },
 
        methods: {
@@ -170,7 +197,7 @@
            },
 
            navigate: function(destination){
-               this.$bus.$emit('enque', new Goto({name: destination, router: this.$router}))
+               this.$bus.$emit('onDispatch', new Goto({destination: destination, router: this.$router}))
            }
        }
 
