@@ -2,10 +2,10 @@
 
 const UUID = require('uuid');
 
-const DrawMistle = require('./commands/game/DrawMistle');
-const DrawShield = require('./commands/game/DrawShield');
-const SelectCard = require('./commands/game/SelectCard');
-const TargetActor = require('./commands/game/TargetActor');
+const DrawMistle = require('./commands/commands/DrawMistle');
+const DrawShield = require('./commands/commands/DrawShield');
+const SelectCard = require('./commands/commands/SelectCard');
+const TargetActor = require('./commands/commands/TargetActor');
 
 let defaults = {
     id: null,
@@ -58,7 +58,7 @@ export default class Actor {
             Object.assign(this, defaults);
         }
         this.shuffle(defaults.deck);
-        this._parent.que.addEventListener('game-tick', this.gameTick);
+        this._parent.que.addEventListener('commands-tick', this.gameTick);
     }
 
     shuffle(deck) {
@@ -75,7 +75,7 @@ export default class Actor {
     }
 
     gameTick(stage, data){
-        console.log("Actor game-tick");
+        console.log("Actor commands-tick");
         // decide whether to draw a mistle, a shield, select a card or target an actor
         if(stage.store.status === 'PLAYING'){
             let actor = stage.store.actors[data.index];

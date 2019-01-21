@@ -101,8 +101,11 @@
 
 <script type="text/babel">
     import Profile from '../Profile.js'
+    import Goto from '../../main/Goto';
+    import UpdateProfile from '../commands/UpdateProfile';
 
     export default {
+
         name: 'profile',
         data () {
             return {
@@ -113,10 +116,10 @@
         },
         methods: {
             gotoLobby: function () {
-                this.$bus.$emit('goto-lobby');
+                this.$bus.$emit('onDispatch', new Goto({destination: "Lobby"}));
             },
             saveChanges: function () {
-                this.$bus.$emit('update-profile', this.model);
+                this.$bus.$emit('onDispatch', new UpdateProfile(this.model));
             },
         }
     }

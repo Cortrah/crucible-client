@@ -80,15 +80,15 @@
             //this.gameIntervalId = setInterval(this.tick, 1000);
         },
         computed: mapState({
-            // game: state => state.game,
+            // commands: state => state.commands,
             // user: state => state.user,
             // avatars: state => state.avatars
         }),
         methods: {
             // main actor actions
             drawMistle: function () {
-                // let myself = this.game.actors[this.user.playerId];
-                // if(myself.isActive && this.game.status === "PLAYING"){
+                // let myself = this.commands.actors[this.user.playerId];
+                // if(myself.isActive && this.commands.status === "PLAYING"){
                 //     if(myself.cards.length < 5 && myself.deckSize > 0){
                 //         this.$bus.$emit("draw-mistle", this.user.playerId);
                 //         //this.$store.dispatch({ type: 'drawMistle', actorId: actorId});
@@ -96,8 +96,8 @@
                 // }
             },
             drawShield: function () {
-                // let myself = this.game.actors[this.user.playerId];
-                // if(myself.isActive && this.game.status === "PLAYING"){
+                // let myself = this.commands.actors[this.user.playerId];
+                // if(myself.isActive && this.commands.status === "PLAYING"){
                 //     if(myself.cards.length < 5 && myself.deckSize > 0) {
                 //         this.$bus.$emit("draw-shield", this.user.playerId);
                 //         //this.$store.dispatch({ type: 'drawShield', actorId: actorId});
@@ -105,23 +105,23 @@
                 // }
             },
             selectCard: function (card, cardIndex) {
-                // let myself = this.game.actors[this.user.playerId];
-                // if(myself.isActive && this.game.status === "PLAYING"){
+                // let myself = this.commands.actors[this.user.playerId];
+                // if(myself.isActive && this.commands.status === "PLAYING"){
                 //     this.$bus.$emit("select-card", this.user.playerId, cardIndex);
                 //     //this.$store.dispatch({ type: 'selectCard', actorId:actorId, cardIndex:cardIndex});
                 // }
             },
             targetActor: function (targetId) {
-                // if no store.user.actorId == null and game.status === "Preparing"
+                // if no store.user.actorId == null and commands.status === "Preparing"
                 // then we are setting a slot to a player instead of a bot
                 // (if there is an actorId there should be a way to leave a spot by setting it back to null)
-                // if ((this.user.playerId == null) && (this.game.status === "Preparing")){
+                // if ((this.user.playerId == null) && (this.commands.status === "Preparing")){
                 //     this.$bus.$emit("sit-at-table", targetId);
                 // }
                 //
-                // let myself = this.game.actors[this.user.playerId];
+                // let myself = this.commands.actors[this.user.playerId];
                 // let cardIndex = myself.selectedCardIndex;
-                // if(myself.isActive && this.game.status === "PLAYING"){
+                // if(myself.isActive && this.commands.status === "PLAYING"){
                 //     this.$bus.$emit("target-actor", this.user.playerId, targetId, cardIndex);
                     // this.$store.dispatch({
                     //     type: 'targetActor',

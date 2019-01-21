@@ -1,4 +1,4 @@
-import Command from "../../main/Command";
+import Command from "./Command";
 
 export default class Goto extends Command{
 
@@ -14,7 +14,8 @@ export default class Goto extends Command{
     // mutation
     do(state, payload) {
         // console.log(state);
-        // console.log(payload);
+        // console.log(payload.action);
+        // console.log(payload.results);
         // console.log(this.data);
 
         return this.data.router.push({name: this.data.destination});

@@ -4,9 +4,9 @@ import Toasted from 'vue-toasted';
 
 import App from './App.vue';
 import router from './router.js';
-import store from './store/store.js'
+import store from './store.js'
 
-//Axios.defaults.baseURL = ' http://localhost:8821/owner-service/api/admin/v1';
+Axios.defaults.baseURL = ' http://localhost:8082/api/v1';
 
 Vue.use(Toasted);
 Vue.use(Vuex);

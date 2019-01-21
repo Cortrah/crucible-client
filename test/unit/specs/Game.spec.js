@@ -9,7 +9,7 @@ describe('Game', () => {
         //const defaultGame = new Game();
 
         // defaultGame.init();
-        // defaultGame.dispatch('start-game',{gogo: 'gadget'})
+        // defaultGame.dispatch('start-commands',{gogo: 'gadget'})
         //expect(true)
         //    .to.exist(defaultGame);
         expect(true)

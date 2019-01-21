@@ -32,12 +32,12 @@
                 // clearInterval(this.manaIntervalId);
                 // this.gameIntervalId = setInterval(this.gameTick, 2000);
                 // this.manaIntervalId = setInterval(this.manaTick, 1000);
-                // this.$bus.$emit('start-game', {'gameId': this.$store.state.game.id});
+                // this.$bus.$emit('start-commands', {'gameId': this.$store.state.commands.id});
             },
             gameTick: function() {
-                // if(this.game.status === "PLAYING"){
-                //     for(let i = 0; i < this.game.actors.length; i++) {
-                //         let actor = this.game.actors[i];
+                // if(this.commands.status === "PLAYING"){
+                //     for(let i = 0; i < this.commands.actors.length; i++) {
+                //         let actor = this.commands.actors[i];
                 //         if (actor.isActive && actor.controller === "AI") {
                 //             // if the actor has < 5 cards and more than 1 mana draw a card
                 //             if (actor.cards.length < 5 && actor.mana > 0) {
@@ -55,7 +55,7 @@
                 //                 // choose an enemy that's still active
                 //                 if (actor.team === "Good Guys") {
                 //                     // make the enemy chosen random
-                //                     let activeFoes = this.game.actors.filter((actor) =>
+                //                     let activeFoes = this.commands.actors.filter((actor) =>
                 //                         actor.isActive && actor.team === "Bad Guys"
                 //                     );
                 //                     let foeCount = activeFoes.length;
@@ -68,7 +68,7 @@
                 //                     });
                 //                 } else {
                 //                     // if the actor is axis its enemy is an allie
-                //                     let activeFoes = this.game.actors.filter((actor) =>
+                //                     let activeFoes = this.commands.actors.filter((actor) =>
                 //                         actor.isActive && actor.team === "Good Guys"
                 //                     );
                 //                     let foeCount = activeFoes.length;
@@ -83,7 +83,7 @@
                 //             }
                 //         }
                 //     }
-                // } else if( this.game.status === "OVER") {
+                // } else if( this.commands.status === "OVER") {
                 //     clearInterval(this.gameIntervalId);
                 // }
             },
@@ -93,7 +93,7 @@
             endGame: function() {
                 // clearInterval(this.gameIntervalId);
                 // clearInterval(this.manaIntervalId);
-                // this.$bus.$emit('end-game', {'gameId': this.$store.state.game.id});
+                // this.$bus.$emit('end-commands', {'gameId': this.$store.state.commands.id});
             }
         }
     }

@@ -1,5 +1,5 @@
-import Command from "../../main/Command";
-import {getThings} from "../api/ThingsService";
+import Command from "./Command";
+import {getThings} from "../api/ThingService";
 
 export default class GetThings extends Command{
 
@@ -22,7 +22,8 @@ export default class GetThings extends Command{
     // mutation
     do(state, payload) {
         // console.log(state);
-        // console.log(payload);
+        // console.log(payload.action);
+        // console.log(payload.results);
         // console.log(this.data);
 
         state.owners = [] ;
@@ -34,6 +35,8 @@ export default class GetThings extends Command{
         payload.forEach(owner => {
             state.owners.push(new Owner(owner));
         });
+
+        return state;
     }
 }
 

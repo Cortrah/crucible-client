@@ -37,6 +37,8 @@
 
 <script type="text/babel">
 
+    import SignIn from '../commands/SignIn';
+
     export default {
         name: 'sign-in',
         data () {
@@ -51,7 +53,6 @@
         },
         methods: {
             signIn: function () {
-                console.log("Signing IN");
                 let formData = {
                     email: this.email,
                     password: this.pwd,
@@ -59,7 +60,7 @@
                     sessionId: '',
                     sessionKey: '',
                 };
-                this.$bus.$emit('sign-in', formData);
+                this.$bus.$emit('onDispatch', new SignIn(formData));
             }
         }
     }

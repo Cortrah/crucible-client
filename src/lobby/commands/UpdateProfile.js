@@ -1,4 +1,4 @@
-import Command from "../../../main/Command";
+import Command from "../../main/Command";
 
 export default class UpdateProfile extends Command {
 
@@ -17,5 +17,13 @@ export default class UpdateProfile extends Command {
         } else {
             // not sure
         }
+    }
+
+    // mutation
+    do(state, payload) {
+        // console.log(state);
+        // console.log(payload);
+        // console.log(this.data);
+        return state;
     }
 };

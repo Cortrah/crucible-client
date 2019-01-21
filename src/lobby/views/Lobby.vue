@@ -12,13 +12,18 @@ Register.vue<template>
             </li>
         </ul>
         <p v-if="tables.length == 0">No Tables Yet</p>
-        <button @click="hostTable()"> Host a table </button>
+
+        <button @click="hostTable()">
+            Host a table
+        </button>
         <br/>
         <br/>
     </div>
 </template>
 
 <script type="text/babel">
+    import Goto from '../../main/Goto';
+    import JoinTable from '../commands/JoinTable';
 
     export default {
         name: 'lobby',
@@ -29,21 +34,21 @@ Register.vue<template>
         },
         computed: {
             tables() {
-                return this.$store.state.tables;
+                return this.$store.state.lobby.tables;
             },
             actors(){
-                return  this.$store.state.actors;
+                return  this.$store.state.lobby.players;
             },
             messages() {
-                return this.$store.state.messages;
+                return this.$store.state.lobby.messages;
             }
         },
         methods: {
             joinTable: function (table) {
-                this.$bus.$emit('goto-table-top');
+                this.$bus.$emit('onDispatch', new JoinTable({table: table}));
             },
             hostTable: function () {
-                this.$bus.$emit('goto-host');
+                this.$bus.$emit('onDispatch', new Goto({destination:"Host"}));
             },
         }
     }

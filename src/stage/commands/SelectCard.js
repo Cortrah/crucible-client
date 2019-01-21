@@ -1,5 +1,5 @@
 'use strict';
-import Command from "../../../main/Command";
+import Command from "../../main/Command";
 
 export default class SelectCard extends Command {
 

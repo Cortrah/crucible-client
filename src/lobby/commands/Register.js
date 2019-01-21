@@ -1,15 +1,15 @@
-import Command from "../../../main/Command";
+import Command from "../../main/Command";
 
-export default class AddSome extends Command {
+export default class Register extends Command {
 
     constructor(data) {
-        super('SignIn', data);
+        super('Register', data);
     }
 
-    do(store){
-        if (this.serverIsRunning) {
-            this.$http.post('/hapi/api/login', formData)
-                .then( response => {
+    do(formData){
+        if(this.serverIsRunning) {
+            this.$http.post('/hapi/api/accounts', formData).then(
+                response => {
                     this.loginInfo = response.body;
                     this.signedIn = true;
                     this.$bus.$emit('goto-profile');
@@ -21,7 +21,16 @@ export default class AddSome extends Command {
         } else {
             // just fake it
             this.signedIn = true;
-            this.$bus.$emit('goto-lobby');
+            this.$bus.$emit('goto-profile');
         }
     }
+
+    // mutation
+    do(state, payload) {
+        // console.log(state);
+        // console.log(payload);
+        // console.log(this.data);
+        return state;
+    }
+
 };

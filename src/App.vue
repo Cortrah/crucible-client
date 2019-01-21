@@ -55,18 +55,7 @@
 
 <script type="text/babel">
     import Vue from "vue";
-    import Goto from "./stage/commands/Goto";
-
-    import StartGame from './stage/commands/game/StartGame';
-    import DrawMistle from './stage/commands/game/DrawMistle';
-    import DrawShield from './stage/commands/game/DrawShield';
-    import SelectCard from './stage/commands/game/SelectCard';
-    import TargetActor from './stage/commands/game/TargetActor';
-    import GameTick from './stage/commands/game/GameTick';
-    import ManaTick from './stage/commands/game/ManaTick';
-    import MistleImpact from './stage/commands/game/MistleImpact';
-    import ShieldUp from './stage/commands/game/ShieldUp';
-    import EndGame from './stage/commands/game/EndGame';
+    import Goto from "./main/Goto";
 
     // -----------------------------------
     // local, mostly navigation events
@@ -88,7 +77,7 @@
     //
     // tables (and games)
     //      'list-tables' => tables
-    //      'create-table' rules numActors => table (&game)
+    //      'create-table' rules numActors => table (&commands)
     //
     // 'forgot-password' email
     // 'sign-out-user'
@@ -102,12 +91,12 @@
 
     // ------------------------------------------------------------
     // nes websocket src events for players
-    // 'join-table' playerId tableId => table.game
+    // 'join-table' playerId tableId => table.commands
     // 'sit-at-table' playerId slotId
     // 'stand-from-table' playerId slotId => actor
     //
     // host only
-    // 'start-game' table.game
+    // 'start-commands' table.commands
     //
     // server events for actors, src events for players
     // 'draw-mistle' gameId actorId
@@ -121,10 +110,10 @@
     ];
 
     // -----------------------
-    // handled at the game and actor levels
+    // handled at the commands and actor levels
     // -----------------------
     // let gameEvents = [
-    //     'start-game',
+    //     'start-commands',
     //     'draw-mistle','draw-shield',
     //     'select-card','target-actor'
     // ];
@@ -133,10 +122,10 @@
     // nes websocket always server initiated
     // -----------------------
     // 'mana-tick',
-    // 'game-tick',
+    // 'commands-tick',
     // 'mistle-impact',
     // 'shield-up',
-    // 'end-game'
+    // 'end-commands'
 
    export default Vue.extend( {
         name: 'App',
@@ -147,7 +136,6 @@
 
        data () {
             return {
-                eventList: navigationEvents.concat(lobbyEvents, tableEvents, 'error'),
                 serverIsRunning: false,
                 signedIn: false,
                 loginInfo: {},
@@ -158,30 +146,17 @@
        created() {
            this.$bus.$on('onDispatch',
                command => {
-                   return this.$store.dispatch(
-                       {
+                   return this.$store.dispatch({
                            type: "onDispatch",
                            command: command
                        }
                    ).then(
                        result => {
                            console.log(result);
-                           // this.$toasted({
-                           //     type: 'success',
-                           //     text: command.name + " was victorious: " + result,
-                           //     position: 'bottom-right',
-                           //     duration: 2000,
-                           // });
                        }
                    ).catch(
                        error => {
                            console.log(error);
-                           // this.$toasted({
-                           //     type: 'error',
-                           //     text: command.name + ' errored: ' + error,
-                           //     position: 'bottom-right',
-                           //     duration: 0,
-                           // });
                        }
                    );
                }
@@ -193,9 +168,6 @@
        },
 
        methods: {
-           signOutRequest: function() {
-           },
-
            navigate: function(destination){
                this.$bus.$emit('onDispatch', new Goto({destination: destination, router: this.$router}))
            }

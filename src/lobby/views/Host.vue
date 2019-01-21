@@ -24,6 +24,7 @@
 </template>
 
 <script type="text/babel">
+    import CreateTable from '../commands/CreateTable';
 
     export default {
         name: 'host',
@@ -35,7 +36,7 @@
         },
         methods: {
             createTable: function () {
-                this.$bus.$emit('create-table', {name: this.tableName});
+                this.$bus.$emit('onDispatch', new CreateTable());
             }
         }
     }

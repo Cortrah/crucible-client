@@ -21,6 +21,7 @@
 </template>
 
 <script type="text/babel">
+    import Register from "../commands/Register";
 
     export default {
         name: 'register',
@@ -39,7 +40,7 @@
                     sessionId: '',
                     sessionKey: '',
                 };
-                this.$bus.$emit('register', formData);
+                this.$bus.$emit('onDispatch', new Register(formData));
             }
         }
     }

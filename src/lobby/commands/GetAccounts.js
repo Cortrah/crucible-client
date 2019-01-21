@@ -1,4 +1,4 @@
-import Command from "../../../main/Command";
+import Command from "../../main/Command";
 
 export default class GetAccounts extends Command {
 
@@ -19,4 +19,13 @@ export default class GetAccounts extends Command {
             this.gotoHome();
         });
     }
+
+    // mutation
+    do(state, payload) {
+        // console.log(state);
+        // console.log(payload);
+        // console.log(this.data);
+        return state;
+    }
+
 };
