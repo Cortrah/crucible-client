@@ -61,14 +61,6 @@ export default new Vuex.Store({
             // console.log(await action.command.thing2());
 
             return await action.command.onDispatch(context, action);
-
-            // return await new Promise((resolve, reject) => {
-            //     setTimeout(() => {
-            //         context.commit('do', {action: action});
-            //         resolve();
-            //         //reject("ack ack");
-            //     }, 1000)
-            // });
         },
     },
     mutations: {
@@ -80,14 +72,6 @@ export default new Vuex.Store({
             // console.log(payload.action.type);
             // console.log(payload.action.command.name);
             // console.log(payload.action.command.data);
-            // return payload.action.command.do(state,
-            //     [
-            //         new Owner({name:'FREDS'}),
-            //         new Owner({name:'BO'}),
-            //         new Owner({name:'mogzippen'})
-            //     ]
-            // );
-
             return payload.action.command.do(state, payload.results);
         },
     },

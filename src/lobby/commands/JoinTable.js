@@ -1,5 +1,8 @@
 import Command from "../../main/Command";
 
+// tables (and games)
+//      'list-tables' => tables
+//      'create-table' rules numActors => table (&commands)
 export default class JoinTable extends Command {
 
     constructor(data) {

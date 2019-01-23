@@ -1,5 +1,9 @@
 import Command from "../../main/Command";
 
+// accounts (and sessions)
+//      'register' user:{email,password,session,profile} => user:{email, password, _session_, profile}
+//      'sign-in' email, password => user:{email, password, _session_, profile}
+//
 export default class Register extends Command {
 
     constructor(data) {

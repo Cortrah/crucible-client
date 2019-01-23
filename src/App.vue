@@ -57,38 +57,6 @@
     import Vue from "vue";
     import Goto from "./main/Goto";
 
-    // -----------------------------------
-    // local, mostly navigation events
-    // -----------------------------------
-    let navigationEvents = [
-        'goto-home',
-        'goto-sign-in', 'goto-register', 'goto-forgot',
-        'goto-profile', 'goto-lobby', 'goto-host', 'goto-stage',
-    ];
-
-    // -------------------------------------------------------------
-    // remote rest based account creation and lobby management
-    // accounts (and sessions)
-    //      'register' user:{email,password,session,profile} => user:{email, password, _session_, profile}
-    //      'sign-in' email, password => user:{email, password, _session_, profile}
-    //
-    // profiles
-    //      'update-profile'
-    //
-    // tables (and games)
-    //      'list-tables' => tables
-    //      'create-table' rules numActors => table (&commands)
-    //
-    // 'forgot-password' email
-    // 'sign-out-user'
-    // -------------------------------------------------------------
-    let lobbyEvents = [
-        'register', 'sign-in',
-        'update-profile', 'get-accounts',
-        'create-table',
-        'sign-out',
-    ];
-
     // ------------------------------------------------------------
     // nes websocket src events for players
     // 'join-table' playerId tableId => table.commands
@@ -132,15 +100,6 @@
 
         http: {
             root: 'http://localhost:8080/'
-        },
-
-       data () {
-            return {
-                serverIsRunning: false,
-                signedIn: false,
-                loginInfo: {},
-                eventData: {}
-            }
         },
 
        created() {

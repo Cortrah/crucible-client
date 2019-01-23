@@ -1,7 +1,11 @@
 import Command from "../../main/Command";
 import Session from '../Session';
 
-export default class AddSome extends Command {
+// accounts (and sessions)
+//      'register' user:{email,password,session,profile} => user:{email, password, _session_, profile}
+//      'sign-in' email, password => user:{email, password, _session_, profile}
+//
+export default class SignIn extends Command {
 
     constructor(data) {
         super('SignIn', data);
