@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Axios from 'axios';
 import Toasted from 'vue-toasted';
 
 import App from './App.vue';
@@ -17,10 +18,12 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$bus = new Vue();
 
-new Vue({
+let appView = new Vue({
     el: '#app',
     router,
     store,
     template: '<App/>',
     components: { App },
 });
+
+store.commit('setAppView', appView);

@@ -5,7 +5,7 @@
                 <img id="logo" src="../static/logo.jpg"/>
             </a>
             <ul class="pure-menu-list">
-                <span v-if="signedIn">
+                <span v-if="$store.state.session.signedIn">
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
                            @click.prevent="navigate('Lobby')" >
@@ -128,7 +128,7 @@
 
        methods: {
            navigate: function(destination){
-               this.$bus.$emit('onDispatch', new Goto({destination: destination, router: this.$router}))
+               this.$bus.$emit('onDispatch', new Goto({destination: destination}))
            }
        }
 

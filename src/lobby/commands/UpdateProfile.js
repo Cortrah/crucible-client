@@ -1,4 +1,5 @@
 import Command from "../../main/Command";
+import Session from "../Session";
 
 export default class UpdateProfile extends Command {
 
@@ -6,8 +7,9 @@ export default class UpdateProfile extends Command {
         super('UpdateProfile', data);
     }
 
-    do(store){
-        if(this.serverIsRunning) {
+    // actions
+    async onDispatch(context, action) {
+        if (context.state.serverLive) {
             this.$http.patch('/hapi/api/accounts', formData).then(
                 response => {
                     // ok?
@@ -15,8 +17,16 @@ export default class UpdateProfile extends Command {
                     // perhaps give a nice error message
                 });
         } else {
-            // not sure
+            // just fake it
+            state.session = new Session({
+                signedIn: true,
+                loginInfo : null,
+            });
+            this.$bus.$emit('onDispatch', new Goto({destination: 'Lobby'}));
         }
+
+
+        return await context.commit('do', {action: action, results: response.body});
     }
 
     // mutation

@@ -64,7 +64,7 @@
     import ActorPortrait from './views/ActorPortrait'
     import PlayerConsole from './views/PlayerConsole'
     import StellarMap from './views/StellarMap'
-    import Mistle from './Mistle'
+    import Mistle from './domain/Mistle'
     import { mapState } from 'vuex'
 
 

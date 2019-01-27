@@ -1,10 +1,7 @@
 import Command from "../../main/Command";
 import Session from '../Session';
 
-// accounts (and sessions)
-//      'register' user:{email,password,session,profile} => user:{email, password, _session_, profile}
-//      'sign-in' email, password => user:{email, password, _session_, profile}
-//
+// Server 'sign-in' email, password => user:{email, password, _session_, profile}
 export default class SignIn extends Command {
 
     constructor(data) {
@@ -22,7 +19,9 @@ export default class SignIn extends Command {
     // actions
     async onDispatch(context, action) {
         if (context.state.serverLive) {
-            this.$http.post('login', payload)
+
+            // action.command.data will be constructor data of the command
+            this.$http.post('login', action.command.data)
                 .then( response => {
                     state.session.loginInfo = response.body;
                     state.session.signedIn = true;

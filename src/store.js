@@ -7,6 +7,7 @@ const debug = process.env.NODE_ENV !== 'production';
 
 export default new Vuex.Store({
     state: {
+        appView: null,
         serverLive: false,
         session: {
             user: new User(),
@@ -19,7 +20,6 @@ export default new Vuex.Store({
             tables: [],
         },
         game: {
-            game: null,
             name:'Waypoint Crucible Game X',
             status:'PREPARING',
             winner:'',
@@ -52,18 +52,19 @@ export default new Vuex.Store({
     },
     actions: {
         async onDispatch(context, action) {
-
             // await console.log("store enq action called");
             // console.log(this);
             // console.log(context);
             // console.log(action);
             // console.log(action.command.thing1());
             // console.log(await action.command.thing2());
-
             return await action.command.onDispatch(context, action);
         },
     },
     mutations: {
+        setAppView(state, payload){
+            state.appView = payload;
+        },
         do(state, payload) {
             // console.log("=== store do mutation called ===");
             // console.log(state);

@@ -1,32 +1,38 @@
 import Command from "../../main/Command";
+import Goto from "../../main/Goto";
 
-// accounts (and sessions)
-//      'register' user:{email,password,session,profile} => user:{email, password, _session_, profile}
-//      'sign-in' email, password => user:{email, password, _session_, profile}
-//
+// Server 'register' user:{email,password,session,profile} => user:{email, password, _session_, profile}
 export default class Register extends Command {
 
     constructor(data) {
         super('Register', data);
     }
 
-    do(formData){
-        if(this.serverIsRunning) {
-            this.$http.post('/hapi/api/accounts', formData).then(
+    // actions
+    async onDispatch(context, action) {
+        console.log('context');
+        console.log(context);
+
+        if(context.state.serverLive) {
+
+            // action.command.data will be constructor data of the command
+            this.$http.post('/hapi/api/accounts', action.command.data).then(
                 response => {
-                    this.loginInfo = response.body;
-                    this.signedIn = true;
-                    this.$bus.$emit('goto-profile');
+                    context.state.session = response.body;
+                    context.state.session = true;
+                    context.dispatch({type:'onDispatch', command: new Goto({destination: 'Profile'})})
                 }, error => {
                     // perhaps give a nice error message and customize login page
                     // for now go to splash just to mark that a change has happened
-                    this.$bus.$emit('goto-home');
+                    context.dispatch({type:'onDispatch', command: new Goto({destination: 'Home'})})
                 });
         } else {
             // just fake it
-            this.signedIn = true;
-            this.$bus.$emit('goto-profile');
+            context.state.session.signedIn = true;
+            context.dispatch({type:'onDispatch', command: new Goto({destination: 'Home'})})
         }
+
+        return await context.commit('do', {action: action, results: null});
     }
 
     // mutation

@@ -8,6 +8,7 @@ export default class Goto extends Command{
 
     // actions
     async onDispatch(context, action) {
+
         return await context.commit('do', {action: action, results: null});
     }
 
@@ -17,8 +18,7 @@ export default class Goto extends Command{
         // console.log(payload.action);
         // console.log(payload.results);
         // console.log(this.data);
-
-        return this.data.router.push({name: this.data.destination});
+        return state.appView.$router.push({name: this.data.destination});
     }
 }
 

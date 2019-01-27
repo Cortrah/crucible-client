@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = class Command {
+export default class Command {
 
     constructor(name, data) {
         this.name = name;

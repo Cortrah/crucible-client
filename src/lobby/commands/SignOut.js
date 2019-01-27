@@ -1,4 +1,5 @@
 import Command from "../../main/Command";
+import Session from "../Session";
 
 export default class SignOut extends Command {
 
@@ -6,8 +7,9 @@ export default class SignOut extends Command {
         super('SignOut', data);
     }
 
-    do(store){
-        if (this.serverIsRunning) {
+    // actions
+    async onDispatch(context, action) {
+        if (context.state.serverLive) {
             this.$http.delete('/hapi/api/logout', {
                 headers: {
                     username: this.loginInfo.session._id,
@@ -25,12 +27,8 @@ export default class SignOut extends Command {
                 this.signedIn = false;
                 this.$bus.$emit('goto-home');
             });
-        } else {
-            // just fake it
-            this.loginInfo = {};
-            this.signedIn = false;
-            this.$bus.$emit('goto-home');
         }
+        return await context.commit('do', {action: action, results: response.body});
     }
 
     // mutation

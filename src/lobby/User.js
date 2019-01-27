@@ -1,6 +1,6 @@
 import Session from './Session';
 import Profile from './Profile';
-//import Actor from '../stage/Actor';
+//import Actor from '../game/Actor';
 
 let defaults = {
     email: '',

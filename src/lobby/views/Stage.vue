@@ -13,7 +13,7 @@
 </template>
 
 <script type="text/babel">
-    import Crucible from '../../stage/Crucible'
+    import Crucible from '../../game/Crucible'
     import { mapState } from 'vuex'
 
     export default {
