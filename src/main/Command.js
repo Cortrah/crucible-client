@@ -13,6 +13,8 @@ export default class Command {
     // mutation
     do(state, payload) {
         // console.log(state);
+        console.log('in command payload');
+        console.log(payload);
         // console.log(payload.action);
         // console.log(payload.results);
         // console.log(this.data);

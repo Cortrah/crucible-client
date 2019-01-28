@@ -1,5 +1,5 @@
 import Command from "../../main/Command";
-import Session from "../Session";
+import Session from "../domain/Session";
 
 export default class GetAccounts extends Command {
 

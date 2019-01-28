@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import User from './lobby/User'
 
 Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
@@ -9,10 +8,26 @@ export default new Vuex.Store({
     state: {
         appView: null,
         serverLive: false,
-        session: {
-            user: new User(),
-            loginInfo: null,
-            signedIn: false,
+        user: {
+            session: {
+                signedIn: false,
+                authHeader: '',
+                sessionId: '',
+                sessionKey: ''
+            },
+            profile: {
+                name: 'Gogo Gadget',
+                botChecked: false,
+                ipAddress: 'https://123.122.1.2',
+                port: '8000',
+                token:'change me',
+                selDog: '../static/dog1.png',
+                selBot: '../static/robot1.png'
+            },
+            // playerId is the id of the user in the lobby and at the table
+            playerId: null,
+            // actorId is the id of the bot or eventManager for the user interface events of the player in game
+            actorId: null,
         },
         lobby: {
             messages: [],
@@ -48,9 +63,11 @@ export default new Vuex.Store({
             timeStarted: 0,
             timeRunning: 0,
         },
-        counter: 0,
     },
     actions: {
+       onInit(context, payload){
+            context.commit("init", payload);
+        },
         async onDispatch(context, action) {
             // await console.log("store enq action called");
             // console.log(this);
@@ -62,9 +79,6 @@ export default new Vuex.Store({
         },
     },
     mutations: {
-        setAppView(state, payload){
-            state.appView = payload;
-        },
         do(state, payload) {
             // console.log("=== store do mutation called ===");
             // console.log(state);
@@ -74,6 +88,9 @@ export default new Vuex.Store({
             // console.log(payload.action.command.name);
             // console.log(payload.action.command.data);
             return payload.action.command.do(state, payload.results);
+        },
+        init(state, payload){
+            state.appView = payload;
         },
     },
     dogAvatars: [

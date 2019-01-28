@@ -1,5 +1,5 @@
 import Command from "./Command";
-import {getThings} from "../api/ThingService";
+import {getThings} from "../api/ThingServiceExample";
 
 export default class GetThings extends Command{
 

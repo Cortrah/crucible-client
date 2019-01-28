@@ -100,7 +100,7 @@
 </template>
 
 <script type="text/babel">
-    import Profile from '../Profile.js'
+    import Profile from '../domain/Profile.js'
     import Goto from '../../main/Goto';
     import UpdateProfile from '../commands/UpdateProfile';
 

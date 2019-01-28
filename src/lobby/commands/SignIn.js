@@ -1,5 +1,6 @@
 import Command from "../../main/Command";
-import Session from '../Session';
+import Session from '../domain/Session';
+import Goto from '../../main/Goto';
 
 // Server 'sign-in' email, password => user:{email, password, _session_, profile}
 export default class SignIn extends Command {
@@ -8,45 +9,56 @@ export default class SignIn extends Command {
         super('SignIn', data);
     }
 
-    async gotoLobby(context, action){
-
-    }
-
-    async gotoHome(context, action){
-
-    }
-
     // actions
     async onDispatch(context, action) {
-        if (context.state.serverLive) {
 
+        let session = new Session({
+            user: new User({
+                email: "joe cool",
+                password: "magilicutty",
+                _session_: server
+            }),
+            signedIn: true,
+            loginInfo : null,
+        });
+
+
+        if (context.state.serverLive) {
             // action.command.data will be constructor data of the command
             this.$http.post('login', action.command.data)
                 .then( response => {
-                    state.session.loginInfo = response.body;
-                    state.session.signedIn = true;
-                    this.$bus.$emit('onDispatch', new Goto({destination: "Lobby"}));
+                    context.state.session.loginInfo = response.body;
+                    context.state.session.signedIn = true;
+                    context.dispatch({
+                            type: "onDispatch",
+                            command: new Goto({destination: "Lobby"})
+                        }
+                    )
                 }, error => {
                     // perhaps give a nice error message and customize login page
                     // for now go to Home just to mark that a change has happened
-                    this.$bus.$emit('onDispatch', new Goto({destination: "Home"}));
+                    context.dispatch({
+                            type: "onDispatch",
+                            command: new Goto({destination: "Lobby"})
+                        }
+                    )
                 });
         } else {
-            // just fake it
-            state.session = new Session({
-                signedIn: true,
-                loginInfo : null,
-            });
-            this.$bus.$emit('onDispatch', new Goto({destination: 'Lobby'}));
+            // just use the fake session
+            // context.dispatch({
+            //         type: "onDispatch",
+            //         command: new Goto({destination: "Lobby"})
+            //     }
+            // )
         }
-
-
-        return await context.commit('do', {action: action, results: response.body});
+        return await context.commit('do', { action: action, results: fakeSession});
     }
 
     // mutation
     do(state, payload) {
         // console.log(state);
+        console.log('signin payload');
+        console.log(payload);
         // console.log(payload.action);
         // console.log(payload.results);
         // console.log(this.data);

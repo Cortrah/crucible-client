@@ -26,4 +26,4 @@ let appView = new Vue({
     components: { App },
 });
 
-store.commit('setAppView', appView);
+store.dispatch('onInit', appView);
