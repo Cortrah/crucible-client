@@ -6,6 +6,7 @@ let defaults = {
     email: '',
     password: '',
     playerId: 7,
+    actorId: null,
 }
 
 export default class User {

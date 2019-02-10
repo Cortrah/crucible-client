@@ -5,7 +5,7 @@
                 <img id="logo" src="../static/logo.jpg"/>
             </a>
             <ul class="pure-menu-list">
-                <span v-if="$store.state.session.signedIn">
+                <span v-if="$store.state.user.session.signedIn">
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
                            @click.prevent="navigate('Lobby')" >
@@ -111,11 +111,13 @@
                        }
                    ).then(
                        result => {
+                          return result;
                            //console.log(result);
                        }
                    ).catch(
                        error => {
                            console.log(error);
+                           throw error;
                        }
                    );
                }

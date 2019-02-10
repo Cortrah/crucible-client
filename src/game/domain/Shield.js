@@ -1,5 +1,3 @@
-import Command from "../../../main/Command";
-
 export default class Shield {
 
     constructor(sourceActor, targetActor, cardValue, upTime) {

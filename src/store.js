@@ -9,6 +9,8 @@ export default new Vuex.Store({
         appView: null,
         serverLive: false,
         user: {
+            email: null,
+            password: null,
             session: {
                 signedIn: false,
                 authHeader: '',
@@ -69,10 +71,10 @@ export default new Vuex.Store({
             context.commit("init", payload);
         },
         async onDispatch(context, action) {
-            // await console.log("store enq action called");
+            console.log("store onDispatch action called");
             // console.log(this);
             // console.log(context);
-            // console.log(action);
+            console.log(action);
             // console.log(action.command.thing1());
             // console.log(await action.command.thing2());
             return await action.command.onDispatch(context, action);
@@ -80,9 +82,9 @@ export default new Vuex.Store({
     },
     mutations: {
         do(state, payload) {
-            // console.log("=== store do mutation called ===");
+            console.log("=== store do mutation called ===");
             // console.log(state);
-            // console.log(payload);
+            console.log(payload);
             // console.log(payload.action);
             // console.log(payload.action.type);
             // console.log(payload.action.command.name);

@@ -37,11 +37,19 @@
 
 <script type="text/babel">
 
+    import {v4 as createUUId} from 'uuid';
+    import Session from '../domain/Session';
+    import User from '../domain/User';
+    import Profile from '../domain/Profile';
+
+    import Goto from '../../main/Goto';
     import SignIn from '../commands/SignIn';
 
     export default {
         name: 'sign-in',
+
         data () {
+            // ToDo: possibly init from localstore with a remember me option
             return {
                 title: 'Sign In',
                 email: '',
@@ -53,14 +61,38 @@
         },
         methods: {
             signIn: function () {
-                let formData = {
-                    email: this.email,
-                    password: this.pwd,
+                // the session info will be filled in by the server
+                let session = new Session({
+                    signedIn: false,
                     authHeader: '',
                     sessionId: '',
                     sessionKey: '',
-                };
-                this.$bus.$emit('onDispatch', new SignIn(formData));
+                })
+
+                // ToDo: get profile from last saved in localstore if its there
+                // for now just use defaults
+                let profile = new Profile();
+
+                // actorId is only instantiated when the player sits at a table
+                let user = new User({
+                    email: this.email,
+                    password: this.pwd,
+                    playerId: createUUId(),
+                    actorId: null,
+                    session: session,
+                    profile: profile,
+                });
+
+                this.$bus.$emit('onDispatch', new SignIn(user))
+                    .then( () => {
+                        this.$bus.$emit('onDispatch', new Goto({destination: "Lobby"}))
+                    })
+                    .catch( () => {
+                        // perhaps give a nice error message and customize login page
+                        // for now go to Home just to mark that a change has happened
+                        this.$bus.$emit('onDispatch', new Goto({destination: "Home"}))
+                    })
+
             }
         }
     }
