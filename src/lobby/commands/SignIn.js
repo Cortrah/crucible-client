@@ -4,13 +4,13 @@ import Command from "../../main/Command";
 export default class SignIn extends Command {
 
     constructor(data) {
-        console.log("sign in command being constructed");
+        //console.log("sign in command being constructed");
         super('SignIn', data);
     }
 
     // actions
     async onDispatch(context, action) {
-        console.log("signing in");
+        //console.log("signing in");
 
         if (context.state.serverLive) {
             // action.command.data will be constructor data of the command
@@ -32,8 +32,8 @@ export default class SignIn extends Command {
     // mutation
     do(state, payload) {
         // console.log(state);
-        console.log('signin payload should be a user with some session data from server');
-        console.log(payload);
+        //console.log('signin payload should be a user with some session data from server');
+        //console.log(payload);
         // console.log(payload.action);
         // console.log(payload.results);
         // console.log(this.data);

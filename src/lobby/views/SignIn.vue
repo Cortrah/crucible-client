@@ -83,16 +83,24 @@
                     profile: profile,
                 });
 
-                this.$bus.$emit('onDispatch', new SignIn(user))
-                    .then( () => {
-                        this.$bus.$emit('onDispatch', new Goto({destination: "Lobby"}))
-                    })
-                    .catch( () => {
-                        // perhaps give a nice error message and customize login page
-                        // for now go to Home just to mark that a change has happened
-                        this.$bus.$emit('onDispatch', new Goto({destination: "Home"}))
-                    })
 
+                this.$store.dispatch({
+                        type: "onDispatch",
+                        command: new SignIn(user)
+                    }
+                ).then(
+                    result => {
+                        //console.log(result);
+                        this.$bus.$emit('onDispatch', new Goto({destination: "Lobby"}))
+                        return result;
+                    }
+                ).catch(
+                    error => {
+                        //console.log(error);
+                        this.$bus.$emit('onDispatch', new Goto({destination: "Home"}))
+                        throw error;
+                    }
+                );
             }
         }
     }
