@@ -22,6 +22,9 @@
 
 <script type="text/babel">
     import Register from "../commands/Register";
+    import SignIn from '../commands/SignIn';
+    import User from '../domain/User';
+    import Goto from '../../main/Goto';
 
     export default {
         name: 'register',
@@ -33,14 +36,41 @@
         },
         methods: {
             createAccount: function () {
-                let formData = {
+
+                // create a user object (with a session and a profile and send it to the register command)
+                let user = new User({
                     email: this.email,
                     password: this.pwd,
-                    authHeader: '',
-                    sessionId: '',
-                    sessionKey: '',
-                };
-                this.$bus.$emit('onDispatch', new Register(formData));
+                });
+
+                this.$store.dispatch({
+                        type: "onDispatch",
+                        command: new Register(user)
+                    }
+                ).then(
+                    result => {
+                        console.log('register returned');
+                        console.log(result);
+                        this.$store.dispatch({
+                            type: 'onDispatch',
+                            command: new SignIn(this.$store.user)
+                        })
+                    }
+                ).then(
+                    result => {
+                        this.$store.dispatch({
+                            type: 'onDispatch',
+                            command: new Goto({destination: "Profile"})
+                        })
+                    }
+                ).catch(
+                    error => {
+                        this.$store.dispatch({
+                            type: 'onDispatch',
+                            command: new Goto({destination: "Home"})
+                        })
+                    }
+                );
             }
         }
     }

@@ -1,15 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Axios from 'axios';
-import Toasted from 'vue-toasted';
+//import Axios from 'axios';
+//import Toasted from 'vue-toasted';
 
 import App from './App.vue';
 import router from './router.js';
 import store from './store.js'
 
-Axios.defaults.baseURL = ' http://localhost:8082/api/v1';
+//Axios.defaults.baseURL = ' http://localhost:8082/api/v1';
 
-Vue.use(Toasted);
+//Vue.use(Toasted);
 Vue.use(Vuex);
 Vue.use(router);
 

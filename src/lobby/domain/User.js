@@ -1,11 +1,14 @@
+import {v4 as createUUId} from 'uuid';
+
 import Session from './Session';
 import Profile from './Profile';
 //import Actor from '../game/Actor';
 
+// actorId is only instantiated when the player sits at a table
 let defaults = {
     email: '',
     password: '',
-    playerId: 7,
+    playerId: createUUId(),
     actorId: null,
 }
 
@@ -31,5 +34,10 @@ export default class User {
             this.profile = profile;
             //this.actor = actor;
         }
+        console.log(this);
+    }
+
+    signedIn(){
+        this.session.signedIn();
     }
 }

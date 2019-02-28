@@ -18,4 +18,8 @@ export default class Session {
             Object.assign(this, defaults);
         }
     }
+
+    signedIn(){
+        this.signedIn = true;
+    }
 }

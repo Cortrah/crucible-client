@@ -37,8 +37,6 @@
 
 <script type="text/babel">
 
-    import {v4 as createUUId} from 'uuid';
-    import Session from '../domain/Session';
     import User from '../domain/User';
     import Profile from '../domain/Profile';
 
@@ -61,25 +59,14 @@
         },
         methods: {
             signIn: function () {
-                // the session info will be filled in by the server
-                let session = new Session({
-                    signedIn: false,
-                    authHeader: '',
-                    sessionId: '',
-                    sessionKey: '',
-                })
 
                 // ToDo: get profile from last saved in localstore if its there
-                // for now just use defaults
                 let profile = new Profile();
 
-                // actorId is only instantiated when the player sits at a table
+
                 let user = new User({
                     email: this.email,
                     password: this.pwd,
-                    playerId: createUUId(),
-                    actorId: null,
-                    session: session,
                     profile: profile,
                 });
 
@@ -90,13 +77,11 @@
                     }
                 ).then(
                     result => {
-                        //console.log(result);
                         this.$bus.$emit('onDispatch', new Goto({destination: "Lobby"}))
                         return result;
                     }
                 ).catch(
                     error => {
-                        //console.log(error);
                         this.$bus.$emit('onDispatch', new Goto({destination: "Home"}))
                         throw error;
                     }

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import User from './lobby/domain/User';
+
 Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
@@ -8,29 +10,7 @@ export default new Vuex.Store({
     state: {
         appView: null,
         serverLive: false,
-        user: {
-            email: null,
-            password: null,
-            session: {
-                signedIn: false,
-                authHeader: '',
-                sessionId: '',
-                sessionKey: ''
-            },
-            profile: {
-                name: 'Gogo Gadget',
-                botChecked: false,
-                ipAddress: 'https://123.122.1.2',
-                port: '8000',
-                token:'change me',
-                selDog: '../static/dog1.png',
-                selBot: '../static/robot1.png'
-            },
-            // playerId is the id of the user in the lobby and at the table
-            playerId: null,
-            // actorId is the id of the bot or eventManager for the user interface events of the player in game
-            actorId: null,
-        },
+        user: new User(),
         lobby: {
             messages: [],
             players: [],
@@ -71,20 +51,21 @@ export default new Vuex.Store({
             context.commit("init", payload);
         },
         async onDispatch(context, action) {
-            //console.log("store onDispatch action called");
+            console.log("store onDispatch action called");
             // console.log(this);
             // console.log(context);
-            //console.log(action);
+            console.log(action);
+            console.log(action.command);
             // console.log(action.command.thing1());
             // console.log(await action.command.thing2());
-            return await action.command.onDispatch(context, action);
+            return action.command.onDispatch(context, action);
         },
     },
     mutations: {
         do(state, payload) {
-            //console.log("=== store do mutation called ===");
+            // console.log("=== store do mutation called ===");
             // console.log(state);
-            //console.log(payload);
+            // console.log(payload);
             // console.log(payload.action);
             // console.log(payload.action.type);
             // console.log(payload.action.command.name);
