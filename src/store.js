@@ -51,11 +51,11 @@ export default new Vuex.Store({
             context.commit("init", payload);
         },
         async onDispatch(context, action) {
-            console.log("store onDispatch action called");
+            // console.log("store onDispatch action called");
             // console.log(this);
             // console.log(context);
-            console.log(action);
-            console.log(action.command);
+            // console.log(action);
+            // console.log(action.command);
             // console.log(action.command.thing1());
             // console.log(await action.command.thing2());
             return action.command.onDispatch(context, action);

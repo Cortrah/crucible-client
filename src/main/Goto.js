@@ -8,7 +8,6 @@ export default class Goto extends Command{
 
     // actions
     async onDispatch(context, action) {
-
         return await context.commit('do', {action: action, results: {action: action, results: "Gogo Gadgeteer"}});
     }
 

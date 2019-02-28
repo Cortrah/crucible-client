@@ -26,7 +26,7 @@
                     </li>
                     <li class="pure-menu-item">
                         <a href="#" class="pure-menu-link"
-                           @click.prevent="signOutRequest()">
+                           @click.prevent="signOut()">
                             Sign Out
                         </a>
                     </li>
@@ -56,6 +56,7 @@
 <script type="text/babel">
     import Vue from "vue";
     import Goto from "./main/Goto";
+    import SignOut from './lobby/commands/SignOut';
 
     // ------------------------------------------------------------
     // nes websocket src events for players
@@ -129,9 +130,21 @@
        methods: {
            navigate: function(destination){
                this.$bus.$emit('onDispatch', new Goto({destination: destination}))
+           },
+
+           signOut: function() {
+               this.$store.dispatch({
+                       type: "onDispatch",
+                       command: new SignOut(this.$store.state.user)
+                   }
+               ).then(
+                   result => {
+                       this.$bus.$emit('onDispatch', new Goto({destination: "Home"}))
+                       return result;
+                   }
+               );
            }
        }
-
     })
 </script>
 

@@ -33,10 +33,10 @@
                 </div>
 
                 <div class="pure-u-1 pure-u-md-1-3">
-                     <div v-if="!botChecked" >
+                     <div v-if="!this.model.botChecked" >
                          <img class="avatar"
-                              :src="selDog"/>
-                         <select v-model="selDog">
+                              :src="this.model.selDog"/>
+                         <select v-model="this.model.selDog">
                              <option v-for="dog in dogs"
                                      :value="dog.img">
                                  {{ dog.name }}
@@ -53,10 +53,10 @@
                     </div>
                 </div>
 
-                <div v-if="botChecked" class="pure-u-1 pure-u-md-1-3">
+                <div v-if="this.model.botChecked" class="pure-u-1 pure-u-md-1-3">
                     <img class="avatar"
-                         :src="selBot"/>
-                    <select v-model="selBot">
+                         :src="this.model.selBot"/>
+                    <select v-model="this.model.selBot">
                         <option v-for="bot in bots"
                                 :value="bot.img">
                             {{ bot.name }}
@@ -100,7 +100,6 @@
 </template>
 
 <script type="text/babel">
-    import Profile from '../domain/Profile.js'
     import Goto from '../../main/Goto';
     import UpdateProfile from '../commands/UpdateProfile';
 
@@ -109,7 +108,7 @@
         name: 'profile',
         data () {
             return {
-                model: new Profile(),
+                model: this.$store.state.user.profile,
                 dogs: this.$store.state.dogAvatars,
                 bots: this.$store.state.botAvatars,
             }

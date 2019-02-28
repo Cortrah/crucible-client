@@ -1,5 +1,4 @@
 import Command from "../../main/Command";
-import Session from "../domain/Session";
 
 export default class SignOut extends Command {
 
@@ -10,33 +9,25 @@ export default class SignOut extends Command {
     // actions
     async onDispatch(context, action) {
         if (context.state.serverLive) {
-            this.$http.delete('/hapi/api/logout', {
+            await this.$http.delete('/hapi/api/logout', {
                 headers: {
-                    username: this.loginInfo.session._id,
-                    password: this.loginInfo.session.key,
-                    authorization: this.loginInfo.authHeader,
+                    username: action.command.data.session.id,
+                    password: action.command.data.session.key,
+                    authorization: action.command.data.session.authHeader,
                 }
             }).then( response => {
-                this.loginInfo = {};
-                this.signedIn = false;
-                this.$bus.$emit('goto-home');
+                return context.commit('do', {action: action, results: response.body});
             }, error => {
                 // either retry or emit error message?
                 // let the server side session timeout?
-                this.loginInfo = {};
-                this.signedIn = false;
-                this.$bus.$emit('goto-home');
+                return context.commit('do', {action: action, results: null});
             });
         }
-        return await context.commit('do', {action: action, results: response.body});
     }
 
     // mutation
     do(state, payload) {
-        // console.log(state);
-        // console.log(payload);
-        // console.log(this.data);
+        state.user.session.signedIn = false;
         return state;
     }
-
 };

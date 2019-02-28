@@ -1,5 +1,4 @@
 import Command from "../../main/Command";
-import Goto from "../../main/Goto";
 import User from '../domain/User';
 
 
