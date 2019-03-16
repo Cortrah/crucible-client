@@ -36,7 +36,10 @@ export default class Register extends Command {
     do(state, payload) {
         // console.log(state);
         // console.log(payload);
+        // console.log(payload.action);
+        // console.log(payload.results);
         // console.log(this.data);
+        state.user = new User(payload.results);
         return state;
     }
 };

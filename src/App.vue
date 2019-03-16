@@ -112,11 +112,9 @@
                    ).then(
                        result => {
                           return result;
-                           //console.log(result);
                        }
                    ).catch(
                        error => {
-                           console.log(error);
                            throw error;
                        }
                    );
