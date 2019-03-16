@@ -70,6 +70,7 @@
                 })
 
                 // ToDo: get profile from last saved in localstore if its there
+                // and update it if the remember me checkbox is checked
                 // for now just use defaults
                 let profile = new Profile();
 

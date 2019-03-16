@@ -65,6 +65,18 @@ export default new Vuex.Store({
             timeStarted: 0,
             timeRunning: 0,
         },
+        dogAvatars: [
+            {id: '1', name: 'Cavalier', img: '../static/dog1.png'},
+            {id: '2', name: 'Mini Schnauser', img: '../static/dog2.png'},
+            {id: '3', name: 'Boston Terrier', img: '../static/dog3.png'},
+            {id: '4', name: 'Border Collie', img: '../static/dog4.png'}
+        ],
+        botAvatars: [
+            {id: '1', name: 'Protobot', img: '../static/robot1.png'},
+            {id: '2', name: 'Streambot', img: '../static/robot2.png'},
+            {id: '3', name: 'Grammarbot', img: '../static/robot3.png'},
+            {id: '4', name: 'Lambdabot', img: '../static/robot4.png'}
+        ],
     },
     actions: {
        onInit(context, payload){
@@ -95,16 +107,4 @@ export default new Vuex.Store({
             state.appView = payload;
         },
     },
-    dogAvatars: [
-        {id: '1', name: 'Cavalier', img: '../static/dog1.png'},
-        {id: '2', name: 'Mini Schnauser', img: '../static/dog2.png'},
-        {id: '3', name: 'Boston Terrier', img: '../static/dog3.png'},
-        {id: '4', name: 'Border Collie', img: '../static/dog4.png'}
-    ],
-    botAvatars: [
-        {id: '1', name: 'Protobot', img: '../static/robot1.png'},
-        {id: '2', name: 'Streambot', img: '../static/robot2.png'},
-        {id: '3', name: 'Grammarbot', img: '../static/robot3.png'},
-        {id: '4', name: 'Lambdabot', img: '../static/robot4.png'}
-    ],
 })

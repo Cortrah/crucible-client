@@ -10,16 +10,13 @@ export default class Register extends Command {
 
     // actions
     async onDispatch(context, action) {
-        console.log('context');
-        console.log(context);
 
         if(context.state.serverLive) {
-
             // action.command.data will be constructor data of the command
             this.$http.post('/hapi/api/accounts', action.command.data).then(
                 response => {
-                    context.state.session = response.body;
-                    context.state.session = true;
+                    context.state.user.session = response.body;
+                    context.state.user.session.signedIn = true;
                     context.dispatch({type:'onDispatch', command: new Goto({destination: 'Profile'})})
                 }, error => {
                     // perhaps give a nice error message and customize login page
@@ -28,8 +25,8 @@ export default class Register extends Command {
                 });
         } else {
             // just fake it
-            context.state.session.signedIn = true;
-            context.dispatch({type:'onDispatch', command: new Goto({destination: 'Home'})})
+            context.state.user.session.signedIn = true;
+            context.dispatch({type:'onDispatch', command: new Goto({destination: 'Profile'})})
         }
 
         return await context.commit('do', {action: action, results: null});
@@ -42,5 +39,4 @@ export default class Register extends Command {
         // console.log(this.data);
         return state;
     }
-
 };

@@ -24,7 +24,6 @@ export default class SignIn extends Command {
                 });
         } else {
             // just use the fake session
-            console.log("faking it");
             return await context.commit('do', {action: action, results: action.command.data});
         }
     }
@@ -40,7 +39,6 @@ export default class SignIn extends Command {
 
         state.user = payload;
         state.user.session.signedIn = true;
-
         return state;
     }
 };
