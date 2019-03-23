@@ -37,3 +37,5 @@ my current thinking is use the classes for validation, law of demeter, logic, an
 but use watches and computeds in vues to get v-dom caching and reactivity
 think of them as convenient extentions of the vue renderer,
 a dependency based dom caching layer that uses js instead of tags
+
+arg
