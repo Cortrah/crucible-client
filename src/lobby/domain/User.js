@@ -34,7 +34,6 @@ export default class User {
             this.profile = profile;
             //this.actor = actor;
         }
-        console.log(this);
     }
 
     signedIn(){

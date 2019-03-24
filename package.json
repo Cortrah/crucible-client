@@ -17,7 +17,7 @@
     "dependencies": {
         "axios": "^0.18.0",
         "gsap": "^1.20.4",
-        "handlebars": "^4.1.1",
+        "handlebars": "^4.0.11",
         "joi": "^10.6.0",
         "purecss": "^1.0.0",
         "uuid": "^3.2.1",
@@ -79,7 +79,7 @@
         "karma-sourcemap-loader": "^0.3.7",
         "karma-spec-reporter": "0.0.30",
         "karma-webpack": "^2.0.13",
-        "lab": "^18.0.2",
+        "lab": "^18.0.0",
         "lolex": "^1.5.2",
         "mocha": "^5.2.0",
         "nightwatch": "^1.0.14",

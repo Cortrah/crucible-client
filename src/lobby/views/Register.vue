@@ -49,8 +49,6 @@
                     }
                 ).then(
                     result => {
-                        console.log('register returned');
-                        console.log(result);
                         this.$store.dispatch({
                             type: 'onDispatch',
                             command: new SignIn(this.$store.user)

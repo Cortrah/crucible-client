@@ -1,6 +1,11 @@
 import Command from "../../main/Command";
-import Goto from "../../main/Goto";
+import User from '../domain/User';
 
+
+// Register command
+// takes a user domain object as it's constructor data
+// creates an account on the server
+// sets the local user to it
 // Server 'register' user:{email,password,session,profile} => user:{email, password, _session_, profile}
 export default class Register extends Command {
 
@@ -10,26 +15,19 @@ export default class Register extends Command {
 
     // actions
     async onDispatch(context, action) {
-
         if(context.state.serverLive) {
             // action.command.data will be constructor data of the command
-            this.$http.post('/hapi/api/accounts', action.command.data).then(
+            await this.$http.post('/hapi/api/accounts', action.command.data).then(
                 response => {
-                    context.state.user.session = response.body;
-                    context.state.user.session.signedIn = true;
-                    context.dispatch({type:'onDispatch', command: new Goto({destination: 'Profile'})})
+                    return context.commit('do', { action: action, results: response.body});
                 }, error => {
-                    // perhaps give a nice error message and customize login page
+                    // perhaps give a nice error message and customize register page
                     // for now go to splash just to mark that a change has happened
-                    context.dispatch({type:'onDispatch', command: new Goto({destination: 'Home'})})
                 });
         } else {
             // just fake it
-            context.state.user.session.signedIn = true;
-            context.dispatch({type:'onDispatch', command: new Goto({destination: 'Profile'})})
+            return await context.commit('do', { action: action, results: action.command.data });
         }
-
-        return await context.commit('do', {action: action, results: null});
     }
 
     // mutation

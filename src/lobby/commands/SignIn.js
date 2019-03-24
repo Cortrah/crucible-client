@@ -32,9 +32,6 @@ export default class SignIn extends Command {
         // console.log(payload.action);
         // console.log(payload.results);
         // console.log(this.data);
-
-        state.user = payload;
-        state.user.session.signedIn = true;
         state.user = new User(payload.results);
         state.user.session.signedIn = true
         return state;
