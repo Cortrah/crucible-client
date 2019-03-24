@@ -48,7 +48,7 @@ Register.vue<template>
                 this.$bus.$emit('onDispatch', new JoinTable({table: table}));
             },
             hostTable: function () {
-                this.$bus.$emit('onDispatch', new Goto({destination:"Host"}));
+                this.$bus.$emit('onDispatch', new Goto("Host"));
             },
         }
     }

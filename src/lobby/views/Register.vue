@@ -58,14 +58,14 @@
                     result => {
                         this.$store.dispatch({
                             type: 'onDispatch',
-                            command: new Goto({destination: "Profile"})
+                            command: new Goto("Profile")
                         })
                     }
                 ).catch(
                     error => {
                         this.$store.dispatch({
                             type: 'onDispatch',
-                            command: new Goto({destination: "Home"})
+                            command: new Goto("Home")
                         })
                     }
                 );

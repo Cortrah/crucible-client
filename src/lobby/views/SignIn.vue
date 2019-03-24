@@ -77,12 +77,12 @@
                     }
                 ).then(
                     result => {
-                        this.$bus.$emit('onDispatch', new Goto({destination: "Lobby"}))
+                        this.$bus.$emit('onDispatch', new Goto("Lobby"))
                         return result;
                     }
                 ).catch(
                     error => {
-                        this.$bus.$emit('onDispatch', new Goto({destination: "Home"}))
+                        this.$bus.$emit('onDispatch', new Goto("Home"))
                         throw error;
                     }
                 );

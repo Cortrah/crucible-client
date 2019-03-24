@@ -115,7 +115,7 @@
         },
         methods: {
             gotoLobby: function () {
-                this.$bus.$emit('onDispatch', new Goto({destination: "Lobby"}));
+                this.$bus.$emit('onDispatch', new Goto("Lobby"));
             },
             saveChanges: function () {
                 this.$bus.$emit('onDispatch', new UpdateProfile(this.model));
