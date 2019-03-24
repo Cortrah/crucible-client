@@ -2,8 +2,8 @@ import Command from "./Command";
 
 export default class Goto extends Command{
 
-    constructor(data) {
-        super('Goto', data);
+    constructor(destination) {
+        super('Goto', {destination: destination});
     }
 
     // actions

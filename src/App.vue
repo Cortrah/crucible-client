@@ -128,7 +128,7 @@
 
        methods: {
            navigate: function(destination){
-               this.$bus.$emit('onDispatch', new Goto({destination: destination}))
+               this.$bus.$emit('onDispatch', new Goto(destination))
            }
        }
 
