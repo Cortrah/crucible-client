@@ -9,6 +9,8 @@ let defaults = {
     email: '',
     password: '',
     playerId: createUUId(),
+    profiles: [],
+    currentProfileId: null,
     actorId: null,
 }
 

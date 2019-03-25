@@ -12,7 +12,7 @@
                     </label>
                     <input id="email"
                            type="email"
-                           v-model="this.model.email"
+                           v-model="currentProfile.email"
                            placeholder="Email">
 
                     <label for="password">
@@ -20,23 +20,23 @@
                     </label>
                     <input id="password"
                            type="password"
-                           v-model="this.model.password"
+                           v-model="currentProfile.password"
                            placeholder="Password">
 
                     <label for="userName">
                         Username
                     </label>
                     <input id="userName"
-                           v-model="this.model.name"
+                           v-model="currentProfile.name"
                            type="text"
                            placeholder="Mina"/>
                 </div>
 
                 <div class="pure-u-1 pure-u-md-1-3">
-                     <div v-if="!this.model.botChecked" >
+                     <div v-if="!currentProfile.botChecked" >
                          <img class="avatar"
-                              :src="this.model.selDog"/>
-                         <select v-model="this.model.selDog">
+                              :src="currentProfile.selDog"/>
+                         <select v-model="currentProfile.selDog">
                              <option v-for="dog in dogs"
                                      :value="dog.img">
                                  {{ dog.name }}
@@ -47,16 +47,16 @@
                         <label for="checkbox" >
                             <input id="checkbox"
                                    type="checkbox"
-                                   v-model="this.model.botChecked">
+                                   v-model="currentProfile.botChecked">
                             Or use a Bot
                         </label>
                     </div>
                 </div>
 
-                <div v-if="this.model.botChecked" class="pure-u-1 pure-u-md-1-3">
+                <div v-if="currentProfile.botChecked" class="pure-u-1 pure-u-md-1-3">
                     <img class="avatar"
-                         :src="this.model.selBot"/>
-                    <select v-model="this.model.selBot">
+                         :src="currentProfile.selBot"/>
+                    <select v-model="currentProfile.selBot">
                         <option v-for="bot in bots"
                                 :value="bot.img">
                             {{ bot.name }}
@@ -68,21 +68,21 @@
                     <input id="ipAddress"
                            type="text"
                            placeholder="https://123.122.1.2"
-                           v-model="this.model.ipAddress"/>
+                           v-model="currentProfile.ipAddress"/>
                     <label for="port">
                         Port
                     </label>
                     <input id="port"
                            type="text"
                            placeholder=":8080"
-                            v-model="this.model.port"/>
+                            v-model="currentProfile.port"/>
                     <label for="token">
                         Token
                     </label>
                     <input id="token"
                            type="text"
                            placeholder="umaguma"
-                           v-model="this.model.token"/>
+                           v-model="currentProfile.token"/>
                 </div>
                 <button @click="saveChanges()"
                         class="pure-button pure-button-primary">
@@ -100,6 +100,7 @@
 </template>
 
 <script type="text/babel">
+    import Profile from '../../lobby/domain/Profile';
     import Goto from '../../main/Goto';
     import UpdateProfile from '../commands/UpdateProfile';
 
@@ -113,12 +114,17 @@
                 bots: this.$store.state.botAvatars,
             }
         },
+        computed: {
+            currentProfile: function() {
+                return new Profile(this.$store.getters.currentProfile( this.$store.state.user.currentProfileId ));
+            }
+        },
         methods: {
             gotoLobby: function () {
                 this.$bus.$emit('onDispatch', new Goto("Lobby"));
             },
             saveChanges: function () {
-                this.$bus.$emit('onDispatch', new UpdateProfile(this.model));
+                this.$bus.$emit('onDispatch', new UpdateProfile(this.currentProfile));
             },
         }
     }

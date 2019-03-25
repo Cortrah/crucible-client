@@ -2,7 +2,7 @@
     <div >
         <div id="header" class="pure-menu pure-menu-horizontal pure-menu-scrollable">
             <a href="#" class="pure-menu-link pure-menu-heading">
-                <img id="logo" src="../static/logo.jpg"/>
+                <img id="logo" src="../static/logo.jpg"  @click.prevent="navigate('Home')"/>
             </a>
             <ul class="pure-menu-list">
                 <span v-if="$store.state.user.session.signedIn">
